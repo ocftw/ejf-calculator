@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>政府四大基金投資報酬計算機</title>
+    
+    <!-- Bulma CSS with fallback -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" 
+          onerror="this.onerror=null;this.href='lib/bulma.min.css';">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <section class="section">
+            <div class="container">
+                <h1 class="title has-text-centered">政府四大基金投資報酬計算機</h1>
+                
+                <div class="columns">
+                    <!-- 左側輸入表單部分 -->
+                    <div class="column is-4">
+                        <div class="calculator-box">
+                            <div class="calculator-title">
+                                CALCULATOR
+                            </div>
+                            
+                            <div class="field">
+                                <label class="label">
+                                    <span class="required-field">您的名字</span>
+                                </label>
+                                <div class="control">
+                                    <input 
+                                        class="input" 
+                                        type="text" 
+                                        v-model="userName"
+                                        placeholder="請輸入您的名字..."
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">
+                                    <span class="required-field">平均月薪</span>
+                                </label>
+                                <div class="control">
+                                    <input 
+                                        class="input" 
+                                        type="number" 
+                                        v-model="monthlyIncome"
+                                        placeholder="請輸入平均月薪..."
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">
+                                    <span class="required-field">年齡</span>
+                                </label>
+                                <div class="control">
+                                    <input 
+                                        class="input" 
+                                        type="number" 
+                                        v-model="age"
+                                        placeholder="請輸入年齡..."
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">
+                                    <span class="required-field">是否為公務員</span>
+                                </label>
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select v-model="isGovernmentEmployee">
+                                            <option value="否">否</option>
+                                            <option value="是">是</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="calculate-button" @click="calculate">
+                                計算
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 中間圖表區域 -->
+                    <div class="column is-5">
+                        <div class="box">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- 右側計算結果 -->
+                    <div class="column is-3">
+                        <div class="receipt-box">
+                            <div class="receipt-header">
+                                <img src="images/ejf-logo-white.png" alt="EJF Logo" class="receipt-logo">
+                                <div class="receipt-datetime">
+                                    {{ currentDateTime }}
+                                </div>
+                            </div>
+
+                            <div class="receipt-row">
+                                <span>Customer Name</span>
+                                <span>{{ userName }}</span>
+                            </div>
+                            <div class="receipt-row">
+                                <span>Customer Type</span>
+                                <span>{{ isGovernmentEmployee === '是' ? 'Civil Servant' : 'Citizen' }}</span>
+                            </div>
+
+                            <div class="receipt-divider"></div>
+
+                            <div class="receipt-row">
+                                <span>總計投入金額</span>
+                                <span class="receipt-amount">{{ formatNumber(totalInvestment) }}</span>
+                            </div>
+                            <div class="receipt-row">
+                                <span>預期報酬</span>
+                                <span class="receipt-amount">{{ formatNumber(expectedReturn) }}</span>
+                            </div>
+
+                            <div class="receipt-divider"></div>
+
+                            <div class="receipt-row">
+                                <span>勞保儲金</span>
+                                <span class="receipt-multiplicator">x 0.9</span>
+                            </div>
+                            <div class="receipt-row">
+                                <span>勞退基金</span>
+                                <span class="receipt-multiplicator">x 0.9</span>
+                            </div>
+                            <div class="receipt-row">
+                                <span>勞退基金</span>
+                                <span class="receipt-multiplicator">x 0.9</span>
+                            </div>
+                            <div class="receipt-row">
+                                <span>退撫基金</span>
+                                <span class="receipt-multiplicator">x 0.9</span>
+                            </div>
+
+                            <div class="receipt-divider"></div>
+
+                            <div class="receipt-row receipt-total">
+                                <span>Total</span>
+                                <span class="receipt-amount">{{ formatNumber(total) }}</span>
+                            </div>
+
+                            <div class="receipt-row">
+                                <span>與投入報酬相比</span>
+                                <span class="receipt-amount positive">+{{ formatNumber(investmentDiff) }}</span>
+                            </div>
+                            <div class="receipt-row">
+                                <span>與預期報酬相比</span>
+                                <span class="receipt-amount negative">-{{ formatNumber(returnDiff) }}</span>
+                            </div>
+
+                            <div class="receipt-bottom">
+                                <div class="receipt-footer">
+                                    這筆帳，該算清楚了。<br>
+                                    試算你的投資報酬與賠償代價！
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Vue.js with fallback -->
+    <script>
+        function loadScript(src, fallback) {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = () => {
+                    console.log('CDN failed, trying fallback for: ' + src);
+                    const fallbackScript = document.createElement('script');
+                    fallbackScript.src = fallback;
+                    fallbackScript.onload = resolve;
+                    fallbackScript.onerror = reject;
+                    document.head.appendChild(fallbackScript);
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        // 按順序載入腳本
+        Promise.all([
+            loadScript('https://unpkg.com/vue@3/dist/vue.global.js', 'lib/vue.global.js'),
+            loadScript('https://cdn.jsdelivr.net/npm/chart.js', 'lib/chart.js')
+        ]).then(() => {
+            // 載入應用程式邏輯
+            const appScript = document.createElement('script');
+            appScript.src = 'js/app.js';
+            document.head.appendChild(appScript);
+        }).catch(error => {
+            console.error('Script loading failed:', error);
+        });
+    </script>
+</body>
+</html>

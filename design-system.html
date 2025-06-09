@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>Design System 元件展示</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .color-swatch { width: 60px; height: 60px; border-radius: 8px; border: 1px solid #eee; display: inline-block; margin: 0 8px 8px 0; }
+    .font-demo { margin-bottom: 1.5rem; }
+    .icon-demo { font-size: 2rem; margin-right: 1rem; }
+    .section-title { margin-top: 2.5rem; margin-bottom: 1.2rem; font-weight: bold; font-size: 1.3rem; }
+    .demo-row { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.2rem; }
+  </style>
+</head>
+<body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Design System 元件展示</h1>
+      
+      <!-- Typography -->
+      <div class="section-title">Typography</div>
+      <div class="font-demo">
+        <h1>h1 標題/desktop</h1>
+        <h2>h2 標題/desktop</h2>
+        <h3>h3 標題/desktop</h3>
+        <h4>h4 標題/desktop</h4>
+        <p>這是段落文字（p），字型：Metznerweather，字重 400/700。</p>
+        <small>這是小字（small）</small>
+      </div>
+      
+      <!-- Color -->
+      <div class="section-title">Color</div>
+      <div class="demo-row">
+        <div class="color-swatch" style="background:#000;"></div> #000000
+        <div class="color-swatch" style="background:#fff; border:1px solid #ccc;"></div> #ffffff
+        <div class="color-swatch" style="background:#21232a;"></div> #21232a
+        <div class="color-swatch" style="background:#49516a;"></div> #49516a
+        <div class="color-swatch" style="background:#6a8ad7;"></div> #6a8ad7
+        <div class="color-swatch" style="background:#e3e7f1;"></div> #e3e7f1
+        <div class="color-swatch" style="background:#f7f8fa;"></div> #f7f8fa
+      </div>
+      
+      <!-- Logo & Icon -->
+      <div class="section-title">Logo & Icon</div>
+      <div class="demo-row">
+        <img src="images/ejf-logo-black.png" alt="EJF Logo" style="height:60px;">
+        <img src="images/ejf-logo-white.png" alt="EJF Logo" style="height:60px; background:#49516a; border-radius:8px;">
+        <span class="icon-demo"><i class="fab fa-facebook"></i></span>
+        <span class="icon-demo"><i class="fab fa-line"></i></span>
+        <span class="icon-demo"><i class="fab fa-linkedin"></i></span>
+        <span class="icon-demo"><i class="fab fa-instagram"></i></span>
+      </div>
+      
+      <!-- Button -->
+      <div class="section-title">Button</div>
+      <div class="demo-row">
+        <button class="calculate-button">計算</button>
+        <button class="calculate-button" disabled>計算 (disabled)</button>
+        <button class="calculate-button">分享 <span style="font-size:1.2em;">&#9829;</span></button>
+      </div>
+      
+      <!-- Input -->
+      <div class="section-title">Input</div>
+      <div class="demo-row" style="align-items: flex-end;">
+        <div style="width:220px;">
+          <label class="label"><span class="required-field">姓名</span></label>
+          <input class="input" type="text" placeholder="請輸入姓名...">
+        </div>
+        <div style="width:220px;">
+          <label class="label"><span class="required-field">選擇</span></label>
+          <div class="select is-fullwidth">
+            <select>
+              <option>選項一</option>
+              <option>選項二</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="demo-row">
+        <div style="width:220px;">
+          <label class="label"><span class="required-field">錯誤範例</span></label>
+          <input class="input is-danger" type="text" placeholder="請輸入...">
+          <p class="help is-danger">此欄位必填</p>
+        </div>
+      </div>
+      
+      <!-- Box/Card -->
+      <div class="section-title">Box/Card</div>
+      <div class="demo-row">
+        <div class="box" style="max-width:300px;">這是 box 元件</div>
+        <div class="receipt-box" style="max-width:300px;">
+          <div class="receipt-header">
+            <img src="images/ejf-logo-black.png" style="height:40px;">
+            <div class="receipt-datetime">2024-05-27 12:00</div>
+          </div>
+          <div class="receipt-row"><span>Customer Name</span><span>王小明</span></div>
+          <div class="receipt-divider"></div>
+          <div class="receipt-row receipt-total"><span>Total</span><span>1,000,000</span></div>
+        </div>
+      </div>
+      
+      <!-- Utility -->
+      <div class="section-title">Utility</div>
+      <div class="demo-row">
+        <div class="mb-4" style="background:#e3e7f1; padding:8px;">.mb-4 (margin-bottom: 1.5rem)</div>
+        <div class="has-text-weight-bold">.has-text-weight-bold</div>
+        <div class="has-text-grey">.has-text-grey</div>
+      </div>
+    </div>
+  </section>
+  <!-- 如需 icon，請引入 fontawesome 或自訂 SVG -->
+  <script src="https://kit.fontawesome.com/your_kit.js" crossorigin="anonymous"></script>
+</body>
+</html> 
