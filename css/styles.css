@@ -1,8 +1,204 @@
 @charset "UTF-8";
+body {
+  font-family: "Metznerweather", "Noto Sans TC", serif;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 3rem;
+  line-height: 4rem;
+}
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+}
+
+h2 {
+  font-size: 2.5rem;
+  line-height: 4rem;
+}
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.75rem;
+    line-height: 1.75rem;
+  }
+}
+
+h3 {
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
+@media (max-width: 768px) {
+  h3 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+h4 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+@media (max-width: 768px) {
+  h4 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+@media (max-width: 768px) {
+  p {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+small {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+@media (max-width: 768px) {
+  small {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+  }
+}
+
+.reciept-font {
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+}
+@media (max-width: 768px) {
+  .reciept-font {
+    font-size: 0.625rem;
+    line-height: 1rem;
+  }
+}
+
+.color-black-bk {
+  background-color: #000000;
+}
+
+.color-white-bk {
+  background-color: #FFFFFF;
+}
+
+.color-transparent-bk {
+  background-color: #FFFFFF;
+  opacity: 0%;
+}
+
+.color-black {
+  color: #000000;
+}
+
+.color-white {
+  color: #FFFFFF;
+}
+
+.color-transparent {
+  color: #FFFFFF;
+  opacity: 0%;
+}
+
+.color-neutral-1000-bk {
+  background-color: #1C1E22;
+}
+
+.color-neutral-900-bk {
+  background-color: #3B4048;
+}
+
+.color-neutral-800-bk {
+  background-color: #646D7A;
+}
+
+.color-neutral-700-bk {
+  background-color: #7F8A9B;
+}
+
+.color-neutral-600-bk {
+  background-color: #98A0AE;
+}
+
+.color-neutral-500-bk {
+  background-color: #ACB4BE;
+}
+
+.color-neutral-400-bk {
+  background-color: #BFC4CD;
+}
+
+.color-neutral-300-bk {
+  background-color: #CFD3DA;
+}
+
+.color-neutral-200-bk {
+  background-color: #DEE1E5;
+}
+
+.color-neutral-100-bk {
+  background-color: #ECEEF0;
+}
+
+.color-neutral-50-bk {
+  background-color: #FAFAFA;
+}
+
+.color-neutral-1000 {
+  color: #1C1E22;
+}
+
+.color-neutral-900 {
+  color: #3B4048;
+}
+
+.color-neutral-800 {
+  color: #646D7A;
+}
+
+.color-neutral-700 {
+  color: #7F8A9B;
+}
+
+.color-neutral-600 {
+  color: #98A0AE;
+}
+
+.color-neutral-500 {
+  color: #ACB4BE;
+}
+
+.color-neutral-400 {
+  color: #BFC4CD;
+}
+
+.color-neutral-300 {
+  color: #CFD3DA;
+}
+
+.color-neutral-200 {
+  color: #DEE1E5;
+}
+
+.color-neutral-100 {
+  color: #ECEEF0;
+}
+
+.color-neutral-50 {
+  color: #FAFAFA;
+}
+
 .ds-h1 {
   font-size: 40px;
   line-height: 1.25;
-  font-family: "Metznerweather", serif;
+  font-family: "Metznerweather", "Noto Sans TC", serif;
   font-weight: 700;
   margin-bottom: 1rem;
 }
@@ -10,7 +206,7 @@
 .ds-h2 {
   font-size: 28px;
   line-height: 1.3;
-  font-family: "Metznerweather", serif;
+  font-family: "Metznerweather", "Noto Sans TC", serif;
   font-weight: 700;
   margin-bottom: 0.8rem;
 }
@@ -18,7 +214,7 @@
 .ds-h3 {
   font-size: 24px;
   line-height: 1.3;
-  font-family: "Metznerweather", serif;
+  font-family: "Metznerweather", "Noto Sans TC", serif;
   font-weight: 700;
   margin-bottom: 0.7rem;
 }
@@ -26,7 +222,7 @@
 .ds-h4 {
   font-size: 20px;
   line-height: 1.3;
-  font-family: "Metznerweather", serif;
+  font-family: "Metznerweather", "Noto Sans TC", serif;
   font-weight: 700;
   margin-bottom: 0.6rem;
 }
@@ -34,7 +230,7 @@
 .ds-p {
   font-size: 16px;
   line-height: 1.7;
-  font-family: "Metznerweather", serif;
+  font-family: "Metznerweather", "Noto Sans TC", serif;
   font-weight: 400;
   margin-bottom: 0.5rem;
 }
@@ -42,7 +238,7 @@
 .ds-small {
   font-size: 14px;
   color: #888;
-  font-family: "Metznerweather", serif;
+  font-family: "Metznerweather", "Noto Sans TC", serif;
 }
 
 .ds-logo {

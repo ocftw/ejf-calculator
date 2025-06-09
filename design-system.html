@@ -6,11 +6,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="css/styles.css">
   <style>
+    .demo { margin-bottom: 1.5rem; }
+    .demo-title { margin-top: 2.5rem; margin-bottom: 1.2rem; font-weight: bold; font-size: 1.3rem; }
+    .demo-subtitle { margin-bottom: 1.2rem; font-weight: bold; font-size: 1.3rem; } 
+    
     .color-swatch { width: 60px; height: 60px; border-radius: 8px; border: 1px solid #eee; display: inline-block; margin: 0 8px 8px 0; }
-    .font-demo { margin-bottom: 1.5rem; }
+
     .icon-demo { font-size: 2rem; margin-right: 1rem; }
-    .section-title { margin-top: 2.5rem; margin-bottom: 1.2rem; font-weight: bold; font-size: 1.3rem; }
     .demo-row { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.2rem; }
+    .demo-row-2 { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.2rem; }
   </style>
 </head>
 <body>
@@ -19,26 +23,42 @@
       <h1 class="title">Design System 元件展示</h1>
       
       <!-- Typography -->
-      <div class="section-title">Typography</div>
-      <div class="font-demo">
-        <h1>h1 標題/desktop</h1>
-        <h2>h2 標題/desktop</h2>
-        <h3>h3 標題/desktop</h3>
-        <h4>h4 標題/desktop</h4>
-        <p>這是段落文字（p），字型：Metznerweather，字重 400/700。</p>
-        <small>這是小字（small）</small>
+      <div class="demo">
+        <p class="demo-title">Typography</p>
+        <div>
+          <h1>h1 標題</h1>
+          <h2>h2 標題</h2>
+          <h3>h3 標題</h3>
+          <h4>h4 標題</h4>
+          <p>p 段落文字</p>
+          <small>small 小字</small>
+        </div>
       </div>
       
       <!-- Color -->
-      <div class="section-title">Color</div>
-      <div class="demo-row">
-        <div class="color-swatch" style="background:#000;"></div> #000000
-        <div class="color-swatch" style="background:#fff; border:1px solid #ccc;"></div> #ffffff
-        <div class="color-swatch" style="background:#21232a;"></div> #21232a
-        <div class="color-swatch" style="background:#49516a;"></div> #49516a
-        <div class="color-swatch" style="background:#6a8ad7;"></div> #6a8ad7
-        <div class="color-swatch" style="background:#e3e7f1;"></div> #e3e7f1
-        <div class="color-swatch" style="background:#f7f8fa;"></div> #f7f8fa
+      <div class="demo">
+        <p class="demo-title">Color</p>
+        <div class="demo-row">
+          <p class="demo-subtitle">Other</p>
+          <div class="color-swatch color-black-bk"></div> #000000 black
+          <div class="color-swatch color-white-bk"></div> #FFFFFF white
+          <div class="color-swatch color-transparent-bk"></div> #FFFFFF, 0% transparent
+        </div>
+
+        <div class="demo-row">
+          <p class="demo-subtitle">Neutral</p>
+          <div class="color-swatch color-neutral-1000-bk"></div>#1C1E22 neutral/1000
+          <div class="color-swatch color-neutral-900-bk"></div>#3B4048 neutral/900
+          <div class="color-swatch color-neutral-800-bk"></div>#646D7A neutral/800
+          <div class="color-swatch color-neutral-700-bk"></div>#7F8A9B neutral/700
+          <div class="color-swatch color-neutral-600-bk"></div>#98A0AE neutral/600
+          <div class="color-swatch color-neutral-500-bk"></div>#ACB4BE neutral/500
+          <div class="color-swatch color-neutral-400-bk"></div>#BFC4CD neutral/400
+          <div class="color-swatch color-neutral-300-bk"></div>#CFD3DA neutral/300
+          <div class="color-swatch color-neutral-200-bk"></div>#DEE1E5 neutral/200
+          <div class="color-swatch color-neutral-100-bk"></div>#ECEEF0 neutral/100
+          <div class="color-swatch color-neutral-50-bk"></div>#FAFAFA neutral/50
+        </div>
       </div>
       
       <!-- Logo & Icon -->
