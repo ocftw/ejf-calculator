@@ -6,78 +6,142 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel="stylesheet" href="css/styles.css">
   <style>
+    body { padding: 1em 2em;}
     .demo { margin-bottom: 1.5rem; }
-    .demo-title { margin-top: 2.5rem; margin-bottom: 1.2rem; font-weight: bold; font-size: 1.3rem; }
-    .demo-subtitle { margin-bottom: 1.2rem; font-weight: bold; font-size: 1.3rem; } 
-    
-    .color-swatch { width: 60px; height: 60px; border-radius: 8px; border: 1px solid #eee; display: inline-block; margin: 0 8px 8px 0; }
+    .demo-title { margin-top: 2.5rem; margin-bottom: 1.2rem; font-weight: bold; }
+    .demo-subtitle { min-width: 5em; margin-bottom: 1.2rem; font-weight: bold; margin-left: 0; font-size: 1rem; line-height: 1.5rem; }
 
-    .icon-demo { font-size: 2rem; margin-right: 1rem; }
-    .demo-row { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.2rem; }
-    .demo-row-2 { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.2rem; }
+    .demo-row { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.2rem; padding-left: 0; }
+    .demo-group { display: flex; gap: 1.5rem; }
+
+    .demo-color { display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .demo-color-block { width: 60px; height: 60px; border-radius: 8px; border: 1px solid #eee; display: inline-block; margin: 0 8px 8px 0; }
+
+    .icon { border: 1px solid #eee; }
+
   </style>
 </head>
+
 <body>
-  <section class="section">
-    <div class="container">
       <h1 class="title">Design System 元件展示</h1>
       
       <!-- Typography -->
       <div class="demo">
-        <p class="demo-title">Typography</p>
+        <h2 class="demo-title">Typography</h2>
         <div>
           <h1>h1 標題</h1>
           <h2>h2 標題</h2>
           <h3>h3 標題</h3>
           <h4>h4 標題</h4>
           <p>p 段落文字</p>
-          <small>small 小字</small>
+          <p class="bold">p.bold 段落文字</p>
+          <p><small>small 小字</small></p>
+          <p><small class="bold">small.bold 小字</small></p>
         </div>
       </div>
       
       <!-- Color -->
       <div class="demo">
-        <p class="demo-title">Color</p>
+        <h2 class="demo-title">Color</h2>
         <div class="demo-row">
-          <p class="demo-subtitle">Other</p>
-          <div class="color-swatch color-black-bk"></div> #000000 black
-          <div class="color-swatch color-white-bk"></div> #FFFFFF white
-          <div class="color-swatch color-transparent-bk"></div> #FFFFFF, 0% transparent
+          <h3 class="demo-subtitle">Other</h3>
+          <div class="demo-group">
+            <div class="demo-color"><span class="demo-color-block color-black-bk"></span> <small>#000000 black</small></div>
+            <div class="demo-color"><span class="demo-color-block color-white-bk"></span> <small>#FFFFFF white</small></div>
+            <div class="demo-color"><span class="demo-color-block color-transparent-bk"></span> <small>#FFFFFF, 0% transparent</small></div>
+          </div>
         </div>
 
         <div class="demo-row">
-          <p class="demo-subtitle">Neutral</p>
-          <div class="color-swatch color-neutral-1000-bk"></div>#1C1E22 neutral/1000
-          <div class="color-swatch color-neutral-900-bk"></div>#3B4048 neutral/900
-          <div class="color-swatch color-neutral-800-bk"></div>#646D7A neutral/800
-          <div class="color-swatch color-neutral-700-bk"></div>#7F8A9B neutral/700
-          <div class="color-swatch color-neutral-600-bk"></div>#98A0AE neutral/600
-          <div class="color-swatch color-neutral-500-bk"></div>#ACB4BE neutral/500
-          <div class="color-swatch color-neutral-400-bk"></div>#BFC4CD neutral/400
-          <div class="color-swatch color-neutral-300-bk"></div>#CFD3DA neutral/300
-          <div class="color-swatch color-neutral-200-bk"></div>#DEE1E5 neutral/200
-          <div class="color-swatch color-neutral-100-bk"></div>#ECEEF0 neutral/100
-          <div class="color-swatch color-neutral-50-bk"></div>#FAFAFA neutral/50
+          <h3 class="demo-subtitle">Neutral</h3>
+          <div class="demo-group">
+            <div class="demo-color"><span class="demo-color-block color-neutral-1000-bk"></span> <small>#1C1E22 neutral/1000</small></div>
+            <div class="demo-color"><span class="demo-color-block color-neutral-900-bk"></span> <small>#3B4048 neutral/900</small></div>
+            <div class="demo-color"><span class="demo-color-block color-neutral-800-bk"></span> <small>#646D7A neutral/800</small></div>
+            <div class="demo-color"><span class="demo-color-block color-neutral-700-bk"></span> <small>#7F8A9B neutral/700</small></div>
+            <div class="demo-color"><span class="demo-color-block color-neutral-600-bk"></span> <small>#98A0AE neutral/600</small></div>
+            <div class="demo-color"><span class="demo-color-block color-neutral-500-bk"></span> <small>#ACB4BE neutral/500</small></div>
+            <div class="demo-color"><span class="demo-color-block color-neutral-400-bk"></span> <small>#BFC4CD neutral/400</small></div>
+            <div class="demo-color"><span class="demo-color-block color-neutral-300-bk"></span> <small>#CFD3DA neutral/300</small></div>
+            <div class="demo-color"><span class="demo-color-block color-neutral-200-bk"></span> <small>#DEE1E5 neutral/200</small></div>
+            <div class="demo-color"><span class="demo-color-block color-neutral-100-bk"></span> <small>#ECEEF0 neutral/100</small></div>
+            <div class="demo-color"><span class="demo-color-block color-neutral-50-bk"></span> <small>#FAFAFA neutral/50</small></div>
+          </div>
         </div>
       </div>
       
-      <!-- Logo & Icon -->
-      <div class="section-title">Logo & Icon</div>
-      <div class="demo-row">
-        <img src="images/ejf-logo-black.png" alt="EJF Logo" style="height:60px;">
-        <img src="images/ejf-logo-white.png" alt="EJF Logo" style="height:60px; background:#49516a; border-radius:8px;">
-        <span class="icon-demo"><i class="fab fa-facebook"></i></span>
-        <span class="icon-demo"><i class="fab fa-line"></i></span>
-        <span class="icon-demo"><i class="fab fa-linkedin"></i></span>
-        <span class="icon-demo"><i class="fab fa-instagram"></i></span>
+      <div class="demo">
+        <h2 class="demo-title">Logo</h2>
+        <div class="demo-row" style="padding: 1em;">
+          <img src="images/ejf-logo-black.png" alt="EJF Logo" style="height: 70px;">
+        </div>
+        <div class="demo-row color-neutral-900-bk" style="padding: 1em;">
+          <img src="images/ejf-logo-white.png" alt="EJF Logo" style="height: 70px;">
+        </div>
+      </div>
+
+      <div class="demo">
+        <h2 class="demo-title">Fav-icon</h2>
+        <div class="demo-row">
+          <img src="images/fav-icon-grey.png" alt="fav-icon-grey" style="height: 20px;">
+          <img src="images/fav-icon-red.png" alt="fav-icon-black" style="height: 20px;">
+          <img src="images/fav-icon-yellow.png" alt="fav-icon-white" style="height: 20px;">
+          <img src="images/fav-icon-green.png" alt="fav-icon-black" style="height: 20px;">
+          <img src="images/fav-icon-blue.png" alt="fav-icon-white" style="height: 20px;">
+        </div>
+      </div>
+
+      <div class="demo">
+        <h2 class="demo-title">Icon</h2>
+
+        <div class="demo-row" style="padding: 0.5em;">
+          <span class="icon size-24 right-default"></span>
+          <span class="icon size-24 down-default"></span>
+          <span class="icon size-24 dropdown-default"></span>
+          <span class="icon size-24 dropdown-collapse"></span>
+        </div>
+
+        <div class="demo-row" style="padding: 0.5em;">
+          <span class="icon size-24 right-ejf"></span>
+          <span class="icon size-24 down-ejf"></span>
+          <span class="icon size-24 download-ejf"></span>
+        </div>
+
+        <div class="demo-row color-neutral-900-bk" style="padding: 0.5em;">
+          <span class="icon size-24 right-white"></span>
+          <span class="icon size-24 down-white"></span>
+          <span class="icon size-24 download-white"></span>
+          <span class="icon size-24 heart-white"></span>
+        </div>
+
+        <div class="demo-row" style="padding: 0.5em;">
+          <span class="icon size-24 facebook"></span>
+          <span class="icon size-24 line"></span>
+          <span class="icon size-24 linkedin"></span>
+          <span class="icon size-24 instagram"></span>
+        </div>
+
+        <div class="demo-row" style="padding: 0.5em;">
+          <span class="icon size-24 linkedin"></span>
+          <span class="icon size-16 linkedin"></span>
+          <span class="icon size-12 linkedin"></span>
+        </div>
       </div>
       
-      <!-- Button -->
-      <div class="section-title">Button</div>
-      <div class="demo-row">
-        <button class="calculate-button">計算</button>
-        <button class="calculate-button" disabled>計算 (disabled)</button>
-        <button class="calculate-button">分享 <span style="font-size:1.2em;">&#9829;</span></button>
+      <div class="demo">
+        <h2 class="demo-title">Component</h2>
+        <div class="demo-row">
+          <h3 class="demo-subtitle">Divider</h3>
+          <hr class="divider-default" />
+          <hr class="divider-01" />
+          <hr class="divider-02" />
+        </div>
+
+        <div class="demo-row">
+          <button class="calculate-button">計算</button>
+          <button class="calculate-button" disabled>計算 (disabled)</button>
+          <button class="calculate-button">分享 <span style="font-size:1.2em;">&#9829;</span></button>
+        </div>
       </div>
       
       <!-- Input -->
@@ -128,8 +192,6 @@
         <div class="has-text-grey">.has-text-grey</div>
       </div>
     </div>
-  </section>
-  <!-- 如需 icon，請引入 fontawesome 或自訂 SVG -->
-  <script src="https://kit.fontawesome.com/your_kit.js" crossorigin="anonymous"></script>
-</body>
+
+  </body>
 </html> 

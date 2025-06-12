@@ -5,7 +5,8 @@
 
 // ===== 變數區 =====
 $font-family: 'Metznerweather', 'Noto Sans TC', serif;
-$font-weight: 700;
+$font-weight-regular: 400;
+$font-weight-bold: 700;
 $font-size: 16px;
 $font-size-mobile: 14px;
 
@@ -25,16 +26,17 @@ $color-neutral-200: #DEE1E5;
 $color-neutral-100: #ECEEF0;
 $color-neutral-50: #FAFAFA;
 
-
 // ===== Typography =====
+
 body {
   font-family: $font-family;
-  font-weight: $font-weight
+  font-weight: $font-weight-regular;
 }
 
 h1 {
   font-size: 3rem;
   line-height: 4rem;
+  font-weight: $font-weight-bold;
   @include mobile {
     font-size: 2rem;
     line-height: 2.5rem;
@@ -44,6 +46,7 @@ h1 {
 h2 {
   font-size: 2.5rem;
   line-height: 4rem;
+  font-weight: $font-weight-bold;
   @include mobile {
     font-size: 1.75rem;
     line-height: 1.75rem;
@@ -53,6 +56,7 @@ h2 {
 h3 {
   font-size: 2rem;
   line-height: 2.5rem;
+  font-weight: $font-weight-bold;
   @include mobile {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -62,9 +66,16 @@ h3 {
 h4 {
   font-size: 1.5rem;
   line-height: 2rem;
+  font-weight: $font-weight-bold;
   @include mobile {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+}
+
+@mixin font-weight-bold {
+  &.bold {
+    font-weight: $font-weight-bold;
   }
 }
 
@@ -75,6 +86,7 @@ p {
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
+  @include font-weight-bold;
 }
 
 small {
@@ -84,6 +96,7 @@ small {
     font-size: 0.75rem;
     line-height: 1.125rem;
   }
+  @include font-weight-bold;
 }
 
 .reciept-font {
@@ -98,11 +111,11 @@ small {
 // ===== Color =====
 .color-black-bk { background-color: $color-black; }
 .color-white-bk { background-color: $color-white; }
-.color-transparent-bk { background-color: $color-white; opacity: 0%; }
+.color-transparent-bk { background-color: rgba($color-white, 0%); }
 
 .color-black { color: $color-black; }
 .color-white { color: $color-white; }
-.color-transparent { color: $color-white; opacity: 0%; }
+.color-transparent { color: rgba($color-white, 0%); }
 
 .color-neutral-1000-bk { background-color: $color-neutral-1000; }
 .color-neutral-900-bk { background-color: $color-neutral-900; }
@@ -129,127 +142,150 @@ small {
 .color-neutral-50 { color: $color-neutral-50; }
 
 
+// ===== Icon =====
+.icon {
+  display: inline-block;
+  background-size: cover;
+
+  &.size-24 { width: 24px; height: 24px; }
+  &.size-16 { width: 16px; height: 16px; }
+  &.size-12 { width: 12px; height: 12px; }
+
+  &.right-default { background-image: url('../images/icon-right-default.png'); }
+  &.down-default { background-image: url('../images/icon-down-default.png'); }
+  &.dropdown-default { background-image: url('../images/icon-dropdown-default.png'); }
+  &.dropdown-collapse { background-image: url('../images/icon-dropdown-collapse.png'); }
+  &.right-ejf { background-image: url('../images/icon-right-ejf.png'); }
+  &.down-ejf { background-image: url('../images/icon-down-ejf.png'); }
+  &.download-ejf { background-image: url('../images/icon-download-ejf.png'); }
+  &.right-white { background-image: url('../images/icon-right-white.png'); }
+  &.down-white { background-image: url('../images/icon-down-white.png'); }
+  &.download-white { background-image: url('../images/icon-download-white.png'); }
+  &.heart-white { background-image: url('../images/icon-heart-white.png'); }
+  &.facebook { background-image: url('../images/icon-facebook.png'); }
+  &.line { background-image: url('../images/icon-line.png'); }
+  &.linkedin { background-image: url('../images/icon-linkedin.png'); }
+  &.instagram { background-image: url('../images/icon-instagram.png'); }
+}
 
 
 
 
-
-
-// to be confirmed
-$primary: #6a8ad7;
-$secondary: #4a6fa1;
-$neutral: #e3e7f1;
-$neutral-dark: #49516a;
-$neutral-light: #f7f8fa;
-$black: #000;
-$white: #fff;
-$danger: #e53935;
-$radius: 10px;
-$radius-lg: 16px;
+// // to be confirmed
+// $primary: #6a8ad7;
+// $secondary: #4a6fa1;
+// $neutral: #e3e7f1;
+// $neutral-dark: #49516a;
+// $neutral-light: #f7f8fa;
+// $black: #000;
+// $white: #fff;
+// $danger: #e53935;
+// $radius: 10px;
+// $radius-lg: 16px;
 
 
 // ===== Design System (設計系統元件) =====
 
-.ds-h1 {
-  font-size: 40px;
-  line-height: 1.25;
-  font-family: $font-family;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-.ds-h2 {
-  font-size: 28px;
-  line-height: 1.3;
-  font-family: $font-family;
-  font-weight: 700;
-  margin-bottom: 0.8rem;
-}
-.ds-h3 {
-  font-size: 24px;
-  line-height: 1.3;
-  font-family: $font-family;
-  font-weight: 700;
-  margin-bottom: 0.7rem;
-}
-.ds-h4 {
-  font-size: 20px;
-  line-height: 1.3;
-  font-family: $font-family;
-  font-weight: 700;
-  margin-bottom: 0.6rem;
-}
-.ds-p {
-  font-size: $font-size;
-  line-height: 1.7;
-  font-family: $font-family;
-  font-weight: 400;
-  margin-bottom: 0.5rem;
-}
-.ds-small {
-  font-size: 14px;
-  color: #888;
-  font-family: $font-family;
-}
-.ds-logo {
-  height: 60px;
-  width: auto;
-  display: inline-block;
-}
-.ds-btn {
-  background: linear-gradient(90deg, $primary 0%, $secondary 100%);
-  color: $white;
-  border: none;
-  padding: 1.1rem 2.2rem;
-  border-radius: $radius;
-  font-size: 1.15rem;
-  font-weight: bold;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(44,44,84,0.08);
-  letter-spacing: 2px;
-  transition: background 0.3s, box-shadow 0.2s;
-  &:hover {
-    background: linear-gradient(90deg, $secondary 0%, $primary 100%);
-    box-shadow: 0 4px 16px rgba(44,44,84,0.13);
-  }
-}
-.ds-input {
-  height: 48px;
-  border-radius: $radius;
-  border: 1.5px solid #e0e0e0;
-  font-size: 1rem;
-  background: #fafbfc;
-  color: #222;
-  box-shadow: none;
-  transition: border 0.2s;
-  padding: 0 1rem;
-  width: 100%;
-  &::placeholder {
-    color: #b0b7c3;
-    font-size: 0.97rem;
-    opacity: 1;
-  }
-  &:focus {
-    border-color: #b0b7c3;
-    background: $white;
-    box-shadow: 0 0 0 2px $neutral;
-  }
-}
-.ds-box {
-  background: $white;
-  border-radius: $radius-lg;
-  box-shadow: 0 8px 32px rgba(44, 44, 84, 0.18), 0 1.5px 4px rgba(0,0,0,0.08);
-  padding: 2rem 1.5rem 1.5rem 1.5rem;
-  margin-bottom: 1.5rem;
-}
+// .ds-h1 {
+//   font-size: 40px;
+//   line-height: 1.25;
+//   font-family: $font-family;
+//   font-weight: 700;
+//   margin-bottom: 1rem;
+// }
+// .ds-h2 {
+//   font-size: 28px;
+//   line-height: 1.3;
+//   font-family: $font-family;
+//   font-weight: 700;
+//   margin-bottom: 0.8rem;
+// }
+// .ds-h3 {
+//   font-size: 24px;
+//   line-height: 1.3;
+//   font-family: $font-family;
+//   font-weight: 700;
+//   margin-bottom: 0.7rem;
+// }
+// .ds-h4 {
+//   font-size: 20px;
+//   line-height: 1.3;
+//   font-family: $font-family;
+//   font-weight: 700;
+//   margin-bottom: 0.6rem;
+// }
+// .ds-p {
+//   font-size: $font-size;
+//   line-height: 1.7;
+//   font-family: $font-family;
+//   font-weight: 400;
+//   margin-bottom: 0.5rem;
+// }
+// .ds-small {
+//   font-size: 14px;
+//   color: #888;
+//   font-family: $font-family;
+// }
+// .ds-logo {
+//   height: 60px;
+//   width: auto;
+//   display: inline-block;
+// }
+// .ds-btn {
+//   background: linear-gradient(90deg, $primary 0%, $secondary 100%);
+//   color: $white;
+//   border: none;
+//   padding: 1.1rem 2.2rem;
+//   border-radius: $radius;
+//   font-size: 1.15rem;
+//   font-weight: bold;
+//   display: inline-flex;
+//   justify-content: center;
+//   align-items: center;
+//   cursor: pointer;
+//   box-shadow: 0 2px 8px rgba(44,44,84,0.08);
+//   letter-spacing: 2px;
+//   transition: background 0.3s, box-shadow 0.2s;
+//   &:hover {
+//     background: linear-gradient(90deg, $secondary 0%, $primary 100%);
+//     box-shadow: 0 4px 16px rgba(44,44,84,0.13);
+//   }
+// }
+// .ds-input {
+//   height: 48px;
+//   border-radius: $radius;
+//   border: 1.5px solid #e0e0e0;
+//   font-size: 1rem;
+//   background: #fafbfc;
+//   color: #222;
+//   box-shadow: none;
+//   transition: border 0.2s;
+//   padding: 0 1rem;
+//   width: 100%;
+//   &::placeholder {
+//     color: #b0b7c3;
+//     font-size: 0.97rem;
+//     opacity: 1;
+//   }
+//   &:focus {
+//     border-color: #b0b7c3;
+//     background: $white;
+//     box-shadow: 0 0 0 2px $neutral;
+//   }
+// }
+// .ds-box {
+//   background: $white;
+//   border-radius: $radius-lg;
+//   box-shadow: 0 8px 32px rgba(44, 44, 84, 0.18), 0 1.5px 4px rgba(0,0,0,0.08);
+//   padding: 2rem 1.5rem 1.5rem 1.5rem;
+//   margin-bottom: 1.5rem;
+// }
 
-// ===== 工具類別 =====
-.mt-4 { margin-top: 1.5rem; }
-.mb-4 { margin-bottom: 1.5rem; }
-.has-text-weight-bold { font-weight: bold; }
-.has-text-grey { color: #888; }
+// // ===== 工具類別 =====
+// .mt-4 { margin-top: 1.5rem; }
+// .mb-4 { margin-bottom: 1.5rem; }
+// .has-text-weight-bold { font-weight: bold; }
+// .has-text-grey { color: #888; }
 
 // ===== 可擴充區塊 =====
 
@@ -257,213 +293,213 @@ $radius-lg: 16px;
 // ===== 原生成樣式 =====
 
 
-.box {
-  margin-bottom: 1rem;
-}
+// .box {
+//   margin-bottom: 1rem;
+// }
 
-.field {
-  margin-bottom: 1rem;
-}
+// .field {
+//   margin-bottom: 1rem;
+// }
 
-.label {
-  color: #363636;
-  font-weight: 600;
-}
+// .label {
+//   color: #363636;
+//   font-weight: 600;
+// }
 
-.content p {
-  margin-bottom: 0.5em;
-}
+// .content p {
+//   margin-bottom: 0.5em;
+// }
 
-.calculator-box {
-  background: #fff;
-  padding: 2rem 1.5rem 1.5rem 1.5rem;
-  box-shadow: 0 8px 32px rgba(44, 44, 84, 0.18), 0 1.5px 4px rgba(0,0,0,0.08);
-  min-width: 320px;
-  max-width: 350px;
-  margin: 0 auto;
-}
+// .calculator-box {
+//   background: #fff;
+//   padding: 2rem 1.5rem 1.5rem 1.5rem;
+//   box-shadow: 0 8px 32px rgba(44, 44, 84, 0.18), 0 1.5px 4px rgba(0,0,0,0.08);
+//   min-width: 320px;
+//   max-width: 350px;
+//   margin: 0 auto;
+// }
 
-.calculator-title {
-  background: #49516a;
-  color: #fff;
-  padding: 0.4rem 1.2rem;
-  margin: -2rem -1.5rem 1.5rem -1.5rem;
-  font-size: 0.95rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
+// .calculator-title {
+//   background: #49516a;
+//   color: #fff;
+//   padding: 0.4rem 1.2rem;
+//   margin: -2rem -1.5rem 1.5rem -1.5rem;
+//   font-size: 0.95rem;
+//   font-weight: bold;
+//   letter-spacing: 1px;
+//   text-transform: uppercase;
+// }
 
-.calculator-box .label {
-  color: #2d2d2d;
-  font-weight: 700;
-  font-size: 0.98rem;
-  margin-bottom: 0.2rem;
-}
+// .calculator-box .label {
+//   color: #2d2d2d;
+//   font-weight: 700;
+//   font-size: 0.98rem;
+//   margin-bottom: 0.2rem;
+// }
 
-.required-field::before {
-  content: "*";
-  color: #e53935;
-  margin-right: 2px;
-  font-size: 1.1em;
-  vertical-align: middle;
-}
+// .required-field::before {
+//   content: "*";
+//   color: #e53935;
+//   margin-right: 2px;
+//   font-size: 1.1em;
+//   vertical-align: middle;
+// }
 
-.calculator-box .input {
-  height: 48px;
-  border-radius: 10px;
-  border: 1.5px solid #e0e0e0;
-  font-size: 1rem;
-  background: #fafbfc;
-  color: #222;
-  box-shadow: none;
-  transition: border 0.2s;
-}
-.calculator-box .input:focus {
-  border-color: #b0b7c3;
-  background: #fff;
-  box-shadow: 0 0 0 2px #e3e7f1;
-}
-.calculator-box .input::placeholder {
-  color: #b0b7c3;
-  font-size: 0.97rem;
-  opacity: 1;
-}
+// .calculator-box .input {
+//   height: 48px;
+//   border-radius: 10px;
+//   border: 1.5px solid #e0e0e0;
+//   font-size: 1rem;
+//   background: #fafbfc;
+//   color: #222;
+//   box-shadow: none;
+//   transition: border 0.2s;
+// }
+// .calculator-box .input:focus {
+//   border-color: #b0b7c3;
+//   background: #fff;
+//   box-shadow: 0 0 0 2px #e3e7f1;
+// }
+// .calculator-box .input::placeholder {
+//   color: #b0b7c3;
+//   font-size: 0.97rem;
+//   opacity: 1;
+// }
 
-.calculator-box .select.is-fullwidth select {
-  height: 48px;
-  border-radius: 10px;
-  border: 1.5px solid #e0e0e0;
-  font-size: 1rem;
-  background: #fafbfc;
-  color: #222;
-  box-shadow: none;
-  padding-left: 12px;
-  padding-right: 32px;
-}
-.calculator-box .select.is-fullwidth select:focus {
-  border-color: #b0b7c3;
-  background: #fff;
-  box-shadow: 0 0 0 2px #e3e7f1;
-}
+// .calculator-box .select.is-fullwidth select {
+//   height: 48px;
+//   border-radius: 10px;
+//   border: 1.5px solid #e0e0e0;
+//   font-size: 1rem;
+//   background: #fafbfc;
+//   color: #222;
+//   box-shadow: none;
+//   padding-left: 12px;
+//   padding-right: 32px;
+// }
+// .calculator-box .select.is-fullwidth select:focus {
+//   border-color: #b0b7c3;
+//   background: #fff;
+//   box-shadow: 0 0 0 2px #e3e7f1;
+// }
 
 
-.calculate-button {
-  background: linear-gradient(90deg, #6a8ad7 0%, #4a6fa1 100%);
-  color: #fff;
-  border: none;
-  padding: 1.1rem 0;
-  border-radius: 10px;
-  width: 100%;
-  font-size: 1.15rem;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  margin-top: 1.2rem;
-  box-shadow: 0 2px 8px rgba(44,44,84,0.08);
-  letter-spacing: 2px;
-  transition: background 0.3s, box-shadow 0.2s;
-}
-.calculate-button:hover {
-  background: linear-gradient(90deg, #4a6fa1 0%, #6a8ad7 100%);
-  box-shadow: 0 4px 16px rgba(44,44,84,0.13);
-}
-.calculate-button::after {
-  content: "\2192";
-  font-size: 1.3rem;
-  margin-left: 0.7em;
-  font-weight: normal;
-  display: inline-block;
-  vertical-align: middle;
-}
+// .calculate-button {
+//   background: linear-gradient(90deg, #6a8ad7 0%, #4a6fa1 100%);
+//   color: #fff;
+//   border: none;
+//   padding: 1.1rem 0;
+//   border-radius: 10px;
+//   width: 100%;
+//   font-size: 1.15rem;
+//   font-weight: bold;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   cursor: pointer;
+//   margin-top: 1.2rem;
+//   box-shadow: 0 2px 8px rgba(44,44,84,0.08);
+//   letter-spacing: 2px;
+//   transition: background 0.3s, box-shadow 0.2s;
+// }
+// .calculate-button:hover {
+//   background: linear-gradient(90deg, #4a6fa1 0%, #6a8ad7 100%);
+//   box-shadow: 0 4px 16px rgba(44,44,84,0.13);
+// }
+// .calculate-button::after {
+//   content: "\2192";
+//   font-size: 1.3rem;
+//   margin-left: 0.7em;
+//   font-weight: normal;
+//   display: inline-block;
+//   vertical-align: middle;
+// }
 
-.calculator-box .field {
-  margin-bottom: 1.1rem;
-}
+// .calculator-box .field {
+//   margin-bottom: 1.1rem;
+// }
 
-.receipt-box {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-family: monospace;
-}
+// .receipt-box {
+//   background: white;
+//   padding: 1.5rem;
+//   border-radius: 8px;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//   font-family: monospace;
+// }
 
-.receipt-header {
-  text-align: center;
-  margin-bottom: 1rem;
-}
+// .receipt-header {
+//   text-align: center;
+//   margin-bottom: 1rem;
+// }
 
-.receipt-logo {
-  width: 150px;
-  height: 80px;
-  margin: 0 auto 1rem;
-  padding-left: 16px;
-  display: block;
-}
+// .receipt-logo {
+//   width: 150px;
+//   height: 80px;
+//   margin: 0 auto 1rem;
+//   padding-left: 16px;
+//   display: block;
+// }
 
-.receipt-datetime {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 1rem;
-}
+// .receipt-datetime {
+//   font-size: 0.9rem;
+//   color: #666;
+//   margin-bottom: 1rem;
+// }
 
-.receipt-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-}
+// .receipt-row {
+//   display: flex;
+//   justify-content: space-between;
+//   margin-bottom: 0.5rem;
+//   font-size: 0.9rem;
+// }
 
-.receipt-divider {
-  border-top: 1px dashed #ccc;
-  margin: 1rem 0;
-}
+// .receipt-divider {
+//   border-top: 1px dashed #ccc;
+//   margin: 1rem 0;
+// }
 
-.receipt-total {
-  font-weight: bold;
-}
+// .receipt-total {
+//   font-weight: bold;
+// }
 
-.receipt-footer {
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 0.8rem;
-  color: #666;
-}
+// .receipt-footer {
+//   text-align: center;
+//   margin-top: 2rem;
+//   font-size: 0.8rem;
+//   color: #666;
+// }
 
-.receipt-amount {
-  text-align: right;
-}
+// .receipt-amount {
+//   text-align: right;
+// }
 
-.receipt-amount.positive {
-  color: #000;
-}
+// .receipt-amount.positive {
+//   color: #000;
+// }
 
-.receipt-amount.negative {
-  color: #ff0000;
-}
+// .receipt-amount.negative {
+//   color: #ff0000;
+// }
 
-.receipt-multiplicator {
-  color: #666;
-}
+// .receipt-multiplicator {
+//   color: #666;
+// }
 
-.receipt-bottom {
-  position: relative;
-  margin-top: 1rem;
-  padding-top: 1rem;
-}
+// .receipt-bottom {
+//   position: relative;
+//   margin-top: 1rem;
+//   padding-top: 1rem;
+// }
 
-.receipt-bottom::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -20px;
-  right: -20px;
-  height: 20px;
-  background-image: linear-gradient(45deg, white 25%, transparent 25%),
-            linear-gradient(-45deg, white 25%, transparent 25%);
-  background-size: 20px 20px;
-  background-position: 0 -10px;
-}
+// .receipt-bottom::before {
+//   content: "";
+//   position: absolute;
+//   top: 0;
+//   left: -20px;
+//   right: -20px;
+//   height: 20px;
+//   background-image: linear-gradient(45deg, white 25%, transparent 25%),
+//             linear-gradient(-45deg, white 25%, transparent 25%);
+//   background-size: 20px 20px;
+//   background-position: 0 -10px;
+// }
