@@ -19,6 +19,8 @@
 
     .icon { border: 1px solid #eee; }
 
+    .demo-component { width: 300px; margin-bottom: 1.2rem; }
+
   </style>
 </head>
 
@@ -130,20 +132,50 @@
       
       <div class="demo">
         <h2 class="demo-title">Component</h2>
-        <div class="demo-row">
+
+        <div class="demo-component">
           <h3 class="demo-subtitle">Divider</h3>
           <hr class="divider-default" />
           <hr class="divider-01" />
           <hr class="divider-02" />
+          <hr class="divider-receipt" />
         </div>
 
-        <div class="demo-row">
-          <button class="calculate-button">計算</button>
-          <button class="calculate-button" disabled>計算 (disabled)</button>
-          <button class="calculate-button">分享 <span style="font-size:1.2em;">&#9829;</span></button>
+        <div class="demo-component">
+          <span class="watermark">不是投資失誤，而是隱藏代價</span>
         </div>
+
+
+        <div class="demo-component">
+          <div class="select-wrapper">
+            <label for="demo-select">
+              <span class="required"></span>是否為公務員
+            </label>
+            <select id="demo-select">
+              <option>是</option>
+              <option>否</option>
+            </select>
+          </div>
+  
+          <div class="input-wrapper">
+            <label for="demo-input">
+              <span class="required"></span>您的名字
+            </label>
+            <input id="demo-input" type="text" placeholder="請輸入您的名字...">
+          </div>
+        </div>
+
+
       </div>
+
       
+      <div class="demo-group">
+        <button class="calculate-button">計算</button>
+        <button class="calculate-button" disabled>計算 (disabled)</button>
+        <button class="calculate-button">分享 <span style="font-size:1.2em;">&#9829;</span></button>
+      </div>
+
+
       <!-- Input -->
       <div class="section-title">Input</div>
       <div class="demo-row" style="align-items: flex-end;">

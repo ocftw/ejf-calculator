@@ -12,6 +12,7 @@ $font-size-mobile: 14px;
 
 $color-black: #000000;
 $color-white: #FFFFFF;
+$color-ejf-red: #E30613;
 // $color-transparent: $color-white, 0% transparent;
 
 $color-neutral-1000: #1C1E22;
@@ -99,14 +100,7 @@ small {
   @include font-weight-bold;
 }
 
-.reciept-font {
-  font-size: 0.75rem;
-  line-height: 1.125rem;
-  @include mobile {
-    font-size: 0.625rem;
-    line-height: 1rem;
-  }
-}
+
 
 // ===== Color =====
 .color-black-bk { background-color: $color-black; }
@@ -168,6 +162,83 @@ small {
   &.instagram { background-image: url('../images/icon-instagram.png'); }
 }
 
+
+// ===== Component =====
+
+hr {
+  border-width: 0 0 1px 0;
+  
+  &.divider-default {
+    border-color: $color-neutral-400;
+  }
+  &.divider-01 {
+    border-color: $color-neutral-300;
+  }
+  &.divider-02 {
+    border-color: $color-neutral-400;
+  }
+
+  &.divider-receipt {
+    border-style: dashed;
+    border-color: $color-neutral-600;
+  }
+}
+
+span.watermark {
+  display: inline-block;
+  padding: 0.75rem 1rem;
+  line-height: 1rem;
+  color: $color-ejf-red;
+  opacity: 0.16;
+  border-radius: 4px;
+  border: 1px solid $color-ejf-red;
+}
+
+
+.select-wrapper, .input-wrapper {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  // max-width: 320px;
+
+  .required {
+    color: $color-ejf-red;
+    &::before {
+      content: "*";
+      margin-right: 0.25rem;
+    }
+  }
+
+  label {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: $font-weight-regular;
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+  
+  select, input[type="text"] {
+    width: 100%;
+    border: 1px solid $color-neutral-500;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    background-color: transparent;
+  }  
+
+}
+
+
+
+
+
+
+// .reciept-font {
+//   font-size: 0.75rem;
+//   line-height: 1.125rem;
+//   @include mobile {
+//     font-size: 0.625rem;
+//     line-height: 1rem;
+//   }
+// }
 
 
 

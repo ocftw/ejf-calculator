@@ -79,17 +79,6 @@ small.bold {
   font-weight: 700;
 }
 
-.reciept-font {
-  font-size: 0.75rem;
-  line-height: 1.125rem;
-}
-@media (max-width: 768px) {
-  .reciept-font {
-    font-size: 0.625rem;
-    line-height: 1rem;
-  }
-}
-
 .color-black-bk {
   background-color: #000000;
 }
@@ -262,4 +251,57 @@ small.bold {
 }
 .icon.instagram {
   background-image: url("../images/icon-instagram.png");
+}
+
+hr {
+  border-width: 0 0 1px 0;
+}
+hr.divider-default {
+  border-color: #BFC4CD;
+}
+hr.divider-01 {
+  border-color: #CFD3DA;
+}
+hr.divider-02 {
+  border-color: #BFC4CD;
+}
+hr.divider-receipt {
+  border-style: dashed;
+  border-color: #98A0AE;
+}
+
+span.watermark {
+  display: inline-block;
+  padding: 0.75rem 1rem;
+  line-height: 1rem;
+  color: #E30613;
+  opacity: 0.16;
+  border-radius: 4px;
+  border: 1px solid #E30613;
+}
+
+.select-wrapper, .input-wrapper {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+.select-wrapper .required, .input-wrapper .required {
+  color: #E30613;
+}
+.select-wrapper .required::before, .input-wrapper .required::before {
+  content: "*";
+  margin-right: 0.25rem;
+}
+.select-wrapper label, .input-wrapper label {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+.select-wrapper select, .select-wrapper input[type=text], .input-wrapper select, .input-wrapper input[type=text] {
+  width: 100%;
+  border: 1px solid #ACB4BE;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  background-color: transparent;
 }/*# sourceMappingURL=styles.css.map */
