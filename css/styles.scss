@@ -4,6 +4,7 @@
 }
 
 // ===== 變數區 =====
+
 $font-family: 'Metznerweather', 'Noto Sans TC', serif;
 $font-weight-regular: 400;
 $font-weight-bold: 700;
@@ -13,7 +14,7 @@ $font-size-mobile: 14px;
 $color-black: #000000;
 $color-white: #FFFFFF;
 $color-ejf-red: #E30613;
-// $color-transparent: $color-white, 0% transparent;
+$color-ejf-blue: #54677B;
 
 $color-neutral-1000: #1C1E22;
 $color-neutral-900: #3B4048;
@@ -26,6 +27,26 @@ $color-neutral-300: #CFD3DA;
 $color-neutral-200: #DEE1E5;
 $color-neutral-100: #ECEEF0;
 $color-neutral-50: #FAFAFA;
+
+$color-status-info-500: #6B98E0;
+
+$icon-right-default: url('/images/icon-right-default.png');
+$icon-down-default: url('/images/icon-down-default.png');
+$icon-dropdown-default: url('/images/icon-dropdown-default.png');
+$icon-dropdown-collapse: url('/images/icon-dropdown-collapse.png');
+$icon-right-ejf: url('/images/icon-right-ejf.png');
+$icon-down-ejf: url('/images/icon-down-ejf.png');
+$icon-download-ejf: url('/images/icon-download-ejf.png');
+$icon-right-white: url('/images/icon-right-white.png');
+$icon-down-white: url('/images/icon-down-white.png');
+$icon-download-white: url('/images/icon-download-white.png');
+$icon-heart-white: url('/images/icon-heart-white.png');
+$icon-heart-ejf: url('/images/icon-heart-ejf.png');
+$icon-facebook: url('/images/icon-facebook.png');
+$icon-line: url('/images/icon-line.png');
+$icon-linkedin: url('/images/icon-linkedin.png');
+$icon-instagram: url('/images/icon-instagram.png');
+
 
 // ===== Typography =====
 
@@ -101,8 +122,8 @@ small {
 }
 
 
-
 // ===== Color =====
+
 .color-black-bk { background-color: $color-black; }
 .color-white-bk { background-color: $color-white; }
 .color-transparent-bk { background-color: rgba($color-white, 0%); }
@@ -137,6 +158,7 @@ small {
 
 
 // ===== Icon =====
+
 .icon {
   display: inline-block;
   background-size: cover;
@@ -145,21 +167,21 @@ small {
   &.size-16 { width: 16px; height: 16px; }
   &.size-12 { width: 12px; height: 12px; }
 
-  &.right-default { background-image: url('../images/icon-right-default.png'); }
-  &.down-default { background-image: url('../images/icon-down-default.png'); }
-  &.dropdown-default { background-image: url('../images/icon-dropdown-default.png'); }
-  &.dropdown-collapse { background-image: url('../images/icon-dropdown-collapse.png'); }
-  &.right-ejf { background-image: url('../images/icon-right-ejf.png'); }
-  &.down-ejf { background-image: url('../images/icon-down-ejf.png'); }
-  &.download-ejf { background-image: url('../images/icon-download-ejf.png'); }
-  &.right-white { background-image: url('../images/icon-right-white.png'); }
-  &.down-white { background-image: url('../images/icon-down-white.png'); }
-  &.download-white { background-image: url('../images/icon-download-white.png'); }
-  &.heart-white { background-image: url('../images/icon-heart-white.png'); }
-  &.facebook { background-image: url('../images/icon-facebook.png'); }
-  &.line { background-image: url('../images/icon-line.png'); }
-  &.linkedin { background-image: url('../images/icon-linkedin.png'); }
-  &.instagram { background-image: url('../images/icon-instagram.png'); }
+  &.right-default { background-image: $icon-right-default; }
+  &.down-default { background-image: $icon-down-default; }
+  &.dropdown-default { background-image: $icon-dropdown-default; }
+  &.dropdown-collapse { background-image: $icon-dropdown-collapse; }
+  &.right-ejf { background-image: $icon-right-ejf; }
+  &.down-ejf { background-image: $icon-down-ejf; }
+  &.download-ejf { background-image: $icon-download-ejf; }
+  &.right-white { background-image: $icon-right-white; }
+  &.down-white { background-image: $icon-down-white; }
+  &.download-white { background-image: $icon-download-white; }
+  &.heart-white { background-image: $icon-heart-white; }
+  &.facebook { background-image: $icon-facebook; }
+  &.line { background-image: $icon-line; }
+  &.linkedin { background-image: $icon-linkedin; }
+  &.instagram { background-image: $icon-instagram; }
 }
 
 
@@ -223,12 +245,68 @@ span.watermark {
     padding: 0.75rem 1rem;
     background-color: transparent;
   }  
-
 }
 
+button {
+  $color-gradient: linear-gradient(90deg, $color-ejf-blue 0%, $color-status-info-500 100%);
+  background: $color-gradient;
 
+  border: 2px solid $color-ejf-blue;
+  border-image: $color-gradient;
+  border-image-slice: 1;
 
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  margin-bottom: 0.75rem;
 
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  font-weight: $font-weight-bold;
+  text-align: left;
+  color: $color-white;
+
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    background: $color-white;
+    color: $color-ejf-blue;
+  }
+
+  // &:disabled {
+  //   background-color: $color-neutral-500;
+  //   color: $color-neutral-1000;
+  // }
+
+  &::after {
+    background-size: 100%;
+    content: "";
+    right: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+  }
+
+  &.btn-calculate {
+    &::after { background-image: $icon-right-white; }
+    &:hover::after { background-image: $icon-right-ejf; }
+  }
+
+  &.btn-share {
+    &::after { background-image: $icon-heart-white; }
+    &:hover::after { background-image: $icon-heart-ejf; }
+  }
+
+  &.btn-back {
+    &::after { background-image: $icon-right-white; }
+    &:hover::after { background-image: $icon-right-ejf; }
+  }
+
+  &.btn-download {
+    &::after { background-image: $icon-download-white; }
+    &:hover::after { background-image: $icon-download-ejf; }
+  }
+}
 
 
 // .reciept-font {
@@ -455,36 +533,7 @@ span.watermark {
 // }
 
 
-// .calculate-button {
-//   background: linear-gradient(90deg, #6a8ad7 0%, #4a6fa1 100%);
-//   color: #fff;
-//   border: none;
-//   padding: 1.1rem 0;
-//   border-radius: 10px;
-//   width: 100%;
-//   font-size: 1.15rem;
-//   font-weight: bold;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   cursor: pointer;
-//   margin-top: 1.2rem;
-//   box-shadow: 0 2px 8px rgba(44,44,84,0.08);
-//   letter-spacing: 2px;
-//   transition: background 0.3s, box-shadow 0.2s;
-// }
-// .calculate-button:hover {
-//   background: linear-gradient(90deg, #4a6fa1 0%, #6a8ad7 100%);
-//   box-shadow: 0 4px 16px rgba(44,44,84,0.13);
-// }
-// .calculate-button::after {
-//   content: "\2192";
-//   font-size: 1.3rem;
-//   margin-left: 0.7em;
-//   font-weight: normal;
-//   display: inline-block;
-//   vertical-align: middle;
-// }
+
 
 // .calculator-box .field {
 //   margin-bottom: 1.1rem;

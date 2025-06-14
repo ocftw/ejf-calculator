@@ -208,49 +208,49 @@ small.bold {
   height: 12px;
 }
 .icon.right-default {
-  background-image: url("../images/icon-right-default.png");
+  background-image: url("/images/icon-right-default.png");
 }
 .icon.down-default {
-  background-image: url("../images/icon-down-default.png");
+  background-image: url("/images/icon-down-default.png");
 }
 .icon.dropdown-default {
-  background-image: url("../images/icon-dropdown-default.png");
+  background-image: url("/images/icon-dropdown-default.png");
 }
 .icon.dropdown-collapse {
-  background-image: url("../images/icon-dropdown-collapse.png");
+  background-image: url("/images/icon-dropdown-collapse.png");
 }
 .icon.right-ejf {
-  background-image: url("../images/icon-right-ejf.png");
+  background-image: url("/images/icon-right-ejf.png");
 }
 .icon.down-ejf {
-  background-image: url("../images/icon-down-ejf.png");
+  background-image: url("/images/icon-down-ejf.png");
 }
 .icon.download-ejf {
-  background-image: url("../images/icon-download-ejf.png");
+  background-image: url("/images/icon-download-ejf.png");
 }
 .icon.right-white {
-  background-image: url("../images/icon-right-white.png");
+  background-image: url("/images/icon-right-white.png");
 }
 .icon.down-white {
-  background-image: url("../images/icon-down-white.png");
+  background-image: url("/images/icon-down-white.png");
 }
 .icon.download-white {
-  background-image: url("../images/icon-download-white.png");
+  background-image: url("/images/icon-download-white.png");
 }
 .icon.heart-white {
-  background-image: url("../images/icon-heart-white.png");
+  background-image: url("/images/icon-heart-white.png");
 }
 .icon.facebook {
-  background-image: url("../images/icon-facebook.png");
+  background-image: url("/images/icon-facebook.png");
 }
 .icon.line {
-  background-image: url("../images/icon-line.png");
+  background-image: url("/images/icon-line.png");
 }
 .icon.linkedin {
-  background-image: url("../images/icon-linkedin.png");
+  background-image: url("/images/icon-linkedin.png");
 }
 .icon.instagram {
-  background-image: url("../images/icon-instagram.png");
+  background-image: url("/images/icon-instagram.png");
 }
 
 hr {
@@ -304,4 +304,58 @@ span.watermark {
   border-radius: 4px;
   padding: 0.75rem 1rem;
   background-color: transparent;
+}
+
+button {
+  background: linear-gradient(90deg, #54677B 0%, #6B98E0 100%);
+  border: 2px solid #54677B;
+  -o-border-image: linear-gradient(90deg, #54677B 0%, #6B98E0 100%);
+     border-image: linear-gradient(90deg, #54677B 0%, #6B98E0 100%);
+  border-image-slice: 1;
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+  text-align: left;
+  color: #FFFFFF;
+  cursor: pointer;
+  position: relative;
+}
+button:hover {
+  background: #FFFFFF;
+  color: #54677B;
+}
+button::after {
+  background-size: 100%;
+  content: "";
+  right: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+}
+button.btn-calculate::after {
+  background-image: url("/images/icon-right-white.png");
+}
+button.btn-calculate:hover::after {
+  background-image: url("/images/icon-right-ejf.png");
+}
+button.btn-share::after {
+  background-image: url("/images/icon-heart-white.png");
+}
+button.btn-share:hover::after {
+  background-image: url("/images/icon-heart-ejf.png");
+}
+button.btn-back::after {
+  background-image: url("/images/icon-right-white.png");
+}
+button.btn-back:hover::after {
+  background-image: url("/images/icon-right-ejf.png");
+}
+button.btn-download::after {
+  background-image: url("/images/icon-download-white.png");
+}
+button.btn-download:hover::after {
+  background-image: url("/images/icon-download-ejf.png");
 }/*# sourceMappingURL=styles.css.map */
