@@ -1,11 +1,14 @@
+// ===== Font =====
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+
 // ===== RWD mixins =====
 @mixin mobile {
   @media (max-width: 768px) { @content; }
 }
 
 // ===== 變數區 =====
-
-$font-family: 'Metznerweather', 'Noto Sans TC', serif;
+$font-family: 'Noto Sans TC', sans-serif;
 $font-weight-regular: 400;
 $font-weight-bold: 700;
 $font-size: 16px;
@@ -219,7 +222,7 @@ span.watermark {
 
 .select-wrapper, .input-wrapper {
   width: 100%;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   // max-width: 320px;
 
   .required {
@@ -308,6 +311,36 @@ button {
   }
 }
 
+.calculator-wrapper {
+  width: 100%;
+  max-width: 288px;
+  padding: 2.75rem 1.25rem 1.25rem;
+
+  $color-shadow: fade-out($color-neutral-1000, 0.92);
+  border: 1px solid $color-shadow;
+  box-shadow: -8px 16px 40px $color-shadow;
+
+  position: relative;
+
+  .calculator-title {
+    font-size: 0.875rem;
+    line-height: 1em;
+    font-weight: $font-weight-regular;
+
+    color: $color-white;
+    background-color: $color-ejf-blue;
+    font-family: "Fira Sans Condensed", sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+
+    display: inline-block;
+    padding: 0.33rem 0.4rem;
+
+    left: 0;
+    top: 0;
+    position: absolute;
+  }
+}
 
 // .reciept-font {
 //   font-size: 0.75rem;

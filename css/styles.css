@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap");
 body {
-  font-family: "Metznerweather", "Noto Sans TC", serif;
+  font-family: "Noto Sans TC", sans-serif;
   font-weight: 400;
 }
 
@@ -282,7 +284,7 @@ span.watermark {
 
 .select-wrapper, .input-wrapper {
   width: 100%;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 .select-wrapper .required, .input-wrapper .required {
   color: #E30613;
@@ -358,4 +360,28 @@ button.btn-download::after {
 }
 button.btn-download:hover::after {
   background-image: url("/images/icon-download-ejf.png");
+}
+
+.calculator-wrapper {
+  width: 100%;
+  max-width: 288px;
+  padding: 2.75rem 1.25rem 1.25rem;
+  border: 1px solid rgba(28, 30, 34, 0.08);
+  box-shadow: -8px 16px 40px rgba(28, 30, 34, 0.08);
+  position: relative;
+}
+.calculator-wrapper .calculator-title {
+  font-size: 0.875rem;
+  line-height: 1em;
+  font-weight: 400;
+  color: #FFFFFF;
+  background-color: #54677B;
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 0.33rem 0.4rem;
+  left: 0;
+  top: 0;
+  position: absolute;
 }/*# sourceMappingURL=styles.css.map */
