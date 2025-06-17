@@ -1,93 +1,152 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>政府四大基金投資報酬計算機</title>
-
   <!-- Bulma CSS with fallback -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-      onerror="this.onerror=null;this.href='lib/bulma.min.css';">
+    onerror="this.onerror=null;this.href='lib/bulma.min.css';">
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
   <div id="app">
     <section class="section">
       <div class="container">
         <h1 class="title has-text-centered">政府四大基金投資報酬計算機</h1>
 
+        <div class="marquee-wrapper">
+          <!--
+      無 JS 走馬燈
+      考慮到目前常見的 UltraWide 5K 螢幕寬度為 2560@2x
+      marquee-content 的寬度固定為 $marquee-speed x $marquee-duration (100x26=2600px)
+      內容根據長度而調整重複的次數，以便讓間隔呈現較為均勻
+    -->
+          <div class="marquee-content">
+            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                target="_blank">《火上加油》報告</a></span>
+            <span class="marquee-divider"></span>
+            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                target="_blank">《火上加油》報告</a></span>
+            <span class="marquee-divider"></span>
+            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                target="_blank">《火上加油》報告</a></span>
+            <span class="marquee-divider"></span>
+            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                target="_blank">《火上加油》報告</a></span>
+            <span class="marquee-divider"></span>
+            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                target="_blank">《火上加油》報告</a></span>
+            <span class="marquee-divider"></span>
+          </div>
+          <div class="marquee-content">
+            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                target="_blank">《火上加油》報告</a></span>
+            <span class="marquee-divider"></span>
+            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                target="_blank">《火上加油》報告</a></span>
+            <span class="marquee-divider"></span>
+            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                target="_blank">《火上加油》報告</a></span>
+            <span class="marquee-divider"></span>
+            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                target="_blank">《火上加油》報告</a></span>
+            <span class="marquee-divider"></span>
+            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                target="_blank">《火上加油》報告</a></span>
+            <span class="marquee-divider"></span>
+          </div>
+        </div>
+
         <div class="columns">
           <!-- 左側輸入表單部分 -->
           <div class="column is-4">
-            <div class="calculator-box">
-              <div class="calculator-title">
-                CALCULATOR
-              </div>
 
-              <div class="field">
-                <label class="label">
-                  <span class="required-field">您的名字</span>
-                </label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="text"
-                    v-model="userName"
-                    placeholder="請輸入您的名字..."
-                  >
+            <div class="calculator-wrapper">
+              <span class="calculator-title">Calculator</span>
+
+              <div class="calculator-content">
+                <div class="input-wrapper">
+                  <label for="demo-input-name">
+                    <span class="required"></span>您的名字
+                  </label>
+                  <input id="demo-input-name" type="text" placeholder="請輸入您的名字...">
                 </div>
-              </div>
 
-              <div class="field">
-                <label class="label">
-                  <span class="required-field">平均月薪</span>
-                </label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="number"
-                    v-model="monthlyIncome"
-                    placeholder="請輸入平均月薪..."
-                  >
+                <div class="input-wrapper">
+                  <label for="demo-input-salary">
+                    <span class="required"></span>平均月薪
+                  </label>
+                  <input id="demo-input-salary" type="text" placeholder="請輸入平均月薪...">
                 </div>
-              </div>
 
-              <div class="field">
-                <label class="label">
-                  <span class="required-field">年齡</span>
-                </label>
-                <div class="control">
-                  <input
-                    class="input"
-                    type="number"
-                    v-model="age"
-                    placeholder="請輸入年齡..."
-                  >
+                <div class="input-wrapper">
+                  <label for="demo-input-age">
+                    <span class="required"></span>年齡
+                  </label>
+                  <input id="demo-input-age" type="text" placeholder="請輸入年齡...">
                 </div>
-              </div>
 
-              <div class="field">
-                <label class="label">
-                  <span class="required-field">是否為公務員</span>
-                </label>
-                <div class="control">
-                  <div class="select is-fullwidth">
-                    <select v-model="isGovernmentEmployee">
-                      <option value="否">否</option>
-                      <option value="是">是</option>
-                    </select>
-                  </div>
+                <div class="select-wrapper">
+                  <label for="demo-select-is-public-servant">
+                    <span class="required"></span>是否為公務員
+                  </label>
+                  <select id="demo-select-is-public-servant">
+                    <option>是</option>
+                    <option>否</option>
+                  </select>
                 </div>
-              </div>
 
-              <button class="calculate-button" @click="calculate">
-                計算
-              </button>
+                <button class="big-btn btn-calculate">計算</button>
+              </div>
             </div>
+
           </div>
 
           <!-- 中間圖表區域 -->
           <div class="column is-5">
+
+            <div class="fund-button-row">
+              <button class="btn-fund" data-fund="postal" data-on="true">
+                <p>郵政儲金</p>
+              </button>
+              <button class="btn-fund" data-fund="insurance" data-on="true">
+                <p>勞保基金</p>
+              </button>
+              <button class="btn-fund" data-fund="labor" data-on="true">
+                <p>勞退基金</p>
+              </button>
+              <button class="btn-fund" data-fund="retire" data-on="true">
+                <p>退撫基金</p>
+              </button>
+              <button class="btn-fund" data-fund="postal" data-on="false">
+                <p>郵政儲金</p>
+              </button>
+              <button class="btn-fund" data-fund="insurance" data-on="false">
+                <p>勞保基金</p>
+              </button>
+              <button class="btn-fund" data-fund="labor" data-on="false">
+                <p>勞退基金</p>
+              </button>
+              <button class="btn-fund" data-fund="retire" data-on="false">
+                <p>退撫基金</p>
+              </button>
+            </div>
+
+
+
             <div class="box">
               <canvas id="myChart"></canvas>
             </div>
@@ -204,4 +263,5 @@
     });
   </script>
 </body>
+
 </html>
