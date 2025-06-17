@@ -308,7 +308,7 @@ span.watermark {
   background-color: transparent;
 }
 
-button {
+button.big-btn {
   background: linear-gradient(90deg, #54677B 0%, #6B98E0 100%);
   border: 2px solid #54677B;
   -o-border-image: linear-gradient(90deg, #54677B 0%, #6B98E0 100%);
@@ -325,11 +325,11 @@ button {
   cursor: pointer;
   position: relative;
 }
-button:hover {
+button.big-btn:hover {
   background: #FFFFFF;
   color: #54677B;
 }
-button::after {
+button.big-btn::after {
   background-size: 100%;
   content: "";
   right: 1rem;
@@ -337,28 +337,28 @@ button::after {
   height: 1.5rem;
   position: absolute;
 }
-button.btn-calculate::after {
+button.big-btn.btn-calculate::after {
   background-image: url("/images/icon-right-white.png");
 }
-button.btn-calculate:hover::after {
+button.big-btn.btn-calculate:hover::after {
   background-image: url("/images/icon-right-ejf.png");
 }
-button.btn-share::after {
+button.big-btn.btn-share::after {
   background-image: url("/images/icon-heart-white.png");
 }
-button.btn-share:hover::after {
+button.big-btn.btn-share:hover::after {
   background-image: url("/images/icon-heart-ejf.png");
 }
-button.btn-back::after {
+button.big-btn.btn-back::after {
   background-image: url("/images/icon-right-white.png");
 }
-button.btn-back:hover::after {
+button.big-btn.btn-back:hover::after {
   background-image: url("/images/icon-right-ejf.png");
 }
-button.btn-download::after {
+button.big-btn.btn-download::after {
   background-image: url("/images/icon-download-white.png");
 }
-button.btn-download:hover::after {
+button.big-btn.btn-download:hover::after {
   background-image: url("/images/icon-download-ejf.png");
 }
 
@@ -384,4 +384,47 @@ button.btn-download:hover::after {
   left: 0;
   top: 0;
   position: absolute;
+}
+
+button.btn-fund {
+  background-color: rgba(28, 30, 34, 0.08);
+  background-size: cover;
+  border: none;
+  width: 96px;
+  height: 52px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #98A0AE;
+  cursor: pointer;
+  border-radius: 0px;
+}
+button.btn-fund[data-on=false] {
+  border-radius: 8px;
+}
+button.btn-fund[data-fund=postal] {
+  background-image: url("/images/fund_postal_off.png");
+}
+button.btn-fund[data-fund=postal][data-on=true] {
+  background-image: url("/images/fund_postal_on.png");
+}
+button.btn-fund[data-fund=insurance] {
+  background-image: url("/images/fund_insurance_off.png");
+}
+button.btn-fund[data-fund=insurance][data-on=true] {
+  background-image: url("/images/fund_insurance_on.png");
+}
+button.btn-fund[data-fund=labor] {
+  background-image: url("/images/fund_labor_off.png");
+}
+button.btn-fund[data-fund=labor][data-on=true] {
+  background-image: url("/images/fund_labor_on.png");
+}
+button.btn-fund[data-fund=retire] {
+  background-image: url("/images/fund_retire_off.png");
+}
+button.btn-fund[data-fund=retire][data-on=true] {
+  background-image: url("/images/fund_retire_on.png");
+}
+button.btn-fund p {
+  visibility: hidden;
 }/*# sourceMappingURL=styles.css.map */

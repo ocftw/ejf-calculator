@@ -31,6 +31,8 @@ $color-neutral-200: #DEE1E5;
 $color-neutral-100: #ECEEF0;
 $color-neutral-50: #FAFAFA;
 
+$color-neutral-1000-trans-8: fade-out($color-neutral-1000, 0.92);
+
 $color-status-info-500: #6B98E0;
 
 $icon-right-default: url('/images/icon-right-default.png');
@@ -250,7 +252,7 @@ span.watermark {
   }  
 }
 
-button {
+button.big-btn {
   $color-gradient: linear-gradient(90deg, $color-ejf-blue 0%, $color-status-info-500 100%);
   background: $color-gradient;
 
@@ -316,9 +318,8 @@ button {
   max-width: 288px;
   padding: 2.75rem 1.25rem 1.25rem;
 
-  $color-shadow: fade-out($color-neutral-1000, 0.92);
-  border: 1px solid $color-shadow;
-  box-shadow: -8px 16px 40px $color-shadow;
+  border: 1px solid $color-neutral-1000-trans-8;
+  box-shadow: -8px 16px 40px $color-neutral-1000-trans-8;
 
   position: relative;
 
@@ -340,6 +341,35 @@ button {
     top: 0;
     position: absolute;
   }
+}
+
+button.btn-fund {
+  background-color: $color-neutral-1000-trans-8;
+  background-size: cover;
+  border: none;
+
+  width: 96px;
+  height: 52px;
+
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: $color-neutral-600;
+
+  cursor: pointer;
+
+  border-radius: 0px;
+  &[data-on="false"] { border-radius: 8px; }
+
+  &[data-fund="postal"] { background-image: url('/images/fund_postal_off.png'); }
+  &[data-fund="postal"][data-on="true"] { background-image: url('/images/fund_postal_on.png'); }
+  &[data-fund="insurance"] { background-image: url('/images/fund_insurance_off.png'); }
+  &[data-fund="insurance"][data-on="true"] { background-image: url('/images/fund_insurance_on.png'); }
+  &[data-fund="labor"] { background-image: url('/images/fund_labor_off.png'); }
+  &[data-fund="labor"][data-on="true"] { background-image: url('/images/fund_labor_on.png'); }
+  &[data-fund="retire"] { background-image: url('/images/fund_retire_off.png'); }
+  &[data-fund="retire"][data-on="true"] { background-image: url('/images/fund_retire_on.png'); }
+
+  p { visibility: hidden; }
 }
 
 // .reciept-font {
