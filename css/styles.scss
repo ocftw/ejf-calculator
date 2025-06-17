@@ -52,7 +52,6 @@ $icon-line: url('/images/icon-line.png');
 $icon-linkedin: url('/images/icon-linkedin.png');
 $icon-instagram: url('/images/icon-instagram.png');
 
-
 // ===== Typography =====
 
 body {
@@ -194,7 +193,7 @@ small {
 
 hr {
   border-width: 0 0 1px 0;
-  
+
   &.divider-default {
     border-color: $color-neutral-400;
   }
@@ -242,14 +241,14 @@ span.watermark {
     margin-bottom: 0.3rem;
     display: block;
   }
-  
+
   select, input[type="text"] {
     width: 100%;
     border: 1px solid $color-neutral-500;
     border-radius: 4px;
     padding: 0.75rem 1rem;
     background-color: transparent;
-  }  
+  }
 }
 
 button.big-btn {
@@ -370,6 +369,62 @@ button.btn-fund {
   &[data-fund="retire"][data-on="true"] { background-image: url('/images/fund_retire_on.png'); }
 
   p { visibility: hidden; }
+}
+
+
+// Marquee Animation Variables
+$marquee-speed: 100; // 每秒移動的像素數（不加單位）
+$marquee-duration: 26;  // 動畫總時長（秒，不加單位）
+$marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像素）
+
+.marquee-wrapper {
+  overflow: hidden;
+  width: 100vw;
+  height: 40px;
+  background-color: fade-out($color-ejf-blue, 0.60);
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  position: relative;
+
+  .marquee-content {
+    width: #{$marquee-distance}px;
+    height: 100%;
+    display: flex;
+
+    align-items: center;
+    justify-content: space-around;
+
+    position: absolute;
+    left: 0;
+    animation: marquee #{$marquee-duration}s linear infinite;
+
+    &:nth-child(2) {
+      left: #{$marquee-distance}px;
+    }
+
+    span {
+      color: $color-white;
+      font-size: 1rem;
+      line-height: 1.25rem;
+      white-space: nowrap;
+
+      a {
+        color: $color-white;
+        text-decoration: underline;
+      }
+    }
+
+    .marquee-divider {
+      text-align: center;
+      color: $color-neutral-600;
+      &:after { content: "|"; }
+    }
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-#{$marquee-distance}px); }
 }
 
 // .reciept-font {

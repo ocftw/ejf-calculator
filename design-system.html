@@ -26,7 +26,7 @@
 
 <body>
       <h1 class="title">Design System 元件展示</h1>
-      
+
       <!-- Typography -->
       <div class="demo">
         <h2 class="demo-title">Typography</h2>
@@ -41,7 +41,7 @@
           <p><small class="bold">small.bold 小字</small></p>
         </div>
       </div>
-      
+
       <!-- Color -->
       <div class="demo">
         <h2 class="demo-title">Color</h2>
@@ -71,7 +71,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="demo">
         <h2 class="demo-title">Logo</h2>
         <div class="demo-row" style="padding: 1em;">
@@ -129,9 +129,44 @@
           <span class="icon size-12 linkedin"></span>
         </div>
       </div>
-      
+
       <div class="demo">
         <h2 class="demo-title">Component</h2>
+
+        <div class="demo-row">
+          <div class="marquee-wrapper">
+            <!--
+              無 JS 走馬燈
+              考慮到目前常見的 UltraWide 5K 螢幕寬度為 2560@2x
+              marquee-content 的寬度固定為 $marquee-speed x $marquee-duration (100x26=2600px)
+              內容根據長度而調整重複的次數，以便讓間隔呈現較為均勻
+            -->
+            <div class="marquee-content">
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2" target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2" target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2" target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2" target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2" target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+            </div>
+            <div class="marquee-content">
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2" target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2" target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2" target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2" target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2" target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+            </div>
+          </div>
+        </div>
 
         <div class="demo-component">
           <h3 class="demo-subtitle">Divider</h3>
@@ -155,7 +190,7 @@
               <option>否</option>
             </select>
           </div>
-  
+
           <div class="input-wrapper">
             <label for="demo-input">
               <span class="required"></span>您的名字
@@ -217,7 +252,6 @@
       </div>
 
       <div class="demo">
-        <div class="demo-row">
           <button class="btn-fund" data-fund="postal" data-on="true"><p>郵政儲金</p></button>
           <button class="btn-fund" data-fund="insurance" data-on="true"><p>勞保基金</p></button>
           <button class="btn-fund" data-fund="labor" data-on="true"><p>勞退基金</p></button>
@@ -226,7 +260,6 @@
           <button class="btn-fund" data-fund="insurance" data-on="false"><p>勞保基金</p></button>
           <button class="btn-fund" data-fund="labor" data-on="false"><p>勞退基金</p></button>
           <button class="btn-fund" data-fund="retire" data-on="false"><p>退撫基金</p></button>
-        </div>
       </div>
 
       <hr>
@@ -234,7 +267,7 @@
       <div class="demo">
         <h2 class="demo-title">======= WIP =======</h2>
       </div>
-      
+
 
 
       <!-- Input -->
@@ -246,7 +279,7 @@
           <p class="help is-danger">此欄位必填</p>
         </div>
       </div>
-      
+
       <!-- Box/Card -->
       <div class="section-title">Box/Card</div>
       <div class="demo-row">
@@ -261,15 +294,16 @@
           <div class="receipt-row receipt-total"><span>Total</span><span>1,000,000</span></div>
         </div>
       </div>
-      
+
       <!-- Utility -->
       <div class="section-title">Utility</div>
-      <div class="demo-row">
-        <div class="mb-4" style="background:#e3e7f1; padding:8px;">.mb-4 (margin-bottom: 1.5rem)</div>
-        <div class="has-text-weight-bold">.has-text-weight-bold</div>
-        <div class="has-text-grey">.has-text-grey</div>
+        <div class="demo-row">
+          <div class="mb-4" style="background:#e3e7f1; padding:8px;">.mb-4 (margin-bottom: 1.5rem)</div>
+          <div class="has-text-weight-bold">.has-text-weight-bold</div>
+          <div class="has-text-grey">.has-text-grey</div>
+        </div>
       </div>
     </div>
 
   </body>
-</html> 
+</html>

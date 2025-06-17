@@ -427,4 +427,53 @@ button.btn-fund[data-fund=retire][data-on=true] {
 }
 button.btn-fund p {
   visibility: hidden;
+}
+
+.marquee-wrapper {
+  overflow: hidden;
+  width: 100vw;
+  height: 40px;
+  background-color: rgba(84, 103, 123, 0.4);
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  position: relative;
+}
+.marquee-wrapper .marquee-content {
+  width: 2600px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  left: 0;
+  animation: marquee 26s linear infinite;
+}
+.marquee-wrapper .marquee-content:nth-child(2) {
+  left: 2600px;
+}
+.marquee-wrapper .marquee-content span {
+  color: #FFFFFF;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  white-space: nowrap;
+}
+.marquee-wrapper .marquee-content span a {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+.marquee-wrapper .marquee-content .marquee-divider {
+  text-align: center;
+  color: #98A0AE;
+}
+.marquee-wrapper .marquee-content .marquee-divider:after {
+  content: "|";
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-2600px);
+  }
 }/*# sourceMappingURL=styles.css.map */
