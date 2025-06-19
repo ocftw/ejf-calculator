@@ -540,3 +540,71 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
     }
   }
 }
+
+
+// ===== page layout =====
+
+/* 基本版面 CSS */
+.section {
+  padding: 3rem 1.5rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.has-text-centered {
+  text-align: center;
+}
+
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.75rem;
+}
+
+.column {
+  flex: 1;
+  padding: 0 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.column:first-child {
+  flex: 0 0 288px;
+}
+
+.column:last-child {
+  flex: 0 0 320px;
+}
+
+/* RWD */
+@media (max-width: 768px) {
+  .columns {
+    flex-direction: column;
+  }
+
+  .column {
+    flex: 1;
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .section {
+    padding: 2rem 1rem;
+  }
+}
+
+#marquee {
+  margin: 2rem 0;
+}

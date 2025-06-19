@@ -5,9 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>政府四大基金投資報酬計算機</title>
-  <!-- Bulma CSS with fallback -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    onerror="this.onerror=null;this.href='lib/bulma.min.css';">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -17,106 +14,108 @@
       <div class="container">
         <h1 class="title has-text-centered">政府四大基金投資報酬計算機</h1>
 
-        <div class="marquee-wrapper">
-          <!--
-      無 JS 走馬燈
-      考慮到目前常見的 UltraWide 5K 螢幕寬度為 2560@2x
-      marquee-content 的寬度固定為 $marquee-speed x $marquee-duration (100x26=2600px)
-      內容根據長度而調整重複的次數，以便讓間隔呈現較為均勻
-    -->
-          <div class="marquee-content">
-            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
-                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
-                target="_blank">《火上加油》報告</a></span>
-            <span class="marquee-divider"></span>
-            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
-                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
-                target="_blank">《火上加油》報告</a></span>
-            <span class="marquee-divider"></span>
-            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
-                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
-                target="_blank">《火上加油》報告</a></span>
-            <span class="marquee-divider"></span>
-            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
-                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
-                target="_blank">《火上加油》報告</a></span>
-            <span class="marquee-divider"></span>
-            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
-                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
-                target="_blank">《火上加油》報告</a></span>
-            <span class="marquee-divider"></span>
-          </div>
-          <div class="marquee-content">
-            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
-                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
-                target="_blank">《火上加油》報告</a></span>
-            <span class="marquee-divider"></span>
-            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
-                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
-                target="_blank">《火上加油》報告</a></span>
-            <span class="marquee-divider"></span>
-            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
-                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
-                target="_blank">《火上加油》報告</a></span>
-            <span class="marquee-divider"></span>
-            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
-                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
-                target="_blank">《火上加油》報告</a></span>
-            <span class="marquee-divider"></span>
-            <span>計算方式參考「環境正義基金會 (EJF) 」的<a
-                href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
-                target="_blank">《火上加油》報告</a></span>
-            <span class="marquee-divider"></span>
+        <div id="marquee">
+          <div class="marquee-wrapper">
+            <!--
+              無 JS 走馬燈
+              考慮到目前常見的 UltraWide 5K 螢幕寬度為 2560@2x
+              marquee-content 的寬度固定為 $marquee-speed x $marquee-duration (100x26=2600px)
+              內容根據長度而調整重複的次數，以便讓間隔呈現較為均勻
+            -->
+            <div class="marquee-content">
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                  href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                  target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                  href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                  target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                  href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                  target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                  href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                  target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                  href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                  target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+            </div>
+            <div class="marquee-content">
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                  href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                  target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                  href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                  target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                  href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                  target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                  href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                  target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+              <span>計算方式參考「環境正義基金會 (EJF) 」的<a
+                  href="https://ejfoundation.org/reports/%E7%81%AB%E4%B8%8A%E5%8A%A0%E6%B2%B9-%E8%87%BA%E7%81%A3%E6%94%BF%E5%BA%9C%E5%9F%BA%E9%87%91%E6%9C%AA%E7%9B%A1%E5%BF%A0%E8%AA%A0%E7%BE%A9%E5%8B%99-%E5%8A%A9%E9%95%B7%E6%B0%A3%E5%80%99%E5%8D%B1%E6%A9%9F-%E5%8D%B1%E5%8F%8A%E6%B0%91%E7%9C%BE%E8%B3%87%E7%94%A2"
+                  target="_blank">《火上加油》報告</a></span>
+              <span class="marquee-divider"></span>
+            </div>
           </div>
         </div>
 
         <div class="columns">
           <!-- 左側輸入表單部分 -->
-          <div class="column is-4">
+          <div class="column">
 
             <div class="calculator-wrapper">
               <span class="calculator-title">Calculator</span>
 
               <div class="calculator-content">
                 <div class="input-wrapper">
-                  <label for="demo-input-name">
+                  <label for="calculator-input-name">
                     <span class="required"></span>您的名字
                   </label>
-                  <input id="demo-input-name" type="text" placeholder="請輸入您的名字...">
+                  <input id="calculator-input-name" type="text" placeholder="請輸入您的名字..." v-model="userName">
                 </div>
 
                 <div class="input-wrapper">
-                  <label for="demo-input-salary">
+                  <label for="calculator-input-salary">
                     <span class="required"></span>平均月薪
                   </label>
-                  <input id="demo-input-salary" type="text" placeholder="請輸入平均月薪...">
+                  <input id="calculator-input-salary" type="number" placeholder="請輸入平均月薪..." v-model.number="monthlyIncome">
                 </div>
 
                 <div class="input-wrapper">
-                  <label for="demo-input-age">
+                  <label for="calculator-input-age">
                     <span class="required"></span>年齡
                   </label>
-                  <input id="demo-input-age" type="text" placeholder="請輸入年齡...">
+                  <input id="calculator-input-age" type="number" placeholder="請輸入年齡..." v-model.number="age">
                 </div>
 
                 <div class="select-wrapper">
-                  <label for="demo-select-is-public-servant">
+                  <label for="calculator-select-public-servant">
                     <span class="required"></span>是否為公務員
                   </label>
-                  <select id="demo-select-is-public-servant">
-                    <option>是</option>
-                    <option>否</option>
+                  <select id="calculator-select-public-servant" v-model="isGovernmentEmployee">
+                    <option value="yes">是</option>
+                    <option value="no">否</option>
                   </select>
                 </div>
 
-                <button class="big-btn btn-calculate">計算</button>
+                <button class="big-btn btn-calculate" @click="calculate">計算</button>
               </div>
             </div>
 
           </div>
 
           <!-- 中間圖表區域 -->
-          <div class="column is-5">
+          <div class="column">
 
             <div class="fund-button-row">
               <button class="btn-fund" data-fund="postal" data-on="true">
@@ -153,77 +152,98 @@
           </div>
 
           <!-- 右側計算結果 -->
-          <div class="column is-3">
+          <div class="column">
+
             <div class="receipt-box">
-              <div class="receipt-header">
-                <img src="images/ejf-logo-white.png" alt="EJF Logo" class="receipt-logo">
-                <div class="receipt-datetime">
-                  {{ currentDateTime }}
+              <img class="receipt-logo" src="images/ejf-logo-black.png" alt="EJF Logo">
+
+              <div class="receipt-datetime">
+                {{ currentDateTime }}
+              </div>
+
+              <hr class="divider-receipt" />
+
+              <div class="receipt-section">
+                <div class="receipt-row">
+                  <span>Customer Name</span>
+                  <span>{{ userName }}</span>
+                </div>
+                <div class="receipt-row">
+                  <span>Customer Type</span>
+                  <span>{{ isGovernmentEmployee === 'yes' ? 'Civil Servant' : 'Citizen' }}</span>
                 </div>
               </div>
 
-              <div class="receipt-row">
-                <span>Customer Name</span>
-                <span>{{ userName }}</span>
-              </div>
-              <div class="receipt-row">
-                <span>Customer Type</span>
-                <span>{{ isGovernmentEmployee === '是' ? 'Civil Servant' : 'Citizen' }}</span>
-              </div>
+              <hr class="divider-receipt" />
 
-              <div class="receipt-divider"></div>
-
-              <div class="receipt-row">
-                <span>總計投入金額</span>
-                <span class="receipt-amount">{{ formatNumber(totalInvestment) }}</span>
-              </div>
-              <div class="receipt-row">
-                <span>預期報酬</span>
-                <span class="receipt-amount">{{ formatNumber(expectedReturn) }}</span>
-              </div>
-
-              <div class="receipt-divider"></div>
-
-              <div class="receipt-row">
-                <span>勞保儲金</span>
-                <span class="receipt-multiplicator">x 0.9</span>
-              </div>
-              <div class="receipt-row">
-                <span>勞退基金</span>
-                <span class="receipt-multiplicator">x 0.9</span>
-              </div>
-              <div class="receipt-row">
-                <span>勞退基金</span>
-                <span class="receipt-multiplicator">x 0.9</span>
-              </div>
-              <div class="receipt-row">
-                <span>退撫基金</span>
-                <span class="receipt-multiplicator">x 0.9</span>
-              </div>
-
-              <div class="receipt-divider"></div>
-
-              <div class="receipt-row receipt-total">
-                <span>Total</span>
-                <span class="receipt-amount">{{ formatNumber(total) }}</span>
-              </div>
-
-              <div class="receipt-row">
-                <span>與投入報酬相比</span>
-                <span class="receipt-amount positive">+{{ formatNumber(investmentDiff) }}</span>
-              </div>
-              <div class="receipt-row">
-                <span>與預期報酬相比</span>
-                <span class="receipt-amount negative">-{{ formatNumber(returnDiff) }}</span>
-              </div>
-
-              <div class="receipt-bottom">
-                <div class="receipt-footer">
-                  這筆帳，該算清楚了。<br>
-                  試算你的投資報酬與賠償代價！
+              <div class="receipt-section">
+                <div class="receipt-row">
+                  <span>總計投入金額</span>
+                  <span class="receipt-amount">{{ formatNumber(totalInvestment) }}</span>
+                </div>
+                <div class="receipt-row">
+                  <span>預期報酬</span>
+                  <span class="receipt-amount">{{ formatNumber(expectedReturn) }}</span>
                 </div>
               </div>
+
+              <hr class="divider-receipt" />
+
+              <div class="receipt-section receipt-funds">
+                <div class="receipt-row">
+                  <span>勞保儲金</span>
+                  <span class="receipt-multiplicator">x 0.9</span>
+                </div>
+                <div class="receipt-row">
+                  <span>勞退基金</span>
+                  <span class="receipt-multiplicator">x 0.9</span>
+                </div>
+                <div class="receipt-row">
+                  <span>勞退基金</span>
+                  <span class="receipt-multiplicator">x 0.9</span>
+                </div>
+                <div class="receipt-row">
+                  <span>退撫基金</span>
+                  <span class="receipt-multiplicator">x 0.9</span>
+                </div>
+              </div>
+
+              <hr class="divider-receipt" />
+
+              <div class="receipt-section">
+                <div class="receipt-row">
+                  <span>Total</span>
+                  <span>{{ formatNumber(total) }}</span>
+                </div>
+                <div class="receipt-row">
+                  <span>與投入報酬相比</span>
+                  <span :class="amountClass(investmentDiff)">
+                    {{ formatNumber(investmentDiff) }}
+                  </span>
+                </div>
+                <div class="receipt-row">
+                  <span>與預期報酬相比</span>
+                  <span :class="amountClass(returnDiff)">
+                    {{ formatNumber(returnDiff) }}
+                  </span>
+                </div>
+              </div>
+
+              <hr class="divider-receipt" />
+
+              <div class="receipt-section">
+                <div class="receipt-row receipt-bottom">
+                  <span>
+                    這筆帳，該算清楚了。<br>
+                    試算你的投資報酬與碳排代價 →
+                  </span>
+                  <img class="qr" src="images/qrcode.png" alt="" class="receipt-qrcode">
+                </div>
+              </div>
+
             </div>
+
+
           </div>
         </div>
       </div>
