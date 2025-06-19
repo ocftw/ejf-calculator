@@ -376,30 +376,33 @@ button.big-btn {
 button.btn-fund {
   background-color: $color-neutral-1000-trans-8;
   background-size: cover;
-  border: none;
+  backdrop-filter: blur(8px);
 
   width: 96px;
   height: 52px;
 
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: $color-neutral-600;
-
   cursor: pointer;
 
-  border-radius: 0px;
-  &[data-on="false"] { border-radius: 8px; }
+  p {
+    line-height: 1em;
+    font-size: 1rem;
+    color: $color-neutral-600;
+  }
 
-  &[data-fund="postal"] { background-image: url('/images/fund_postal_off.png'); }
-  &[data-fund="postal"][data-on="true"] { background-image: url('/images/fund_postal_on.png'); }
-  &[data-fund="insurance"] { background-image: url('/images/fund_insurance_off.png'); }
-  &[data-fund="insurance"][data-on="true"] { background-image: url('/images/fund_insurance_on.png'); }
-  &[data-fund="labor"] { background-image: url('/images/fund_labor_off.png'); }
-  &[data-fund="labor"][data-on="true"] { background-image: url('/images/fund_labor_on.png'); }
-  &[data-fund="retire"] { background-image: url('/images/fund_retire_off.png'); }
-  &[data-fund="retire"][data-on="true"] { background-image: url('/images/fund_retire_on.png'); }
+  border-radius: 8px;
+  border: 1px dashed $color-neutral-600;
 
-  p { visibility: hidden; }
+  &[data-on="true"] {
+    border-radius: 0px;
+    border-color: transparent;
+
+    p { visibility: hidden; }
+
+    &[data-fund="postal"] { background-image: url('/images/fund_postal_on.png'); }
+    &[data-fund="insurance"] { background-image: url('/images/fund_insurance_on.png'); }
+    &[data-fund="labor"] { background-image: url('/images/fund_labor_on.png'); }
+    &[data-fund="retire"] { background-image: url('/images/fund_retire_on.png'); }
+  }
 }
 
 
@@ -516,6 +519,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
       flex: 1;
       align-content: center;
       line-height: 1.5em;
+      margin-right: -8px;
     }
 
     img {
@@ -568,12 +572,11 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
   display: flex;
   flex-wrap: wrap;
   margin: 0 -0.75rem;
+  gap: 2rem;
 }
 
 .column {
   flex: 1;
-  padding: 0 0.75rem;
-  margin-bottom: 1.5rem;
 }
 
 .column:first-child {
@@ -585,6 +588,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 }
 
 /* RWD */
+/*
 @media (max-width: 768px) {
   .columns {
     flex-direction: column;
@@ -603,7 +607,13 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
     padding: 2rem 1rem;
   }
 }
+*/
 
 #marquee {
   margin: 2rem 0;
+}
+
+#fund-buttons {
+  display: flex;
+  gap: 0.75rem;
 }

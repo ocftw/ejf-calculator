@@ -414,44 +414,37 @@ button.big-btn.btn-download:hover::after {
 button.btn-fund {
   background-color: rgba(28, 30, 34, 0.08);
   background-size: cover;
-  border: none;
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
   width: 96px;
   height: 52px;
-  font-size: 1rem;
-  line-height: 1.5rem;
-  color: #98A0AE;
   cursor: pointer;
-  border-radius: 0px;
-}
-button.btn-fund[data-on=false] {
   border-radius: 8px;
-}
-button.btn-fund[data-fund=postal] {
-  background-image: url("/images/fund_postal_off.png");
-}
-button.btn-fund[data-fund=postal][data-on=true] {
-  background-image: url("/images/fund_postal_on.png");
-}
-button.btn-fund[data-fund=insurance] {
-  background-image: url("/images/fund_insurance_off.png");
-}
-button.btn-fund[data-fund=insurance][data-on=true] {
-  background-image: url("/images/fund_insurance_on.png");
-}
-button.btn-fund[data-fund=labor] {
-  background-image: url("/images/fund_labor_off.png");
-}
-button.btn-fund[data-fund=labor][data-on=true] {
-  background-image: url("/images/fund_labor_on.png");
-}
-button.btn-fund[data-fund=retire] {
-  background-image: url("/images/fund_retire_off.png");
-}
-button.btn-fund[data-fund=retire][data-on=true] {
-  background-image: url("/images/fund_retire_on.png");
+  border: 1px dashed #98A0AE;
 }
 button.btn-fund p {
+  line-height: 1em;
+  font-size: 1rem;
+  color: #98A0AE;
+}
+button.btn-fund[data-on=true] {
+  border-radius: 0px;
+  border-color: transparent;
+}
+button.btn-fund[data-on=true] p {
   visibility: hidden;
+}
+button.btn-fund[data-on=true][data-fund=postal] {
+  background-image: url("/images/fund_postal_on.png");
+}
+button.btn-fund[data-on=true][data-fund=insurance] {
+  background-image: url("/images/fund_insurance_on.png");
+}
+button.btn-fund[data-on=true][data-fund=labor] {
+  background-image: url("/images/fund_labor_on.png");
+}
+button.btn-fund[data-on=true][data-fund=retire] {
+  background-image: url("/images/fund_retire_on.png");
 }
 
 .marquee-wrapper {
@@ -549,6 +542,7 @@ button.btn-fund p {
   flex: 1;
   align-content: center;
   line-height: 1.5em;
+  margin-right: -8px;
 }
 .receipt-box .receipt-bottom img {
   width: 80px;
@@ -599,12 +593,11 @@ button.btn-fund p {
   display: flex;
   flex-wrap: wrap;
   margin: 0 -0.75rem;
+  gap: 2rem;
 }
 
 .column {
   flex: 1;
-  padding: 0 0.75rem;
-  margin-bottom: 1.5rem;
 }
 
 .column:first-child {
@@ -616,21 +609,31 @@ button.btn-fund p {
 }
 
 /* RWD */
+/*
 @media (max-width: 768px) {
   .columns {
     flex-direction: column;
   }
+
   .column {
     flex: 1;
     max-width: 100%;
   }
+
   .title {
     font-size: 2rem;
   }
+
   .section {
     padding: 2rem 1rem;
   }
 }
+*/
 #marquee {
   margin: 2rem 0;
+}
+
+#fund-buttons {
+  display: flex;
+  gap: 0.75rem;
 }/*# sourceMappingURL=styles.css.map */
