@@ -339,6 +339,7 @@ button.big-btn {
 
   border: 1px solid $color-neutral-1000-trans-8;
   box-shadow: -8px 16px 40px $color-neutral-1000-trans-8;
+  background-color: $color-white;
 
   position: relative;
 
@@ -356,8 +357,8 @@ button.big-btn {
     display: inline-block;
     padding: 0.33rem 0.4rem;
 
-    left: 0;
-    top: 0;
+    left: -1px;
+    top: -1px;
     position: absolute;
   }
 }
