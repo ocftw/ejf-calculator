@@ -417,10 +417,16 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   overflow: hidden;
   width: 100vw;
   height: 40px;
-  background-color: fade-out($color-ejf-blue, 0.60);
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
   position: relative;
+
+  background-color: fade-out($color-ejf-blue, 0.60);
+  backdrop-filter: blur(4px);
+  border: 1px solid fade-out($color-white, 0.80);
+  border-width: 1px 0;
+
+  opacity: 0.64;
 
   .marquee-content {
     width: #{$marquee-distance}px;
