@@ -2,6 +2,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans+TC:wght@100..900&display=swap");
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+}
+
+button, input, select, textarea {
+  margin: 0;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
   font-family: "Noto Sans TC", sans-serif;
   font-weight: 400;
@@ -262,10 +276,10 @@ small.bold {
 }
 
 hr {
+  display: block;
+  height: 1px;
   border-width: 0 0 1px 0;
   width: 100%;
-  height: 0;
-  margin: 0;
 }
 hr.divider-default {
   border-color: #BFC4CD;
@@ -499,6 +513,7 @@ button.btn-fund p {
   font-style: normal;
   font-size: 0.75rem;
   line-height: 1.5rem;
+  color: #3B4048;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -522,6 +537,9 @@ button.btn-fund p {
 .receipt-box .receipt-row {
   display: flex;
   justify-content: space-between;
+}
+.receipt-box .receipt-logo {
+  height: 70px;
 }
 .receipt-box .receipt-amount-negative {
   color: #E30613;

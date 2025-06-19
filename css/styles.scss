@@ -3,6 +3,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans+TC:wght@100..900&display=swap');
 
+// ===== Reset =====
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  box-sizing: border-box;
+}
+button, input, select, textarea {
+  margin: 0;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 // ===== RWD mixins =====
 @mixin mobile {
   @media (max-width: 768px) { @content; }
@@ -203,12 +216,10 @@ small {
 // ===== Component =====
 
 hr {
+  display: block;
+  height: 1px;
   border-width: 0 0 1px 0;
-
-  // remove me after rm bulma
   width: 100%;
-  height: 0;
-  margin: 0;
 
   &.divider-default {
     border-color: $color-neutral-400;
@@ -462,6 +473,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   font-style: normal;
   font-size: 0.75rem;
   line-height: 1.5rem;
+  color: $color-neutral-900;
 
   display: flex;
   align-items: center;
@@ -489,6 +501,10 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   .receipt-row {
     display: flex;
     justify-content: space-between;
+  }
+
+  .receipt-logo {
+    height: 70px;
   }
 
   .receipt-amount-negative {
