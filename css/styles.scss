@@ -1,6 +1,7 @@
 // ===== Font =====
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans+TC:wght@100..900&display=swap');
 
 // ===== RWD mixins =====
 @mixin mobile {
@@ -204,6 +205,11 @@ small {
 hr {
   border-width: 0 0 1px 0;
 
+  // remove me after rm bulma
+  width: 100%;
+  height: 0;
+  margin: 0;
+
   &.divider-default {
     border-color: $color-neutral-400;
   }
@@ -220,7 +226,7 @@ hr {
   }
 }
 
-span.watermark {
+@mixin watermark {
   display: inline-block;
   padding: 0.75rem 1rem;
   line-height: 1rem;
@@ -228,8 +234,12 @@ span.watermark {
   opacity: 0.16;
   border-radius: 4px;
   border: 1px solid $color-ejf-red;
+  font-size: 1rem;
 }
 
+span.watermark {
+  @include watermark;
+}
 
 .select-wrapper, .input-wrapper {
   width: 100%;
@@ -437,317 +447,79 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   to { transform: translateX(-#{$marquee-distance}px); }
 }
 
-// .reciept-font {
-//   font-size: 0.75rem;
-//   line-height: 1.125rem;
-//   @include mobile {
-//     font-size: 0.625rem;
-//     line-height: 1rem;
-//   }
-// }
 
+.receipt-box {
+  max-width: 320px;
+  width: 100%;
+  padding: 2rem 1.5rem 0.875rem;
+  box-shadow: -8px 16px 40px $color-neutral-1000-trans-8;
 
+  background: $color-white;
 
-// // to be confirmed
-// $primary: #6a8ad7;
-// $secondary: #4a6fa1;
-// $neutral: #e3e7f1;
-// $neutral-dark: #49516a;
-// $neutral-light: #f7f8fa;
-// $black: #000;
-// $white: #fff;
-// $danger: #e53935;
-// $radius: 10px;
-// $radius-lg: 16px;
+  font-family: "Noto Sans Mono", "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 0.75rem;
+  line-height: 1.5rem;
 
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.75rem;
 
-// ===== Design System (設計系統元件) =====
+  position: relative;
 
-// .ds-h1 {
-//   font-size: 40px;
-//   line-height: 1.25;
-//   font-family: $font-family;
-//   font-weight: 700;
-//   margin-bottom: 1rem;
-// }
-// .ds-h2 {
-//   font-size: 28px;
-//   line-height: 1.3;
-//   font-family: $font-family;
-//   font-weight: 700;
-//   margin-bottom: 0.8rem;
-// }
-// .ds-h3 {
-//   font-size: 24px;
-//   line-height: 1.3;
-//   font-family: $font-family;
-//   font-weight: 700;
-//   margin-bottom: 0.7rem;
-// }
-// .ds-h4 {
-//   font-size: 20px;
-//   line-height: 1.3;
-//   font-family: $font-family;
-//   font-weight: 700;
-//   margin-bottom: 0.6rem;
-// }
-// .ds-p {
-//   font-size: $font-size;
-//   line-height: 1.7;
-//   font-family: $font-family;
-//   font-weight: 400;
-//   margin-bottom: 0.5rem;
-// }
-// .ds-small {
-//   font-size: 14px;
-//   color: #888;
-//   font-family: $font-family;
-// }
-// .ds-logo {
-//   height: 60px;
-//   width: auto;
-//   display: inline-block;
-// }
-// .ds-btn {
-//   background: linear-gradient(90deg, $primary 0%, $secondary 100%);
-//   color: $white;
-//   border: none;
-//   padding: 1.1rem 2.2rem;
-//   border-radius: $radius;
-//   font-size: 1.15rem;
-//   font-weight: bold;
-//   display: inline-flex;
-//   justify-content: center;
-//   align-items: center;
-//   cursor: pointer;
-//   box-shadow: 0 2px 8px rgba(44,44,84,0.08);
-//   letter-spacing: 2px;
-//   transition: background 0.3s, box-shadow 0.2s;
-//   &:hover {
-//     background: linear-gradient(90deg, $secondary 0%, $primary 100%);
-//     box-shadow: 0 4px 16px rgba(44,44,84,0.13);
-//   }
-// }
-// .ds-input {
-//   height: 48px;
-//   border-radius: $radius;
-//   border: 1.5px solid #e0e0e0;
-//   font-size: 1rem;
-//   background: #fafbfc;
-//   color: #222;
-//   box-shadow: none;
-//   transition: border 0.2s;
-//   padding: 0 1rem;
-//   width: 100%;
-//   &::placeholder {
-//     color: #b0b7c3;
-//     font-size: 0.97rem;
-//     opacity: 1;
-//   }
-//   &:focus {
-//     border-color: #b0b7c3;
-//     background: $white;
-//     box-shadow: 0 0 0 2px $neutral;
-//   }
-// }
-// .ds-box {
-//   background: $white;
-//   border-radius: $radius-lg;
-//   box-shadow: 0 8px 32px rgba(44, 44, 84, 0.18), 0 1.5px 4px rgba(0,0,0,0.08);
-//   padding: 2rem 1.5rem 1.5rem 1.5rem;
-//   margin-bottom: 1.5rem;
-// }
+  &::after {
+    content: " ";
+    display: block;
+    width: 100%;
+    height: 10px;
+    background-image: url("/images/receipt_bottom.png");
+    background-size: 100%;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+  }
 
-// // ===== 工具類別 =====
-// .mt-4 { margin-top: 1.5rem; }
-// .mb-4 { margin-bottom: 1.5rem; }
-// .has-text-weight-bold { font-weight: bold; }
-// .has-text-grey { color: #888; }
+  .receipt-section {
+    width: 100%;
+  }
 
-// ===== 可擴充區塊 =====
+  .receipt-row {
+    display: flex;
+    justify-content: space-between;
+  }
 
+  .receipt-amount-negative {
+    color: $color-ejf-red;
+  }
 
-// ===== 原生成樣式 =====
+  .receipt-bottom {
+    span {
+      text-align: right;
+      flex: 1;
+      align-content: center;
+      line-height: 1.5em;
+    }
 
+    img {
+      width: 80px;
+      height: 80px;
+      position: relative;
+      right: -8px;
+    }
+  }
 
-// .box {
-//   margin-bottom: 1rem;
-// }
+  .receipt-funds {
+    position: relative;
 
-// .field {
-//   margin-bottom: 1rem;
-// }
+    &:after {
+      content: "不是投資失誤，而是隱藏代價";
+      @include watermark;
 
-// .label {
-//   color: #363636;
-//   font-weight: 600;
-// }
-
-// .content p {
-//   margin-bottom: 0.5em;
-// }
-
-// .calculator-box {
-//   background: #fff;
-//   padding: 2rem 1.5rem 1.5rem 1.5rem;
-//   box-shadow: 0 8px 32px rgba(44, 44, 84, 0.18), 0 1.5px 4px rgba(0,0,0,0.08);
-//   min-width: 320px;
-//   max-width: 350px;
-//   margin: 0 auto;
-// }
-
-// .calculator-title {
-//   background: #49516a;
-//   color: #fff;
-//   padding: 0.4rem 1.2rem;
-//   margin: -2rem -1.5rem 1.5rem -1.5rem;
-//   font-size: 0.95rem;
-//   font-weight: bold;
-//   letter-spacing: 1px;
-//   text-transform: uppercase;
-// }
-
-// .calculator-box .label {
-//   color: #2d2d2d;
-//   font-weight: 700;
-//   font-size: 0.98rem;
-//   margin-bottom: 0.2rem;
-// }
-
-// .required-field::before {
-//   content: "*";
-//   color: #e53935;
-//   margin-right: 2px;
-//   font-size: 1.1em;
-//   vertical-align: middle;
-// }
-
-// .calculator-box .input {
-//   height: 48px;
-//   border-radius: 10px;
-//   border: 1.5px solid #e0e0e0;
-//   font-size: 1rem;
-//   background: #fafbfc;
-//   color: #222;
-//   box-shadow: none;
-//   transition: border 0.2s;
-// }
-// .calculator-box .input:focus {
-//   border-color: #b0b7c3;
-//   background: #fff;
-//   box-shadow: 0 0 0 2px #e3e7f1;
-// }
-// .calculator-box .input::placeholder {
-//   color: #b0b7c3;
-//   font-size: 0.97rem;
-//   opacity: 1;
-// }
-
-// .calculator-box .select.is-fullwidth select {
-//   height: 48px;
-//   border-radius: 10px;
-//   border: 1.5px solid #e0e0e0;
-//   font-size: 1rem;
-//   background: #fafbfc;
-//   color: #222;
-//   box-shadow: none;
-//   padding-left: 12px;
-//   padding-right: 32px;
-// }
-// .calculator-box .select.is-fullwidth select:focus {
-//   border-color: #b0b7c3;
-//   background: #fff;
-//   box-shadow: 0 0 0 2px #e3e7f1;
-// }
-
-
-
-
-// .calculator-box .field {
-//   margin-bottom: 1.1rem;
-// }
-
-// .receipt-box {
-//   background: white;
-//   padding: 1.5rem;
-//   border-radius: 8px;
-//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-//   font-family: monospace;
-// }
-
-// .receipt-header {
-//   text-align: center;
-//   margin-bottom: 1rem;
-// }
-
-// .receipt-logo {
-//   width: 150px;
-//   height: 80px;
-//   margin: 0 auto 1rem;
-//   padding-left: 16px;
-//   display: block;
-// }
-
-// .receipt-datetime {
-//   font-size: 0.9rem;
-//   color: #666;
-//   margin-bottom: 1rem;
-// }
-
-// .receipt-row {
-//   display: flex;
-//   justify-content: space-between;
-//   margin-bottom: 0.5rem;
-//   font-size: 0.9rem;
-// }
-
-// .receipt-divider {
-//   border-top: 1px dashed #ccc;
-//   margin: 1rem 0;
-// }
-
-// .receipt-total {
-//   font-weight: bold;
-// }
-
-// .receipt-footer {
-//   text-align: center;
-//   margin-top: 2rem;
-//   font-size: 0.8rem;
-//   color: #666;
-// }
-
-// .receipt-amount {
-//   text-align: right;
-// }
-
-// .receipt-amount.positive {
-//   color: #000;
-// }
-
-// .receipt-amount.negative {
-//   color: #ff0000;
-// }
-
-// .receipt-multiplicator {
-//   color: #666;
-// }
-
-// .receipt-bottom {
-//   position: relative;
-//   margin-top: 1rem;
-//   padding-top: 1rem;
-// }
-
-// .receipt-bottom::before {
-//   content: "";
-//   position: absolute;
-//   top: 0;
-//   left: -20px;
-//   right: -20px;
-//   height: 20px;
-//   background-image: linear-gradient(45deg, white 25%, transparent 25%),
-//             linear-gradient(-45deg, white 25%, transparent 25%);
-//   background-size: 20px 20px;
-//   background-position: 0 -10px;
-// }
+      position: absolute;
+      top: 1.75rem;
+      margin-left: 1em;
+    }
+  }
+}
