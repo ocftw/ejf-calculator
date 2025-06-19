@@ -81,6 +81,8 @@ body {
   background-size: $background-size;
 
   min-height: 100vh;
+
+  color: $color-white;
 }
 
 h1 {
@@ -558,16 +560,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   padding: 0 1rem;
 }
 
-.title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-}
-
-.has-text-centered {
-  text-align: center;
-}
-
 .columns {
   display: flex;
   flex-wrap: wrap;
@@ -608,6 +600,20 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   }
 }
 */
+
+#title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+
+  img {
+    height: 4rem;
+    margin-right: 1rem;
+    position: relative;
+    top: 0.25rem;
+  }
+}
 
 #marquee {
   margin: 2rem 0;

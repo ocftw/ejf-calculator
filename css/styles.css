@@ -23,6 +23,7 @@ body {
   background-image: url("/images/grid.png");
   background-size: 1024px;
   min-height: 100vh;
+  color: #FFFFFF;
 }
 
 h1 {
@@ -579,16 +580,6 @@ button.btn-fund[data-on=true][data-fund=retire] {
   padding: 0 1rem;
 }
 
-.title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-}
-
-.has-text-centered {
-  text-align: center;
-}
-
 .columns {
   display: flex;
   flex-wrap: wrap;
@@ -629,6 +620,19 @@ button.btn-fund[data-on=true][data-fund=retire] {
   }
 }
 */
+#title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+}
+#title img {
+  height: 4rem;
+  margin-right: 1rem;
+  position: relative;
+  top: 0.25rem;
+}
+
 #marquee {
   margin: 2rem 0;
 }
