@@ -96,11 +96,11 @@ h1 {
 }
 
 h2 {
-  font-size: 2.5rem;
-  line-height: 4rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
   font-weight: $font-weight-bold;
   @include mobile {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
     line-height: 1.75rem;
   }
 }
@@ -618,6 +618,25 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
     margin-right: 1rem;
     position: relative;
     top: 0.25rem;
+  }
+}
+
+#subtitle {
+  margin-bottom: 2.5rem;
+  border-right: 1px solid $color-white;
+  display: inline-block;
+  padding-right: 1em;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: calc(100vw - 100%);
+    height: 1px;
+    background-color: $color-white;
+    transform: translateY(-50%);
   }
 }
 
