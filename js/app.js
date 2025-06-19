@@ -7,27 +7,55 @@ const app = createApp({
             monthlyIncome: 0,
             age: 0,
             isGovernmentEmployee: '否',
-            calculatedAmount: 0,
-            totalReturn: 0,
+            totalInvestment: 0, // 總計投入金額
+            expectedReturn: 0,   // 預期報酬
+            total: 0,            // total
+            investmentDiff: 0,   // 與投入金額相比
+            returnDiff: 0,  // 與預期報酬相比
             chart: null,
-            currentDateTime: new Date().toLocaleString('zh-TW', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            })
+            currentDateTime: ''
         }
     },
+    created() {
+        this.currentDateTime = this.formatDateTime(new Date());
+    },
     methods: {
+        formatDateTime(date) {
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const months = [
+                'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+            ];
+            const day = days[date.getDay()];
+            const month = months[date.getMonth()];
+            const dayNum = date.getDate();
+            const year = date.getFullYear();
+            const hour = String(date.getHours()).padStart(2, '0');
+            const min = String(date.getMinutes()).padStart(2, '0');
+            const sec = String(date.getSeconds()).padStart(2, '0');
+            return `${day}, ${month} ${dayNum}, ${year} · ${hour}:${min}:${sec}`;
+        },
         formatNumber(num) {
             return new Intl.NumberFormat('zh-TW').format(num);
         },
         calculate() {
-            // 這裡添加計算邏輯
-            this.calculatedAmount = this.monthlyIncome * 12; // 簡單示例
-            this.totalReturn = this.calculatedAmount * 1.1; // 簡單示例
+            // 1. 總計投入金額 = 月薪 x (60-年齡)
+            this.totalInvestment = Math.floor(this.monthlyIncome * (60 - this.age));
+            // 2. 預期報酬 = 總計投入金額 x1.5 減去總計投入金額
+            this.expectedReturn = Math.floor(this.totalInvestment * 1.5 - this.totalInvestment);
+            // 3. total = 總計投入金額 x1.5 x0.9 x0.9 x0.9 x0.9
+            this.total = Math.floor(this.totalInvestment * 1.5 * 0.9 * 0.9 * 0.9 * 0.9);
+            // 4. 與投入金額相比 = total - 總計投入金額
+            this.investmentDiff = Math.floor(this.total - this.totalInvestment);
+            // 5. 與預期報酬相比 = total - 總計投入金額 - 預期報酬
+            this.returnDiff = Math.floor(this.total - this.totalInvestment - this.expectedReturn);
+            // 時間
+            this.currentDateTime = this.formatDateTime(new Date());
+        },
+        amountClass(val) {
+            if (val > 0) return 'receipt-amount-positive';
+            if (val < 0) return 'receipt-amount-negative';
+            return '';
         }
     }
 });
