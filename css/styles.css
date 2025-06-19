@@ -324,7 +324,7 @@ span.watermark {
   margin-bottom: 0.3rem;
   display: block;
 }
-.select-wrapper select, .select-wrapper input[type=text], .input-wrapper select, .input-wrapper input[type=text] {
+.select-wrapper select, .select-wrapper input[type=text], .select-wrapper input[type=number], .input-wrapper select, .input-wrapper input[type=text], .input-wrapper input[type=number] {
   width: 100%;
   border: 1px solid #ACB4BE;
   border-radius: 4px;
