@@ -13,11 +13,30 @@ const app = createApp({
             investmentDiff: 0,   // 與投入金額相比
             returnDiff: 0,  // 與預期報酬相比
             chart: null,
-            currentDateTime: ''
+            currentDateTime: '',
+            // 基金狀態
+            funds: {
+                postal: false,
+                insurance: false,
+                labor: false,
+                retire: false
+            },
+            // 基金調整參數
+            fundMultipliers: {
+                postal: 0.96,
+                insurance: 0.95,
+                labor: 0.93,
+                retire: 0.94
+            }
         }
     },
     created() {
         this.currentDateTime = this.formatDateTime(new Date());
+    },
+    computed: {
+        hasActiveFunds() {
+            return Object.values(this.funds).some(fund => fund === true);
+        }
     },
     methods: {
         formatDateTime(date) {
@@ -43,8 +62,14 @@ const app = createApp({
             this.totalInvestment = Math.floor(this.monthlyIncome * (60 - this.age));
             // 2. 預期報酬 = 總計投入金額 x1.5 減去總計投入金額
             this.expectedReturn = Math.floor(this.totalInvestment * 1.5 - this.totalInvestment);
-            // 3. total = 總計投入金額 x1.5 x0.9 x0.9 x0.9 x0.9
-            this.total = Math.floor(this.totalInvestment * 1.5 * 0.9 * 0.9 * 0.9 * 0.9);
+            // 3. total = 總計投入金額 x1.5 x 各基金調整參數
+            let total = this.totalInvestment * 1.5;
+            Object.keys(this.funds).forEach(fundType => {
+                if (this.funds[fundType]) {
+                    total *= this.fundMultipliers[fundType];
+                }
+            });
+            this.total = Math.floor(total);
             // 4. 與投入金額相比 = total - 總計投入金額
             this.investmentDiff = Math.floor(this.total - this.totalInvestment);
             // 5. 與預期報酬相比 = total - 總計投入金額 - 預期報酬
@@ -56,6 +81,9 @@ const app = createApp({
             if (val > 0) return 'receipt-amount-positive';
             if (val < 0) return 'receipt-amount-negative';
             return '';
+        },
+        toggleFund(fundType) {
+            this.funds[fundType] = !this.funds[fundType];
         }
     }
 });

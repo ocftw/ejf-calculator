@@ -118,33 +118,19 @@
           <div class="column">
 
             <div class="fund-button-row">
-              <button class="btn-fund" data-fund="postal" data-on="true">
+              <button class="btn-fund" data-fund="postal" :data-on="funds.postal" @click="toggleFund('postal')">
                 <p>郵政儲金</p>
               </button>
-              <button class="btn-fund" data-fund="insurance" data-on="true">
+              <button class="btn-fund" data-fund="insurance" :data-on="funds.insurance" @click="toggleFund('insurance')">
                 <p>勞保基金</p>
               </button>
-              <button class="btn-fund" data-fund="labor" data-on="true">
+              <button class="btn-fund" data-fund="labor" :data-on="funds.labor" @click="toggleFund('labor')">
                 <p>勞退基金</p>
               </button>
-              <button class="btn-fund" data-fund="retire" data-on="true">
-                <p>退撫基金</p>
-              </button>
-              <button class="btn-fund" data-fund="postal" data-on="false">
-                <p>郵政儲金</p>
-              </button>
-              <button class="btn-fund" data-fund="insurance" data-on="false">
-                <p>勞保基金</p>
-              </button>
-              <button class="btn-fund" data-fund="labor" data-on="false">
-                <p>勞退基金</p>
-              </button>
-              <button class="btn-fund" data-fund="retire" data-on="false">
+              <button class="btn-fund" data-fund="retire" :data-on="funds.retire" @click="toggleFund('retire')">
                 <p>退撫基金</p>
               </button>
             </div>
-
-
 
             <div class="box">
               <canvas id="myChart"></canvas>
@@ -187,24 +173,24 @@
                 </div>
               </div>
 
-              <hr class="divider-receipt" />
+              <hr class="divider-receipt" v-if="hasActiveFunds" />
 
-              <div class="receipt-section receipt-funds">
-                <div class="receipt-row">
-                  <span>勞保儲金</span>
-                  <span class="receipt-multiplicator">x 0.9</span>
+              <div class="receipt-section receipt-funds" v-if="hasActiveFunds">
+                <div class="receipt-row" v-if="funds.postal">
+                  <span>郵政儲金</span>
+                  <span class="receipt-multiplicator">x {{ fundMultipliers.postal }}</span>
                 </div>
-                <div class="receipt-row">
+                <div class="receipt-row" v-if="funds.insurance">
+                  <span>勞保基金</span>
+                  <span class="receipt-multiplicator">x {{ fundMultipliers.insurance }}</span>
+                </div>
+                <div class="receipt-row" v-if="funds.labor">
                   <span>勞退基金</span>
-                  <span class="receipt-multiplicator">x 0.9</span>
+                  <span class="receipt-multiplicator">x {{ fundMultipliers.labor }}</span>
                 </div>
-                <div class="receipt-row">
-                  <span>勞退基金</span>
-                  <span class="receipt-multiplicator">x 0.9</span>
-                </div>
-                <div class="receipt-row">
+                <div class="receipt-row" v-if="funds.retire">
                   <span>退撫基金</span>
-                  <span class="receipt-multiplicator">x 0.9</span>
+                  <span class="receipt-multiplicator">x {{ fundMultipliers.retire }}</span>
                 </div>
               </div>
 
@@ -242,7 +228,6 @@
               </div>
 
             </div>
-
 
           </div>
         </div>
