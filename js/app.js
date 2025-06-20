@@ -38,6 +38,9 @@ const app = createApp({
             return Object.values(this.funds).some(fund => fund === true);
         }
     },
+    mounted() {
+        this.initChart();
+    },
     methods: {
         formatDateTime(date) {
             const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -76,6 +79,9 @@ const app = createApp({
             this.returnDiff = Math.floor(this.total - this.totalInvestment - this.expectedReturn);
             // 時間
             this.currentDateTime = this.formatDateTime(new Date());
+
+            // 更新圖表
+            this.updateChart();
         },
         amountClass(val) {
             if (val > 0) return 'receipt-amount-positive';
@@ -84,6 +90,107 @@ const app = createApp({
         },
         toggleFund(fundType) {
             this.funds[fundType] = !this.funds[fundType];
+        },
+        initChart() {
+            console.log('Chart.js 版本:', Chart.version);
+
+            const ctx = document.querySelector('#return-chart-canvas');
+            if (!ctx) return;
+
+            const chartStyle = {
+                gridBorder: {
+                    color: '#98A0AE',
+                    borderDash: [5, 5],
+                    // drawBorder: false,
+                    lineWidth: 0.5
+                },
+                axisBorder: {
+                    color: 'white',
+                    width: 1
+                }
+            }
+
+
+            // 創建獨立的配置物件，避免與 Vue 響應式系統衝突
+            const chartConfig = {
+                type: 'line',
+                data: {
+                    labels: [0, 10, 20, 30],
+                    datasets: [{
+                        label: '資產報酬',
+                        data: [500000, 1000000, 1500000, 2000000],
+                        borderColor: '#FFFFFF',
+                        borderWidth: 1,
+                        pointRadius: 0
+                    },
+                    {
+                        label: '投入金額',
+                        data: [0, 0, 0, 0],
+                        borderColor: '#98A0AE',
+                        borderWidth: 1,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: '投入時間（年）',
+                                color: '#FFFFFF',
+                                position: 'right',
+                                rotation: 0
+                            },
+                            ticks: {
+                                color: '#98A0AE'
+                            },
+                            grid: chartStyle.gridBorder,
+                            border: chartStyle.axisBorder,
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: '資產報酬（TWD）',
+                                color: '#FFFFFF',
+                                position: 'right',
+                                rotation: 90
+                            },
+                            ticks: {
+                                color: '#98A0AE',
+                                callback: function(value) {
+                                    return new Intl.NumberFormat('zh-TW').format(value);
+                                }
+                            },
+                            grid: chartStyle.gridBorder,
+                            border: chartStyle.axisBorder,
+                            min: 0,
+                            max: 2500000
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            };
+
+            this.chart = new Chart(ctx, chartConfig);
+        },
+
+        updateChart() {
+            if (!this.chart) return;
+
+            // 更新圖表數據
+            this.chart.data.labels = [0, 10, 20, 30];
+            this.chart.data.datasets[0].data = [500000, 1000000, 1500000, 2000000];
+            this.chart.data.datasets[1].data = [0, 0, 0, 0];
+
+            this.chart.update('none'); // 使用 'none' 模式避免動畫衝突
         }
     }
 });
