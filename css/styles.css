@@ -394,6 +394,7 @@ button.big-btn.btn-download:hover::after {
   border: 1px solid rgba(28, 30, 34, 0.08);
   box-shadow: -8px 16px 40px rgba(28, 30, 34, 0.08);
   background-color: #FFFFFF;
+  color: #3B4048;
   position: relative;
 }
 .calculator-wrapper .calculator-title {
@@ -663,4 +664,5 @@ button.btn-fund[data-on=true][data-fund=retire] {
 #fund-buttons {
   display: flex;
   gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }/*# sourceMappingURL=styles.css.map */

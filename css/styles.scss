@@ -353,6 +353,8 @@ button.big-btn {
   box-shadow: -8px 16px 40px $color-neutral-1000-trans-8;
   background-color: $color-white;
 
+  color: $color-neutral-900;
+
   position: relative;
 
   .calculator-title {
@@ -647,4 +649,5 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
 #fund-buttons {
   display: flex;
   gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
