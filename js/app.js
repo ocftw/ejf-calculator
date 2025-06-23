@@ -183,7 +183,7 @@ const app = Vue.createApp({
                                 color: '#98A0AE'
                             },
                             grid: CHART_STYLE.gridBorder,
-                            border: CHART_STYLE.axisBorder,
+                            border: CHART_STYLE.axisBorder
                         },
                         y: {
                             display: true,
@@ -195,10 +195,7 @@ const app = Vue.createApp({
                                 rotation: 90
                             },
                             ticks: {
-                                color: '#98A0AE',
-                                callback: function(value) {
-                                    return new Intl.NumberFormat('zh-TW').format(value);
-                                }
+                                color: '#98A0AE'
                             },
                             grid: CHART_STYLE.gridBorder,
                             border: CHART_STYLE.axisBorder,
@@ -251,7 +248,7 @@ const app = Vue.createApp({
             // 計算圖表數據 - 從目前年齡到60歲的預期報酬變化
             const totalYears = 60 - this.age;
 
-            // 生成每一年的數據點
+            // 生成從0年到總投入年數的數據點
             const years = [];
             for (let i = 0; i <= totalYears; i++) {
                 years.push(i);
@@ -271,8 +268,9 @@ const app = Vue.createApp({
             // 更新圖表數據
             chartInstance.data.labels = years;
             chartInstance.data.datasets[0].data = expectedReturnData;
-            // 將目前年齡傳遞給圖表，供 tooltip 使用
+            // 將目前年齡和總年數傳遞給圖表，供 tooltip 和標籤使用
             chartInstance.data.currentAge = this.age;
+            chartInstance.data.totalYears = totalYears;
             console.log('圖表數據更新完成');
 
             // 動態調整 Y 軸最大值
@@ -280,7 +278,9 @@ const app = Vue.createApp({
             console.log('最大值:', maxValue);
 
             if (maxValue > 0) {
-                const newMax = Math.ceil(maxValue * 1.2);
+                // 計算十萬的整數倍數作為最大值
+                const hundredThousand = 100000;
+                const newMax = Math.ceil(maxValue / hundredThousand) * hundredThousand;
                 console.log('新的 Y 軸最大值:', newMax);
                 console.log('準備設定 Y 軸最大值...');
                 chartInstance.options.scales.y.max = newMax;
