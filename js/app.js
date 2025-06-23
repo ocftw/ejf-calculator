@@ -6,7 +6,7 @@ const app = createApp({
             userName: '',
             monthlyIncome: 0,
             age: 0,
-            isGovernmentEmployee: '否',
+            isGovernmentEmployee: 'no',
             totalInvestment: 0, // 總計投入金額
             expectedReturn: 0,   // 預期報酬
             total: 0,            // total
