@@ -155,12 +155,20 @@ const app = Vue.createApp({
                         data: [0, 0, 0, 0], // 初始化為 0
                         borderColor: '#FFFFFF',
                         borderWidth: 1,
-                        pointRadius: 0
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: '#FFFFFF',
+                        pointHoverBorderColor: '#98A0AE',
+                        pointHoverBorderWidth: 2
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
                     scales: {
                         x: {
                             display: true,
@@ -201,6 +209,27 @@ const app = Vue.createApp({
                     plugins: {
                         legend: {
                             display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#FFFFFF',
+                            borderColor: '#98A0AE',
+                            borderWidth: 1,
+                            cornerRadius: 4,
+                            displayColors: false,
+                            callbacks: {
+                                title: function(context) {
+                                    const year = context[0].label;
+                                    const currentAge = this.chart.data.currentAge || 20;
+                                    const targetAge = currentAge + parseInt(year);
+                                    return `年齡 ${targetAge} 歲 (${year} 年後)`;
+                                },
+                                label: function(context) {
+                                    const value = context.parsed.y;
+                                    return `預期報酬: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
+                                }
+                            }
                         }
                     }
                 }
@@ -221,7 +250,13 @@ const app = Vue.createApp({
 
             // 計算圖表數據 - 從目前年齡到60歲的預期報酬變化
             const totalYears = 60 - this.age;
-            const years = [0, Math.floor(totalYears * 0.33), Math.floor(totalYears * 0.67), totalYears];
+
+            // 生成每一年的數據點
+            const years = [];
+            for (let i = 0; i <= totalYears; i++) {
+                years.push(i);
+            }
+
             console.log('年份陣列:', years);
 
             const expectedReturnData = years.map(year => {
@@ -236,6 +271,8 @@ const app = Vue.createApp({
             // 更新圖表數據
             chartInstance.data.labels = years;
             chartInstance.data.datasets[0].data = expectedReturnData;
+            // 將目前年齡傳遞給圖表，供 tooltip 使用
+            chartInstance.data.currentAge = this.age;
             console.log('圖表數據更新完成');
 
             // 動態調整 Y 軸最大值
