@@ -1,5 +1,21 @@
 const { createApp } = Vue;
 
+// 將 chartStyle 定義為全域常數，避免 Vue 響應式系統控制
+const CHART_STYLE = Object.freeze({
+    gridBorder: {
+        color: '#98A0AE',
+        borderDash: [5, 5],
+        lineWidth: 0.5
+    },
+    axisBorder: {
+        color: 'white',
+        width: 1
+    }
+});
+
+// 將 chart 實例存儲在 Vue 實例外部
+let chartInstance = null;
+
 const app = createApp({
     data() {
         return {
@@ -12,7 +28,6 @@ const app = createApp({
             total: 0,            // total
             investmentDiff: 0,   // 與投入金額相比
             returnDiff: 0,  // 與預期報酬相比
-            chart: null,
             currentDateTime: '',
             // 基金狀態
             funds: {
@@ -61,6 +76,8 @@ const app = createApp({
             return new Intl.NumberFormat('zh-TW').format(num);
         },
         calculate() {
+            console.log('=== 開始計算 ===');
+
             // 輸入驗證
             // FIXME: show error style and message at calculator instead of using alert
 
@@ -79,11 +96,15 @@ const app = createApp({
                 return;
             }
 
+            console.log('輸入驗證通過');
+
             // 1. 總計投入金額 = 月薪 x (60-年齡)
             this.totalInvestment = Math.floor(this.monthlyIncome * (60 - this.age));
+            console.log('總計投入金額:', this.totalInvestment);
 
             // 2. 預期報酬 = 總計投入金額 x1.5 減去總計投入金額
             this.expectedReturn = Math.floor(this.totalInvestment * 1.5 - this.totalInvestment);
+            console.log('預期報酬:', this.expectedReturn);
 
             // 3. total = 總計投入金額 x1.5 x 各基金調整參數
             let total = this.totalInvestment * 1.5;
@@ -93,18 +114,24 @@ const app = createApp({
                 }
             });
             this.total = Math.floor(total);
+            console.log('Total:', this.total);
 
             // 4. 與投入金額相比 = total - 總計投入金額
             this.investmentDiff = Math.floor(this.total - this.totalInvestment);
+            console.log('與投入金額相比:', this.investmentDiff);
 
             // 5. 與預期報酬相比 = total - 總計投入金額 - 預期報酬
             this.returnDiff = Math.floor(this.total - this.totalInvestment - this.expectedReturn);
+            console.log('與預期報酬相比:', this.returnDiff);
 
             // 時間
             this.currentDateTime = this.formatDateTime(new Date());
+            console.log('時間更新完成');
 
+            console.log('準備更新圖表...');
             // 更新圖表
             this.updateChart();
+            console.log('=== 計算完成 ===');
         },
         amountClass(val) {
             if (val > 0) return 'receipt-amount-positive';
@@ -119,18 +146,6 @@ const app = createApp({
 
             const ctx = document.querySelector('#return-chart-canvas');
             if (!ctx) return;
-
-            const chartStyle = {
-                gridBorder: {
-                    color: '#98A0AE',
-                    borderDash: [5, 5],
-                    lineWidth: 0.5
-                },
-                axisBorder: {
-                    color: 'white',
-                    width: 1
-                }
-            }
 
             // 創建獨立的配置物件，避免與 Vue 響應式系統衝突
             const chartConfig = {
@@ -168,8 +183,8 @@ const app = createApp({
                             ticks: {
                                 color: '#98A0AE'
                             },
-                            grid: chartStyle.gridBorder,
-                            border: chartStyle.axisBorder,
+                            grid: CHART_STYLE.gridBorder,
+                            border: CHART_STYLE.axisBorder,
                         },
                         y: {
                             display: true,
@@ -186,8 +201,8 @@ const app = createApp({
                                     return new Intl.NumberFormat('zh-TW').format(value);
                                 }
                             },
-                            grid: chartStyle.gridBorder,
-                            border: chartStyle.axisBorder,
+                            grid: CHART_STYLE.gridBorder,
+                            border: CHART_STYLE.axisBorder,
                             min: 0,
                             max: 2500000
                         }
@@ -200,18 +215,29 @@ const app = createApp({
                 }
             };
 
-            this.chart = new Chart(ctx, chartConfig);
+            // 使用全域變數存儲 chart 實例
+            chartInstance = new Chart(ctx, chartConfig);
         },
 
         updateChart() {
-            if (!this.chart) return;
+            console.log('=== 開始更新圖表 ===');
+
+            if (!chartInstance) {
+                console.log('圖表不存在，跳過更新');
+                return;
+            }
+
+            console.log('圖表存在，開始計算數據');
 
             // 計算圖表數據
             const years = [0, 10, 20, 30];
+            console.log('年份陣列:', years);
+
             const investmentData = years.map(year => {
                 if (year === 0) return 0;
                 return Math.floor(this.totalInvestment * (year / (60 - this.age)));
             });
+            console.log('投入金額數據:', investmentData);
 
             const returnData = years.map(year => {
                 if (year === 0) return 0;
@@ -223,19 +249,33 @@ const app = createApp({
                 });
                 return Math.floor(total);
             });
+            console.log('報酬數據:', returnData);
 
+            console.log('準備更新圖表數據...');
             // 更新圖表數據
-            this.chart.data.labels = years;
-            this.chart.data.datasets[0].data = returnData;
-            this.chart.data.datasets[1].data = investmentData;
+            chartInstance.data.labels = years;
+            chartInstance.data.datasets[0].data = returnData;
+            chartInstance.data.datasets[1].data = investmentData;
+            console.log('圖表數據更新完成');
 
             // 動態調整 Y 軸最大值
             const maxValue = Math.max(...returnData, ...investmentData);
+            console.log('最大值:', maxValue);
+
             if (maxValue > 0) {
-                this.chart.options.scales.y.max = Math.ceil(maxValue * 1.2);
+                const newMax = Math.ceil(maxValue * 1.2);
+                console.log('新的 Y 軸最大值:', newMax);
+                console.log('準備設定 Y 軸最大值...');
+                chartInstance.options.scales.y.max = newMax;
+                console.log('Y 軸最大值設定完成');
             }
 
-            this.chart.update('none'); // 使用 'none' 模式避免動畫衝突
+            console.log('準備呼叫 chart.update()...');
+            // 直接更新圖表，不使用 requestAnimationFrame
+            chartInstance.update('none');
+            console.log('chart.update() 完成');
+
+            console.log('=== 圖表更新完成 ===');
         }
     }
 });
