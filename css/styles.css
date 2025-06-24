@@ -576,14 +576,13 @@ button.btn-fund[data-on=true][data-fund=retire] {
 }
 
 /* 基本版面 CSS */
-.section {
+#app {
   padding: 3rem 1.5rem;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
 }
 
 .columns {
@@ -640,7 +639,7 @@ button.btn-fund[data-on=true][data-fund=retire] {
 }
 
 #subtitle {
-  margin-bottom: 2.5rem;
+  margin: 0 0 2.5rem;
   border-right: 1px solid #FFFFFF;
   display: inline-block;
   padding-right: 1em;
@@ -661,17 +660,16 @@ button.btn-fund[data-on=true][data-fund=retire] {
   margin: 2rem 0;
 }
 
-#fund-buttons {
+#chart-column #fund-buttons {
   display: flex;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
 }
-
-#return-chart {
+#chart-column #return-chart {
   width: 100%;
   height: 450px;
 }
-#return-chart canvas {
+#chart-column #return-chart canvas {
   width: 100% !important;
   height: 100% !important;
 }/*# sourceMappingURL=styles.css.map */

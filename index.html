@@ -10,7 +10,6 @@
 
 <body>
   <div id="app">
-    <section class="section">
       <div class="container">
         <h1 id="title">
           <img src="images/ejf-logo-white.png" alt="EJF Logo">
@@ -79,7 +78,7 @@
 
         <div class="columns">
           <!-- 左側輸入表單部分 -->
-          <div class="column">
+          <div id="calculator-column" class="column">
 
             <div class="calculator-wrapper">
               <span class="calculator-title">Calculator</span>
@@ -123,7 +122,7 @@
           </div>
 
           <!-- 中間圖表區域 -->
-          <div class="column">
+          <div id="chart-column" class="column">
 
             <div id="fund-buttons">
               <button class="btn-fund" data-fund="postal" :data-on="funds.postal" @click="toggleFund('postal')">
@@ -143,10 +142,11 @@
             <div id="return-chart">
               <canvas id="return-chart-canvas"></canvas>
             </div>
+
           </div>
 
           <!-- 右側計算結果 -->
-          <div class="column">
+          <div id="receipt-column" class="column">
 
             <div class="receipt-box">
               <img class="receipt-logo" src="images/ejf-logo-black.png" alt="EJF Logo">
@@ -238,9 +238,9 @@
             </div>
 
           </div>
+
         </div>
       </div>
-    </section>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.17/vue.global.prod.min.js" integrity="sha512-B+xT9hBEokScoEYqF2L6zjF/R0mtYb11XURk2ERx89eRofWtgsrCljvx30JospRZRI3v19p9pRWvmLQ6ySS9FA==" crossorigin="anonymous" referrerpolicy="no-referrer" onerror="this.src='lib/vue.global.prod.min.js'"></script>

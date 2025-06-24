@@ -558,14 +558,14 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
 // ===== page layout =====
 
 /* 基本版面 CSS */
-.section {
+#app {
   padding: 3rem 1.5rem;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
+  // padding: 0 1rem;
 }
 
 .columns {
@@ -624,7 +624,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
 }
 
 #subtitle {
-  margin-bottom: 2.5rem;
+  margin: 0 0 2.5rem;
   border-right: 1px solid $color-white;
   display: inline-block;
   padding-right: 1em;
@@ -646,20 +646,24 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   margin: 2rem 0;
 }
 
-#fund-buttons {
-  display: flex;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-}
+#chart-column {
 
-#return-chart {
-  width: 100%;
-  height: 450px;
-  // border: 1px solid green;
-
-  canvas {
-    width: 100% !important;
-    height: 100% !important;
-    // backdrop-filter: blur(8px);
+  #fund-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
   }
+
+  #return-chart {
+    width: 100%;
+    height: 450px;
+    // border: 1px solid green;
+
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+      // backdrop-filter: blur(8px);
+    }
+  }
+
 }
