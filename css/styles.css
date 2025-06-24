@@ -708,4 +708,15 @@ button.btn-fund[data-on=true][data-fund=retire] {
 #chart-column #return-chart canvas {
   width: 100% !important;
   height: 100% !important;
+}
+
+#receipt-column {
+  text-align: center;
+}
+#receipt-column .receipt-box {
+  margin-bottom: 3rem;
+}
+#receipt-column button.btn-share {
+  width: 100%;
+  max-width: 240px;
 }/*# sourceMappingURL=styles.css.map */

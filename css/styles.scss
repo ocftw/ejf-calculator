@@ -706,3 +706,15 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   }
 
 }
+
+#receipt-column {
+  text-align: center;
+
+  .receipt-box {
+    margin-bottom: 3rem;
+  }
+  button.btn-share {
+    width: 100%;
+    max-width: 240px;
+  }
+}
