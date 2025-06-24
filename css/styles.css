@@ -24,6 +24,8 @@ body {
   background-size: 1024px;
   min-height: 100vh;
   color: #FFFFFF;
+  padding: 0;
+  margin: 0;
 }
 
 h1 {
@@ -578,6 +580,7 @@ button.btn-fund[data-on=true][data-fund=retire] {
 /* 基本版面 CSS */
 #app {
   padding: 3rem 1.5rem;
+  overflow: hidden;
 }
 
 .container {
@@ -630,12 +633,45 @@ button.btn-fund[data-on=true][data-fund=retire] {
   align-items: center;
   gap: 1rem;
   margin: 0;
+  position: relative;
 }
 #title img {
   height: 4rem;
   margin-right: 1rem;
   position: relative;
   top: 0.25rem;
+}
+#title img, #title .title-text {
+  z-index: 1;
+}
+#title .title-decoration {
+  z-index: 0;
+}
+#title .title-decoration {
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  height: 0;
+  pointer-events: none;
+}
+#title .title-decoration::before {
+  content: "";
+  position: absolute;
+  left: -50vw;
+  right: -50vw;
+  top: 2rem;
+  height: 1px;
+  background: #77787a;
+  width: 200vw;
+}
+#title .title-decoration::after {
+  content: "";
+  position: absolute;
+  left: 2rem;
+  top: -50vh;
+  width: 1px;
+  height: 300vh;
+  background: #77787a;
 }
 
 #subtitle {
