@@ -145,6 +145,11 @@ const app = Vue.createApp({
         },
         toggleFund(fundType) {
             this.funds[fundType] = !this.funds[fundType];
+
+            // 如果有計算過數據，則重新計算
+            if (this.totalInvestment > 0) {
+                this.calculate();
+            }
         },
         initChart() {
             console.log('Chart.js 版本:', Chart.version);
