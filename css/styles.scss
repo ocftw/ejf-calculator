@@ -162,7 +162,6 @@ small {
 
 .color-black { color: $color-black; }
 .color-white { color: $color-white; }
-.color-transparent { color: rgba($color-white, 0%); }
 
 .color-neutral-1000-bk { background-color: $color-neutral-1000; }
 .color-neutral-900-bk { background-color: $color-neutral-900; }
@@ -795,6 +794,11 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
     gap: 2rem;
   }
 
+  .lightbox-left, .lightbox-right {
+    max-width: 320px;
+    width: 100%;
+  }
+
   .lightbox-left {
     display: flex;
     flex-direction: column;
@@ -802,19 +806,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
 
     max-width: 320px;
     color: $color-neutral-900;
-
-  }
-
-  .lightbox-right {
-    flex: 1;
-    // padding: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: $color-white;
-  }
-
-  .lightbox-left {
 
     p {
       margin-top: 0;
@@ -843,25 +834,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
       margin-top: auto;
       width: 100%;
       max-width: $width-share-section;
-    }
-  }
-
-  .lightbox-right {
-
-    @include mobile {
-      padding: 1.5rem;
-    }
-
-    .receipt-lightbox {
-      max-width: 320px;
-      width: 100%;
-      margin: 0;
-      box-shadow: none;
-      border: 1px solid $color-neutral-200;
-
-      &::after {
-        display: none; // 移除 receipt 底部的裝飾
-      }
     }
   }
 }
