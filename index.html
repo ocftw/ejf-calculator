@@ -239,13 +239,64 @@
             </div>
 
             <div class="receipt-share-btn">
-              <button class="big-btn btn-share">心碎分享</button>
+              <button class="big-btn btn-share" onclick="openShareLightbox()">心碎分享</button>
             </div>
 
           </div>
 
         </div>
       </div>
+  </div>
+
+  <!-- Lightbox 分享視窗 -->
+  <div id="share-lightbox" class="lightbox" onclick="closeShareLightbox()">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <h4>四大基金畢業收據</h4>
+      <hr class="divider-default" />
+
+      <div class="lightbox-columns">
+        <!-- 左欄：文字、按鈕 -->
+        <div class="lightbox-left">
+          <div class="share-text">
+            <p>這是你從四大基金「畢業」的成績單。<br>投資回報一覽無遺，連同對環境的無聲代價。</p>
+            <p>心碎了嗎？你不是一個人。<br>分享這張收據，讓更多人重新檢視這筆「國家級投資」。</p>
+          </div>
+
+          <div class="share-section">
+            <div class="share-btns">
+              <a href="https://www.facebook.com/sharer/sharer.php?u=https://positronic-lab.github.io/ejf/" target="_blank" title="分享到 Facebook">
+                <span class="icon size-48 facebook"></span>
+              </a>
+
+              <a href="https://lineit.line.me/share/ui?url=https://positronic-lab.github.io/ejf/" target="_blank" title="分享到 Line">
+                <span class="icon size-48 line"></span>
+              </a>
+
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://positronic-lab.github.io/ejf/" target="_blank" title="分享到 LinkedIn">
+                <span class="icon size-48 linkedin"></span>
+              </a>
+
+              <a href="https://www.instagram.com/share?url=https://positronic-lab.github.io/ejf/" target="_blank" title="分享到 Instagram">
+                <span class="icon size-48 instagram"></span>
+              </a>
+            </div>
+
+            <button class="big-btn btn-download" onclick="downloadImage()">下載圖檔</button>
+          </div>
+
+          <div class="back-section">
+            <button class="big-btn btn-back" onclick="closeShareLightbox()">再算(ㄠ)一下</button>
+          </div>
+        </div>
+
+        <!-- 右欄：receipt 副本 -->
+        <div class="lightbox-right">
+          <div id="lightbox-receipt-container">
+            <!-- 複製的 receipt 會放在這裡 -->
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.17/vue.global.prod.min.js" integrity="sha512-B+xT9hBEokScoEYqF2L6zjF/R0mtYb11XURk2ERx89eRofWtgsrCljvx30JospRZRI3v19p9pRWvmLQ6ySS9FA==" crossorigin="anonymous" referrerpolicy="no-referrer" onerror="this.src='lib/vue.global.prod.min.js'"></script>

@@ -412,3 +412,45 @@ const app = Vue.createApp({
 });
 
 app.mount('#app');
+
+// ===== 純 JavaScript Lightbox =====
+function openShareLightbox() {
+    copyReceiptToLightbox();
+
+    // 顯示 lightbox
+    const lightbox = document.getElementById('share-lightbox');
+    if (lightbox) {
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeShareLightbox() {
+    console.log('closeShareLightbox 被呼叫');
+
+    const lightbox = document.getElementById('share-lightbox');
+    if (lightbox) {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+}
+
+function copyReceiptToLightbox() {
+    const originalReceipt = document.querySelector('.receipt-box');
+    const container = document.getElementById('lightbox-receipt-container');
+
+    if (!originalReceipt || !container) {
+        console.error('無法找到 receipt 元素');
+        return;
+    }
+
+    container.innerHTML = '';
+    const receiptClone = originalReceipt.cloneNode(true);
+
+    container.appendChild(receiptClone);
+}
+
+function downloadImage() {
+    console.log('下載圖檔功能待實作');
+    alert('下載圖檔功能開發中...');
+}

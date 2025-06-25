@@ -746,3 +746,117 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
     }
   }
 }
+
+// ===== Lightbox 分享視窗 =====
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+
+  display: none; // 預設隱藏
+
+  .lightbox-content {
+    background: linear-gradient(135deg, $color-white, #{darken($color-white, 12%)});
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border: 1px solid $color-neutral-1000-trans-8;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    padding: 2rem;
+    color: $color-black;
+
+    h4 {
+      margin: 0;
+      line-height: 1.5rem;
+    }
+    > hr {
+      margin: 1.25rem 0;
+    }
+  }
+
+  .lightbox-columns {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .lightbox-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    max-width: 320px;
+    color: $color-neutral-900;
+
+  }
+
+  .lightbox-right {
+    flex: 1;
+    // padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-white;
+  }
+
+  .lightbox-left {
+
+    p {
+      margin-top: 0;
+    }
+
+    $width-share-section: 264px;
+
+    .share-section {
+      max-width: $width-share-section;
+      width: 100%;
+    }
+
+    .share-btns {
+      display: flex;
+      margin: 1.5rem 0;
+      justify-content: space-between;
+
+      a {
+        display: inline-block;
+        width: 48px;
+        height: 48px;
+      }
+    }
+
+    .back-section {
+      margin-top: auto;
+      width: 100%;
+      max-width: $width-share-section;
+    }
+  }
+
+  .lightbox-right {
+
+    @include mobile {
+      padding: 1.5rem;
+    }
+
+    .receipt-lightbox {
+      max-width: 320px;
+      width: 100%;
+      margin: 0;
+      box-shadow: none;
+      border: 1px solid $color-neutral-200;
+
+      &::after {
+        display: none; // 移除 receipt 底部的裝飾
+      }
+    }
+  }
+}
