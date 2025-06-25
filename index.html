@@ -239,7 +239,7 @@
             </div>
 
             <div class="receipt-share-btn">
-              <button class="big-btn btn-share" onclick="openShareLightbox()">心碎分享</button>
+              <button class="big-btn btn-share" onclick="lightbox.openShareLightbox()">心碎分享</button>
             </div>
 
           </div>
@@ -249,7 +249,7 @@
   </div>
 
   <!-- Lightbox 分享視窗 -->
-  <div id="share-lightbox" class="lightbox" onclick="closeShareLightbox()">
+  <div id="share-lightbox" class="lightbox" onclick="lightbox.closeShareLightbox()">
     <div class="lightbox-content" onclick="event.stopPropagation()">
       <h4>四大基金畢業收據</h4>
       <hr class="divider-default" />
@@ -281,11 +281,11 @@
               </a>
             </div>
 
-            <button class="big-btn btn-download" onclick="downloadImage()">下載圖檔</button>
+            <button class="big-btn btn-download" onclick="lightbox.downloadImage()">下載圖檔</button>
           </div>
 
           <div class="back-section">
-            <button class="big-btn btn-back" onclick="closeShareLightbox()">再算(ㄠ)一下</button>
+            <button class="big-btn btn-back" onclick="lightbox.closeShareLightbox()">再算(ㄠ)一下</button>
           </div>
         </div>
 
