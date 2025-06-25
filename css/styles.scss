@@ -50,25 +50,25 @@ $color-neutral-1000-trans-8: fade-out($color-neutral-1000, 0.92);
 $color-status-info-500: #6B98E0;
 
 $color-background: #1E1E1E;
-$background-image: url('/images/grid.png');
+$background-image: url('../images/grid.png');
 $background-size: 1024px;
 
-$icon-right-default: url('/images/icon-right-default.png');
-$icon-down-default: url('/images/icon-down-default.png');
-$icon-dropdown-default: url('/images/icon-dropdown-default.png');
-$icon-dropdown-collapse: url('/images/icon-dropdown-collapse.png');
-$icon-right-ejf: url('/images/icon-right-ejf.png');
-$icon-down-ejf: url('/images/icon-down-ejf.png');
-$icon-download-ejf: url('/images/icon-download-ejf.png');
-$icon-right-white: url('/images/icon-right-white.png');
-$icon-down-white: url('/images/icon-down-white.png');
-$icon-download-white: url('/images/icon-download-white.png');
-$icon-heart-white: url('/images/icon-heart-white.png');
-$icon-heart-ejf: url('/images/icon-heart-ejf.png');
-$icon-facebook: url('/images/icon-facebook.png');
-$icon-line: url('/images/icon-line.png');
-$icon-linkedin: url('/images/icon-linkedin.png');
-$icon-instagram: url('/images/icon-instagram.png');
+$icon-right-default: url('../images/icon-right-default.png');
+$icon-down-default: url('../images/icon-down-default.png');
+$icon-dropdown-default: url('../images/icon-dropdown-default.png');
+$icon-dropdown-collapse: url('../images/icon-dropdown-collapse.png');
+$icon-right-ejf: url('../images/icon-right-ejf.png');
+$icon-down-ejf: url('../images/icon-down-ejf.png');
+$icon-download-ejf: url('../images/icon-download-ejf.png');
+$icon-right-white: url('../images/icon-right-white.png');
+$icon-down-white: url('../images/icon-down-white.png');
+$icon-download-white: url('../images/icon-download-white.png');
+$icon-heart-white: url('../images/icon-heart-white.png');
+$icon-heart-ejf: url('../images/icon-heart-ejf.png');
+$icon-facebook: url('../images/icon-facebook.png');
+$icon-line: url('../images/icon-line.png');
+$icon-linkedin: url('../images/icon-linkedin.png');
+$icon-instagram: url('../images/icon-instagram.png');
 
 // ===== Typography =====
 
@@ -415,10 +415,10 @@ button.btn-fund {
 
     p { visibility: hidden; }
 
-    &[data-fund="postal"] { background-image: url('/images/fund_postal_on.png'); }
-    &[data-fund="insurance"] { background-image: url('/images/fund_insurance_on.png'); }
-    &[data-fund="labor"] { background-image: url('/images/fund_labor_on.png'); }
-    &[data-fund="retire"] { background-image: url('/images/fund_retire_on.png'); }
+    &[data-fund="postal"] { background-image: url('../images/fund_postal_on.png'); }
+    &[data-fund="insurance"] { background-image: url('../images/fund_insurance_on.png'); }
+    &[data-fund="labor"] { background-image: url('../images/fund_labor_on.png'); }
+    &[data-fund="retire"] { background-image: url('../images/fund_retire_on.png'); }
   }
 }
 
@@ -512,7 +512,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
     display: block;
     width: 100%;
     height: 10px;
-    background-image: url("/images/receipt_bottom.png");
+    background-image: url("../images/receipt_bottom.png");
     background-size: 100%;
     position: absolute;
     bottom: -10px;

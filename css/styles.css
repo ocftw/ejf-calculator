@@ -20,7 +20,7 @@ body {
   font-family: "Noto Sans TC", sans-serif;
   font-weight: 400;
   background-color: #1E1E1E;
-  background-image: url("/images/grid.png");
+  background-image: url("../images/grid.png");
   background-size: 1024px;
   min-height: 100vh;
   color: #FFFFFF;
@@ -233,49 +233,49 @@ small.bold {
   height: 12px;
 }
 .icon.right-default {
-  background-image: url("/images/icon-right-default.png");
+  background-image: url("../images/icon-right-default.png");
 }
 .icon.down-default {
-  background-image: url("/images/icon-down-default.png");
+  background-image: url("../images/icon-down-default.png");
 }
 .icon.dropdown-default {
-  background-image: url("/images/icon-dropdown-default.png");
+  background-image: url("../images/icon-dropdown-default.png");
 }
 .icon.dropdown-collapse {
-  background-image: url("/images/icon-dropdown-collapse.png");
+  background-image: url("../images/icon-dropdown-collapse.png");
 }
 .icon.right-ejf {
-  background-image: url("/images/icon-right-ejf.png");
+  background-image: url("../images/icon-right-ejf.png");
 }
 .icon.down-ejf {
-  background-image: url("/images/icon-down-ejf.png");
+  background-image: url("../images/icon-down-ejf.png");
 }
 .icon.download-ejf {
-  background-image: url("/images/icon-download-ejf.png");
+  background-image: url("../images/icon-download-ejf.png");
 }
 .icon.right-white {
-  background-image: url("/images/icon-right-white.png");
+  background-image: url("../images/icon-right-white.png");
 }
 .icon.down-white {
-  background-image: url("/images/icon-down-white.png");
+  background-image: url("../images/icon-down-white.png");
 }
 .icon.download-white {
-  background-image: url("/images/icon-download-white.png");
+  background-image: url("../images/icon-download-white.png");
 }
 .icon.heart-white {
-  background-image: url("/images/icon-heart-white.png");
+  background-image: url("../images/icon-heart-white.png");
 }
 .icon.facebook {
-  background-image: url("/images/icon-facebook.png");
+  background-image: url("../images/icon-facebook.png");
 }
 .icon.line {
-  background-image: url("/images/icon-line.png");
+  background-image: url("../images/icon-line.png");
 }
 .icon.linkedin {
-  background-image: url("/images/icon-linkedin.png");
+  background-image: url("../images/icon-linkedin.png");
 }
 .icon.instagram {
-  background-image: url("/images/icon-instagram.png");
+  background-image: url("../images/icon-instagram.png");
 }
 
 hr {
@@ -375,28 +375,28 @@ button.big-btn::after {
   position: absolute;
 }
 button.big-btn.btn-calculate::after {
-  background-image: url("/images/icon-right-white.png");
+  background-image: url("../images/icon-right-white.png");
 }
 button.big-btn.btn-calculate:hover::after {
-  background-image: url("/images/icon-right-ejf.png");
+  background-image: url("../images/icon-right-ejf.png");
 }
 button.big-btn.btn-share::after {
-  background-image: url("/images/icon-heart-white.png");
+  background-image: url("../images/icon-heart-white.png");
 }
 button.big-btn.btn-share:hover::after {
-  background-image: url("/images/icon-heart-ejf.png");
+  background-image: url("../images/icon-heart-ejf.png");
 }
 button.big-btn.btn-back::after {
-  background-image: url("/images/icon-right-white.png");
+  background-image: url("../images/icon-right-white.png");
 }
 button.big-btn.btn-back:hover::after {
-  background-image: url("/images/icon-right-ejf.png");
+  background-image: url("../images/icon-right-ejf.png");
 }
 button.big-btn.btn-download::after {
-  background-image: url("/images/icon-download-white.png");
+  background-image: url("../images/icon-download-white.png");
 }
 button.big-btn.btn-download:hover::after {
-  background-image: url("/images/icon-download-ejf.png");
+  background-image: url("../images/icon-download-ejf.png");
 }
 
 .calculator-wrapper {
@@ -449,16 +449,16 @@ button.btn-fund[data-on=true] p {
   visibility: hidden;
 }
 button.btn-fund[data-on=true][data-fund=postal] {
-  background-image: url("/images/fund_postal_on.png");
+  background-image: url("../images/fund_postal_on.png");
 }
 button.btn-fund[data-on=true][data-fund=insurance] {
-  background-image: url("/images/fund_insurance_on.png");
+  background-image: url("../images/fund_insurance_on.png");
 }
 button.btn-fund[data-on=true][data-fund=labor] {
-  background-image: url("/images/fund_labor_on.png");
+  background-image: url("../images/fund_labor_on.png");
 }
 button.btn-fund[data-on=true][data-fund=retire] {
-  background-image: url("/images/fund_retire_on.png");
+  background-image: url("../images/fund_retire_on.png");
 }
 
 .marquee-wrapper {
@@ -537,7 +537,7 @@ button.btn-fund[data-on=true][data-fund=retire] {
   display: block;
   width: 100%;
   height: 10px;
-  background-image: url("/images/receipt_bottom.png");
+  background-image: url("../images/receipt_bottom.png");
   background-size: 100%;
   position: absolute;
   bottom: -10px;
