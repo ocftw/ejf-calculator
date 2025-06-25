@@ -710,6 +710,7 @@ button.btn-fund[data-on=true][data-fund=retire] {
   display: flex;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 #chart-column #return-chart {
   width: 100%;
