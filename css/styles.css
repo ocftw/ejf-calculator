@@ -710,13 +710,14 @@ button.btn-fund[data-on=true][data-fund=retire] {
   height: 100% !important;
 }
 
-#receipt-column {
-  text-align: center;
-}
 #receipt-column .receipt-box {
   margin-bottom: 3rem;
 }
-#receipt-column button.btn-share {
+#receipt-column .receipt-share-btn {
+  display: flex;
+  justify-content: center;
+}
+#receipt-column .receipt-share-btn button.btn-share {
   width: 100%;
   max-width: 240px;
 }/*# sourceMappingURL=styles.css.map */
