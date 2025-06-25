@@ -728,6 +728,9 @@ button.btn-fund[data-on=true][data-fund=retire] {
 #receipt-column .receipt-box {
   margin-bottom: 3rem;
 }
+#receipt-column .receipt-qrcode {
+  display: none;
+}
 #receipt-column .receipt-share-btn {
   display: flex;
   justify-content: center;

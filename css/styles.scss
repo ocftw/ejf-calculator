@@ -736,6 +736,11 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   .receipt-box {
     margin-bottom: 3rem;
   }
+
+  .receipt-qrcode {
+    display: none;
+  }
+
   .receipt-share-btn {
     display: flex;
     justify-content: center;
