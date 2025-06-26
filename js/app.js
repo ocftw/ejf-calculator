@@ -532,6 +532,33 @@ const lightbox = {
 
         const shootUrl = 'https://hotshot.anoni.net/shoot?path=/ejf/receipt%3F' + paramPart + '&selector=div[id=app]&vpw=336&vph=2100';
 
-        window.open(shootUrl, '_blank');
+        // 使用 fetch 獲取圖片數據
+        fetch(shootUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('網路回應不正常');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const blobUrl = window.URL.createObjectURL(blob);
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = blobUrl;
+                downloadLink.download = 'EJF四大基金投資報酬計算機收據.png';
+                downloadLink.style.display = 'none';
+
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+
+                document.body.removeChild(downloadLink);
+                window.URL.revokeObjectURL(blobUrl);
+
+                console.log('=== 下載圖片完成 ===');
+            })
+            .catch(error => {
+                console.error('下載圖片時發生錯誤:', error);
+                window.open(shootUrl, '_blank');
+            });
     }
 };
