@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>畢業收據 - 政府四大基金投資報酬計算機</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body {
+      background: #ECEEF0;
+      min-height: 750px;
+      height: 100vh;
+    }
+    #app {
+      padding: 0.5rem 0.5rem 1rem;
+    }
+  </style>
+</head>
+
+<body data-mode="receipt">
+  <!--
+ 本頁支援以下網址參數（Query String）：
+
+ 必填：
+ - userName：使用者名稱（字串）
+ - totalInvestment：預計投入金額（數字）
+ - expectedReturn：預期報酬（數字）
+ - isGovernmentEmployee：是否為公務員（yes 或 no，預設 no）
+
+ 選填：
+ - currentDateTime：自訂收據時間（字串，僅接受 ISO 8601 格式，如 2025-06-26T12:00:00，無需時區）
+ - postal：郵政儲金是否啟用（true/false，預設 true）
+ - insurance：勞保基金是否啟用（true/false，預設 true）
+ - labor：勞退基金是否啟用（true/false，預設 true）
+ - retire：退撫基金是否啟用（true/false，預設 true）
+
+ 範例：
+ receipt.html?
+  userName=小明
+  &expectedReturn=500000
+  &totalInvestment=1000000
+  &isGovernmentEmployee=yes
+  &postal=true
+  &labor=true
+  &retire=true
+  &insurance=true
+  &currentDateTime=2025-06-26T12:00:00
+  -->
+  <div id="app">
+    <div class="receipt-box">
+      <img class="receipt-logo" src="images/ejf-logo-black.png" alt="EJF Logo">
+      <div class="receipt-datetime">{{ formattedDateTime }}</div>
+      <hr class="divider-receipt" />
+      <div class="receipt-section">
+        <div class="receipt-row">
+          <span>Customer Name</span>
+          <span>{{ userName }}</span>
+        </div>
+        <div class="receipt-row">
+          <span>Customer Type</span>
+          <span>{{ isGovernmentEmployee === 'yes' ? 'Civil Servant' : 'Citizen' }}</span>
+        </div>
+      </div>
+      <hr class="divider-receipt" />
+      <div class="receipt-section">
+        <div class="receipt-row">
+          <span>總計投入金額</span>
+          <span class="receipt-amount">{{ formatNumber(totalInvestment) }}</span>
+        </div>
+        <div class="receipt-row">
+          <span>預期報酬</span>
+          <span class="receipt-amount">{{ formatNumber(expectedReturn) }}</span>
+        </div>
+      </div>
+      <hr class="divider-receipt" v-if="hasActiveFunds" />
+      <div class="receipt-section receipt-funds" v-if="hasActiveFunds">
+        <div class="receipt-row" v-if="funds.postal">
+          <span>郵政儲金</span>
+          <span class="receipt-multiplicator">x {{ fundMultipliers.postal }}</span>
+        </div>
+        <div class="receipt-row" v-if="funds.insurance">
+          <span>勞保基金</span>
+          <span class="receipt-multiplicator">x {{ fundMultipliers.insurance }}</span>
+        </div>
+        <div class="receipt-row" v-if="funds.labor">
+          <span>勞退基金</span>
+          <span class="receipt-multiplicator">x {{ fundMultipliers.labor }}</span>
+        </div>
+        <div class="receipt-row" v-if="funds.retire">
+          <span>退撫基金</span>
+          <span class="receipt-multiplicator">x {{ fundMultipliers.retire }}</span>
+        </div>
+      </div>
+      <hr class="divider-receipt" />
+      <div class="receipt-section">
+        <div class="receipt-row">
+          <span>Total</span>
+          <span>{{ formatNumber(total) }}</span>
+        </div>
+        <div class="receipt-row">
+          <span>與投入報酬相比</span>
+          <span :class="amountClass(investmentDiff)">{{ formatNumber(investmentDiff) }}</span>
+        </div>
+        <div class="receipt-row">
+          <span>與預期報酬相比</span>
+          <span :class="amountClass(returnDiff)">{{ formatNumber(returnDiff) }}</span>
+        </div>
+      </div>
+      <hr class="divider-receipt" />
+      <div class="receipt-section receipt-qrcode">
+        <div class="receipt-row receipt-bottom">
+          <span>
+            這筆帳，該算清楚了。<br>
+            試算你的投資報酬與碳排代價 →
+          </span>
+          <img src="images/qrcode.png" alt="QR Code">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.17/vue.global.prod.min.js" integrity="sha512-B+xT9hBEokScoEYqF2L6zjF/R0mtYb11XURk2ERx89eRofWtgsrCljvx30JospRZRI3v19p9pRWvmLQ6ySS9FA==" crossorigin="anonymous" referrerpolicy="no-referrer" onerror="this.src='lib/vue.global.prod.min.js'"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

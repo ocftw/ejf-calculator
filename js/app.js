@@ -1,3 +1,12 @@
+// 頁面模式檢測
+function getQueryParam(name, def = '') {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name) || def;
+}
+
+// 檢測是否為 receipt 模式（透過 body 的 data-mode 屬性）
+const isReceiptMode = document.body.getAttribute('data-mode') === 'receipt';
+
 const CHART_STYLE = {
     gridBorder: {
         color: '#98A0AE',
@@ -21,24 +30,22 @@ let chartInstance = null;
 const app = Vue.createApp({
     data() {
         return {
-            userName: '',
-            monthlyIncome: 25250,
-            age: 20,
-            isGovernmentEmployee: 'no',
-            totalInvestment: 0, // 總計投入金額
-            expectedReturn: 0,   // 預期報酬
-            total: 0,            // total
-            investmentDiff: 0,   // 與投入金額相比
-            returnDiff: 0,  // 與預期報酬相比
-            currentDateTime: '',
-            // 基金狀態
+            userName: isReceiptMode ? getQueryParam('userName') : '',
+            monthlyIncome: isReceiptMode ? 0 : 25250,
+            age: isReceiptMode ? 0 : 20,
+            isGovernmentEmployee: isReceiptMode ? getQueryParam('isGovernmentEmployee', 'no') : 'no',
+            totalInvestment: isReceiptMode ? Number(getQueryParam('totalInvestment', 0)) : 0,
+            expectedReturn: isReceiptMode ? Number(getQueryParam('expectedReturn', 0)) : 0,
+            total: 0,
+            investmentDiff: 0,
+            returnDiff: 0,
+            currentDateTime: isReceiptMode ? getQueryParam('currentDateTime') || '' : '',
             funds: {
-                postal: false,
-                insurance: false,
-                labor: false,
-                retire: false
+                postal: isReceiptMode ? getQueryParam('postal', 'true') !== 'false' : false,
+                insurance: isReceiptMode ? getQueryParam('insurance', 'true') !== 'false' : false,
+                labor: isReceiptMode ? getQueryParam('labor', 'true') !== 'false' : false,
+                retire: isReceiptMode ? getQueryParam('retire', 'true') !== 'false' : false
             },
-            // 基金調整參數
             fundMultipliers: {
                 postal: 0.9,
                 insurance: 0.8,
@@ -48,15 +55,23 @@ const app = Vue.createApp({
         }
     },
     created() {
-        this.currentDateTime = this.formatDateTime(new Date());
+        if (!this.currentDateTime || !(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(this.currentDateTime)))
+            this.currentDateTime = new Date().toISOString();
+
+        if (isReceiptMode) this.calculateReceiptMode();
     },
     computed: {
         hasActiveFunds() {
             return Object.values(this.funds).some(fund => fund === true);
+        },
+        formattedDateTime() {
+            console.log('formattedDateTime this.currentDateTime', this.currentDateTime);
+            if (!this.currentDateTime) return '';
+            return this.formatDateTime(new Date(this.currentDateTime));
         }
     },
     mounted() {
-        this.initChart();
+        if (!isReceiptMode) this.initChart();
     },
     methods: {
         formatDateTime(date) {
@@ -77,20 +92,22 @@ const app = Vue.createApp({
         formatNumber(num) {
             return new Intl.NumberFormat('zh-TW').format(num);
         },
+        adjustTotal(baseTotal) {
+            let total = baseTotal;
+            Object.keys(this.funds).forEach(fundType => {
+                if (this.funds[fundType]) {
+                    total *= this.fundMultipliers[fundType];
+                }
+            });
+            this.total = Math.floor(total);
+            this.investmentDiff = Math.floor(this.total - this.totalInvestment);
+            this.returnDiff = Math.floor(this.total - this.totalInvestment - this.expectedReturn);
+        },
         calculate() {
             console.log('=== 開始計算 ===');
 
             // 輸入驗證
             // FIXME: show error style and message at calculator instead of using alert
-
-            /*
-            // 計算時暫不需要檢查是否有名字
-            if (!this.userName.trim()) {
-                alert('請輸入您的名字');
-                return;
-            }
-            */
-
             if (!this.monthlyIncome || this.monthlyIncome <= 0) {
                 alert('請輸入有效的平均月薪');
                 return;
@@ -108,35 +125,29 @@ const app = Vue.createApp({
             console.log('總計投入金額:', this.totalInvestment);
 
             // 2. 預期報酬 = 總計投入金額 x1.5 減去總計投入金額
-            this.expectedReturn = Math.floor(this.totalInvestment * 1.5 - this.totalInvestment);
+            this.total = this.totalInvestment * 1.5;
+            this.expectedReturn = Math.floor(this.total - this.totalInvestment);
             console.log('預期報酬:', this.expectedReturn);
 
-            // 3. total = 總計投入金額 x1.5 x 各基金調整參數
-            let total = this.totalInvestment * 1.5;
-            Object.keys(this.funds).forEach(fundType => {
-                if (this.funds[fundType]) {
-                    total *= this.fundMultipliers[fundType];
-                }
-            });
-            this.total = Math.floor(total);
+            // 3. 使用共用方法計算 total 和差異
+            this.adjustTotal(this.total);
             console.log('Total:', this.total);
-
-            // 4. 與投入金額相比 = total - 總計投入金額
-            this.investmentDiff = Math.floor(this.total - this.totalInvestment);
             console.log('與投入金額相比:', this.investmentDiff);
-
-            // 5. 與預期報酬相比 = total - 總計投入金額 - 預期報酬
-            this.returnDiff = Math.floor(this.total - this.totalInvestment - this.expectedReturn);
             console.log('與預期報酬相比:', this.returnDiff);
 
-            // 時間
-            this.currentDateTime = this.formatDateTime(new Date());
-            console.log('時間更新完成');
+            this.currentDateTime = new Date().toISOString();
 
             console.log('準備更新圖表...');
             // 更新圖表
             this.updateChart();
             console.log('=== 計算完成 ===');
+        },
+        calculateReceiptMode() {
+            if (!this.totalInvestment || this.totalInvestment <= 0) return;
+            if (!this.expectedReturn || this.expectedReturn < 0) return;
+
+            // 使用共用方法計算 total 和差異
+            this.adjustTotal(this.totalInvestment + this.expectedReturn);
         },
         amountClass(val) {
             if (val > 0) return 'receipt-amount-positive';
@@ -407,6 +418,28 @@ const app = Vue.createApp({
             console.log('chart.update() 完成');
 
             console.log('=== 圖表更新完成 ===');
+        },
+
+        // Vue 中的開啟分享 lightbox 方法
+        openShareLightbox() {
+            console.log('=== Vue openShareLightbox 被呼叫 ===');
+
+            const data = {
+                userName: this.userName,
+                isGovernmentEmployee: this.isGovernmentEmployee,
+                totalInvestment: this.totalInvestment,
+                expectedReturn: this.expectedReturn,
+                currentDateTime: this.currentDateTime,
+                funds: {
+                    postal: this.funds.postal,
+                    insurance: this.funds.insurance,
+                    labor: this.funds.labor,
+                    retire: this.funds.retire
+                }
+            };
+
+            // 呼叫 lightbox 的 openShareLightbox 方法並傳遞數據
+            lightbox.openShareLightbox(data);
         }
     }
 });
@@ -415,8 +448,17 @@ app.mount('#app');
 
 // ===== Lightbox 管理物件 =====
 const lightbox = {
+    // 儲存 Vue 數據
+    data: null,
+
     // 開啟分享 lightbox
-    openShareLightbox() {
+    openShareLightbox(data) {
+        console.log('=== Lightbox openShareLightbox 被呼叫 ===');
+
+        // 儲存傳遞過來的 Vue 數據
+        this.data = data;
+        console.log('儲存的 Vue 數據:', this.data);
+
         this.copyReceiptToLightbox();
 
         // 顯示 lightbox
@@ -456,7 +498,40 @@ const lightbox = {
 
     // 下載圖片功能
     downloadImage() {
-        console.log('下載圖檔功能待實作');
-        alert('下載圖檔功能開發中...');
+        console.log('=== 開始下載圖片 ===');
+
+        if (!this.data) {
+            console.log('沒有儲存的數據');
+            return;
+        }
+
+        const data = this.data;
+
+        console.log('儲存的數據:', data);
+
+        // 我現在要用以上數據組出 receipt.html 的網址
+        const url = new URL('receipt.html', window.location.origin);
+        url.searchParams.set('userName', data.userName);
+        url.searchParams.set('isGovernmentEmployee', data.isGovernmentEmployee);
+        url.searchParams.set('totalInvestment', data.totalInvestment);
+        url.searchParams.set('expectedReturn', data.expectedReturn);
+        url.searchParams.set('currentDateTime', data.currentDateTime);
+        url.searchParams.set('postal', data.funds.postal);
+        url.searchParams.set('insurance', data.funds.insurance);
+        url.searchParams.set('labor', data.funds.labor);
+        url.searchParams.set('retire', data.funds.retire);
+
+        const receiptUrl = url.toString();
+        console.log('收據網址:', receiptUrl);
+
+        const encodedReceiptUrl = encodeURIComponent(receiptUrl);
+        // console.log('編碼後的收據網址:', encodedReceiptUrl);
+
+        const paramPart = encodedReceiptUrl.split('%3F')[1];
+        // console.log('paramPart:', paramPart);
+
+        const shootUrl = 'https://hotshot.anoni.net/shoot?path=/ejf/receipt%3F' + paramPart + '&selector=div[id=app]&vpw=336&vph=2100';
+
+        window.open(shootUrl, '_blank');
     }
 };
