@@ -151,9 +151,11 @@ const app = Vue.createApp({
             this.currentDateTime = new Date().toISOString();
 
             console.log('準備更新圖表...');
-            // 更新圖表
             this.updateChart();
+
             console.log('=== 計算完成 ===');
+
+            this.updateUrlParams();
         },
         calculateReceiptMode() {
             if (!this.totalInvestment || this.totalInvestment <= 0) return;
@@ -453,6 +455,23 @@ const app = Vue.createApp({
 
             // 呼叫 lightbox 的 openShareLightbox 方法並傳遞數據
             lightbox.openShareLightbox(data);
+        },
+        updateUrlParams() {
+            const url = new URL(window.location.href);
+
+            // 保留用戶輸入的參數
+            url.searchParams.set('income', this.monthlyIncome);
+            url.searchParams.set('age', this.age);
+            url.searchParams.set('servant', this.isGovernmentEmployee);
+
+            // 更新時間和基金狀態
+            url.searchParams.set('postal', this.funds.postal);
+            url.searchParams.set('insurance', this.funds.insurance);
+            url.searchParams.set('labor', this.funds.labor);
+            url.searchParams.set('retire', this.funds.retire);
+
+            // 更新網址，不重新載入頁面
+            window.history.replaceState(null, '', url.toString());
         }
     }
 });
