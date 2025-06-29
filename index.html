@@ -7,10 +7,12 @@
   <title>政府四大基金投資報酬計算機</title>
   <link rel="icon" type="image/png" href="images/fav-icon-grey.png">
 
-  <!-- FIXME: 設定正確的 canonical -->
+  <!-- FIXME: 設定正確的 canonical 與分享文案，並設定 og:image -->
   <meta name="canonical" content="https://positronic-lab.github.io/ejf/">
   <meta property="og:url" content="https://positronic-lab.github.io/ejf/">
   <meta name="description" content="FIXME: 政府四大基金投資報酬計算機，這邊要加入一些分享文案">
+  <meta property="og:description" content="FIXME: 政府四大基金投資報酬計算機，這邊要加入一些分享文案">
+  <meta property="og:image" content="https://positronic-lab.github.io/ejf/images/og-image.png">
 
   <link rel="stylesheet" href="css/styles.css">
   <!--
@@ -263,7 +265,6 @@
 
             </div>
 
-            <!-- FIXME: 僅在計算後顯示 -->
             <div class="receipt-share-btn" v-if="totalInvestment > 0">
               <button class="big-btn btn-share" @click="openShareLightbox">心碎分享</button>
             </div>
@@ -287,6 +288,7 @@
             <p>心碎了嗎？你不是一個人。<br>分享這張收據，讓更多人重新檢視這筆「國家級投資」。</p>
           </div>
 
+          <!-- FIXME: 考慮哪些社群要直接分享圖片，哪些要分享網址 -->
           <div class="share-section">
             <div class="share-btns">
               <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" target="_blank" title="分享到 Facebook">

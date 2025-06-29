@@ -438,23 +438,7 @@ const app = Vue.createApp({
         // Vue 中的開啟分享 lightbox 方法
         openShareLightbox() {
             console.log('=== Vue openShareLightbox 被呼叫 ===');
-
-            const data = {
-                userName: this.userName,
-                isGovernmentEmployee: this.isGovernmentEmployee,
-                totalInvestment: this.totalInvestment,
-                expectedReturn: this.expectedReturn,
-                currentDateTime: this.currentDateTime,
-                funds: {
-                    postal: this.funds.postal,
-                    insurance: this.funds.insurance,
-                    labor: this.funds.labor,
-                    retire: this.funds.retire
-                }
-            };
-
-            // 呼叫 lightbox 的 openShareLightbox 方法並傳遞數據
-            lightbox.openShareLightbox(data);
+            lightbox.openShareLightbox();
         },
         updateUrlParams() {
             const url = new URL(window.location.href);
@@ -477,24 +461,42 @@ const app = Vue.createApp({
             canonical.setAttribute('content', newUrl);
             const ogUrl = document.querySelector('meta[property="og:url"]');
             ogUrl.setAttribute('content', newUrl);
+
+            // 生成收據圖片 URL 並更新 og:image
+            const imageUrl = this.generateReceiptImageUrl();
+            console.log('收據圖片網址:', imageUrl);
+
+            // 更新 og:image
+            const ogImage = document.querySelector('meta[property="og:image"]');
+            ogImage.setAttribute('content', imageUrl);
+        },
+        generateReceiptImageUrl() {
+            const url = new URL('receipt.html', window.location.origin);
+            url.searchParams.set('userName', this.userName);
+            url.searchParams.set('servant', this.isGovernmentEmployee);
+            url.searchParams.set('totalInvestment', this.totalInvestment);
+            url.searchParams.set('expectedReturn', this.expectedReturn);
+            url.searchParams.set('currentDateTime', this.currentDateTime);
+            url.searchParams.set('postal', this.funds.postal);
+            url.searchParams.set('insurance', this.funds.insurance);
+            url.searchParams.set('labor', this.funds.labor);
+            url.searchParams.set('retire', this.funds.retire);
+
+            const receiptUrl = url.toString();
+            const encodedReceiptUrl = encodeURIComponent(receiptUrl);
+            const paramPart = encodedReceiptUrl.split('%3F')[1];
+
+            // 生成 hotshot 圖片 URL
+            return 'https://hotshot.anoni.net/shoot?path=/ejf/receipt%3F' + paramPart + '&selector=div[id=app]&vpw=336&vph=2100';
         }
     }
-});
-
-app.mount('#app');
+}).mount('#app');
 
 // ===== Lightbox 管理物件 =====
 const lightbox = {
-    // 儲存 Vue 數據
-    data: null,
-
     // 開啟分享 lightbox
-    openShareLightbox(data) {
+    openShareLightbox() {
         console.log('=== Lightbox openShareLightbox 被呼叫 ===');
-
-        // 儲存傳遞過來的 Vue 數據
-        this.data = data;
-        console.log('儲存的 Vue 數據:', this.data);
 
         // 更新分享連結的 href 屬性
         this.updateShareLinks();
@@ -548,37 +550,8 @@ const lightbox = {
     downloadImage() {
         console.log('=== 開始下載圖片 ===');
 
-        if (!this.data) {
-            console.log('沒有儲存的數據');
-            return;
-        }
-
-        const data = this.data;
-
-        console.log('儲存的數據:', data);
-
-        // 我現在要用以上數據組出 receipt.html 的網址
-        const url = new URL('receipt.html', window.location.origin);
-        url.searchParams.set('userName', data.userName);
-        url.searchParams.set('servant', data.isGovernmentEmployee);
-        url.searchParams.set('totalInvestment', data.totalInvestment);
-        url.searchParams.set('expectedReturn', data.expectedReturn);
-        url.searchParams.set('currentDateTime', data.currentDateTime);
-        url.searchParams.set('postal', data.funds.postal);
-        url.searchParams.set('insurance', data.funds.insurance);
-        url.searchParams.set('labor', data.funds.labor);
-        url.searchParams.set('retire', data.funds.retire);
-
-        const receiptUrl = url.toString();
-        console.log('收據網址:', receiptUrl);
-
-        const encodedReceiptUrl = encodeURIComponent(receiptUrl);
-        // console.log('編碼後的收據網址:', encodedReceiptUrl);
-
-        const paramPart = encodedReceiptUrl.split('%3F')[1];
-        // console.log('paramPart:', paramPart);
-
-        const shootUrl = 'https://hotshot.anoni.net/shoot?path=/ejf/receipt%3F' + paramPart + '&selector=div[id=app]&vpw=336&vph=2100';
+        const shootUrl = app.generateReceiptImageUrl();
+        console.log('收據圖片網址:', shootUrl);
 
         // 使用 fetch 獲取圖片數據
         fetch(shootUrl)
