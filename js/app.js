@@ -470,8 +470,13 @@ const app = Vue.createApp({
             url.searchParams.set('labor', this.funds.labor);
             url.searchParams.set('retire', this.funds.retire);
 
-            // 更新網址，不重新載入頁面
-            window.history.replaceState(null, '', url.toString());
+            const newUrl = url.toString();
+            window.history.replaceState(null, '', newUrl);
+
+            const canonical = document.querySelector('meta[name="canonical"]');
+            canonical.setAttribute('content', newUrl);
+            const ogUrl = document.querySelector('meta[property="og:url"]');
+            ogUrl.setAttribute('content', newUrl);
         }
     }
 });
@@ -491,6 +496,8 @@ const lightbox = {
         this.data = data;
         console.log('儲存的 Vue 數據:', this.data);
 
+        // 更新分享連結的 href 屬性
+        this.updateShareLinks();
         this.copyReceiptToLightbox();
 
         // 顯示 lightbox
@@ -499,6 +506,15 @@ const lightbox = {
             lightbox.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
+    },
+
+    // 更新分享連結
+    updateShareLinks() {
+        const shareUrl = window.location.href;
+        const shareBtns = document.querySelectorAll('.share-btns > a');
+        shareBtns.forEach(btn => {
+            btn.href = btn.href.replace('${shareUrl}', encodeURIComponent(shareUrl));
+        });
     },
 
     // 關閉分享 lightbox

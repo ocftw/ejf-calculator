@@ -6,6 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <title>政府四大基金投資報酬計算機</title>
   <link rel="icon" type="image/png" href="images/fav-icon-grey.png">
+
+  <!-- FIXME: 設定正確的 canonical -->
+  <meta name="canonical" content="https://positronic-lab.github.io/ejf/">
+  <meta property="og:url" content="https://positronic-lab.github.io/ejf/">
+  <meta name="description" content="FIXME: 政府四大基金投資報酬計算機，這邊要加入一些分享文案">
+
   <link rel="stylesheet" href="css/styles.css">
   <!--
   本頁支援以下網址參數（Query String）：
@@ -257,6 +263,7 @@
 
             </div>
 
+            <!-- FIXME: 僅在計算後顯示 -->
             <div class="receipt-share-btn" v-if="totalInvestment > 0">
               <button class="big-btn btn-share" @click="openShareLightbox">心碎分享</button>
             </div>
@@ -282,19 +289,19 @@
 
           <div class="share-section">
             <div class="share-btns">
-              <a href="https://www.facebook.com/sharer/sharer.php?u=https://positronic-lab.github.io/ejf/" target="_blank" title="分享到 Facebook">
+              <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" target="_blank" title="分享到 Facebook">
                 <span class="icon size-48 facebook"></span>
               </a>
 
-              <a href="https://lineit.line.me/share/ui?url=https://positronic-lab.github.io/ejf/" target="_blank" title="分享到 Line">
+              <a href="https://lineit.line.me/share/ui?url=${shareUrl}" target="_blank" title="分享到 Line">
                 <span class="icon size-48 line"></span>
               </a>
 
-              <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://positronic-lab.github.io/ejf/" target="_blank" title="分享到 LinkedIn">
+              <a href="https://www.linkedin.com/shareArticle?mini=true&url=${shareUrl}" target="_blank" title="分享到 LinkedIn">
                 <span class="icon size-48 linkedin"></span>
               </a>
 
-              <a href="https://www.instagram.com/share?url=https://positronic-lab.github.io/ejf/" target="_blank" title="分享到 Instagram">
+              <a href="https://www.instagram.com/share?url=${shareUrl}" target="_blank" title="分享到 Instagram">
                 <span class="icon size-48 instagram"></span>
               </a>
             </div>
