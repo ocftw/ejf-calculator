@@ -31,20 +31,20 @@ const app = Vue.createApp({
     data() {
         return {
             userName: isReceiptMode ? getQueryParam('userName') : '',
-            monthlyIncome: isReceiptMode ? 0 : 25250,
-            age: isReceiptMode ? 0 : 20,
-            isGovernmentEmployee: isReceiptMode ? getQueryParam('isGovernmentEmployee', 'no') : 'no',
-            totalInvestment: isReceiptMode ? Number(getQueryParam('totalInvestment', 0)) : 0,
-            expectedReturn: isReceiptMode ? Number(getQueryParam('expectedReturn', 0)) : 0,
+            monthlyIncome: Number(getQueryParam('monthlyIncome', 25250)),
+            age: Number(getQueryParam('age', 20)),
+            isGovernmentEmployee: getQueryParam('isGovernmentEmployee', 'no'),
+            totalInvestment: Number(getQueryParam('totalInvestment', 0)),
+            expectedReturn: Number(getQueryParam('expectedReturn', 0)),
             total: 0,
             investmentDiff: 0,
             returnDiff: 0,
             currentDateTime: isReceiptMode ? getQueryParam('currentDateTime') || '' : '',
             funds: {
-                postal: isReceiptMode ? getQueryParam('postal', 'true') !== 'false' : false,
-                insurance: isReceiptMode ? getQueryParam('insurance', 'true') !== 'false' : false,
-                labor: isReceiptMode ? getQueryParam('labor', 'true') !== 'false' : false,
-                retire: isReceiptMode ? getQueryParam('retire', 'true') !== 'false' : false
+                postal: getQueryParam('postal', 'false') !== 'false',
+                insurance: getQueryParam('insurance', 'false') !== 'false',
+                labor: getQueryParam('labor', 'false') !== 'false',
+                retire: getQueryParam('retire', 'false') !== 'false'
             },
             fundMultipliers: {
                 postal: 0.9,
@@ -71,7 +71,12 @@ const app = Vue.createApp({
         }
     },
     mounted() {
-        if (!isReceiptMode) this.initChart();
+        if (isReceiptMode) return;
+
+        this.initChart();
+        this.$nextTick(() => {
+            this.triggerCalculateIfParams();
+        });
     },
     methods: {
         formatDateTime(date) {
@@ -440,6 +445,15 @@ const app = Vue.createApp({
 
             // 呼叫 lightbox 的 openShareLightbox 方法並傳遞數據
             lightbox.openShareLightbox(data);
+        },
+        triggerCalculateIfParams() {
+            const hasValidIncome = this.monthlyIncome && this.monthlyIncome > 0;
+            const hasValidAge = this.age && this.age >= 18 && this.age < 60;
+
+            if (hasValidIncome && hasValidAge) {
+                console.log('檢測到有效的網址參數，自動執行計算');
+                this.calculate();
+            }
         }
     }
 });

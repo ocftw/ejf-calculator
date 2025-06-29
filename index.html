@@ -7,6 +7,21 @@
   <title>政府四大基金投資報酬計算機</title>
   <link rel="icon" type="image/png" href="images/fav-icon-grey.png">
   <link rel="stylesheet" href="css/styles.css">
+  <!--
+  本頁支援以下網址參數（Query String）：
+
+  選填參數（會預先填入表單並自動計算）：
+  - monthlyIncome：平均月薪（數字）
+  - age：年齡（數字，18-59歲）
+  - isGovernmentEmployee：是否為公務員（yes 或 no，預設 no）
+  - postal：郵政儲金是否啟用（true/false，預設 false）
+  - insurance：勞保基金是否啟用（true/false，預設 false）
+  - labor：勞退基金是否啟用（true/false，預設 false）
+  - retire：退撫基金是否啟用（true/false，預設 false）
+
+  範例：
+  index.html?monthlyIncome=50000&age=30&isGovernmentEmployee=yes&postal=true&insurance=true&labor=false&retire=true
+  -->
 </head>
 
 <body>
