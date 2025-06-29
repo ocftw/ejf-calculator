@@ -33,7 +33,7 @@ const app = Vue.createApp({
             userName: isReceiptMode ? getQueryParam('userName') : '',
             monthlyIncome: Number(getQueryParam('income', 25250)),
             age: Number(getQueryParam('age', 20)),
-            isGovernmentEmployee: getQueryParam('isGovernmentEmployee', 'no'),
+            isGovernmentEmployee: getQueryParam('servant', 'no'),
             monthlyIncomeError: false,
             ageError: false,
             isGovernmentEmployeeError: false,
@@ -525,7 +525,7 @@ const lightbox = {
         // 我現在要用以上數據組出 receipt.html 的網址
         const url = new URL('receipt.html', window.location.origin);
         url.searchParams.set('userName', data.userName);
-        url.searchParams.set('isGovernmentEmployee', data.isGovernmentEmployee);
+        url.searchParams.set('servant', data.isGovernmentEmployee);
         url.searchParams.set('totalInvestment', data.totalInvestment);
         url.searchParams.set('expectedReturn', data.expectedReturn);
         url.searchParams.set('currentDateTime', data.currentDateTime);
