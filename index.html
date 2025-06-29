@@ -11,16 +11,16 @@
   本頁支援以下網址參數（Query String）：
 
   選填參數（會預先填入表單並自動計算）：
-  - monthlyIncome：平均月薪（數字）
-  - age：年齡（數字，18-59歲）
-  - isGovernmentEmployee：是否為公務員（yes 或 no，預設 no）
-  - postal：郵政儲金是否啟用（true/false，預設 false）
-  - insurance：勞保基金是否啟用（true/false，預設 false）
-  - labor：勞退基金是否啟用（true/false，預設 false）
-  - retire：退撫基金是否啟用（true/false，預設 false）
+  - income: 平均月薪（數字）
+  - age: 年齡（數字，18-59歲）
+  - isGovernmentEmployee: 是否為公務員（yes 或 no，預設 no）
+  - postal: 郵政儲金是否啟用（true/false，預設 false）
+  - insurance: 勞保基金是否啟用（true/false，預設 false）
+  - labor: 勞退基金是否啟用（true/false，預設 false）
+  - retire: 退撫基金是否啟用（true/false，預設 false）
 
   範例：
-  index.html?monthlyIncome=50000&age=30&isGovernmentEmployee=yes&postal=true&insurance=true&labor=false&retire=true
+  index.html?income=50000&age=30&isGovernmentEmployee=yes&postal=true&insurance=true&labor=false&retire=true
   -->
 </head>
 
@@ -108,28 +108,31 @@
                   <input id="calculator-input-name" type="text" placeholder="請輸入您的名字..." v-model="userName">
                 </div>
 
-                <div class="input-wrapper">
+                <div class="input-wrapper is-required" v-bind:class="{ 'is-error': monthlyIncomeError }">
                   <label for="calculator-input-salary">
-                    <span class="required"></span>平均月薪
+                    <span class="required-mark"></span>平均月薪
                   </label>
                   <input id="calculator-input-salary" type="number" inputmode="tel" placeholder="請輸入平均月薪..." v-model.number="monthlyIncome">
+                  <span class="help">請輸入月薪</span>
                 </div>
 
-                <div class="input-wrapper">
+                <div class="input-wrapper is-required" v-bind:class="{ 'is-error': ageError }">
                   <label for="calculator-input-age">
-                    <span class="required"></span>年齡
+                    <span class="required-mark"></span>年齡
                   </label>
                   <input id="calculator-input-age" type="number" inputmode="tel" placeholder="請輸入年齡..." v-model.number="age">
+                  <span class="help">請輸入有效年齡（18-59歲）</span>
                 </div>
 
-                <div class="select-wrapper">
+                <div class="select-wrapper is-required" v-bind:class="{ 'is-error': isGovernmentEmployeeError }">
                   <label for="calculator-select-public-servant">
-                    <span class="required"></span>是否為公務員
+                    <span class="required-mark"></span>是否為公務員
                   </label>
                   <select id="calculator-select-public-servant" v-model="isGovernmentEmployee">
-                    <option value="yes">是</option>
                     <option value="no">否</option>
+                    <option value="yes">是</option>
                   </select>
+                  <span class="help">此欄位必選</span>
                 </div>
 
                 <button class="big-btn btn-calculate" @click="calculate">計算</button>

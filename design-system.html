@@ -11,6 +11,7 @@
     .demo { margin-bottom: 1.5rem; }
     .demo-title { margin-top: 2.5rem; margin-bottom: 1.2rem; font-weight: bold; }
     .demo-subtitle { min-width: 5em; margin-bottom: 1.2rem; font-weight: bold; margin-left: 0; font-size: 1rem; line-height: 1.5rem; }
+    .black { color: #000; }
 
     .demo-row { display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 1.2rem; padding-left: 0; }
     .demo-group { display: flex; gap: 1.5rem; }
@@ -21,7 +22,7 @@
     .icon { border: 1px solid #eee; }
 
     .demo-component { width: 300px; margin-bottom: 1.2rem; }
-    .demo-component.bg-white { background-color: #fff; }
+    .bg-white { background-color: #fff; padding: 1em; }
   </style>
 </head>
 
@@ -75,7 +76,7 @@
 
       <div class="demo">
         <h2 class="demo-title">Logo</h2>
-        <div class="demo-row" style="padding: 1em;">
+        <div class="demo-row bg-white" style="padding: 1em;">
           <img src="images/ejf-logo-black.png" alt="EJF Logo" style="height: 70px;">
         </div>
         <div class="demo-row color-neutral-900-bk" style="padding: 1em;">
@@ -169,20 +170,20 @@
           </div>
         </div>
 
-        <div class="demo-component bg-white">
+        <div class="demo-component">
           <h3 class="demo-subtitle">Divider</h3>
           <hr class="divider-default" />
-          <hr class="divider-receipt" />
+          <hr class="divider-receipt bg-white" />
         </div>
 
-        <div class="demo-component">
+        <div class="demo-component bg-white">
           <span class="watermark">不是投資失誤，而是隱藏代價</span>
         </div>
 
         <div class="demo-component">
           <div class="select-wrapper">
             <label for="demo-select">
-              <span class="required"></span>是否為公務員
+              <span class="required-mark"></span>是否為公務員
             </label>
             <select id="demo-select">
               <option>是</option>
@@ -192,12 +193,29 @@
 
           <div class="input-wrapper">
             <label for="demo-input">
-              <span class="required"></span>您的名字
+              <span class="required-mark"></span>您的名字
             </label>
             <input id="demo-input" type="text" placeholder="請輸入您的名字...">
           </div>
-        </div>
 
+          <div class="input-wrapper is-required is-error">
+            <label for="demo-input-required-mark">
+              <span class="required-mark"></span>必填錯誤範例
+            </label>
+            <input id="demo-input-required" class="demo-input" type="text" placeholder="請輸入...">
+            <span class="help"><small>此欄位必填</small></span>
+          </div>
+
+          <div class="input-wrapper is-error">
+            <label for="demo-input-error">
+              輸入錯誤範例
+            </label>
+            <input id="demo-input-error" class="demo-input" type="text" placeholder="請輸入...">
+            <span class="help"><small>此欄位輸入錯誤</small></span>
+          </div>
+
+
+        </div>
 
         <div class="demo-component">
           <button class="big-btn btn-calculate">計算</button>
@@ -214,34 +232,36 @@
             <div class="calculator-content">
               <div class="input-wrapper">
                 <label for="demo-input-name">
-                  <span class="required"></span>您的名字
+                  您的名字
                 </label>
                 <input id="demo-input-name" type="text" placeholder="請輸入您的名字...">
               </div>
 
-              <div class="input-wrapper">
+              <div class="input-wrapper is-required">
                 <label for="demo-input-salary">
-                  <span class="required"></span>平均月薪
+                  <span class="required-mark"></span>平均月薪
                 </label>
                 <input id="demo-input-salary" type="number" inputmode="numeric" placeholder="請輸入平均月薪...">
-
+                <span class="help">請輸入月薪</span>
               </div>
 
-              <div class="input-wrapper">
+              <div class="input-wrapper is-required">
                 <label for="demo-input-age">
-                  <span class="required"></span>年齡
+                  <span class="required-mark"></span>年齡
                 </label>
                 <input id="demo-input-age" type="number" inputmode="numeric" placeholder="請輸入年齡...">
+                <span class="help">請輸入有效年齡（18-60歲）</span>
               </div>
 
-              <div class="select-wrapper">
+              <div class="select-wrapper is-required is-error">
                 <label for="demo-select-is-public-servant">
-                  <span class="required"></span>是否為公務員
+                  <span class="required-mark"></span>是否為公務員
                 </label>
                 <select id="demo-select-is-public-servant">
                   <option>是</option>
                   <option>否</option>
                 </select>
+                <span class="help">此欄位必選</span>
               </div>
 
               <button class="big-btn btn-calculate">計算</button>

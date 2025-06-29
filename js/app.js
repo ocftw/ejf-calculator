@@ -31,9 +31,12 @@ const app = Vue.createApp({
     data() {
         return {
             userName: isReceiptMode ? getQueryParam('userName') : '',
-            monthlyIncome: Number(getQueryParam('monthlyIncome', 25250)),
+            monthlyIncome: Number(getQueryParam('income', 25250)),
             age: Number(getQueryParam('age', 20)),
             isGovernmentEmployee: getQueryParam('isGovernmentEmployee', 'no'),
+            monthlyIncomeError: false,
+            ageError: false,
+            isGovernmentEmployeeError: false,
             totalInvestment: Number(getQueryParam('totalInvestment', 0)),
             expectedReturn: Number(getQueryParam('expectedReturn', 0)),
             total: 0,
@@ -75,7 +78,7 @@ const app = Vue.createApp({
 
         this.initChart();
         this.$nextTick(() => {
-            this.triggerCalculateIfParams();
+            this.calculate();
         });
     },
     methods: {
@@ -112,18 +115,23 @@ const app = Vue.createApp({
             console.log('=== 開始計算 ===');
 
             // 輸入驗證
-            // FIXME: show error style and message at calculator instead of using alert
-            if (!this.monthlyIncome || this.monthlyIncome <= 0) {
-                alert('請輸入有效的平均月薪');
-                return;
-            }
+            if (!this.monthlyIncome || this.monthlyIncome <= 0)
+                this.monthlyIncomeError = true;
+            else
+                this.monthlyIncomeError = false;
 
-            if (!this.age || this.age < 18 || this.age >= 60) {
-                alert('請輸入有效的年齡（18-59歲）');
-                return;
-            }
+            if (!this.age || this.age < 18 || this.age >= 60)
+                this.ageError = true;
+            else
+                this.ageError = false;
 
-            console.log('輸入驗證通過');
+            if ((this.isGovernmentEmployee !== 'no' && this.isGovernmentEmployee !== 'yes'))
+                this.isGovernmentEmployeeError = true;
+            else
+                this.isGovernmentEmployeeError = false;
+
+            if (this.monthlyIncomeError || this.ageError || this.isGovernmentEmployeeError)
+                return;
 
             // 1. 總計投入金額 = 月薪 x (60-年齡)
             this.totalInvestment = Math.floor(this.monthlyIncome * (60 - this.age));
@@ -445,15 +453,6 @@ const app = Vue.createApp({
 
             // 呼叫 lightbox 的 openShareLightbox 方法並傳遞數據
             lightbox.openShareLightbox(data);
-        },
-        triggerCalculateIfParams() {
-            const hasValidIncome = this.monthlyIncome && this.monthlyIncome > 0;
-            const hasValidAge = this.age && this.age >= 18 && this.age < 60;
-
-            if (hasValidIncome && hasValidAge) {
-                console.log('檢測到有效的網址參數，自動執行計算');
-                this.calculate();
-            }
         }
     }
 });

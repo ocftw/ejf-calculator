@@ -252,9 +252,11 @@ span.watermark {
 
 .select-wrapper, .input-wrapper {
   width: 100%;
-  margin-bottom: 1.25rem;
 
-  .required {
+  margin-bottom: 1.25rem;
+  &.is-required { margin-bottom: 0; }
+
+  .required-mark {
     color: $color-ejf-red;
     &::before {
       content: "*";
@@ -287,6 +289,21 @@ span.watermark {
     background-position: right 1rem center;
     background-size: 16px;
     padding-right: 2.5rem;
+  }
+
+  .help {
+    display: block;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    margin-bottom: 0.25rem;
+    color: $color-ejf-red;
+
+    visibility: hidden;
+  }
+
+  &.is-error {
+    .help { visibility: visible; }
+    input, select { border-color: $color-ejf-red; }
   }
 }
 

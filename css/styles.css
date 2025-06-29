@@ -307,10 +307,13 @@ span.watermark {
   width: 100%;
   margin-bottom: 1.25rem;
 }
-.select-wrapper .required, .input-wrapper .required {
+.select-wrapper.is-required, .input-wrapper.is-required {
+  margin-bottom: 0;
+}
+.select-wrapper .required-mark, .input-wrapper .required-mark {
   color: #E30613;
 }
-.select-wrapper .required::before, .input-wrapper .required::before {
+.select-wrapper .required-mark::before, .input-wrapper .required-mark::before {
   content: "*";
   margin-right: 0.25rem;
 }
@@ -337,6 +340,20 @@ span.watermark {
   background-position: right 1rem center;
   background-size: 16px;
   padding-right: 2.5rem;
+}
+.select-wrapper .help, .input-wrapper .help {
+  display: block;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  margin-bottom: 0.25rem;
+  color: #E30613;
+  visibility: hidden;
+}
+.select-wrapper.is-error .help, .input-wrapper.is-error .help {
+  visibility: visible;
+}
+.select-wrapper.is-error input, .select-wrapper.is-error select, .input-wrapper.is-error input, .input-wrapper.is-error select {
+  border-color: #E30613;
 }
 
 button.big-btn {
