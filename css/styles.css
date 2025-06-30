@@ -69,12 +69,6 @@ h4 {
   line-height: 2rem;
   font-weight: 700;
 }
-@media (max-width: 768px) {
-  h4 {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-}
 
 p {
   font-size: 1rem;
@@ -618,43 +612,48 @@ button.btn-fund[data-on=true][data-fund=retire] {
 .columns {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -0.75rem;
+  margin: 0;
   gap: 2rem;
+  justify-content: center;
 }
 
-.column {
-  flex: 1;
+#calculator-column {
+  flex: 0 1 288px;
 }
 
-.column:first-child {
-  flex: 0 0 288px;
+#chart-column {
+  flex: 1 1 430px;
 }
 
-.column:last-child {
-  flex: 0 0 320px;
+#receipt-column {
+  flex: 0 1 320px;
 }
 
 /* RWD */
-/*
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .columns {
-    flex-direction: column;
-  }
-
-  .column {
-    flex: 1;
-    max-width: 100%;
-  }
-
-  .title {
-    font-size: 2rem;
-  }
-
-  .section {
-    padding: 2rem 1rem;
+    gap: 1.25rem;
   }
 }
-*/
+@media (max-width: 1200px) and (min-width: 1025px) {
+  #calculator-column, #receipt-column {
+    flex-basis: fit-content;
+  }
+}
+@media (max-width: 1024px) {
+  .columns {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 414px) {
+  #app {
+    padding: 2.5rem 1rem;
+  }
+  #chart-column {
+    margin-left: -1rem;
+    margin-right: -0.5rem;
+  }
+}
 #title {
   display: flex;
   align-items: center;
@@ -667,6 +666,14 @@ button.btn-fund[data-on=true][data-fund=retire] {
   margin-right: 1rem;
   position: relative;
   top: 0.25rem;
+}
+@media (max-width: 414px) {
+  #title #title {
+    gap: 0.5rem;
+  }
+  #title img {
+    margin-right: 0;
+  }
 }
 #title img, #title .title-text {
   z-index: 1;
@@ -728,6 +735,7 @@ button.btn-fund[data-on=true][data-fund=retire] {
   gap: 0.75rem;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 #chart-column #return-chart {
   width: 100%;
@@ -765,7 +773,6 @@ button.btn-fund[data-on=true][data-fund=retire] {
   z-index: 1000;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
   display: none;
 }
 .lightbox .lightbox-content {
@@ -779,6 +786,16 @@ button.btn-fund[data-on=true][data-fund=retire] {
   padding: 2rem;
   color: #000000;
 }
+@media (max-width: 768px) {
+  .lightbox .lightbox-content {
+    max-height: 95vh;
+  }
+}
+@media (max-width: 414px) {
+  .lightbox .lightbox-content {
+    padding: 1rem;
+  }
+}
 .lightbox .lightbox-content h4 {
   margin: 0;
   line-height: 1.5rem;
@@ -789,6 +806,11 @@ button.btn-fund[data-on=true][data-fund=retire] {
 .lightbox .lightbox-columns {
   display: flex;
   gap: 2rem;
+}
+@media (max-width: 640px) {
+  .lightbox .lightbox-columns {
+    flex-direction: column-reverse;
+  }
 }
 .lightbox .lightbox-left, .lightbox .lightbox-right {
   max-width: 320px;

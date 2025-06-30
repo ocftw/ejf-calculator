@@ -121,10 +121,6 @@ h4 {
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: $font-weight-bold;
-  @include mobile {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
 }
 
 @mixin font-weight-bold {
@@ -601,6 +597,7 @@ $pageMaxWidth: 1200px;
 $mobileMaxWidth: 1024px;
 $calcMaxWidth: 288px;
 $receiptMaxWidth: 320px;
+$mobileMinWidth: 414px;
 
 /* 基本版面 CSS */
 #app {
@@ -636,7 +633,7 @@ $receiptMaxWidth: 320px;
 @media (max-width: $mobileMaxWidth) {
   .columns { flex-wrap: wrap; }
 }
-@media (max-width: 414px) {
+@media (max-width: $mobileMinWidth) {
   #app { padding: 2.5rem 1rem; }
   #chart-column {
     margin-left: -1rem;
@@ -659,6 +656,11 @@ $receiptMaxWidth: 320px;
     margin-right: 1rem;
     position: relative;
     top: 0.25rem;
+  }
+
+  @media (max-width: $mobileMinWidth) {
+    #title { gap: 0.5rem; }
+    img { margin-right: 0; }
   }
 
   img, .title-text { z-index: 1; }
@@ -783,7 +785,6 @@ $receiptMaxWidth: 320px;
   z-index: 1000;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
 
   display: none; // 預設隱藏
 
@@ -799,6 +800,13 @@ $receiptMaxWidth: 320px;
     padding: 2rem;
     color: $color-black;
 
+    @media (max-width: 768px) {
+      max-height: 95vh;
+    }
+    @media (max-width: $mobileMinWidth) {
+      padding: 1rem;
+    }
+
     h4 {
       margin: 0;
       line-height: 1.5rem;
@@ -811,6 +819,10 @@ $receiptMaxWidth: 320px;
   .lightbox-columns {
     display: flex;
     gap: 2rem;
+
+    @media (max-width: 640px) {
+      flex-direction: column-reverse;
+    }
   }
 
   .lightbox-left, .lightbox-right {
