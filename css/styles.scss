@@ -597,6 +597,11 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
 
 // ===== page layout =====
 
+$pageMaxWidth: 1200px;
+$mobileMaxWidth: 1024px;
+$calcMaxWidth: 288px;
+$receiptMaxWidth: 320px;
+
 /* 基本版面 CSS */
 #app {
   padding: 3rem 1.5rem;
@@ -604,51 +609,43 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
 }
 
 .container {
-  max-width: 1200px;
+  max-width: $pageMaxWidth;
   margin: 0 auto;
-  // padding: 0 1rem;
 }
 
 .columns {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -0.75rem;
+  margin: 0;
   gap: 2rem;
+  justify-content: center;
 }
 
-.column {
-  flex: 1;
-}
+#calculator-column { flex: 0 1 $calcMaxWidth; }
+#chart-column { flex: 1 1 430px; }
+#receipt-column { flex: 0 1 $receiptMaxWidth; }
 
-.column:first-child {
-  flex: 0 0 288px;
-}
-
-.column:last-child {
-  flex: 0 0 320px;
-}
 
 /* RWD */
-/*
-@media (max-width: 768px) {
-  .columns {
-    flex-direction: column;
-  }
-
-  .column {
-    flex: 1;
-    max-width: 100%;
-  }
-
-  .title {
-    font-size: 2rem;
-  }
-
-  .section {
-    padding: 2rem 1rem;
+@media (max-width: $pageMaxWidth) {
+  .columns { gap: 1.25rem; }
+}
+@media (max-width: $pageMaxWidth) and (min-width: ($mobileMaxWidth + 1px)) {
+  #calculator-column, #receipt-column { flex-basis: fit-content; }
+}
+@media (max-width: $mobileMaxWidth) {
+  .columns { flex-wrap: wrap; }
+}
+@media (max-width: 414px) {
+  #app { padding: 2.5rem 1rem; }
+  #chart-column {
+    margin-left: -1rem;
+    margin-right: -0.5rem;
   }
 }
-*/
+
+
+// ===== elements =====
 
 #title {
   display: flex;
@@ -730,6 +727,11 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
     gap: 0.75rem;
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
+    justify-content: center;
+
+    @media (max-width: (470px)) {
+
+    }
   }
 
   #return-chart {
