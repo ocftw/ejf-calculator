@@ -24,7 +24,7 @@
   - funds: 基金類型（postal/insurance/labor/retire，預設 labor）
 
   範例：
-  index.html?income=50000&age=30&servant=yes&funds=reture
+  index.html?income=50000&age=30&funds=reture
   -->
 </head>
 
@@ -125,18 +125,7 @@
                     <span class="required-mark"></span>年齡
                   </label>
                   <input id="calculator-input-age" type="number" inputmode="tel" placeholder="請輸入年齡..." v-model.number="age">
-                  <span class="help">請輸入有效年齡（18-59歲）</span>
-                </div>
-
-                <div class="select-wrapper is-required" v-bind:class="{ 'is-error': isGovernmentEmployeeError }">
-                  <label for="calculator-select-public-servant">
-                    <span class="required-mark"></span>是否為公務員
-                  </label>
-                  <select id="calculator-select-public-servant" v-model="isGovernmentEmployee">
-                    <option value="no">否</option>
-                    <option value="yes">是</option>
-                  </select>
-                  <span class="help">此欄位必選</span>
+                  <span class="help">請輸入有效年齡（18-64歲）</span>
                 </div>
 
                 <button class="big-btn btn-calculate" @click="calculate">計算</button>

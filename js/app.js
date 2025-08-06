@@ -172,10 +172,8 @@ const app = Vue.createApp({
             userName: isReceiptMode ? getQueryParam('userName') : '',
             monthlyIncome: Number(getQueryParam('income', 25250)),
             age: Number(getQueryParam('age', 20)),
-            isGovernmentEmployee: getQueryParam('servant', 'no'),
             monthlyIncomeError: false,
             ageError: false,
-            isGovernmentEmployeeError: false,
             totalInvestment: Number(getQueryParam('totalInvestment', 0)),
             expectedReturn: Number(getQueryParam('expectedReturn', 0)),
             totalReturn: 0,
@@ -235,17 +233,12 @@ const app = Vue.createApp({
             else
                 this.monthlyIncomeError = false;
 
-            if (!this.age || this.age < 18 || this.age >= 65)
+            if (!this.age || this.age < 18 || this.age > 64)
                 this.ageError = true;
             else
                 this.ageError = false;
-
-            if ((this.isGovernmentEmployee !== 'no' && this.isGovernmentEmployee !== 'yes'))
-                this.isGovernmentEmployeeError = true;
-            else
-                this.isGovernmentEmployeeError = false;
             })();
-            if (this.monthlyIncomeError || this.ageError || this.isGovernmentEmployeeError)
+            if (this.monthlyIncomeError || this.ageError)
                 return;
 
             // const workYears = 65 - this.age; //FIXME: 需假設65歲退休，退休後不再有本金投入
@@ -481,7 +474,6 @@ const app = Vue.createApp({
             // 保留用戶輸入的參數
             url.searchParams.set('income', this.monthlyIncome);
             url.searchParams.set('age', this.age);
-            url.searchParams.set('servant', this.isGovernmentEmployee);
 
             // 選取基金狀態
             url.searchParams.set('funds', this.funds);
@@ -505,7 +497,6 @@ const app = Vue.createApp({
         generateReceiptImageUrl() {
             const url = new URL('receipt.html', window.location.origin);
             url.searchParams.set('userName', this.userName);
-            url.searchParams.set('servant', this.isGovernmentEmployee);
             url.searchParams.set('totalInvestment', this.totalInvestment);
             url.searchParams.set('expectedReturn', this.expectedReturn);
             url.searchParams.set('currentDateTime', this.currentDateTime);
