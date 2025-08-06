@@ -21,14 +21,10 @@
   選填參數（會預先填入表單並自動計算）：
   - income: 平均月薪（數字）
   - age: 年齡（數字，18-59歲）
-  - servant: 是否為公務員（yes 或 no，預設 no）
-  - postal: 郵政儲金是否啟用（true/false，預設 false）
-  - insurance: 勞保基金是否啟用（true/false，預設 false）
-  - labor: 勞退基金是否啟用（true/false，預設 false）
-  - retire: 退撫基金是否啟用（true/false，預設 false）
+  - funds: 基金類型（legacy/insurance/labor/retire，預設 labor）
 
   範例：
-  index.html?income=50000&age=30&servant=yes&postal=true&insurance=true&labor=false&retire=true
+  index.html?income=50000&age=30&funds=retire
   -->
 </head>
 
@@ -129,18 +125,7 @@
                     <span class="required-mark"></span>年齡
                   </label>
                   <input id="calculator-input-age" type="number" inputmode="tel" placeholder="請輸入年齡..." v-model.number="age">
-                  <span class="help">請輸入有效年齡（18-59歲）</span>
-                </div>
-
-                <div class="select-wrapper is-required" v-bind:class="{ 'is-error': isGovernmentEmployeeError }">
-                  <label for="calculator-select-public-servant">
-                    <span class="required-mark"></span>是否為公務員
-                  </label>
-                  <select id="calculator-select-public-servant" v-model="isGovernmentEmployee">
-                    <option value="no">否</option>
-                    <option value="yes">是</option>
-                  </select>
-                  <span class="help">此欄位必選</span>
+                  <span class="help">請輸入有效年齡（18-64歲）</span>
                 </div>
 
                 <button class="big-btn btn-calculate" @click="calculate">計算</button>
@@ -153,17 +138,17 @@
           <div id="chart-column" class="column">
 
             <div id="fund-buttons">
-              <button class="btn-fund" data-fund="postal" :data-on="funds.postal" @click="toggleFund('postal')">
-                <p>郵政儲金</p>
-              </button>
-              <button class="btn-fund" data-fund="insurance" :data-on="funds.insurance" @click="toggleFund('insurance')">
+              <button class="btn-fund" data-fund="insurance" :data-on="funds == 'insurance'" @click="toggleFund('insurance')">
                 <p>勞保基金</p>
               </button>
-              <button class="btn-fund" data-fund="labor" :data-on="funds.labor" @click="toggleFund('labor')">
+              <button class="btn-fund" data-fund="labor" :data-on="funds == 'labor'" @click="toggleFund('labor')">
                 <p>勞退基金</p>
               </button>
-              <button class="btn-fund" data-fund="retire" :data-on="funds.retire" @click="toggleFund('retire')">
+              <button class="btn-fund" data-fund="retire" :data-on="funds == 'retire'" @click="toggleFund('retire')">
                 <p>退撫基金</p>
+              </button>
+              <button class="btn-fund" data-fund="legacy" :data-on="funds == 'legacy'" @click="toggleFund('legacy')">
+                <p>舊制勞退</p>
               </button>
             </div>
 
@@ -187,12 +172,8 @@
 
               <div class="receipt-section">
                 <div class="receipt-row">
-                  <span>Customer Name</span>
+                  <span>Name</span>
                   <span>{{ userName }}</span>
-                </div>
-                <div class="receipt-row">
-                  <span>Customer Type</span>
-                  <span>{{ isGovernmentEmployee === 'yes' ? 'Civil Servant' : 'Citizen' }}</span>
                 </div>
               </div>
 
@@ -203,30 +184,26 @@
                   <span>總計投入金額</span>
                   <span class="receipt-amount">{{ formatNumber(totalInvestment) }}</span>
                 </div>
+
                 <div class="receipt-row">
                   <span>預期報酬</span>
                   <span class="receipt-amount">{{ formatNumber(expectedReturn) }}</span>
                 </div>
               </div>
 
-              <hr class="divider-receipt" v-if="hasActiveFunds" />
+              <hr class="divider-receipt" />
 
-              <div class="receipt-section receipt-funds" v-if="hasActiveFunds">
-                <div class="receipt-row" v-if="funds.postal">
-                  <span>郵政儲金</span>
-                  <span class="receipt-multiplicator">x {{ fundMultipliers.postal }}</span>
+              <div class="receipt-section receipt-funds">
+                <div class="receipt-row">
+                  <span v-if="funds == 'insurance'">勞保基金</span>
+                  <span v-if="funds == 'labor'">勞退基金</span>
+                  <span v-if="funds == 'retire'">退撫基金</span>
+                  <span v-if="funds == 'legacy'">舊制勞退</span>
                 </div>
-                <div class="receipt-row" v-if="funds.insurance">
-                  <span>勞保基金</span>
-                  <span class="receipt-multiplicator">x {{ fundMultipliers.insurance }}</span>
-                </div>
-                <div class="receipt-row" v-if="funds.labor">
-                  <span>勞退基金</span>
-                  <span class="receipt-multiplicator">x {{ fundMultipliers.labor }}</span>
-                </div>
-                <div class="receipt-row" v-if="funds.retire">
-                  <span>退撫基金</span>
-                  <span class="receipt-multiplicator">x {{ fundMultipliers.retire }}</span>
+
+                <div class="receipt-row">
+                  <span>實際報酬</span>
+                  <span class="receipt-amount">{{ formatNumber(totalReturn) }}</span>
                 </div>
               </div>
 
@@ -234,15 +211,12 @@
 
               <div class="receipt-section">
                 <div class="receipt-row">
-                  <span>Total</span>
-                  <span>{{ formatNumber(total) }}</span>
-                </div>
-                <div class="receipt-row">
                   <span>與投入報酬相比</span>
                   <span :class="amountClass(investmentDiff)">
                     {{ formatNumber(investmentDiff) }}
                   </span>
                 </div>
+
                 <div class="receipt-row">
                   <span>與預期報酬相比</span>
                   <span :class="amountClass(returnDiff)">

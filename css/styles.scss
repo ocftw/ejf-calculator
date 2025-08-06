@@ -220,6 +220,7 @@ hr {
   height: 1px;
   border-width: 0 0 1px 0;
   width: 100%;
+  margin: 0;
 
   &.divider-default {
     border-color: $color-neutral-600;
@@ -437,7 +438,7 @@ button.btn-fund {
 
     p { visibility: hidden; }
 
-    &[data-fund="postal"] { background-image: url('../images/fund_postal_on.png'); }
+    &[data-fund="legacy"] { background-image: url('../images/fund_legacy_on.png'); }
     &[data-fund="insurance"] { background-image: url('../images/fund_insurance_on.png'); }
     &[data-fund="labor"] { background-image: url('../images/fund_labor_on.png'); }
     &[data-fund="retire"] { background-image: url('../images/fund_retire_on.png'); }
@@ -584,7 +585,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
       @include watermark;
 
       position: absolute;
-      top: 1.75rem;
+      top: 0.2rem;
       margin-left: 1em;
     }
   }
@@ -867,4 +868,8 @@ $mobileMinWidth: 414px;
       max-width: $width-share-section;
     }
   }
+}
+
+#receipt-column .receipt-share-btn {
+  display: none;
 }

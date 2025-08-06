@@ -277,6 +277,7 @@ hr {
   height: 1px;
   border-width: 0 0 1px 0;
   width: 100%;
+  margin: 0;
 }
 hr.divider-default {
   border-color: #98A0AE;
@@ -458,8 +459,8 @@ button.btn-fund[data-on=true] {
 button.btn-fund[data-on=true] p {
   visibility: hidden;
 }
-button.btn-fund[data-on=true][data-fund=postal] {
-  background-image: url("../images/fund_postal_on.png");
+button.btn-fund[data-on=true][data-fund=legacy] {
+  background-image: url("../images/fund_legacy_on.png");
 }
 button.btn-fund[data-on=true][data-fund=insurance] {
   background-image: url("../images/fund_insurance_on.png");
@@ -594,7 +595,7 @@ button.btn-fund[data-on=true][data-fund=retire] {
   border: 1px solid #E30613;
   font-size: 1rem;
   position: absolute;
-  top: 1.75rem;
+  top: 0.2rem;
   margin-left: 1em;
 }
 
@@ -844,4 +845,8 @@ button.btn-fund[data-on=true][data-fund=retire] {
   margin-top: auto;
   width: 100%;
   max-width: 264px;
+}
+
+#receipt-column .receipt-share-btn {
+  display: none;
 }/*# sourceMappingURL=styles.css.map */
