@@ -157,10 +157,10 @@ const CHART_STYLE = {
         width: 1
     },
     dataLine: {
-        borderWidth: 1,
+        borderWidth: 2,
         pointRadius: 0,
-        pointHoverRadius: 3,
-        pointHoverBorderWidth: 2
+        pointHoverRadius: 5,
+        pointHoverBorderWidth: 0
     }
 };
 
@@ -314,20 +314,18 @@ const app = Vue.createApp({
             // 建立數據集配置的輔助函數
             const createDataset = (label, borderColor) => ({
                 label: label,
-                data: [0, 0, 0, 0], // 初始化為 0
+                data: [],
                 borderColor: borderColor,
                 borderWidth: CHART_STYLE.dataLine.borderWidth,
                 pointRadius: CHART_STYLE.dataLine.pointRadius,
                 pointHoverRadius: CHART_STYLE.dataLine.pointHoverRadius,
                 pointHoverBackgroundColor: borderColor,
-                pointHoverBorderColor: '#98A0AE',
                 pointHoverBorderWidth: CHART_STYLE.dataLine.pointHoverBorderWidth
             });
 
             const chartConfig = {
                 type: 'line',
                 data: {
-                    // labels: [0, 10, 20, 30],
                     datasets: [
                         createDataset('預期報酬', '#98A0AE'),
                         createDataset('實際報酬', '#FFFFFF')
