@@ -120,7 +120,7 @@ const app = Vue.createApp({
             else
                 this.monthlyIncomeError = false;
 
-            if (!this.age || this.age < 18 || this.age >= 60)
+            if (!this.age || this.age < 18 || this.age >= 65)
                 this.ageError = true;
             else
                 this.ageError = false;
@@ -133,8 +133,8 @@ const app = Vue.createApp({
             if (this.monthlyIncomeError || this.ageError || this.isGovernmentEmployeeError)
                 return;
 
-            // 1. 總計投入金額 = 月薪 x (60-年齡)
-            this.totalInvestment = Math.floor(this.monthlyIncome * (60 - this.age));
+            // 1. 總計投入金額 = 月薪 x (65-年齡)
+            this.totalInvestment = Math.floor(this.monthlyIncome * (65 - this.age));
             console.log('總計投入金額:', this.totalInvestment);
 
             // 2. 預期報酬 = 總計投入金額 x1.5 減去總計投入金額
@@ -307,8 +307,8 @@ const app = Vue.createApp({
 
             console.log('圖表存在，開始計算數據');
 
-            // 計算圖表數據 - 從目前年齡到60歲的預期報酬變化
-            const totalYears = 60 - this.age;
+            // 計算圖表數據 - 從目前年齡到65歲的預期報酬變化
+            const totalYears = 65 - this.age;
 
             // 生成從0年到總投入年數的數據點
             const years = [];
@@ -320,7 +320,7 @@ const app = Vue.createApp({
 
             const expectedReturnData = years.map(year => {
                 if (year === 0) return 0;
-                // 計算到60歲時的預期報酬，然後按比例分配
+                // 計算到65歲時的預期報酬，然後按比例分配
                 const ratio = year / totalYears;
                 return Math.floor(this.expectedReturn * ratio);
             });
@@ -329,7 +329,7 @@ const app = Vue.createApp({
             // 計算郵政儲金調整後的數據
             const postalAdjustedData = years.map(year => {
                 if (year === 0) return 0;
-                // 計算到60歲時的預期報酬，然後按比例分配，再乘以郵政儲金調整係數
+                // 計算到65歲時的預期報酬，然後按比例分配，再乘以郵政儲金調整係數
                 const ratio = year / totalYears;
                 return Math.floor(this.expectedReturn * ratio * this.fundMultipliers.postal);
             });
@@ -338,7 +338,7 @@ const app = Vue.createApp({
             // 計算保險基金調整後的數據
             const insuranceAdjustedData = years.map(year => {
                 if (year === 0) return 0;
-                // 計算到60歲時的預期報酬，然後按比例分配，再乘以保險基金調整係數
+                // 計算到65歲時的預期報酬，然後按比例分配，再乘以保險基金調整係數
                 const ratio = year / totalYears;
                 return Math.floor(this.expectedReturn * ratio * this.fundMultipliers.insurance);
             });
@@ -347,7 +347,7 @@ const app = Vue.createApp({
             // 計算勞工基金調整後的數據
             const laborAdjustedData = years.map(year => {
                 if (year === 0) return 0;
-                // 計算到60歲時的預期報酬，然後按比例分配，再乘以勞工基金調整係數
+                // 計算到65歲時的預期報酬，然後按比例分配，再乘以勞工基金調整係數
                 const ratio = year / totalYears;
                 return Math.floor(this.expectedReturn * ratio * this.fundMultipliers.labor);
             });
@@ -356,7 +356,7 @@ const app = Vue.createApp({
             // 計算退休基金調整後的數據
             const retireAdjustedData = years.map(year => {
                 if (year === 0) return 0;
-                // 計算到60歲時的預期報酬，然後按比例分配，再乘以退休基金調整係數
+                // 計算到65歲時的預期報酬，然後按比例分配，再乘以退休基金調整係數
                 const ratio = year / totalYears;
                 return Math.floor(this.expectedReturn * ratio * this.fundMultipliers.retire);
             });
@@ -365,7 +365,7 @@ const app = Vue.createApp({
             // 計算總計調整後的數據（所有開啟基金的調整因子相乘）
             const totalAdjustedData = years.map(year => {
                 if (year === 0) return 0;
-                // 計算到60歲時的預期報酬，然後按比例分配
+                // 計算到65歲時的預期報酬，然後按比例分配
                 const ratio = year / totalYears;
                 let totalMultiplier = 1;
 
