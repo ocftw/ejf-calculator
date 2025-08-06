@@ -1,6 +1,17 @@
+const currentYear = new Date().getFullYear();
+
 const contributionRate = 0.06;  // 提撥率 6%
 const salaryGrowthRate = 0.02;  // 假設每年固定調薪 2%
 const expectedReturnRate = 0.06;  // 假設年化報酬率 6%
+
+const fundColor = {
+    'postal': '#3AB56C',
+    'insurance': '#F8897F',
+    'labor': '#FFB300',
+    'retire': '#6B98E0'
+}
+
+const calc = {};
 
 let cavr = {};  // 氣候變遷影響因子
 // 新制勞退
@@ -237,12 +248,10 @@ const app = Vue.createApp({
             if (this.monthlyIncomeError || this.ageError || this.isGovernmentEmployeeError)
                 return;
 
-            const currentYear = new Date().getFullYear();
             // const workYears = 65 - this.age; //FIXME: 需假設65歲退休，退休後不再有本金投入
-            const workYears = 2050 - currentYear + 1;  // 計算到 2050 年
+            // const workYears = 2050 - currentYear + 1;  // 計算到 2050 年
 
             // 計算從 2025 到 2050 年的年薪、提撥金額、預期報酬、實際報酬
-            const calc = {};
             for (let year = currentYear; year <= 2050; year++) {
                 const yearlySalary = (year !== currentYear) ? Math.floor(calc[year - 1].yearlySalary * (1 + salaryGrowthRate)) : this.monthlyIncome * 12;
                 const contribution = Math.floor(yearlySalary * contributionRate);
@@ -278,11 +287,9 @@ const app = Vue.createApp({
 
             this.currentDateTime = new Date().toISOString();
 
-            console.log('準備更新圖表...');
-            this.updateChart();
-
             console.log('=== 計算完成 ===');
 
+            this.updateChart();
             this.updateUrlParams();
         },
         calculateReceiptMode() {
@@ -329,14 +336,10 @@ const app = Vue.createApp({
             const chartConfig = {
                 type: 'line',
                 data: {
-                    labels: [0, 10, 20, 30],
+                    // labels: [0, 10, 20, 30],
                     datasets: [
-                        createDataset('預期報酬', '#FFFFFF'),
-                        createDataset('郵政儲金調整', '#3AB56C'),
-                        createDataset('勞保基金調整', '#F8897F'),
-                        createDataset('勞退基金調整', '#FFB300'),
-                        createDataset('退撫基金調整', '#6B98E0'),
-                        createDataset('總計報酬', '#FFFFFF')
+                        createDataset('預期報酬', '#98A0AE'),
+                        createDataset('實際報酬', '#FFFFFF')
                     ]
                 },
                 options: {
@@ -395,9 +398,7 @@ const app = Vue.createApp({
                             callbacks: {
                                 title: function(context) {
                                     const year = context[0].label;
-                                    const currentAge = this.chart.data.currentAge || 20;
-                                    const targetAge = currentAge + parseInt(year);
-                                    return `年齡 ${targetAge} 歲 (${year} 年後)`;
+                                    return `${year} 年`;
                                 },
                                 label: function(context) {
                                     const value = context.parsed.y;
@@ -406,17 +407,7 @@ const app = Vue.createApp({
                                     if (datasetIndex === 0)
                                         return `預期報酬: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
                                     if (datasetIndex === 1)
-                                        return `郵政儲金: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
-                                    if (datasetIndex === 2)
-                                        return `勞保基金: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
-                                    if (datasetIndex === 3)
-                                        return `勞退基金: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
-                                    if (datasetIndex === 4)
-                                        return `退撫基金: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
-                                    if (datasetIndex === 5)
-                                        return `總計報酬: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
-
-                                    return `${new Intl.NumberFormat('zh-TW').format(value)} 元`;
+                                        return `實際報酬: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
                                 }
                             }
                         }
@@ -428,142 +419,53 @@ const app = Vue.createApp({
         },
 
         updateChart() {
-
-            return;
-
             console.log('=== 開始更新圖表 ===');
 
             if (!chartInstance) {
-                console.log('圖表不存在，跳過更新');
+                console.error('圖表不存在，跳過更新');
                 return;
             }
 
-            console.log('圖表存在，開始計算數據');
-
-            // 計算圖表數據 - 從目前年齡到65歲的預期報酬變化
-            const totalYears = 65 - this.age;
-
-            // 生成從0年到總投入年數的數據點
             const years = [];
-            for (let i = 0; i <= totalYears; i++) {
+            for (let i = currentYear; i <= 2050; i++)
                 years.push(i);
-            }
 
             console.log('年份陣列:', years);
 
             const expectedReturnData = years.map(year => {
-                if (year === 0) return 0;
-                // 計算到65歲時的預期報酬，然後按比例分配
-                const ratio = year / totalYears;
-                return Math.floor(this.expectedReturn * ratio);
+                return calc[year].expectedReturn;
             });
             console.log('預期報酬數據:', expectedReturnData);
 
-            // 計算郵政儲金調整後的數據
-            const postalAdjustedData = years.map(year => {
-                if (year === 0) return 0;
-                // 計算到65歲時的預期報酬，然後按比例分配，再乘以郵政儲金調整係數
-                const ratio = year / totalYears;
-                return Math.floor(this.expectedReturn * ratio * this.fundMultipliers.postal);
+            const totalReturnData = years.map(year => {
+                return calc[year].totalReturn;
             });
-            console.log('郵政儲金調整數據:', postalAdjustedData);
+            console.log('實際報酬數據:', totalReturnData);
 
-            // 計算保險基金調整後的數據
-            const insuranceAdjustedData = years.map(year => {
-                if (year === 0) return 0;
-                // 計算到65歲時的預期報酬，然後按比例分配，再乘以保險基金調整係數
-                const ratio = year / totalYears;
-                return Math.floor(this.expectedReturn * ratio * this.fundMultipliers.insurance);
-            });
-            console.log('保險基金調整數據:', insuranceAdjustedData);
-
-            // 計算勞工基金調整後的數據
-            const laborAdjustedData = years.map(year => {
-                if (year === 0) return 0;
-                // 計算到65歲時的預期報酬，然後按比例分配，再乘以勞工基金調整係數
-                const ratio = year / totalYears;
-                return Math.floor(this.expectedReturn * ratio * this.fundMultipliers.labor);
-            });
-            console.log('勞工基金調整數據:', laborAdjustedData);
-
-            // 計算退休基金調整後的數據
-            const retireAdjustedData = years.map(year => {
-                if (year === 0) return 0;
-                // 計算到65歲時的預期報酬，然後按比例分配，再乘以退休基金調整係數
-                const ratio = year / totalYears;
-                return Math.floor(this.expectedReturn * ratio * this.fundMultipliers.retire);
-            });
-            console.log('退休基金調整數據:', retireAdjustedData);
-
-            // 計算總計調整後的數據（所有開啟基金的調整因子相乘）
-            const totalAdjustedData = years.map(year => {
-                if (year === 0) return 0;
-                // 計算到65歲時的預期報酬，然後按比例分配
-                const ratio = year / totalYears;
-                let totalMultiplier = 1;
-
-                // 計算所有開啟基金的調整因子相乘
-                if (this.funds.postal) totalMultiplier *= this.fundMultipliers.postal;
-                if (this.funds.insurance) totalMultiplier *= this.fundMultipliers.insurance;
-                if (this.funds.labor) totalMultiplier *= this.fundMultipliers.labor;
-                if (this.funds.retire) totalMultiplier *= this.fundMultipliers.retire;
-
-                return Math.floor(this.expectedReturn * ratio * totalMultiplier);
-            });
-            console.log('總計調整數據:', totalAdjustedData);
-
-            console.log('準備更新圖表數據...');
             // 更新圖表數據
             chartInstance.data.labels = years;
             chartInstance.data.datasets[0].data = expectedReturnData;
-            chartInstance.data.datasets[1].data = postalAdjustedData;
-            chartInstance.data.datasets[2].data = insuranceAdjustedData;
-            chartInstance.data.datasets[3].data = laborAdjustedData;
-            chartInstance.data.datasets[4].data = retireAdjustedData;
-            chartInstance.data.datasets[5].data = totalAdjustedData;
+            chartInstance.data.datasets[1].data = totalReturnData;
 
-            // 根據各基金狀態決定是否顯示對應線條
-            chartInstance.data.datasets[1].hidden = !this.funds.postal;
-            chartInstance.data.datasets[2].hidden = !this.funds.insurance;
-            chartInstance.data.datasets[3].hidden = !this.funds.labor;
-            chartInstance.data.datasets[4].hidden = !this.funds.retire;
+            // 更新圖表顏色
+            chartInstance.data.datasets[1].borderColor = fundColor[this.funds];
 
-            // 當有任何基金開啟時顯示total線
-            const hasAnyFund = this.funds.postal || this.funds.insurance || this.funds.labor || this.funds.retire;
-            chartInstance.data.datasets[5].hidden = !hasAnyFund;
-
-            // 動態調整expected線的顏色
-            if (hasAnyFund) {
-                chartInstance.data.datasets[0].borderColor = '#98A0AE';
-                chartInstance.data.datasets[0].pointHoverBackgroundColor = '#98A0AE';
-            } else {
-                chartInstance.data.datasets[0].borderColor = '#FFFFFF';
-                chartInstance.data.datasets[0].pointHoverBackgroundColor = '#FFFFFF';
-            }
-
-            // 將目前年齡和總年數傳遞給圖表，供 tooltip 和標籤使用
-            chartInstance.data.currentAge = this.age;
-            chartInstance.data.totalYears = totalYears;
             console.log('圖表數據更新完成');
 
             // 動態調整 Y 軸最大值
             const maxValue = Math.max(...expectedReturnData);
-            console.log('最大值:', maxValue);
+            console.log('Y 軸最大值:', maxValue);
 
             if (maxValue > 0) {
                 // 計算十萬的整數倍數作為最大值
                 const hundredThousand = 100000;
                 const newMax = Math.ceil(maxValue / hundredThousand) * hundredThousand;
                 console.log('新的 Y 軸最大值:', newMax);
-                console.log('準備設定 Y 軸最大值...');
                 chartInstance.options.scales.y.max = newMax;
                 console.log('Y 軸最大值設定完成');
             }
 
-            console.log('準備呼叫 chart.update()...');
-            // 直接更新圖表，不使用 requestAnimationFrame
-            chartInstance.update('none');
-            console.log('chart.update() 完成');
+            chartInstance.update();
 
             console.log('=== 圖表更新完成 ===');
         },
