@@ -11,3 +11,5 @@
 - [ ] 確認網址後更新 QR Code
 - [ ] 更新抓圖機器對應的測試網址
 - [ ] 確認分享功能在各網站正常運作後恢復分享功能
+- [ ] age / monthlyincome error 時需顯示錯誤訊息
+- [ ] age / monthlyincome error 時需停止計算
