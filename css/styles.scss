@@ -438,7 +438,7 @@ button.btn-fund {
 
     p { visibility: hidden; }
 
-    &[data-fund="postal"] { background-image: url('../images/fund_postal_on.png'); }
+    &[data-fund="legacy"] { background-image: url('../images/fund_legacy_on.png'); }
     &[data-fund="insurance"] { background-image: url('../images/fund_insurance_on.png'); }
     &[data-fund="labor"] { background-image: url('../images/fund_labor_on.png'); }
     &[data-fund="retire"] { background-image: url('../images/fund_retire_on.png'); }

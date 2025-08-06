@@ -21,10 +21,10 @@
   選填參數（會預先填入表單並自動計算）：
   - income: 平均月薪（數字）
   - age: 年齡（數字，18-59歲）
-  - funds: 基金類型（postal/insurance/labor/retire，預設 labor）
+  - funds: 基金類型（legacy/insurance/labor/retire，預設 labor）
 
   範例：
-  index.html?income=50000&age=30&funds=reture
+  index.html?income=50000&age=30&funds=retire
   -->
 </head>
 
@@ -138,19 +138,17 @@
           <div id="chart-column" class="column">
 
             <div id="fund-buttons">
-              <!-- FIXME: 郵政儲金要改舊制勞退
-              <button class="btn-fund" data-fund="postal" :data-on="funds.postal" @click="toggleFund('postal')">
-                <p>郵政儲金</p>
-              </button>
-              -->
               <button class="btn-fund" data-fund="insurance" :data-on="funds == 'insurance'" @click="toggleFund('insurance')">
                 <p>勞保基金</p>
               </button>
               <button class="btn-fund" data-fund="labor" :data-on="funds == 'labor'" @click="toggleFund('labor')">
-                <p>新制勞退</p>
+                <p>勞退基金</p>
               </button>
               <button class="btn-fund" data-fund="retire" :data-on="funds == 'retire'" @click="toggleFund('retire')">
                 <p>退撫基金</p>
+              </button>
+              <button class="btn-fund" data-fund="legacy" :data-on="funds == 'legacy'" @click="toggleFund('legacy')">
+                <p>舊制勞退</p>
               </button>
             </div>
 
@@ -198,8 +196,9 @@
               <div class="receipt-section receipt-funds">
                 <div class="receipt-row">
                   <span v-if="funds == 'insurance'">勞保基金</span>
-                  <span v-if="funds == 'labor'">新制勞退</span>
+                  <span v-if="funds == 'labor'">勞退基金</span>
                   <span v-if="funds == 'retire'">退撫基金</span>
+                  <span v-if="funds == 'legacy'">舊制勞退</span>
                 </div>
 
                 <div class="receipt-row">

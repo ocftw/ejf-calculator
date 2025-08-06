@@ -5,7 +5,7 @@ const salaryGrowthRate = 0.02;  // 假設每年固定調薪 2%
 const expectedReturnRate = 0.06;  // 假設年化報酬率 6%
 
 const fundColor = {
-    'postal': '#3AB56C',
+    'legacy': '#3AB56C',
     'insurance': '#F8897F',
     'labor': '#FFB300',
     'retire': '#6B98E0'
@@ -180,7 +180,7 @@ const app = Vue.createApp({
             investmentDiff: 0,
             returnDiff: 0,
             currentDateTime: isReceiptMode ? getQueryParam('currentDateTime') || '' : '',
-            funds: getQueryParam('funds', 'labor'), // FIXME: 先寫死預設勞退 labor
+            funds: getQueryParam('funds', 'labor')  // 預設勞退基金
         }
     },
     created() {
@@ -300,7 +300,7 @@ const app = Vue.createApp({
             return '';
         },
         toggleFund(fundType) {
-            this.funds[fundType] = !this.funds[fundType];
+            this.funds = fundType;
 
             // 如果有計算過數據，則重新計算
             if (this.totalInvestment > 0) {

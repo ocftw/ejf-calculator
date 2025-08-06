@@ -459,8 +459,8 @@ button.btn-fund[data-on=true] {
 button.btn-fund[data-on=true] p {
   visibility: hidden;
 }
-button.btn-fund[data-on=true][data-fund=postal] {
-  background-image: url("../images/fund_postal_on.png");
+button.btn-fund[data-on=true][data-fund=legacy] {
+  background-image: url("../images/fund_legacy_on.png");
 }
 button.btn-fund[data-on=true][data-fund=insurance] {
   background-image: url("../images/fund_insurance_on.png");
