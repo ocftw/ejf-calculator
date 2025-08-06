@@ -277,6 +277,7 @@ hr {
   height: 1px;
   border-width: 0 0 1px 0;
   width: 100%;
+  margin: 0;
 }
 hr.divider-default {
   border-color: #98A0AE;
@@ -594,7 +595,7 @@ button.btn-fund[data-on=true][data-fund=retire] {
   border: 1px solid #E30613;
   font-size: 1rem;
   position: absolute;
-  top: 1.75rem;
+  top: 0.2rem;
   margin-left: 1em;
 }
 
