@@ -13,9 +13,9 @@ const fundColor = {
 
 const calc = {};
 
-let cavr = {};  // 氣候變遷影響因子
+let cvar = {};  // 氣候變遷影響因子
 // 新制勞退
-cavr['labor'] = {
+cvar['labor'] = {
     '2025': 0.08,
     '2026': 0.19,
     '2027': 0.29,
@@ -44,7 +44,7 @@ cavr['labor'] = {
     '2050': 5.48
 }
 // 舊制勞退
-cavr['legacy'] = {
+cvar['legacy'] = {
     '2025': 0.11,
     '2026': 0.24,
     '2027': 0.37,
@@ -73,7 +73,7 @@ cavr['legacy'] = {
     '2050': 7.08
 }
 // 勞保
-cavr['insurance'] = {
+cvar['insurance'] = {
     '2025': 0.09,
     '2026': 0.19,
     '2027': 0.30,
@@ -102,7 +102,7 @@ cavr['insurance'] = {
     '2050': 5.60
 }
 // 退撫
-cavr['retire'] = {
+cvar['retire'] = {
     '2025': 0.10,
     '2026': 0.21,
     '2027': 0.33,
@@ -130,10 +130,10 @@ cavr['retire'] = {
     '2049': 5.75,
     '2050': 6.29
 }
-// CaVR 單位是 %，所以需要除以 100
-Object.keys(cavr).forEach(key => {
-    for (let year in cavr[key]) {
-        cavr[key][year] /= 100;
+// cvar 單位是 %，所以需要除以 100
+Object.keys(cvar).forEach(key => {
+    for (let year in cvar[key]) {
+        cvar[key][year] /= 100;
     }
 });
 
@@ -250,8 +250,8 @@ const app = Vue.createApp({
                 const contribution = Math.floor(yearlySalary * contributionRate);
                 const totalInvestment = (year !== currentYear) ? calc[year - 1].totalInvestment + contribution : contribution;
                 const expectedReturn = (year !== currentYear) ? Math.floor((calc[year - 1].expectedReturn + contribution) * (1 + expectedReturnRate)) : Math.floor(contribution * (1 + expectedReturnRate));
-                const cavrRate = Number((1 + expectedReturnRate - cavr[this.funds][year]).toFixed(4));
-                const totalReturn = (year !== currentYear) ? Math.floor((calc[year - 1].totalReturn + contribution) * cavrRate) : Math.floor(contribution * cavrRate);
+                const cvarRate = Number((1 + expectedReturnRate - cvar[this.funds][year]).toFixed(4));
+                const totalReturn = (year !== currentYear) ? Math.floor((calc[year - 1].totalReturn + contribution) * cvarRate) : Math.floor(contribution * cvarRate);
 
                 calc[year] = {
                     'yearlySalary': yearlySalary,
