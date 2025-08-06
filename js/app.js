@@ -1,3 +1,131 @@
+const contributionRate = 0.06;  // 提撥率 6%
+const salaryGrowthRate = 0.02;  // 假設每年固定調薪 2%
+const expectedReturnRate = 0.06;  // 假設年化報酬率 6%
+
+let cavr = {};  // 氣候變遷影響因子
+// 新制勞退
+cavr['labor'] = {
+    '2025': 0.08,
+    '2026': 0.19,
+    '2027': 0.29,
+    '2028': 0.39,
+    '2029': 0.49,
+    '2030': 0.60,
+    '2031': 0.72,
+    '2032': 0.84,
+    '2033': 0.97,
+    '2034': 1.09,
+    '2035': 1.21,
+    '2036': 1.36,
+    '2037': 1.50,
+    '2038': 1.65,
+    '2039': 1.79,
+    '2040': 1.93,
+    '2041': 2.18,
+    '2042': 2.42,
+    '2043': 2.67,
+    '2044': 2.91,
+    '2045': 3.15,
+    '2046': 3.62,
+    '2047': 4.08,
+    '2048': 4.55,
+    '2049': 5.01,
+    '2050': 5.48
+}
+// 舊制勞退
+cavr['legacy'] = {
+    '2025': 0.11,
+    '2026': 0.24,
+    '2027': 0.37,
+    '2028': 0.51,
+    '2029': 0.64,
+    '2030': 0.77,
+    '2031': 0.93,
+    '2032': 1.09,
+    '2033': 1.25,
+    '2034': 1.41,
+    '2035': 1.57,
+    '2036': 1.76,
+    '2037': 1.94,
+    '2038': 2.13,
+    '2039': 2.31,
+    '2040': 2.50,
+    '2041': 2.82,
+    '2042': 3.13,
+    '2043': 3.45,
+    '2044': 3.76,
+    '2045': 4.08,
+    '2046': 4.68,
+    '2047': 5.28,
+    '2048': 5.88,
+    '2049': 6.48,
+    '2050': 7.08
+}
+// 勞保
+cavr['insurance'] = {
+    '2025': 0.09,
+    '2026': 0.19,
+    '2027': 0.30,
+    '2028': 0.40,
+    '2029': 0.51,
+    '2030': 0.61,
+    '2031': 0.74,
+    '2032': 0.86,
+    '2033': 0.99,
+    '2034': 1.12,
+    '2035': 1.24,
+    '2036': 1.39,
+    '2037': 1.54,
+    '2038': 1.68,
+    '2039': 1.83,
+    '2040': 1.98,
+    '2041': 2.23,
+    '2042': 2.48,
+    '2043': 2.73,
+    '2044': 2.98,
+    '2045': 3.23,
+    '2046': 3.70,
+    '2047': 4.17,
+    '2048': 4.65,
+    '2049': 5.12,
+    '2050': 5.60
+}
+// 退撫
+cavr['retire'] = {
+    '2025': 0.10,
+    '2026': 0.21,
+    '2027': 0.33,
+    '2028': 0.45,
+    '2029': 0.57,
+    '2030': 0.69,
+    '2031': 0.83,
+    '2032': 0.97,
+    '2033': 1.11,
+    '2034': 1.25,
+    '2035': 1.39,
+    '2036': 1.56,
+    '2037': 1.72,
+    '2038': 1.89,
+    '2039': 2.05,
+    '2040': 2.22,
+    '2041': 2.50,
+    '2042': 2.78,
+    '2043': 3.06,
+    '2044': 3.34,
+    '2045': 3.62,
+    '2046': 4.15,
+    '2047': 4.69,
+    '2048': 5.22,
+    '2049': 5.75,
+    '2050': 6.29
+}
+// CaVR 單位是 %，所以需要除以 100
+Object.keys(cavr).forEach(key => {
+    for (let year in cavr[key]) {
+        cavr[key][year] /= 100;
+    }
+});
+
 // 頁面模式檢測
 function getQueryParam(name, def = '') {
     const url = new URL(window.location.href);
@@ -39,22 +167,11 @@ const app = Vue.createApp({
             isGovernmentEmployeeError: false,
             totalInvestment: Number(getQueryParam('totalInvestment', 0)),
             expectedReturn: Number(getQueryParam('expectedReturn', 0)),
-            total: 0,
+            totalReturn: 0,
             investmentDiff: 0,
             returnDiff: 0,
             currentDateTime: isReceiptMode ? getQueryParam('currentDateTime') || '' : '',
-            funds: {
-                postal: getQueryParam('postal', 'false') !== 'false',
-                insurance: getQueryParam('insurance', 'false') !== 'false',
-                labor: getQueryParam('labor', 'false') !== 'false',
-                retire: getQueryParam('retire', 'false') !== 'false'
-            },
-            fundMultipliers: {
-                postal: 0.9,
-                insurance: 0.8,
-                labor: 0.7,
-                retire: 0.6
-            }
+            funds: getQueryParam('funds', 'labor'), // FIXME: 先寫死預設勞退 labor
         }
     },
     created() {
@@ -64,9 +181,6 @@ const app = Vue.createApp({
         if (isReceiptMode) this.calculateReceiptMode();
     },
     computed: {
-        hasActiveFunds() {
-            return Object.values(this.funds).some(fund => fund === true);
-        },
         formattedDateTime() {
             console.log('formattedDateTime this.currentDateTime', this.currentDateTime);
             if (!this.currentDateTime) return '';
@@ -100,21 +214,11 @@ const app = Vue.createApp({
         formatNumber(num) {
             return new Intl.NumberFormat('zh-TW').format(num);
         },
-        adjustTotal(baseTotal) {
-            let total = baseTotal;
-            Object.keys(this.funds).forEach(fundType => {
-                if (this.funds[fundType]) {
-                    total *= this.fundMultipliers[fundType];
-                }
-            });
-            this.total = Math.floor(total);
-            this.investmentDiff = Math.floor(this.total - this.totalInvestment);
-            this.returnDiff = Math.floor(this.total - this.totalInvestment - this.expectedReturn);
-        },
         calculate() {
             console.log('=== 開始計算 ===');
 
             // 輸入驗證
+            (function() {
             if (!this.monthlyIncome || this.monthlyIncome <= 0)
                 this.monthlyIncomeError = true;
             else
@@ -129,22 +233,46 @@ const app = Vue.createApp({
                 this.isGovernmentEmployeeError = true;
             else
                 this.isGovernmentEmployeeError = false;
-
+            })();
             if (this.monthlyIncomeError || this.ageError || this.isGovernmentEmployeeError)
                 return;
 
-            // 1. 總計投入金額 = 月薪 x (65-年齡)
-            this.totalInvestment = Math.floor(this.monthlyIncome * (65 - this.age));
+            const currentYear = new Date().getFullYear();
+            // const workYears = 65 - this.age; //FIXME: 需假設65歲退休，退休後不再有本金投入
+            const workYears = 2050 - currentYear + 1;  // 計算到 2050 年
+
+            // 計算從 2025 到 2050 年的年薪、提撥金額、預期報酬、實際報酬
+            const calc = {};
+            for (let year = currentYear; year <= 2050; year++) {
+                const yearlySalary = (year !== currentYear) ? Math.floor(calc[year - 1].yearlySalary * (1 + salaryGrowthRate)) : this.monthlyIncome * 12;
+                const contribution = Math.floor(yearlySalary * contributionRate);
+                const totalInvestment = (year !== currentYear) ? calc[year - 1].totalInvestment + contribution : contribution;
+                const expectedReturn = (year !== currentYear) ? Math.floor((calc[year - 1].expectedReturn + contribution) * (1 + expectedReturnRate)) : Math.floor(contribution * (1 + expectedReturnRate));
+                const cavrRate = Number((1 + expectedReturnRate - cavr[this.funds][year]).toFixed(4));
+                const totalReturn = (year !== currentYear) ? Math.floor((calc[year - 1].totalReturn + contribution) * cavrRate) : Math.floor(contribution * cavrRate);
+
+                calc[year] = {
+                    'yearlySalary': yearlySalary,
+                    'contribution': contribution,
+                    'totalInvestment': totalInvestment,
+                    'expectedReturn': expectedReturn,
+                    'totalReturn': totalReturn
+                };
+            }
+            console.log('calc table', calc);
+
+            // 1. 總計投入金額 = 月薪 x 年資 蓻，假設每年調薪 2%，提撥年薪 6%
+            this.totalInvestment = calc[2050].totalInvestment;
             console.log('總計投入金額:', this.totalInvestment);
 
-            // 2. 預期報酬 = 總計投入金額 x1.5 減去總計投入金額
-            this.total = this.totalInvestment * 1.5;
-            this.expectedReturn = Math.floor(this.total - this.totalInvestment);
+            // 2. 預期報酬 = 假設年化報酬率 6%，從現在到 2050 年的複利效果
+            this.totalReturn = calc[2050].totalReturn; // 實際報酬
+            this.expectedReturn = calc[2050].expectedReturn; // 預期報酬
             console.log('預期報酬:', this.expectedReturn);
+            console.log('實際報酬:', this.totalReturn);
 
-            // 3. 使用共用方法計算 total 和差異
-            this.adjustTotal(this.total);
-            console.log('Total:', this.total);
+            this.investmentDiff = Math.floor(this.totalReturn - this.totalInvestment);
+            this.returnDiff = Math.floor(this.totalReturn - this.expectedReturn);
             console.log('與投入金額相比:', this.investmentDiff);
             console.log('與預期報酬相比:', this.returnDiff);
 
@@ -161,8 +289,10 @@ const app = Vue.createApp({
             if (!this.totalInvestment || this.totalInvestment <= 0) return;
             if (!this.expectedReturn || this.expectedReturn < 0) return;
 
+            console.error('FIXME: 收據模式尚未實作');
             // 使用共用方法計算 total 和差異
-            this.adjustTotal(this.totalInvestment + this.expectedReturn);
+            // FIXME:
+            // this.adjustTotal(this.totalInvestment + this.expectedReturn);
         },
         amountClass(val) {
             if (val > 0) return 'receipt-amount-positive';
@@ -298,6 +428,9 @@ const app = Vue.createApp({
         },
 
         updateChart() {
+
+            return;
+
             console.log('=== 開始更新圖表 ===');
 
             if (!chartInstance) {
@@ -448,11 +581,8 @@ const app = Vue.createApp({
             url.searchParams.set('age', this.age);
             url.searchParams.set('servant', this.isGovernmentEmployee);
 
-            // 更新時間和基金狀態
-            url.searchParams.set('postal', this.funds.postal);
-            url.searchParams.set('insurance', this.funds.insurance);
-            url.searchParams.set('labor', this.funds.labor);
-            url.searchParams.set('retire', this.funds.retire);
+            // 選取基金狀態
+            url.searchParams.set('funds', this.funds);
 
             const newUrl = url.toString();
             window.history.replaceState(null, '', newUrl);
