@@ -176,7 +176,7 @@ const app = Vue.createApp({
             ageError: false,
             totalInvestment: Number(getQueryParam('totalInvestment', 0)),
             expectedReturn: Number(getQueryParam('expectedReturn', 0)),
-            totalReturn: 0,
+            totalReturn: isReceiptMode ? getQueryParam('totalReturn') : 0,
             investmentDiff: 0,
             returnDiff: 0,
             currentDateTime: isReceiptMode ? getQueryParam('currentDateTime') || '' : '',
@@ -288,11 +288,9 @@ const app = Vue.createApp({
         calculateReceiptMode() {
             if (!this.totalInvestment || this.totalInvestment <= 0) return;
             if (!this.expectedReturn || this.expectedReturn < 0) return;
-
-            console.error('FIXME: 收據模式尚未實作');
-            // 使用共用方法計算 total 和差異
-            // FIXME:
-            // this.adjustTotal(this.totalInvestment + this.expectedReturn);
+            if (!this.totalReturn || this.totalReturn < 0) return;
+            this.investmentDiff = Math.floor(this.totalReturn - this.totalInvestment);
+            this.returnDiff = Math.floor(this.totalReturn - this.expectedReturn);
         },
         amountClass(val) {
             if (val > 0) return 'receipt-amount-positive';
@@ -499,17 +497,16 @@ const app = Vue.createApp({
             url.searchParams.set('userName', this.userName);
             url.searchParams.set('totalInvestment', this.totalInvestment);
             url.searchParams.set('expectedReturn', this.expectedReturn);
+            url.searchParams.set('totalReturn', this.totalReturn);
             url.searchParams.set('currentDateTime', this.currentDateTime);
-            url.searchParams.set('postal', this.funds.postal);
-            url.searchParams.set('insurance', this.funds.insurance);
-            url.searchParams.set('labor', this.funds.labor);
-            url.searchParams.set('retire', this.funds.retire);
+            url.searchParams.set('funds', this.funds);
 
             const receiptUrl = url.toString();
             const encodedReceiptUrl = encodeURIComponent(receiptUrl);
             const paramPart = encodedReceiptUrl.split('%3F')[1];
 
             // 生成 hotshot 圖片 URL
+            console.log('receipt 網址', receiptUrl);
             return 'https://hotshot.anoni.net/shoot?path=/ejf/receipt%3F' + paramPart + '&selector=div[id=app]&vpw=336&vph=2100';
         }
     }
