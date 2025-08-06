@@ -153,14 +153,16 @@
           <div id="chart-column" class="column">
 
             <div id="fund-buttons">
+              <!-- FIXME: 郵政儲金要改舊制勞退
               <button class="btn-fund" data-fund="postal" :data-on="funds.postal" @click="toggleFund('postal')">
                 <p>郵政儲金</p>
               </button>
+              -->
               <button class="btn-fund" data-fund="insurance" :data-on="funds.insurance" @click="toggleFund('insurance')">
                 <p>勞保基金</p>
               </button>
               <button class="btn-fund" data-fund="labor" :data-on="funds.labor" @click="toggleFund('labor')">
-                <p>勞退基金</p>
+                <p>新制勞退</p>
               </button>
               <button class="btn-fund" data-fund="retire" :data-on="funds.retire" @click="toggleFund('retire')">
                 <p>退撫基金</p>
@@ -212,16 +214,18 @@
               <hr class="divider-receipt" v-if="hasActiveFunds" />
 
               <div class="receipt-section receipt-funds" v-if="hasActiveFunds">
+                <!-- FIXME: 郵政儲金要改舊制勞退
                 <div class="receipt-row" v-if="funds.postal">
                   <span>郵政儲金</span>
                   <span class="receipt-multiplicator">x {{ fundMultipliers.postal }}</span>
                 </div>
+                -->
                 <div class="receipt-row" v-if="funds.insurance">
                   <span>勞保基金</span>
                   <span class="receipt-multiplicator">x {{ fundMultipliers.insurance }}</span>
                 </div>
                 <div class="receipt-row" v-if="funds.labor">
-                  <span>勞退基金</span>
+                  <span>新制勞退</span>
                   <span class="receipt-multiplicator">x {{ fundMultipliers.labor }}</span>
                 </div>
                 <div class="receipt-row" v-if="funds.retire">
