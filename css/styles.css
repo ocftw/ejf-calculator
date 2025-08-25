@@ -744,6 +744,9 @@ button.btn-fund[data-on=true][data-fund=retire] {
   flex-wrap: wrap;
   justify-content: center;
 }
+#chart-column #fund-buttons p {
+  margin: 1em 0;
+}
 #chart-column #return-chart {
   width: 100%;
   height: 450px;
@@ -759,13 +762,13 @@ button.btn-fund[data-on=true][data-fund=retire] {
 #receipt-column .receipt-qrcode {
   display: none;
 }
-#receipt-column .receipt-share-btn {
+#receipt-column .receipt-btn {
   display: flex;
   justify-content: center;
 }
-#receipt-column .receipt-share-btn button.btn-share {
+#receipt-column .receipt-btn button {
   width: 100%;
-  max-width: 240px;
+  max-width: 280px;
 }
 
 .lightbox {

@@ -239,13 +239,17 @@
                     這筆帳，該算清楚了。<br>
                     試算你的投資報酬與碳排代價 →
                   </span>
-                  <img src="images/qrcode.png" alt="">
+                  <img src="images/qrcode.png" alt="https://divest4future.ejfoundation.org/">
                 </div>
               </div>
 
             </div>
 
-            <div class="receipt-share-btn" v-if="totalInvestment > 0">
+            <div class="receipt-btn" v-if="totalInvestment > 0">
+              <button class="big-btn btn-calculate color-gray" >立刻連署</button>
+            </div>
+
+            <div class="receipt-btn" v-if="totalInvestment > 0">
               <button class="big-btn btn-share" @click="openShareLightbox">心碎分享</button>
             </div>
 

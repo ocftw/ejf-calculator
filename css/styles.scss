@@ -733,10 +733,7 @@ $mobileMinWidth: 414px;
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
     justify-content: center;
-
-    @media (max-width: (470px)) {
-
-    }
+    p { margin: 1em 0; }
   }
 
   #return-chart {
@@ -764,13 +761,13 @@ $mobileMinWidth: 414px;
     display: none;
   }
 
-  .receipt-share-btn {
+  .receipt-btn {
     display: flex;
     justify-content: center;
 
-    button.btn-share {
+    button {
       width: 100%;
-      max-width: 240px;
+      max-width: 280px;
     }
   }
 }
