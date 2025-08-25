@@ -33,7 +33,7 @@
 
 <body>
   <div id="app">
-      <div class="container">
+      <div id="page-header" class="container">
         <h1 id="title">
           <img src="images/ejf-logo-white.png" alt="EJF Logo">
           <span class="title-text">政府四大基金投資報酬計算機</span>
@@ -94,6 +94,9 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div id="page-calculator" class="container">
 
         <h2 id="subtitle">
           看似穩健的基金收益，可能正默默助長氣候危機。<br>
@@ -102,7 +105,7 @@
 
         <div class="columns">
           <!-- 左側輸入表單部分 -->
-          <div id="calculator-column" class="column">
+          <div id="calculator-column">
 
             <div class="calculator-wrapper">
               <span class="calculator-title">Calculator</span>
@@ -131,14 +134,14 @@
                   <span class="help">請輸入有效年齡（18-64歲）</span>
                 </div>
 
-                <button class="big-btn btn-calculate" @click="calculate">計算</button>
+                <button class="big-btn btn-calculate color-gray" @click="calculate">計算</button>
               </div>
             </div>
 
           </div>
 
           <!-- 中間圖表區域 -->
-          <div id="chart-column" class="column">
+          <div id="chart-column">
 
             <div id="fund-buttons">
               <button class="btn-fund" data-fund="insurance" :data-on="funds == 'insurance'" @click="toggleFund('insurance')">
@@ -162,7 +165,7 @@
           </div>
 
           <!-- 右側計算結果 -->
-          <div id="receipt-column" class="column">
+          <div id="receipt-column">
 
             <div class="receipt-box">
               <img class="receipt-logo" src="images/ejf-logo-black.png" alt="EJF Logo">
@@ -247,9 +250,69 @@
             </div>
 
           </div>
+        </div>
+      </div>
+
+      <div id="page-intro" class="container">
+        <h3>不透明的投資策略</h3>
+
+        <div class="columns">
+
+          <div class="page-info-content-left">
+            <p>
+              基金投資有賺有賠。<br>
+              那你知道政府基金的氣候風險，會讓你賠多少嗎？
+            </p>
+            <ul>
+              <li class="intro-restrict">
+                <h4>未盡忠誠義務</h4>
+                <p>政府基金未納入氣候風險與永續考量，忽視受益人利益。</p>
+              </li>
+              <li class="intro-emission">
+                <h4>避免擱淺資產</h4>
+                <p>繼續投資化石燃料恐導致資產貶值與聲譽風險，增加擱淺資產風險。</p>
+              </li>
+              <li class="intro-sustainable">
+                <h4>促進淨零轉型</h4>
+                <p>公共資金應引導低碳轉型，帶動民間投資，實現2050年淨零目標。</p>
+              </li>
+              <li class="intro-cloud">
+                <h4>減緩氣候變遷</h4>
+                <p>撤資化石燃料、改投再生能源，是減緩氣候災難的關鍵手段。</p>
+              </li>
+            </ul>
+
+            <button class="big-btn btn-share">連署</button>
+          </div>
+
+          <div class="page-info-content-right">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube-nocookie.com/embed/T584OP-MLLQ?si=e8Q0r5aVWrfmfDaF&rel=0&widget_referrer=https%3A%2F%2Fdivest4future.ejfoundation.org"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
 
         </div>
       </div>
+
+      <!--
+      <div id="page-infopack" class="container">
+        <h3>議題懶人包</h3>
+        <img src="images/infopack.png" alt="議題懶人包">
+      </div>
+
+      <div id="footer" class="container">
+        <div class="footer-content">
+          <p>© CC BY 4.0 – 環境正義基金會 (Environmental Justice Foundation, EJF), 財團法人開放文化基金會 (Open Culture Foundation, OCF), and Chung-An Wu (Product Designer)</p>
+        </div>
+      </div>
+      -->
   </div>
 
   <!-- Lightbox 分享視窗 -->

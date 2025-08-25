@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // ===== Font =====
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
@@ -32,6 +34,7 @@ $color-black: #000000;
 $color-white: #FFFFFF;
 $color-ejf-red: #E30613;
 $color-ejf-blue: #54677B;
+$color-ejf-gray: #F3F2EF;
 
 $color-neutral-1000: #1C1E22;
 $color-neutral-900: #3B4048;
@@ -44,12 +47,14 @@ $color-neutral-300: #CFD3DA;
 $color-neutral-200: #DEE1E5;
 $color-neutral-100: #ECEEF0;
 $color-neutral-50: #FAFAFA;
+$color-default: $color-neutral-900;
 
 $color-neutral-1000-trans-8: fade-out($color-neutral-1000, 0.92);
+$color-neutral-1000-trans-10: fade-out($color-neutral-1000, 0.90);
 
 $color-status-info-500: #6B98E0;
 
-$color-background: #1E1E1E;
+$color-background: $color-ejf-gray;
 $background-image: url('../images/grid.png');
 $background-size: 1024px;
 
@@ -70,6 +75,11 @@ $icon-line: url('../images/icon-line.png');
 $icon-linkedin: url('../images/icon-linkedin.png');
 $icon-instagram: url('../images/icon-instagram.png');
 
+$icon-intro-cloud: url('../images/icon-intro-cloud.svg');
+$icon-intro-emission: url('../images/icon-intro-emission.svg');
+$icon-intro-restrict: url('../images/icon-intro-restrict.svg');
+$icon-intro-sustainable: url('../images/icon-intro-sustainable.svg');
+
 // ===== Typography =====
 
 body {
@@ -82,7 +92,7 @@ body {
 
   min-height: 100vh;
 
-  color: $color-white;
+  color: $color-default;
   padding: 0;
   margin: 0;
 }
@@ -111,6 +121,10 @@ h3 {
   font-size: 2rem;
   line-height: 2.5rem;
   font-weight: $font-weight-bold;
+  margin: 0 0 1rem;
+  color: $color-ejf-blue;
+
+
   @include mobile {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -121,6 +135,7 @@ h4 {
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: $font-weight-bold;
+  margin: 0 0 0.5rem;
 }
 
 @mixin font-weight-bold {
@@ -132,6 +147,8 @@ h4 {
 p {
   font-size: 1rem;
   line-height: 1.5rem;
+  margin: 0 0 1rem 0;
+
   @include mobile {
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -305,12 +322,8 @@ span.watermark {
 }
 
 button.big-btn {
-  $color-gradient: linear-gradient(90deg, $color-ejf-blue 0%, $color-status-info-500 100%);
-  background: $color-gradient;
-
-  border: 2px solid $color-ejf-blue;
-  border-image: $color-gradient;
-  border-image-slice: 1;
+  background-color: $color-ejf-red;
+  border: 2px solid $color-ejf-red;
 
   padding: 0.75rem 1.5rem;
   width: 100%;
@@ -325,15 +338,7 @@ button.big-btn {
   cursor: pointer;
   position: relative;
 
-  &:hover {
-    background: $color-white;
-    color: $color-ejf-blue;
-  }
-
-  // &:disabled {
-  //   background-color: $color-neutral-500;
-  //   color: $color-neutral-1000;
-  // }
+  &:hover { background-color: color.scale($color-ejf-red, $lightness: -10%); }
 
   &::after {
     background-size: 100%;
@@ -354,29 +359,16 @@ button.big-btn {
     }
   }
 
-  @mixin icon-right {
-    &::after { background-image: $icon-right-white; }
-    &:hover::after { background-image: $icon-right-ejf; }
-  }
-  &.btn-calculate {
-    &:hover::after { background-image: $icon-right-ejf; }
-  }
+  &.btn-calculate::after { background-image: $icon-right-white; }
+  &.btn-share::after { background-image: $icon-heart-white; }
+  &.btn-download::after { background-image: $icon-download-white; }
+  &.btn-back::after { background-image: $icon-right-white; }
+  &.btn-back { @include icon-left; }
 
-  &.btn-share {
-    &::after { background-image: $icon-heart-white; }
-    &:hover::after { background-image: $icon-heart-ejf; }
-  }
-
-  &.btn-back {
-    @include icon-left;
-
-    &::after { background-image: $icon-right-white; }
-    &:hover::after { background-image: $icon-right-ejf; }
-  }
-
-  &.btn-download {
-    &::after { background-image: $icon-download-white; }
-    &:hover::after { background-image: $icon-download-ejf; }
+  &.color-gray {
+    background-color: $color-ejf-blue;
+    border-color: $color-ejf-blue;
+    &:hover { background-color: color.scale($color-ejf-blue, $lightness: -10%); }
   }
 }
 
@@ -389,7 +381,7 @@ button.big-btn {
   box-shadow: -8px 16px 40px $color-neutral-1000-trans-8;
   background-color: $color-white;
 
-  color: $color-neutral-900;
+  color: $color-default;
 
   position: relative;
 
@@ -459,12 +451,11 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   margin-right: calc(-50vw + 50%);
   position: relative;
 
-  background-color: fade-out($color-ejf-blue, 0.60);
-  backdrop-filter: blur(4px);
-  border: 1px solid fade-out($color-white, 0.80);
-  border-width: 1px 0;
+  background-color: $color-neutral-1000-trans-10;
+  backdrop-filter: blur(6px);
+  border: 1px solid $color-neutral-1000-trans-10;
 
-  opacity: 0.64;
+  opacity: 0.9;
 
   .marquee-content {
     width: #{$marquee-distance}px;
@@ -483,20 +474,20 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
     }
 
     span {
-      color: $color-white;
+      color: $color-default;
       font-size: 1rem;
       line-height: 1.25rem;
       white-space: nowrap;
 
       a {
-        color: $color-white;
+        color: $color-default;
         text-decoration: underline;
       }
     }
 
     .marquee-divider {
       text-align: center;
-      color: $color-neutral-600;
+      color: fade-out($color-neutral-1000, 0.80);
       &:after { content: "|"; }
     }
   }
@@ -521,7 +512,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   font-style: normal;
   font-size: 0.75rem;
   line-height: 1.5rem;
-  color: $color-neutral-900;
 
   display: flex;
   align-items: center;
@@ -602,13 +592,13 @@ $mobileMinWidth: 414px;
 
 /* 基本版面 CSS */
 #app {
-  padding: 3rem 1.5rem;
   overflow: hidden;
 }
 
 .container {
   max-width: $pageMaxWidth;
   margin: 0 auto;
+  padding: 3rem 1.5rem;
 }
 
 .columns {
@@ -642,6 +632,10 @@ $mobileMinWidth: 414px;
   }
 }
 
+
+#page-header {
+  padding-bottom: 0;
+}
 
 // ===== elements =====
 
@@ -702,7 +696,7 @@ $mobileMinWidth: 414px;
 
 #subtitle {
   margin: 0 0 2.5rem;
-  border-right: 1px solid $color-white;
+  border-right: 1px solid $color-default;
   display: inline-block;
   padding-right: 1em;
   position: relative;
@@ -714,13 +708,13 @@ $mobileMinWidth: 414px;
     left: 100%;
     width: calc(100vw - 100%);
     height: 1px;
-    background-color: $color-white;
+    background-color: $color-default;
     transform: translateY(-50%);
   }
 }
 
 #marquee {
-  margin: 2rem 0;
+  margin-top: 2rem;
 }
 
 #chart-column {
@@ -799,7 +793,7 @@ $mobileMinWidth: 414px;
     overflow-y: scroll;
 
     padding: 2rem;
-    color: $color-black;
+    color: $color-default;
 
     @media (max-width: 768px) {
       max-height: 95vh;
@@ -837,7 +831,6 @@ $mobileMinWidth: 414px;
     align-items: center;
 
     max-width: 320px;
-    color: $color-neutral-900;
 
     p {
       margin-top: 0;
@@ -870,6 +863,117 @@ $mobileMinWidth: 414px;
   }
 }
 
-#receipt-column .receipt-share-btn {
-  display: none;
+// ===== page-intro 頁面樣式 =====
+
+#page-intro {
+  background: rgba($color-white, 0.9);
+  backdrop-filter: opacity(50%) blur(6px);
+  border: 1px solid $color-neutral-1000-trans-10;
+
+  .page-info-content-left { flex: 0 0 320px; }
+  .page-info-content-right { flex: 1; }
+
+  .page-info-content-left {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem;
+
+      li {
+        padding-left: 3rem;
+        position: relative;
+
+        h4 {
+          color: $color-neutral-1000;
+          margin-left: -1px;
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0.1rem;
+          width: 2rem;
+          height: 2rem;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
+        &.intro-restrict::before { background-image: $icon-intro-restrict; }
+        &.intro-emission::before { background-image: $icon-intro-emission; }
+        &.intro-sustainable::before { background-image: $icon-intro-sustainable; }
+        &.intro-cloud::before { background-image: $icon-intro-cloud; }
+      }
+    }
+  }
+
+  .page-info-content-right {
+    iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      height: auto;
+      border: none;
+      display: block;
+    }
+  }
 }
+
+// ===== page-infopack 頁面樣式 =====
+
+/*
+.page-infopack {
+  margin: 4rem 0;
+  padding: 3rem 0;
+  background-color: $color-neutral-100;
+  text-align: center;
+
+  .page-infopack-content {
+    max-width: $pageMaxWidth;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    p {
+      font-size: 1.5rem;
+      line-height: 2rem;
+      margin: 0 0 2rem 0;
+      color: $color-neutral-900;
+      font-weight: $font-weight-bold;
+
+      @media (max-width: $mobileMinWidth) {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+// ===== footer 頁面樣式 =====
+
+.footer {
+  margin: 4rem 0 2rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid $color-neutral-800;
+  text-align: center;
+
+  .footer-content {
+    max-width: $pageMaxWidth;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+
+    p {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      color: $color-neutral-600;
+      margin: 0;
+    }
+  }
+}
+*/
