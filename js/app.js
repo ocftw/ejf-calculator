@@ -613,6 +613,26 @@ function updateDecorationHeight() {
         titleDecoration.style.setProperty('--decoration-height', `${decorationHeight}px`);
     }
 }
-
 window.addEventListener('load', updateDecorationHeight);
 window.addEventListener('resize', updateDecorationHeight);
+
+
+const glideOpt = {
+    // type: 'slider',
+    type: 'carousel',
+    gap: 10,
+    animationDuration: 1000,
+    bound: true,
+
+    perView: 4,
+    breakpoints: {
+        1080: { perView: 3 },
+        820: { perView: 2 },
+        558: { perView: 1 }
+    }
+}
+const glides = document.querySelectorAll(".infopack-content");
+glides.forEach(glide => {
+    new Glide(glide, Object.assign({
+    }, glideOpt)).mount();
+});
