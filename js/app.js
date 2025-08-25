@@ -605,15 +605,44 @@ const lightbox = {
 function updateDecorationHeight() {
     const titleDecoration = document.querySelector('.title-decoration');
     if (titleDecoration) {
-        const pageHeight = document.documentElement.scrollHeight;
-        const titleTop = titleDecoration.offsetTop;
-        const decorationHeight = pageHeight;
+                // 直接計算從裝飾線位置到 page-footer 下緣的距離
+        const pageFooter = document.querySelector('#page-footer');
+        let decorationHeight = window.innerHeight; // 預設值
+
+        if (pageFooter) {
+            const footerBottom = pageFooter.offsetTop + pageFooter.offsetHeight;
+            const decorationTop = titleDecoration.offsetTop;
+            decorationHeight = footerBottom - decorationTop;
+        }
 
         titleDecoration.style.setProperty('--decoration-height', `${decorationHeight}px`);
+
+        console.log('裝飾線高度更新:', {
+            footerBottom: pageFooter?.offsetTop + pageFooter?.offsetHeight,
+            decorationTop: titleDecoration.offsetTop,
+            decorationHeight,
+            windowHeight: window.innerHeight
+        });
     }
 }
+// Debounce 函數：在 resize 結束後延遲執行
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// 使用 debounce 包裝 updateDecorationHeight，延遲 150ms 執行
+const debouncedUpdateDecorationHeight = debounce(updateDecorationHeight, 150);
+
 window.addEventListener('load', updateDecorationHeight);
-window.addEventListener('resize', updateDecorationHeight);
+window.addEventListener('resize', debouncedUpdateDecorationHeight);
 
 
 const glideOpt = {
