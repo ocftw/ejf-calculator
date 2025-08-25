@@ -966,6 +966,23 @@ $mobileMinWidth: 414px;
   }
 }
 
+#page-links {
+  padding: 0 0 1rem;
+
+  .links-wrapper {
+    margin-bottom: 1rem;
+
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+
+    a.ejf-logo img {
+      width: 104px;
+      height: 62px;
+    }
+  }
+}
+
 #page-footer {
   max-width: none;
   width: 100vw;

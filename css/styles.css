@@ -945,6 +945,20 @@ button.btn-fund[data-on=true][data-fund=retire] {
   opacity: 1;
 }
 
+#page-links {
+  padding: 0 0 1rem;
+}
+#page-links .links-wrapper {
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+#page-links .links-wrapper a.ejf-logo img {
+  width: 104px;
+  height: 62px;
+}
+
 #page-footer {
   max-width: none;
   width: 100vw;
