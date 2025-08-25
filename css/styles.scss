@@ -85,6 +85,7 @@ $icon-intro-sustainable: url('../images/icon-intro-sustainable.svg');
 body {
   font-family: $font-family;
   font-weight: $font-weight-regular;
+  font-optical-sizing: auto;
 
   background-color: $color-background;
   background-image: $background-image;

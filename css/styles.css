@@ -19,6 +19,7 @@ button, input, select, textarea {
 body {
   font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
   font-weight: 400;
+  font-optical-sizing: auto;
   background-color: #F3F2EF;
   background-image: url("../images/grid.png");
   background-size: 1024px;
