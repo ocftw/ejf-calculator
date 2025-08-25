@@ -24,7 +24,7 @@ button, input, select, textarea {
 }
 
 // ===== 變數區 =====
-$font-family: 'Noto Sans TC', sans-serif;
+$font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
 $font-weight-regular: 400;
 $font-weight-bold: 700;
 $font-size: 16px;
@@ -647,8 +647,8 @@ $mobileMinWidth: 414px;
   position: relative;
 
   img {
-    height: 4rem;
-    margin-right: 1rem;
+    height: 62px;
+    margin-right: 0.2em;
     position: relative;
     top: 0.25rem;
   }
@@ -662,35 +662,43 @@ $mobileMinWidth: 414px;
   .title-decoration { z-index: 0; }
 
   .title-decoration {
-    $color-title-decoration: #77787a;
+    $color-title-decoration: $color-ejf-blue;
 
     position: absolute;
     left: 0;
     top: 0.25rem;
     height: 0;
     pointer-events: none;
+    opacity: 0.4;
+
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      background: $color-title-decoration;
+    }
 
     // 橫線
     &::before {
-      content: "";
-      position: absolute;
       left: -50vw;
       right: -50vw;
       top: 2rem;
       height: 1px;
-      background: $color-title-decoration;
       width: 200vw;
     }
     // 縱線
     &::after {
-      content: "";
-      position: absolute;
       left: 2rem; // 跟 logo 左邊對齊
       top: -50vh;
       width: 1px;
       height: 300vh;
-      background: $color-title-decoration;
     }
+  }
+
+  em {
+    font-style: normal;
+    border: 2.5px solid $color-ejf-red;
+    padding: 0 0.1em;
+    margin: 0 -0.1em;
   }
 }
 

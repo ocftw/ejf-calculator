@@ -17,7 +17,7 @@ button, input, select, textarea {
 }
 
 body {
-  font-family: "Noto Sans TC", sans-serif;
+  font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
   font-weight: 400;
   background-color: #F3F2EF;
   background-image: url("../images/grid.png");
@@ -663,8 +663,8 @@ button.btn-fund[data-on=true][data-fund=retire] {
   position: relative;
 }
 #title img {
-  height: 4rem;
-  margin-right: 1rem;
+  height: 62px;
+  margin-right: 0.2em;
   position: relative;
   top: 0.25rem;
 }
@@ -688,25 +688,31 @@ button.btn-fund[data-on=true][data-fund=retire] {
   top: 0.25rem;
   height: 0;
   pointer-events: none;
+  opacity: 0.4;
 }
-#title .title-decoration::before {
+#title .title-decoration::before, #title .title-decoration::after {
   content: "";
   position: absolute;
+  background: #54677B;
+}
+#title .title-decoration::before {
   left: -50vw;
   right: -50vw;
   top: 2rem;
   height: 1px;
-  background: #77787a;
   width: 200vw;
 }
 #title .title-decoration::after {
-  content: "";
-  position: absolute;
   left: 2rem;
   top: -50vh;
   width: 1px;
   height: 300vh;
-  background: #77787a;
+}
+#title em {
+  font-style: normal;
+  border: 2.5px solid #E30613;
+  padding: 0 0.1em;
+  margin: 0 -0.1em;
 }
 
 #subtitle {
