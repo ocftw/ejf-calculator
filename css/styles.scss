@@ -870,6 +870,15 @@ $mobileMinWidth: 414px;
   }
 }
 
+#page-calculator {
+  .calculator-intro {
+    margin-bottom: 2rem;
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
+
 #page-intro {
   background: rgba($color-white, 0.9);
   backdrop-filter: opacity(50%) blur(6px);
@@ -923,8 +932,6 @@ $mobileMinWidth: 414px;
     }
   }
 }
-
-// ===== page-infopack 頁面樣式 =====
 
 #page-infopack {
   .infopack-content {

@@ -856,6 +856,13 @@ button.btn-fund[data-on=true][data-fund=retire] {
   max-width: 264px;
 }
 
+#page-calculator .calculator-intro {
+  margin-bottom: 2rem;
+}
+#page-calculator .calculator-intro p {
+  margin-bottom: 0;
+}
+
 #page-intro {
   background: rgba(255, 255, 255, 0.9);
   -webkit-backdrop-filter: opacity(50%) blur(6px);
