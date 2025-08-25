@@ -944,26 +944,25 @@ button.btn-fund[data-on=true][data-fund=retire] {
     }
   }
 }
-
-// ===== footer 頁面樣式 =====
-
-.footer {
-  margin: 4rem 0 2rem 0;
-  padding: 2rem 0;
-  border-top: 1px solid $color-neutral-800;
+*/
+#page-footer {
+  max-width: none;
+  width: 100vw;
+  position: relative;
+  padding: 0;
+  margin-top: 1rem;
+  background-color: rgba(28, 30, 34, 0.1);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  border: 1px solid rgba(28, 30, 34, 0.1);
   text-align: center;
-
-  .footer-content {
-    max-width: $pageMaxWidth;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-
-    p {
-      font-size: 0.875rem;
-      line-height: 1.25rem;
-      color: $color-neutral-600;
-      margin: 0;
-    }
-  }
 }
-*//*# sourceMappingURL=styles.css.map */
+#page-footer a {
+  color: #3B4048;
+  text-decoration: underline;
+}
+#page-footer p {
+  margin: 0;
+  font-size: 0.75em;
+  line-height: 1.5rem;
+}/*# sourceMappingURL=styles.css.map */

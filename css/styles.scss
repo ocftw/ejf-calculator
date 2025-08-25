@@ -868,8 +868,6 @@ $mobileMinWidth: 414px;
   }
 }
 
-// ===== page-intro 頁面樣式 =====
-
 #page-intro {
   background: rgba($color-white, 0.9);
   backdrop-filter: opacity(50%) blur(6px);
@@ -959,26 +957,30 @@ $mobileMinWidth: 414px;
     }
   }
 }
+*/
 
-// ===== footer 頁面樣式 =====
 
-.footer {
-  margin: 4rem 0 2rem 0;
-  padding: 2rem 0;
-  border-top: 1px solid $color-neutral-800;
+#page-footer {
+  max-width: none;
+  width: 100vw;
+  position: relative;
+  padding: 0;
+  margin-top: 1rem;
+
+  background-color: $color-neutral-1000-trans-10;
+  backdrop-filter: blur(6px);
+  border: 1px solid $color-neutral-1000-trans-10;
+
   text-align: center;
 
-  .footer-content {
-    max-width: $pageMaxWidth;
-    margin: 0 auto;
-    padding: 0 1.5rem;
+  a {
+    color: $color-default;
+    text-decoration: underline;
+  }
 
-    p {
-      font-size: 0.875rem;
-      line-height: 1.25rem;
-      color: $color-neutral-600;
-      margin: 0;
-    }
+  p {
+    margin: 0;
+    font-size: 0.75em;
+    line-height: 1.5rem;
   }
 }
-*/
