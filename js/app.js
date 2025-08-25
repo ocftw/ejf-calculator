@@ -601,3 +601,18 @@ const lightbox = {
             });
     }
 };
+
+// ===== 更新垂直裝飾線長度 =====
+function updateDecorationHeight() {
+    const titleDecoration = document.querySelector('.title-decoration');
+    if (titleDecoration) {
+        const pageHeight = document.documentElement.scrollHeight;
+        const titleTop = titleDecoration.offsetTop;
+        const decorationHeight = pageHeight;
+
+        titleDecoration.style.setProperty('--decoration-height', `${decorationHeight}px`);
+    }
+}
+
+window.addEventListener('load', updateDecorationHeight);
+window.addEventListener('resize', updateDecorationHeight);

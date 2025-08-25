@@ -592,9 +592,6 @@ $receiptMaxWidth: 320px;
 $mobileMinWidth: 414px;
 
 /* 基本版面 CSS */
-#app {
-  overflow: hidden;
-}
 
 .container {
   max-width: $pageMaxWidth;
@@ -689,9 +686,9 @@ $mobileMinWidth: 414px;
     // 縱線
     &::after {
       left: 2rem; // 跟 logo 左邊對齊
-      top: -50vh;
+      top: -75px;
       width: 1px;
-      height: 300vh;
+      height: var(--decoration-height, 150vh);
     }
   }
 
@@ -781,8 +778,8 @@ $mobileMinWidth: 414px;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
   z-index: 1000;
   align-items: center;
   justify-content: center;
