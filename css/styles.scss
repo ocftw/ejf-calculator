@@ -123,9 +123,7 @@ h3 {
   font-size: 2rem;
   line-height: 2.5rem;
   font-weight: $font-weight-bold;
-  margin: 0 0 1rem;
-  color: $color-ejf-blue;
-
+  margin: 0 0 1.5rem;
 
   @include mobile {
     font-size: 1.5rem;
@@ -137,7 +135,14 @@ h4 {
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: $font-weight-bold;
+  color: $color-ejf-blue;
+
   margin: 0 0 0.5rem;
+
+  @include mobile {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
 }
 
 @mixin font-weight-bold {
@@ -884,7 +889,7 @@ $mobileMinWidth: 414px;
   backdrop-filter: opacity(50%) blur(6px);
   border: 1px solid $color-neutral-1000-trans-10;
 
-  .page-info-content-left { flex: 0 0 320px; }
+  .page-info-content-left { flex: 0 0 300px; }
   .page-info-content-right { flex: 1; }
 
   .page-info-content-left {
@@ -894,11 +899,11 @@ $mobileMinWidth: 414px;
       margin: 0 0 1.5rem;
 
       li {
-        padding-left: 3rem;
+        padding-left: 2.75rem;
         position: relative;
 
         h4 {
-          color: $color-neutral-1000;
+          // color: $color-neutral-1000;
           margin-left: -1px;
         }
 
@@ -907,8 +912,8 @@ $mobileMinWidth: 414px;
           position: absolute;
           left: 0;
           top: 0.1rem;
-          width: 2rem;
-          height: 2rem;
+          width: 1.85rem;
+          height: 1.85rem;
           background-size: contain;
           background-repeat: no-repeat;
           background-position: center;
@@ -974,19 +979,24 @@ $mobileMinWidth: 414px;
 }
 
 #page-links {
-  padding: 0 0 1rem;
+  // padding: 0 0 1rem;
 
   .links-wrapper {
     margin-bottom: 1rem;
 
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
+    // display: flex;
+    // gap: 1rem;
+    // justify-content: center;
 
     a.ejf-logo img {
       width: 104px;
       height: 62px;
     }
+  }
+  .social-links {
+    display: flex;
+    gap: 1.25rem;
+    justify-content: left;
   }
 }
 
