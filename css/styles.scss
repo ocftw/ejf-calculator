@@ -168,6 +168,10 @@ small {
   @include font-weight-bold;
 }
 
+a {
+  color: $color-default;
+}
+
 
 // ===== Color =====
 
@@ -482,7 +486,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
       white-space: nowrap;
 
       a {
-        color: $color-default;
         text-decoration: underline;
       }
     }
@@ -977,7 +980,6 @@ $mobileMinWidth: 414px;
   text-align: center;
 
   a {
-    color: $color-default;
     text-decoration: underline;
   }
 

@@ -104,6 +104,10 @@ small.bold {
   font-weight: 700;
 }
 
+a {
+  color: #3B4048;
+}
+
 .color-black-bk {
   background-color: #000000;
 }
@@ -505,7 +509,6 @@ button.btn-fund[data-on=true][data-fund=retire] {
   white-space: nowrap;
 }
 .marquee-wrapper .marquee-content span a {
-  color: #3B4048;
   text-decoration: underline;
 }
 .marquee-wrapper .marquee-content .marquee-divider {
@@ -955,7 +958,6 @@ button.btn-fund[data-on=true][data-fund=retire] {
   text-align: center;
 }
 #page-footer a {
-  color: #3B4048;
   text-decoration: underline;
 }
 #page-footer p {
