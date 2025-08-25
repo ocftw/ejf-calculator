@@ -238,13 +238,13 @@
             </div>
 
             <div class="receipt-btn" v-if="totalInvestment > 0">
-              <button class="big-btn btn-calculate color-gray" >立刻連署</button>
+              <button class="big-btn btn-calculate color-gray" @click="openShareLightbox">立刻連署</button>
             </div>
-
+            <!--
             <div class="receipt-btn" v-if="totalInvestment > 0">
               <button class="big-btn btn-share" @click="openShareLightbox">心碎分享</button>
             </div>
-
+            -->
           </div>
         </div>
       </div>

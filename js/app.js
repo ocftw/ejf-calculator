@@ -153,7 +153,7 @@ const CHART_STYLE = {
         lineWidth: 0.5
     },
     axisBorder: {
-        color: 'white',
+        color: '#98A0AE',
         width: 1
     },
     dataLine: {
@@ -343,10 +343,10 @@ const app = Vue.createApp({
                             display: true,
                             title: {
                                 display: true,
-                                text: '投入時間（年）',
-                                color: '#FFFFFF',
-                                position: 'right',
-                                rotation: 0
+                                text: '年度',
+                                // color: '#98A0AE',
+                                // align: 'end',
+
                             },
                             ticks: {
                                 color: '#98A0AE'
@@ -358,10 +358,9 @@ const app = Vue.createApp({
                             display: true,
                             title: {
                                 display: true,
-                                text: '預期報酬（TWD）',
-                                color: '#FFFFFF',
-                                position: 'right',
-                                rotation: 90
+                                text: '累計資產',
+                                // color: '#FFFFFF',
+                                // align: 'end'
                             },
                             ticks: {
                                 color: '#98A0AE'
