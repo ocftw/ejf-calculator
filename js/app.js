@@ -204,7 +204,6 @@ const app = Vue.createApp({
             fundName: '',
             expectedReturn: 0,
             expectedMinus: 0,
-            expectedMinusRatio: 0,
             donut_strokeDasharray: '60 40', // 預設 40% 減損計算
             donut_transform: 'rotate(54 21 21)',
         }
@@ -269,7 +268,8 @@ const app = Vue.createApp({
             if (this.monthlyIncomeError || this.ageError)
                 return;
 
-            // const workYears = 65 - this.age; //FIXME: 需假設65歲退休，退休後不再有本金投入
+            // FIXME: 需實作年齡功能：目前假設能從當年工作到 2050 年，但實際上可能 2050 年前就滿 65 歲退休，退休後不再有本金投入
+            // const workYears = 65 - this.age;
             // const workYears = 2050 - currentYear + 1;  // 計算到 2050 年
 
             // 計算從 2025 到 2050 年的年薪、提撥金額、預期報酬、實際報酬
@@ -296,9 +296,7 @@ const app = Vue.createApp({
             });
             console.log('calcAll table', calcAll);
 
-            // 取第一個基金代表，需再配合收據綁定改為多基金
             let calc = calcAll[this.funds[0]];
-
             this.totalInvestment = calc[2050].totalInvestment;
             this.expectedReturn = calc[2050].expectedReturn;
 
@@ -309,29 +307,6 @@ const app = Vue.createApp({
                 this['expectedMinus_'+fund.id] = calcAll[fund.id][2050].totalReturn - calcAll[fund.id][2050].expectedReturn;
                 this['expectedMinusRatio_'+fund.id] = Math.round((this['expectedMinus_'+fund.id] / calcAll[fund.id][2050].expectedReturn) * 100);
             });
-
-            // 計算圓餅圖資料
-            console.log('===================== 計算圓餅圖資料 =====================');
-            // 第一個有打開的 funds 資料
-            const fundId = this.funds[0];
-            this.fundName = fundList.find(fund => fund.id === fundId).name;
-            this.expectedReturn = calcAll[fundId][2050].expectedReturn;
-            this.expectedMinus = this[`expectedMinus_${fundId}`];
-            this.expectedMinusRatio = this[`expectedMinusRatio_${fundId}`];
-
-            const donut_ratio = this.expectedMinusRatio * -1;
-            this.donut_strokeDasharray = `${100 - donut_ratio} ${donut_ratio}`;
-            this.donut_transform = `rotate(${Math.round(360 - (donut_ratio/100 * 360) - 90)} 21 21)`;
-
-            console.log('fundId', fundId);
-            console.log('fundName', this.fundName);
-            console.log('expectedReturn', this.expectedReturn);
-            console.log('expectedMinus', this.expectedMinus);
-            console.log('expectedMinusRatio', this.expectedMinusRatio);
-            console.log('donut_ratio', donut_ratio);
-            console.log('donut_strokeDasharray', this.donut_strokeDasharray);
-            console.log('donut_transform', this.donut_transform);
-
 
             /*
             console.log("=================== 2050 結果 ===================");
@@ -354,6 +329,7 @@ const app = Vue.createApp({
 
             console.log('=== 計算完成 ===');
 
+            this.calculateDonutChart();
             this.updateChart();
             this.updateUrlParams();
         },
@@ -381,9 +357,30 @@ const app = Vue.createApp({
             this.funds.sort((a, b) => fundIds.indexOf(a) - fundIds.indexOf(b));
 
             if (this.totalInvestment > 0) {
+                this.calculateDonutChart();
                 this.updateChart();
                 this.updateUrlParams();
             }
+        },
+        calculateDonutChart() {
+            console.log('=== 更新圓餅圖 ===');
+
+            // 取第一個有打開的 funds
+            const fundId = this.funds[0];
+            this.fundName = fundList.find(fund => fund.id === fundId).name;
+            this.expectedReturn = calcAll[fundId][2050].expectedReturn;
+            this.expectedMinus = this[`expectedMinus_${fundId}`];
+
+            const donut_ratio = this[`expectedMinusRatio_${fundId}`] * -1;
+            this.donut_strokeDasharray = `${100 - donut_ratio} ${donut_ratio}`;
+            this.donut_transform = `rotate(${Math.round(360 - (donut_ratio/100 * 360) - 90)} 21 21)`;
+
+            console.log('fundName', this.fundName);
+            console.log('expectedReturn', this.expectedReturn);
+            console.log('expectedMinus', this.expectedMinus);
+            console.log('donut_ratio', donut_ratio);
+            console.log('donut_strokeDasharray', this.donut_strokeDasharray);
+            console.log('donut_transform', this.donut_transform);
         },
         initChart() {
             console.log('Chart.js 版本:', Chart.version);
