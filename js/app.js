@@ -4,14 +4,33 @@ const contributionRate = 0.06;  // 提撥率 6%
 const salaryGrowthRate = 0.02;  // 假設每年固定調薪 2%
 const expectedReturnRate = 0.06;  // 假設年化報酬率 6%
 
-const fundColor = {
-    'legacy': '#3AB56C',
-    'insurance': '#F8897F',
-    'labor': '#FFB300',
-    'retire': '#6B98E0'
-}
+const fundList = [
+    {
+        name: '新制勞退',
+        id: 'labor',
+        color: '#FFB300'
+    },
+    {
+        name: '舊制勞退',
+        id: 'legacy',
+        color: '#3AB56C'
+    },
+    {
+        name: '勞保基金',
+        id: 'insurance',
+        color: '#F8897F'
+    },
+    {
+        name: '退撫基金',
+        id: 'retire',
+        color: '#6B98E0'
+    }
+]
 
-const calc = {};
+const calcAll = {};
+fundList.forEach(fund => {
+    calcAll[fund.id] = {};
+});
 
 let cvar = {};  // 氣候變遷影響因子
 // 新制勞退
@@ -175,12 +194,18 @@ const app = Vue.createApp({
             monthlyIncomeError: false,
             ageError: false,
             totalInvestment: Number(getQueryParam('totalInvestment', 0)),
-            expectedReturn: Number(getQueryParam('expectedReturn', 0)),
-            totalReturn: isReceiptMode ? getQueryParam('totalReturn') : 0,
-            investmentDiff: 0,
-            returnDiff: 0,
+            // expectedReturn: Number(getQueryParam('expectedReturn', 0)),
+            // totalReturn: isReceiptMode ? getQueryParam('totalReturn') : 0,
+            // investmentDiff: 0,
+            // returnDiff: 0,
             currentDateTime: isReceiptMode ? getQueryParam('currentDateTime') || '' : '',
-            funds: getQueryParam('funds', 'labor')  // 預設勞退基金
+            funds: getQueryParam('funds', 'labor').split(',').filter(f => f),  // 預設勞退基金，支援複選
+
+            fundName: '',
+            expectedReturn: 0,
+            expectedMinus: 0,
+            donut_strokeDasharray: '60 40', // 預設 40% 減損計算
+            donut_transform: 'rotate(54 21 21)',
         }
     },
     created() {
@@ -191,9 +216,11 @@ const app = Vue.createApp({
     },
     computed: {
         formattedDateTime() {
-            console.log('formattedDateTime this.currentDateTime', this.currentDateTime);
+            // console.log('formattedDateTime this.currentDateTime', this.currentDateTime);
+            // format: YYYY-MM-DD
             if (!this.currentDateTime) return '';
-            return this.formatDateTime(new Date(this.currentDateTime));
+            const date = new Date(this.currentDateTime);
+            return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
         }
     },
     mounted() {
@@ -241,16 +268,21 @@ const app = Vue.createApp({
             if (this.monthlyIncomeError || this.ageError)
                 return;
 
-            // const workYears = 65 - this.age; //FIXME: 需假設65歲退休，退休後不再有本金投入
+            // FIXME: 需實作年齡功能：目前假設能從當年工作到 2050 年，但實際上可能 2050 年前就滿 65 歲退休，退休後不再有本金投入
+            // const workYears = 65 - this.age;
             // const workYears = 2050 - currentYear + 1;  // 計算到 2050 年
 
             // 計算從 2025 到 2050 年的年薪、提撥金額、預期報酬、實際報酬
+
+            fundList.forEach(fund => {
+            let calc = calcAll[fund.id];
+
             for (let year = currentYear; year <= 2050; year++) {
                 const yearlySalary = (year !== currentYear) ? Math.floor(calc[year - 1].yearlySalary * (1 + salaryGrowthRate)) : this.monthlyIncome * 12;
                 const contribution = Math.floor(yearlySalary * contributionRate);
                 const totalInvestment = (year !== currentYear) ? calc[year - 1].totalInvestment + contribution : contribution;
                 const expectedReturn = (year !== currentYear) ? Math.floor((calc[year - 1].expectedReturn + contribution) * (1 + expectedReturnRate)) : Math.floor(contribution * (1 + expectedReturnRate));
-                const cvarRate = Number((1 + expectedReturnRate - cvar[this.funds][year]).toFixed(4));
+                const cvarRate = Number((1 + expectedReturnRate - cvar[fund.id][year]).toFixed(4));
                 const totalReturn = (year !== currentYear) ? Math.floor((calc[year - 1].totalReturn + contribution) * cvarRate) : Math.floor(contribution * cvarRate);
 
                 calc[year] = {
@@ -261,27 +293,43 @@ const app = Vue.createApp({
                     'totalReturn': totalReturn
                 };
             }
-            console.log('calc table', calc);
+            });
+            console.log('calcAll table', calcAll);
 
-            // 1. 總計投入金額 = 月薪 x 年資 蓻，假設每年調薪 2%，提撥年薪 6%
+            let calc = calcAll[this.funds[0]];
             this.totalInvestment = calc[2050].totalInvestment;
+            this.expectedReturn = calc[2050].expectedReturn;
+
+            // 計算 2050 時的減損與減損比例
+            fundList.forEach(fund => {
+                this['totalInvestment_'+fund.id] = calcAll[fund.id][2050].totalInvestment;
+                this['totalReturn_'+fund.id] = calcAll[fund.id][2050].totalReturn;
+                this['expectedMinus_'+fund.id] = calcAll[fund.id][2050].totalReturn - calcAll[fund.id][2050].expectedReturn;
+                this['expectedMinusRatio_'+fund.id] = Math.round((this['expectedMinus_'+fund.id] / calcAll[fund.id][2050].expectedReturn) * 100);
+            });
+
+            /*
+            console.log("=================== 2050 結果 ===================");
+
             console.log('總計投入金額:', this.totalInvestment);
-
-            // 2. 預期報酬 = 假設年化報酬率 6%，從現在到 2050 年的複利效果
-            this.totalReturn = calc[2050].totalReturn; // 實際報酬
-            this.expectedReturn = calc[2050].expectedReturn; // 預期報酬
             console.log('預期報酬:', this.expectedReturn);
-            console.log('實際報酬:', this.totalReturn);
 
-            this.investmentDiff = Math.floor(this.totalReturn - this.totalInvestment);
-            this.returnDiff = Math.floor(this.totalReturn - this.expectedReturn);
-            console.log('與投入金額相比:', this.investmentDiff);
-            console.log('與預期報酬相比:', this.returnDiff);
+            console.log("================================================");
+            fundList.forEach(fund => {
+                console.log(`${fund.name}`, calcAll[fund.id][2050]);
+
+                console.log(`實際報酬:`, this['totalReturn_'+fund.id]);
+                console.log(`減損:`, this['expectedMinus_'+fund.id]);
+                console.log(`減損比例:`, this['expectedMinusRatio_'+fund.id]);
+                console.log("================================================");
+            });
+            */
 
             this.currentDateTime = new Date().toISOString();
 
             console.log('=== 計算完成 ===');
 
+            this.calculateDonutChart();
             this.updateChart();
             this.updateUrlParams();
         },
@@ -298,12 +346,41 @@ const app = Vue.createApp({
             return '';
         },
         toggleFund(fundType) {
-            this.funds = fundType;
+            const index = this.funds.indexOf(fundType);
+            if (index > -1)
+                this.funds.splice(index, 1);  // 如果已選中，則移除
+            else
+                this.funds.push(fundType);  // 如果未選中，則添加
 
-            // 如果有計算過數據，則重新計算
+            // 根據 fundList[].id 排序
+            const fundIds = fundList.map(fund => fund.id);
+            this.funds.sort((a, b) => fundIds.indexOf(a) - fundIds.indexOf(b));
+
             if (this.totalInvestment > 0) {
-                this.calculate();
+                this.calculateDonutChart();
+                this.updateChart();
+                this.updateUrlParams();
             }
+        },
+        calculateDonutChart() {
+            console.log('=== 更新圓餅圖 ===');
+
+            // 取第一個有打開的 funds
+            const fundId = this.funds[0];
+            this.fundName = fundList.find(fund => fund.id === fundId).name;
+            this.expectedReturn = calcAll[fundId][2050].expectedReturn;
+            this.expectedMinus = this[`expectedMinus_${fundId}`];
+
+            const donut_ratio = this[`expectedMinusRatio_${fundId}`] * -1;
+            this.donut_strokeDasharray = `${100 - donut_ratio} ${donut_ratio}`;
+            this.donut_transform = `rotate(${Math.round(360 - (donut_ratio/100 * 360) - 90)} 21 21)`;
+
+            console.log('fundName', this.fundName);
+            console.log('expectedReturn', this.expectedReturn);
+            console.log('expectedMinus', this.expectedMinus);
+            console.log('donut_ratio', donut_ratio);
+            console.log('donut_strokeDasharray', this.donut_strokeDasharray);
+            console.log('donut_transform', this.donut_transform);
         },
         initChart() {
             console.log('Chart.js 版本:', Chart.version);
@@ -326,10 +403,7 @@ const app = Vue.createApp({
             const chartConfig = {
                 type: 'line',
                 data: {
-                    datasets: [
-                        createDataset('預期報酬', '#98A0AE'),
-                        createDataset('實際報酬', '#FFFFFF')
-                    ]
+                    datasets: [ createDataset('預期報酬', '#98A0AE') ].concat(fundList.map(fund => createDataset(`${fund.name}報酬`, fund.color)))
                 },
                 options: {
                     responsive: true,
@@ -373,14 +447,21 @@ const app = Vue.createApp({
                     },
                     plugins: {
                         legend: {
+                            // display: true,
+                            // position: 'top',
+                            // labels: {
+                            //     color: '#98A0AE',
+                            //     usePointStyle: true,
+                            //     padding: 20
+                            // }
                             display: false
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
                             titleColor: '#FFFFFF',
                             bodyColor: '#FFFFFF',
-                            borderColor: '#98A0AE',
-                            borderWidth: 1,
+                            // borderColor: '#98A0AE',
+                            // borderWidth: 1,
                             cornerRadius: 4,
                             displayColors: false,
                             callbacks: {
@@ -391,11 +472,10 @@ const app = Vue.createApp({
                                 label: function(context) {
                                     const value = context.parsed.y;
                                     const datasetIndex = context.datasetIndex;
+                                    // ['預期報酬', '新制勞退報酬', '舊制勞退報酬', '勞保基金報酬', '退撫基金報酬'];
+                                    const labels = ['預期報酬'].concat(fundList.map(fund => `${fund.name}報酬`));
 
-                                    if (datasetIndex === 0)
-                                        return `預期報酬: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
-                                    if (datasetIndex === 1)
-                                        return `實際報酬: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
+                                    return `${labels[datasetIndex]}: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
                                 }
                             }
                         }
@@ -421,27 +501,46 @@ const app = Vue.createApp({
             console.log('年份陣列:', years);
 
             const expectedReturnData = years.map(year => {
-                return calc[year].expectedReturn;
+                return calcAll['labor'][year].expectedReturn; // 使用任一基金的預期報酬，因為預期報酬與基金無關
             });
             console.log('預期報酬數據:', expectedReturnData);
 
-            const totalReturnData = years.map(year => {
-                return calc[year].totalReturn;
-            });
-            console.log('實際報酬數據:', totalReturnData);
-
-            // 更新圖表數據
             chartInstance.data.labels = years;
             chartInstance.data.datasets[0].data = expectedReturnData;
-            chartInstance.data.datasets[1].data = totalReturnData;
 
-            // 更新圖表顏色
-            chartInstance.data.datasets[1].borderColor = fundColor[this.funds];
+            // 各基金實際報酬數據
+            fundList.forEach((fund, index) => {
+                chartInstance.data.datasets[index + 1].data = years.map(year => {
+                    return calcAll[fund.id][year].totalReturn;
+                });
+            });
+
+            // 根據選中的基金來決定顯示哪些數據集
+            const selectedFunds = this.funds;
+            console.log('選中的基金:', selectedFunds);
+
+            // 更新圖表數據集的可見性
+            chartInstance.data.datasets.forEach((dataset, index) => {
+                if (index === 0) {
+                    dataset.hidden = false;  // 預期報酬永遠顯示
+                    return;
+                }
+
+                    if (selectedFunds.includes(fundList[index - 1].id))
+                        dataset.hidden = false;
+                    else
+                        dataset.hidden = true;
+            });
 
             console.log('圖表數據更新完成');
 
-            // 動態調整 Y 軸最大值
-            const maxValue = Math.max(...expectedReturnData);
+            // 動態調整 Y 軸最大值（只考慮可見的數據集）
+            const visibleData = chartInstance.data.datasets
+                .filter((dataset) => !dataset.hidden)
+                .map(dataset => dataset.data)
+                .flat();
+
+            const maxValue = Math.max(...visibleData);
             console.log('Y 軸最大值:', maxValue);
 
             if (maxValue > 0) {
@@ -471,7 +570,7 @@ const app = Vue.createApp({
             url.searchParams.set('age', this.age);
 
             // 選取基金狀態
-            url.searchParams.set('funds', this.funds);
+            url.searchParams.set('funds', this.funds.join(','));
 
             const newUrl = url.toString();
             window.history.replaceState(null, '', newUrl);
@@ -490,13 +589,14 @@ const app = Vue.createApp({
             ogImage.setAttribute('content', imageUrl);
         },
         generateReceiptImageUrl() {
+            // FIXME: 更新抓圖服務的收據樣板跟所需參數
             const url = new URL('receipt.html', window.location.origin);
             url.searchParams.set('userName', this.userName);
             url.searchParams.set('totalInvestment', this.totalInvestment);
             url.searchParams.set('expectedReturn', this.expectedReturn);
             url.searchParams.set('totalReturn', this.totalReturn);
             url.searchParams.set('currentDateTime', this.currentDateTime);
-            url.searchParams.set('funds', this.funds);
+            url.searchParams.set('funds', this.funds.join(','));
 
             const receiptUrl = url.toString();
             const encodedReceiptUrl = encodeURIComponent(receiptUrl);
