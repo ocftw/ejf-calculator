@@ -5,10 +5,10 @@ const salaryGrowthRate = 0.02;  // 假設每年固定調薪 2%
 const expectedReturnRate = 0.06;  // 假設年化報酬率 6%
 
 const fundColor = {
-    'legacy': '#3AB56C',
-    'insurance': '#F8897F',
-    'labor': '#FFB300',
-    'retire': '#6B98E0'
+    'legacy': '#3AB56C',  // 舊制勞退
+    'insurance': '#F8897F',  // 勞保基金
+    'labor': '#FFB300',  // 新制勞退
+    'retire': '#6B98E0'  // 退撫基金
 }
 const fundTypes = Object.keys(fundColor);
 
@@ -346,7 +346,10 @@ const app = Vue.createApp({
                 data: {
                     datasets: [
                         createDataset('預期報酬', '#98A0AE'),
-                        createDataset('實際報酬', '#FFFFFF')
+                        createDataset('新制勞退報酬', fundColor['labor']),
+                        createDataset('舊制勞退報酬', fundColor['legacy']),
+                        createDataset('勞保基金報酬', fundColor['insurance']),
+                        createDataset('退撫基金報酬', fundColor['retire'])
                     ]
                 },
                 options: {
@@ -391,6 +394,13 @@ const app = Vue.createApp({
                     },
                     plugins: {
                         legend: {
+                            // display: true,
+                            // position: 'top',
+                            // labels: {
+                            //     color: '#98A0AE',
+                            //     usePointStyle: true,
+                            //     padding: 20
+                            // }
                             display: false
                         },
                         tooltip: {
@@ -409,11 +419,9 @@ const app = Vue.createApp({
                                 label: function(context) {
                                     const value = context.parsed.y;
                                     const datasetIndex = context.datasetIndex;
+                                    const labels = ['預期報酬', '新制勞退報酬', '舊制勞退報酬', '勞保基金報酬', '退撫基金報酬'];
 
-                                    if (datasetIndex === 0)
-                                        return `預期報酬: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
-                                    if (datasetIndex === 1)
-                                        return `實際報酬: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
+                                    return `${labels[datasetIndex]}: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
                                 }
                             }
                         }
@@ -438,30 +446,45 @@ const app = Vue.createApp({
 
             console.log('年份陣列:', years);
 
-            let calc = calcAll[this.funds];
-
             const expectedReturnData = years.map(year => {
-                return calc[year].expectedReturn;
+                return calcAll['labor'][year].expectedReturn; // 使用任一基金的預期報酬，因為預期報酬與基金無關
             });
             console.log('預期報酬數據:', expectedReturnData);
 
-            const totalReturnData = years.map(year => {
-                return calc[year].totalReturn;
+            // 各基金實際報酬數據
+            const insuranceReturnData = years.map(year => {
+                return calcAll['insurance'][year].totalReturn;
             });
-            console.log('實際報酬數據:', totalReturnData);
+            const laborReturnData = years.map(year => {
+                return calcAll['labor'][year].totalReturn;
+            });
+            const retireReturnData = years.map(year => {
+                return calcAll['retire'][year].totalReturn;
+            });
+            const legacyReturnData = years.map(year => {
+                return calcAll['legacy'][year].totalReturn;
+            });
+
+            const fundColor = {
+                'legacy': '#3AB56C',  // 舊制勞退
+                'insurance': '#F8897F',  // 勞保基金
+                'labor': '#FFB300',  // 新制勞退
+                'retire': '#6B98E0'  // 退撫基金
+            }
 
             // 更新圖表數據
             chartInstance.data.labels = years;
             chartInstance.data.datasets[0].data = expectedReturnData;
-            chartInstance.data.datasets[1].data = totalReturnData;
-
-            // 更新圖表顏色
-            chartInstance.data.datasets[1].borderColor = fundColor[this.funds];
+            chartInstance.data.datasets[1].data = laborReturnData;
+            chartInstance.data.datasets[2].data = legacyReturnData;
+            chartInstance.data.datasets[3].data = insuranceReturnData;
+            chartInstance.data.datasets[4].data = retireReturnData;
 
             console.log('圖表數據更新完成');
 
-            // 動態調整 Y 軸最大值
-            const maxValue = Math.max(...expectedReturnData);
+            // 動態調整 Y 軸最大值（考慮所有數據集）
+            const allData = [expectedReturnData, insuranceReturnData, laborReturnData, retireReturnData, legacyReturnData];
+            const maxValue = Math.max(...allData.flat());
             console.log('Y 軸最大值:', maxValue);
 
             if (maxValue > 0) {
