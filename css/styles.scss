@@ -10,6 +10,7 @@ html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 button, input, select, textarea {
   margin: 0;
@@ -24,7 +25,7 @@ button, input, select, textarea {
 }
 
 // ===== 變數區 =====
-$font-family: 'Noto Sans TC', sans-serif;
+$font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
 $font-weight-regular: 400;
 $font-weight-bold: 700;
 $font-size: 16px;
@@ -85,6 +86,7 @@ $icon-intro-sustainable: url('../images/icon-intro-sustainable.svg');
 body {
   font-family: $font-family;
   font-weight: $font-weight-regular;
+  font-optical-sizing: auto;
 
   background-color: $color-background;
   background-image: $background-image;
@@ -121,9 +123,7 @@ h3 {
   font-size: 2rem;
   line-height: 2.5rem;
   font-weight: $font-weight-bold;
-  margin: 0 0 1rem;
-  color: $color-ejf-blue;
-
+  margin: 0 0 1.5rem;
 
   @include mobile {
     font-size: 1.5rem;
@@ -135,7 +135,14 @@ h4 {
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: $font-weight-bold;
+  color: $color-ejf-blue;
+
   margin: 0 0 0.5rem;
+
+  @include mobile {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
 }
 
 @mixin font-weight-bold {
@@ -164,6 +171,10 @@ small {
     line-height: 1.125rem;
   }
   @include font-weight-bold;
+}
+
+a {
+  color: $color-default;
 }
 
 
@@ -480,7 +491,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
       white-space: nowrap;
 
       a {
-        color: $color-default;
         text-decoration: underline;
       }
     }
@@ -591,9 +601,6 @@ $receiptMaxWidth: 320px;
 $mobileMinWidth: 414px;
 
 /* 基本版面 CSS */
-#app {
-  overflow: hidden;
-}
 
 .container {
   max-width: $pageMaxWidth;
@@ -647,8 +654,8 @@ $mobileMinWidth: 414px;
   position: relative;
 
   img {
-    height: 4rem;
-    margin-right: 1rem;
+    height: 62px;
+    margin-right: 0.2em;
     position: relative;
     top: 0.25rem;
   }
@@ -662,35 +669,43 @@ $mobileMinWidth: 414px;
   .title-decoration { z-index: 0; }
 
   .title-decoration {
-    $color-title-decoration: #77787a;
+    $color-title-decoration: $color-ejf-blue;
 
     position: absolute;
     left: 0;
     top: 0.25rem;
     height: 0;
     pointer-events: none;
+    opacity: 0.4;
+
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      background: $color-title-decoration;
+    }
 
     // 橫線
     &::before {
-      content: "";
-      position: absolute;
       left: -50vw;
       right: -50vw;
       top: 2rem;
       height: 1px;
-      background: $color-title-decoration;
       width: 200vw;
     }
     // 縱線
     &::after {
-      content: "";
-      position: absolute;
       left: 2rem; // 跟 logo 左邊對齊
-      top: -50vh;
+      top: -75px;
       width: 1px;
-      height: 300vh;
-      background: $color-title-decoration;
+      height: var(--decoration-height, 150vh);
     }
+  }
+
+  em {
+    font-style: normal;
+    border: 2.5px solid $color-ejf-red;
+    padding: 0 0.1em;
+    margin: 0 -0.1em;
   }
 }
 
@@ -725,10 +740,7 @@ $mobileMinWidth: 414px;
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
     justify-content: center;
-
-    @media (max-width: (470px)) {
-
-    }
+    p { margin: 1em 0; }
   }
 
   #return-chart {
@@ -756,13 +768,13 @@ $mobileMinWidth: 414px;
     display: none;
   }
 
-  .receipt-share-btn {
+  .receipt-btn {
     display: flex;
     justify-content: center;
 
-    button.btn-share {
+    button {
       width: 100%;
-      max-width: 240px;
+      max-width: 280px;
     }
   }
 }
@@ -775,8 +787,8 @@ $mobileMinWidth: 414px;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
   z-index: 1000;
   align-items: center;
   justify-content: center;
@@ -863,14 +875,21 @@ $mobileMinWidth: 414px;
   }
 }
 
-// ===== page-intro 頁面樣式 =====
+#page-calculator {
+  .calculator-intro {
+    margin-bottom: 2rem;
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
 
 #page-intro {
   background: rgba($color-white, 0.9);
   backdrop-filter: opacity(50%) blur(6px);
   border: 1px solid $color-neutral-1000-trans-10;
 
-  .page-info-content-left { flex: 0 0 320px; }
+  .page-info-content-left { flex: 0 0 300px; }
   .page-info-content-right { flex: 1; }
 
   .page-info-content-left {
@@ -880,11 +899,11 @@ $mobileMinWidth: 414px;
       margin: 0 0 1.5rem;
 
       li {
-        padding-left: 3rem;
+        padding-left: 2.75rem;
         position: relative;
 
         h4 {
-          color: $color-neutral-1000;
+          // color: $color-neutral-1000;
           margin-left: -1px;
         }
 
@@ -893,8 +912,8 @@ $mobileMinWidth: 414px;
           position: absolute;
           left: 0;
           top: 0.1rem;
-          width: 2rem;
-          height: 2rem;
+          width: 1.85rem;
+          height: 1.85rem;
           background-size: contain;
           background-repeat: no-repeat;
           background-position: center;
@@ -919,61 +938,88 @@ $mobileMinWidth: 414px;
   }
 }
 
-// ===== page-infopack 頁面樣式 =====
-
-/*
-.page-infopack {
-  margin: 4rem 0;
-  padding: 3rem 0;
-  background-color: $color-neutral-100;
-  text-align: center;
-
-  .page-infopack-content {
-    max-width: $pageMaxWidth;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-
-    p {
-      font-size: 1.5rem;
-      line-height: 2rem;
-      margin: 0 0 2rem 0;
-      color: $color-neutral-900;
-      font-weight: $font-weight-bold;
-
-      @media (max-width: $mobileMinWidth) {
-        font-size: 1.25rem;
-        line-height: 1.75rem;
-      }
-    }
-
+#page-infopack {
+  .infopack-content {
     img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      max-width: 510px;
+      min-width: 250px;
+      width: 100%;
+      aspect-ratio: 1/1;
+    }
+    margin-bottom: 2rem;
+  }
+  .glide {
+    .glide__slides {
+      overflow-x: scroll;
+    }
+    .glide__arrows button {
+      font-family: 'Noto Sans Mono', sans-serif;
+      font-weight: 900;
+      font-size: 1rem;
+
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 1rem;
+      padding: 0;
+
+      border: none;
+      box-shadow: none;
+      text-shadow: none;
+
+      background-color: rgba(255,255,255,0.25);
+      color: white;
+
+      bottom: 1em;
+      top: auto;
+
+      opacity: 0.66;
+      &:hover { opacity: 1; }
     }
   }
 }
 
-// ===== footer 頁面樣式 =====
+#page-links {
+  // padding: 0 0 1rem;
 
-.footer {
-  margin: 4rem 0 2rem 0;
-  padding: 2rem 0;
-  border-top: 1px solid $color-neutral-800;
+  .links-wrapper {
+    margin-bottom: 1rem;
+
+    // display: flex;
+    // gap: 1rem;
+    // justify-content: center;
+
+    a.ejf-logo img {
+      width: 104px;
+      height: 62px;
+    }
+  }
+  .social-links {
+    display: flex;
+    gap: 1.25rem;
+    justify-content: left;
+  }
+}
+
+#page-footer {
+  max-width: none;
+  width: 100vw;
+  position: relative;
+  padding: 0;
+  margin-top: 1rem;
+
+  background-color: $color-neutral-1000-trans-10;
+  backdrop-filter: blur(6px);
+  border: 1px solid $color-neutral-1000-trans-10;
+
   text-align: center;
 
-  .footer-content {
-    max-width: $pageMaxWidth;
-    margin: 0 auto;
-    padding: 0 1.5rem;
+  a {
+    text-decoration: underline;
+  }
 
-    p {
-      font-size: 0.875rem;
-      line-height: 1.25rem;
-      color: $color-neutral-600;
-      margin: 0;
-    }
+  p {
+    margin: 0;
+    font-size: 0.75em;
+    line-height: 1.5rem;
   }
 }
-*/

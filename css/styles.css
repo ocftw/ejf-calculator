@@ -6,6 +6,7 @@ html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 button, input, select, textarea {
@@ -17,8 +18,9 @@ button, input, select, textarea {
 }
 
 body {
-  font-family: "Noto Sans TC", sans-serif;
+  font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
   font-weight: 400;
+  font-optical-sizing: auto;
   background-color: #F3F2EF;
   background-image: url("../images/grid.png");
   background-size: 1024px;
@@ -56,8 +58,7 @@ h3 {
   font-size: 2rem;
   line-height: 2.5rem;
   font-weight: 700;
-  margin: 0 0 1rem;
-  color: #54677B;
+  margin: 0 0 1.5rem;
 }
 @media (max-width: 768px) {
   h3 {
@@ -70,7 +71,14 @@ h4 {
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 700;
+  color: #54677B;
   margin: 0 0 0.5rem;
+}
+@media (max-width: 768px) {
+  h4 {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
 }
 
 p {
@@ -100,6 +108,10 @@ small {
 }
 small.bold {
   font-weight: 700;
+}
+
+a {
+  color: #3B4048;
 }
 
 .color-black-bk {
@@ -503,7 +515,6 @@ button.btn-fund[data-on=true][data-fund=retire] {
   white-space: nowrap;
 }
 .marquee-wrapper .marquee-content span a {
-  color: #3B4048;
   text-decoration: underline;
 }
 .marquee-wrapper .marquee-content .marquee-divider {
@@ -596,10 +607,6 @@ button.btn-fund[data-on=true][data-fund=retire] {
 }
 
 /* 基本版面 CSS */
-#app {
-  overflow: hidden;
-}
-
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -663,8 +670,8 @@ button.btn-fund[data-on=true][data-fund=retire] {
   position: relative;
 }
 #title img {
-  height: 4rem;
-  margin-right: 1rem;
+  height: 62px;
+  margin-right: 0.2em;
   position: relative;
   top: 0.25rem;
 }
@@ -688,25 +695,31 @@ button.btn-fund[data-on=true][data-fund=retire] {
   top: 0.25rem;
   height: 0;
   pointer-events: none;
+  opacity: 0.4;
 }
-#title .title-decoration::before {
+#title .title-decoration::before, #title .title-decoration::after {
   content: "";
   position: absolute;
+  background: #54677B;
+}
+#title .title-decoration::before {
   left: -50vw;
   right: -50vw;
   top: 2rem;
   height: 1px;
-  background: #77787a;
   width: 200vw;
 }
 #title .title-decoration::after {
-  content: "";
-  position: absolute;
   left: 2rem;
-  top: -50vh;
+  top: -75px;
   width: 1px;
-  height: 300vh;
-  background: #77787a;
+  height: var(--decoration-height, 150vh);
+}
+#title em {
+  font-style: normal;
+  border: 2.5px solid #E30613;
+  padding: 0 0.1em;
+  margin: 0 -0.1em;
 }
 
 #subtitle {
@@ -738,6 +751,9 @@ button.btn-fund[data-on=true][data-fund=retire] {
   flex-wrap: wrap;
   justify-content: center;
 }
+#chart-column #fund-buttons p {
+  margin: 1em 0;
+}
 #chart-column #return-chart {
   width: 100%;
   height: 450px;
@@ -753,13 +769,13 @@ button.btn-fund[data-on=true][data-fund=retire] {
 #receipt-column .receipt-qrcode {
   display: none;
 }
-#receipt-column .receipt-share-btn {
+#receipt-column .receipt-btn {
   display: flex;
   justify-content: center;
 }
-#receipt-column .receipt-share-btn button.btn-share {
+#receipt-column .receipt-btn button {
   width: 100%;
-  max-width: 240px;
+  max-width: 280px;
 }
 
 .lightbox {
@@ -768,9 +784,9 @@ button.btn-fund[data-on=true][data-fund=retire] {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
   z-index: 1000;
   align-items: center;
   justify-content: center;
@@ -846,6 +862,13 @@ button.btn-fund[data-on=true][data-fund=retire] {
   max-width: 264px;
 }
 
+#page-calculator .calculator-intro {
+  margin-bottom: 2rem;
+}
+#page-calculator .calculator-intro p {
+  margin-bottom: 0;
+}
+
 #page-intro {
   background: rgba(255, 255, 255, 0.9);
   -webkit-backdrop-filter: opacity(50%) blur(6px);
@@ -853,7 +876,7 @@ button.btn-fund[data-on=true][data-fund=retire] {
   border: 1px solid rgba(28, 30, 34, 0.1);
 }
 #page-intro .page-info-content-left {
-  flex: 0 0 320px;
+  flex: 0 0 300px;
 }
 #page-intro .page-info-content-right {
   flex: 1;
@@ -864,11 +887,10 @@ button.btn-fund[data-on=true][data-fund=retire] {
   margin: 0 0 1.5rem;
 }
 #page-intro .page-info-content-left ul li {
-  padding-left: 3rem;
+  padding-left: 2.75rem;
   position: relative;
 }
 #page-intro .page-info-content-left ul li h4 {
-  color: #1C1E22;
   margin-left: -1px;
 }
 #page-intro .page-info-content-left ul li::before {
@@ -876,8 +898,8 @@ button.btn-fund[data-on=true][data-fund=retire] {
   position: absolute;
   left: 0;
   top: 0.1rem;
-  width: 2rem;
-  height: 2rem;
+  width: 1.85rem;
+  height: 1.85rem;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -902,59 +924,69 @@ button.btn-fund[data-on=true][data-fund=retire] {
   display: block;
 }
 
-/*
-.page-infopack {
-  margin: 4rem 0;
-  padding: 3rem 0;
-  background-color: $color-neutral-100;
-  text-align: center;
-
-  .page-infopack-content {
-    max-width: $pageMaxWidth;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-
-    p {
-      font-size: 1.5rem;
-      line-height: 2rem;
-      margin: 0 0 2rem 0;
-      color: $color-neutral-900;
-      font-weight: $font-weight-bold;
-
-      @media (max-width: $mobileMinWidth) {
-        font-size: 1.25rem;
-        line-height: 1.75rem;
-      }
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
-  }
+#page-infopack .infopack-content {
+  margin-bottom: 2rem;
+}
+#page-infopack .infopack-content img {
+  max-width: 510px;
+  min-width: 250px;
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+#page-infopack .glide .glide__slides {
+  overflow-x: scroll;
+}
+#page-infopack .glide .glide__arrows button {
+  font-family: "Noto Sans Mono", sans-serif;
+  font-weight: 900;
+  font-size: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 1rem;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  text-shadow: none;
+  background-color: rgba(255, 255, 255, 0.25);
+  color: white;
+  bottom: 1em;
+  top: auto;
+  opacity: 0.66;
+}
+#page-infopack .glide .glide__arrows button:hover {
+  opacity: 1;
 }
 
-// ===== footer 頁面樣式 =====
-
-.footer {
-  margin: 4rem 0 2rem 0;
-  padding: 2rem 0;
-  border-top: 1px solid $color-neutral-800;
-  text-align: center;
-
-  .footer-content {
-    max-width: $pageMaxWidth;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-
-    p {
-      font-size: 0.875rem;
-      line-height: 1.25rem;
-      color: $color-neutral-600;
-      margin: 0;
-    }
-  }
+#page-links .links-wrapper {
+  margin-bottom: 1rem;
 }
-*//*# sourceMappingURL=styles.css.map */
+#page-links .links-wrapper a.ejf-logo img {
+  width: 104px;
+  height: 62px;
+}
+#page-links .social-links {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: left;
+}
+
+#page-footer {
+  max-width: none;
+  width: 100vw;
+  position: relative;
+  padding: 0;
+  margin-top: 1rem;
+  background-color: rgba(28, 30, 34, 0.1);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  border: 1px solid rgba(28, 30, 34, 0.1);
+  text-align: center;
+}
+#page-footer a {
+  text-decoration: underline;
+}
+#page-footer p {
+  margin: 0;
+  font-size: 0.75em;
+  line-height: 1.5rem;
+}/*# sourceMappingURL=styles.css.map */

@@ -153,7 +153,7 @@ const CHART_STYLE = {
         lineWidth: 0.5
     },
     axisBorder: {
-        color: 'white',
+        color: '#98A0AE',
         width: 1
     },
     dataLine: {
@@ -343,10 +343,10 @@ const app = Vue.createApp({
                             display: true,
                             title: {
                                 display: true,
-                                text: '投入時間（年）',
-                                color: '#FFFFFF',
-                                position: 'right',
-                                rotation: 0
+                                text: '年度',
+                                // color: '#98A0AE',
+                                // align: 'end',
+
                             },
                             ticks: {
                                 color: '#98A0AE'
@@ -358,10 +358,9 @@ const app = Vue.createApp({
                             display: true,
                             title: {
                                 display: true,
-                                text: '預期報酬（TWD）',
-                                color: '#FFFFFF',
-                                position: 'right',
-                                rotation: 90
+                                text: '累計資產',
+                                // color: '#FFFFFF',
+                                // align: 'end'
                             },
                             ticks: {
                                 color: '#98A0AE'
@@ -601,3 +600,67 @@ const lightbox = {
             });
     }
 };
+
+// ===== 更新垂直裝飾線長度 =====
+function updateDecorationHeight() {
+    const titleDecoration = document.querySelector('.title-decoration');
+    if (titleDecoration) {
+                // 直接計算從裝飾線位置到 page-footer 下緣的距離
+        const pageFooter = document.querySelector('#page-footer');
+        let decorationHeight = window.innerHeight; // 預設值
+
+        if (pageFooter) {
+            const footerBottom = pageFooter.offsetTop + pageFooter.offsetHeight;
+            const decorationTop = titleDecoration.offsetTop;
+            decorationHeight = footerBottom - decorationTop;
+        }
+
+        titleDecoration.style.setProperty('--decoration-height', `${decorationHeight}px`);
+
+        console.log('裝飾線高度更新:', {
+            footerBottom: pageFooter?.offsetTop + pageFooter?.offsetHeight,
+            decorationTop: titleDecoration.offsetTop,
+            decorationHeight,
+            windowHeight: window.innerHeight
+        });
+    }
+}
+// Debounce 函數：在 resize 結束後延遲執行
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// 使用 debounce 包裝 updateDecorationHeight，延遲 150ms 執行
+const debouncedUpdateDecorationHeight = debounce(updateDecorationHeight, 150);
+
+window.addEventListener('load', updateDecorationHeight);
+window.addEventListener('resize', debouncedUpdateDecorationHeight);
+
+
+const glideOpt = {
+    // type: 'slider',
+    type: 'carousel',
+    gap: 10,
+    animationDuration: 1000,
+    bound: true,
+
+    perView: 4,
+    breakpoints: {
+        1080: { perView: 3 },
+        820: { perView: 2 },
+        558: { perView: 1 }
+    }
+}
+const glides = document.querySelectorAll(".infopack-content");
+glides.forEach(glide => {
+    new Glide(glide, Object.assign({
+    }, glideOpt)).mount();
+});
