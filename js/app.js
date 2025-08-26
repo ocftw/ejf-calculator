@@ -194,10 +194,10 @@ const app = Vue.createApp({
             monthlyIncomeError: false,
             ageError: false,
             totalInvestment: Number(getQueryParam('totalInvestment', 0)),
-            expectedReturn: Number(getQueryParam('expectedReturn', 0)),
-            totalReturn: isReceiptMode ? getQueryParam('totalReturn') : 0,
-            investmentDiff: 0,
-            returnDiff: 0,
+            // expectedReturn: Number(getQueryParam('expectedReturn', 0)),
+            // totalReturn: isReceiptMode ? getQueryParam('totalReturn') : 0,
+            // investmentDiff: 0,
+            // returnDiff: 0,
             currentDateTime: isReceiptMode ? getQueryParam('currentDateTime') || '' : '',
             funds: getQueryParam('funds', 'labor').split(',').filter(f => f),  // 預設勞退基金，支援複選
         }
@@ -211,8 +211,10 @@ const app = Vue.createApp({
     computed: {
         formattedDateTime() {
             // console.log('formattedDateTime this.currentDateTime', this.currentDateTime);
+            // format: YYYY-MM-DD
             if (!this.currentDateTime) return '';
-            return this.formatDateTime(new Date(this.currentDateTime));
+            const date = new Date(this.currentDateTime);
+            return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
         }
     },
     mounted() {
@@ -287,24 +289,49 @@ const app = Vue.createApp({
             });
             console.log('calcAll table', calcAll);
 
-
-            // FIXME: 先取第一個基金代表，需再配合收據綁定改為多基金
+            // 取第一個基金代表，需再配合收據綁定改為多基金
             let calc = calcAll[this.funds[0]];
 
-            // 1. 總計投入金額 = 月薪 x 年資 蓻，假設每年調薪 2%，提撥年薪 6%
             this.totalInvestment = calc[2050].totalInvestment;
+            this.expectedReturn = calc[2050].expectedReturn;
+
+            // 計算 2050 時的減損與減損比例
+            fundList.forEach(fund => {
+                this['totalInvestment_'+fund.id] = calcAll[fund.id][2050].totalInvestment;
+                this['totalReturn_'+fund.id] = calcAll[fund.id][2050].totalReturn;
+                this['expectedMinus_'+fund.id] = calcAll[fund.id][2050].totalReturn - calcAll[fund.id][2050].expectedReturn;
+                this['expectedMinusRatio_'+fund.id] = Math.round((this['expectedMinus_'+fund.id] / calcAll[fund.id][2050].expectedReturn) * 100) + '%';
+            });
+
+            // 計算圓餅圖資料
+            console.log('===================== 計算圓餅圖資料 =====================');
+            // 第一個有打開的 funds 資料
+            const fundId = this.funds[0];
+            this.expectedReturn = calcAll[fundId][2050].expectedReturn;
+            this.expectedMinus = this[`expectedMinus_${fundId}`];
+            this.expectedMinusRatio = this[`expectedMinusRatio_${fundId}`];
+
+            console.log('fundId', fundId);
+            console.log('expectedReturn', this.expectedReturn);
+            console.log('expectedMinus', this.expectedMinus);
+            console.log('expectedMinusRatio', this.expectedMinusRatio);
+
+            /*
+            console.log("=================== 2050 結果 ===================");
+
             console.log('總計投入金額:', this.totalInvestment);
+            console.log('預期報酬:', this.expectedReturn);
 
-            // 2. 預期報酬 = 假設年化報酬率 6%，從現在到 2050 年的複利效果
-            this.totalReturn = calc[2050].totalReturn; // 實際報酬
-            this.expectedReturn = calc[2050].expectedReturn; // 預期報酬
-            console.log('預期報酬:（TO BE FIXED）', this.expectedReturn);
-            console.log('實際報酬:（TO BE FIXED）', this.totalReturn);
+            console.log("================================================");
+            fundList.forEach(fund => {
+                console.log(`${fund.name}`, calcAll[fund.id][2050]);
 
-            this.investmentDiff = Math.floor(this.totalReturn - this.totalInvestment);
-            this.returnDiff = Math.floor(this.totalReturn - this.expectedReturn);
-            console.log('與投入金額相比:（TO BE FIXED）', this.investmentDiff);
-            console.log('與預期報酬相比:（TO BE FIXED）', this.returnDiff);
+                console.log(`實際報酬:`, this['totalReturn_'+fund.id]);
+                console.log(`減損:`, this['expectedMinus_'+fund.id]);
+                console.log(`減損比例:`, this['expectedMinusRatio_'+fund.id]);
+                console.log("================================================");
+            });
+            */
 
             this.currentDateTime = new Date().toISOString();
 
@@ -332,16 +359,11 @@ const app = Vue.createApp({
             else
                 this.funds.push(fundType);  // 如果未選中，則添加
 
+            // 根據 fundList[].id 排序
+            const fundIds = fundList.map(fund => fund.id);
+            this.funds.sort((a, b) => fundIds.indexOf(a) - fundIds.indexOf(b));
 
-            // FIXME: 資料綁定需要與收據一同修改
             if (this.totalInvestment > 0) {
-                this.totalInvestment = calcAll[fundType][2050].totalInvestment;
-                this.totalReturn = calcAll[fundType][2050].totalReturn;
-                this.expectedReturn = calcAll[fundType][2050].expectedReturn;
-                this.investmentDiff = Math.floor(this.totalReturn - this.totalInvestment);
-                this.returnDiff = Math.floor(this.totalReturn - this.expectedReturn);
-
-                // 更新圖表
                 this.updateChart();
                 this.updateUrlParams();
             }
@@ -553,6 +575,7 @@ const app = Vue.createApp({
             ogImage.setAttribute('content', imageUrl);
         },
         generateReceiptImageUrl() {
+            // FIXME: 更新抓圖服務的收據樣板跟所需參數
             const url = new URL('receipt.html', window.location.origin);
             url.searchParams.set('userName', this.userName);
             url.searchParams.set('totalInvestment', this.totalInvestment);

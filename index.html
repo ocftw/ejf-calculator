@@ -165,12 +165,10 @@
               <div class="receipt-section">
                 <div class="receipt-row-center">
                   <span class="receipt-title">四大基金氣候風險損益對帳單</span>
-                  <!-- <span class="receipt-datetime">({{ formattedDateTime }})</span> -->
-                  <span>（2025-07-20）</span>
+                  <span class="receipt-datetime">（{{ formattedDateTime }}）</span>
                 </div>
                 <div class="receipt-row-center">
-                  <span>John  Doe</span>
-                  <!-- <span>{{ userName }}</span> -->
+                  <span>{{ userName }}</span>
                 </div>
               </div>
 
@@ -201,8 +199,8 @@
                     </svg>
                   </div>
                   <div class="chart-text">
-                    <p class="dot"><span class="un-mono">2050 預估基金累計資產</span> (+800,000)</p>
-                    <p class="dot"><span class="un-mono">氣候風險造成減損</span><span class="loss"> (-140,000)</span></p>
+                    <p class="dot"><span class="un-mono">2050 預估累計資產</span> (+{{ formatNumber(expectedReturn) }})</p>
+                    <p class="dot"><span class="un-mono">氣候風險造成減損</span><span class="loss"> ({{ formatNumber(expectedMinus_labor) }})</span></p>
                     <p class="unit un-mono">以新制勞退結果繪製 (新台幣 元)</p>
                   </div>
                 </div>
@@ -217,8 +215,8 @@
                     <span class="title row-13 text-left un-mono">原先預估<br> (基礎情境)</span>
                     <span class="un-mono">累計投入金額</span>
                     <span class="un-mono">2050 累計資產</span>
-                    <span>1,000,000</span>
-                    <span>1,800,000</span>
+                    <span>{{ formatNumber(totalInvestment) }}</span>
+                    <span>{{ formatNumber(expectedReturn) }}</span>
                   </div>
 
                   <div class="grid-row-3 un-mono">
@@ -228,41 +226,49 @@
                     <span class="v-middle">2050 累計資產</span>
                   </div>
 
+                  <template v-if="funds.includes('labor')">
                   <div class="grid-row-3">
                     <span class="text-left">新制勞退</span>
-                    <span>1,000,000</span>
-                    <span>1,800,000</span>
+                    <span>{{ formatNumber(totalInvestment_labor) }}</span>
+                    <span>{{ formatNumber(totalReturn_labor) }}</span>
                     <span class="text-left">預期資產減損</span>
-                    <span class="loss">-200,000</span>
-                    <span class="loss">(-10%)</span>
+                    <span class="loss">{{ formatNumber(expectedMinus_labor) }}</span>
+                    <span class="loss">({{ expectedMinusRatio_labor }})</span>
                   </div>
+                  </template>
 
+                  <template v-if="funds.includes('legacy')">
                   <div class="grid-row-3">
                     <span class="text-left">舊制勞退</span>
-                    <span>1,000,000</span>
-                    <span>1,800,000</span>
+                    <span>{{ formatNumber(totalInvestment_legacy) }}</span>
+                    <span>{{ formatNumber(totalReturn_legacy) }}</span>
                     <span class="text-left">預期資產減損</span>
-                    <span class="loss">-200,000</span>
-                    <span class="loss">(-10%)</span>
+                    <span class="loss">{{ formatNumber(expectedMinus_legacy) }}</span>
+                    <span class="loss">({{ expectedMinusRatio_legacy }})</span>
                   </div>
+                  </template>
 
+                  <template v-if="funds.includes('insurance')">
                   <div class="grid-row-3">
                     <span class="text-left">勞工保險</span>
-                    <span>1,000,000</span>
-                    <span>1,800,000</span>
+                    <span>{{ formatNumber(totalInvestment_insurance) }}</span>
+                    <span>{{ formatNumber(totalReturn_insurance) }}</span>
                     <span class="text-left">預期資產減損</span>
-                    <span class="loss">-200,000</span>
-                    <span class="loss">(-10%)</span>
+                    <span class="loss">{{ formatNumber(expectedMinus_insurance) }}</span>
+                    <span class="loss">({{ expectedMinusRatio_insurance }})</span>
                   </div>
+                  </template>
 
+                  <template v-if="funds.includes('retire')">
                   <div class="grid-row-3">
                     <span class="text-left">退輔基金</span>
-                    <span>1,000,000</span>
-                    <span>1,800,000</span>
+                    <span>{{ formatNumber(totalInvestment_retire) }}</span>
+                    <span>{{ formatNumber(totalReturn_retire) }}</span>
                     <span class="text-left">預期資產減損</span>
-                    <span class="loss">-200,000</span>
-                    <span class="loss">(-10%)</span>
+                    <span class="loss">{{ formatNumber(expectedMinus_retire) }}</span>
+                    <span class="loss">({{ expectedMinusRatio_retire }})</span>
                   </div>
+                  </template>
                 </div>
               </div>
 
