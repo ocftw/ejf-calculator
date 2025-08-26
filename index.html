@@ -136,16 +136,16 @@
           <div id="chart-column">
 
             <div id="fund-buttons">
-              <button class="btn-fund" data-fund="labor" :data-on="funds == 'labor'" @click="toggleFund('labor')">
+              <button class="btn-fund" data-fund="labor" :data-on="funds.includes('labor')" @click="toggleFund('labor')">
                 <p>新制勞退</p>
               </button>
-              <button class="btn-fund" data-fund="legacy" :data-on="funds == 'legacy'" @click="toggleFund('legacy')">
+              <button class="btn-fund" data-fund="legacy" :data-on="funds.includes('legacy')" @click="toggleFund('legacy')">
                 <p>舊制勞退</p>
               </button>
-              <button class="btn-fund" data-fund="insurance" :data-on="funds == 'insurance'" @click="toggleFund('insurance')">
+              <button class="btn-fund" data-fund="insurance" :data-on="funds.includes('insurance')" @click="toggleFund('insurance')">
                 <p>勞保基金</p>
               </button>
-              <button class="btn-fund" data-fund="retire" :data-on="funds == 'retire'" @click="toggleFund('retire')">
+              <button class="btn-fund" data-fund="retire" :data-on="funds.includes('retire')" @click="toggleFund('retire')">
                 <p>退撫基金</p>
               </button>
             </div>

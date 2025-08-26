@@ -184,7 +184,7 @@ const app = Vue.createApp({
             investmentDiff: 0,
             returnDiff: 0,
             currentDateTime: isReceiptMode ? getQueryParam('currentDateTime') || '' : '',
-            funds: getQueryParam('funds', 'labor')  // 預設勞退基金
+            funds: getQueryParam('funds', 'labor').split(',').filter(f => f),  // 預設勞退基金，支援複選
         }
     },
     created() {
@@ -272,7 +272,9 @@ const app = Vue.createApp({
             });
             console.log('calcAll table', calcAll);
 
-            let calc = calcAll[this.funds];
+
+            // FIXME: 先取第一個基金代表，需再配合收據綁定改為多基金
+            let calc = calcAll[this.funds[0]];
 
             // 1. 總計投入金額 = 月薪 x 年資 蓻，假設每年調薪 2%，提撥年薪 6%
             this.totalInvestment = calc[2050].totalInvestment;
@@ -281,13 +283,13 @@ const app = Vue.createApp({
             // 2. 預期報酬 = 假設年化報酬率 6%，從現在到 2050 年的複利效果
             this.totalReturn = calc[2050].totalReturn; // 實際報酬
             this.expectedReturn = calc[2050].expectedReturn; // 預期報酬
-            console.log('預期報酬:', this.expectedReturn);
-            console.log('實際報酬:', this.totalReturn);
+            console.log('預期報酬:（TO BE FIXED）', this.expectedReturn);
+            console.log('實際報酬:（TO BE FIXED）', this.totalReturn);
 
             this.investmentDiff = Math.floor(this.totalReturn - this.totalInvestment);
             this.returnDiff = Math.floor(this.totalReturn - this.expectedReturn);
-            console.log('與投入金額相比:', this.investmentDiff);
-            console.log('與預期報酬相比:', this.returnDiff);
+            console.log('與投入金額相比:（TO BE FIXED）', this.investmentDiff);
+            console.log('與預期報酬相比:（TO BE FIXED）', this.returnDiff);
 
             this.currentDateTime = new Date().toISOString();
 
@@ -309,8 +311,22 @@ const app = Vue.createApp({
             return '';
         },
         toggleFund(fundType) {
-            this.funds = fundType;
+            // 複選邏輯：如果已選中則移除，如果未選中則添加
+            const index = this.funds.indexOf(fundType);
+            if (index > -1) {
+                // 如果已選中，則移除
+                this.funds.splice(index, 1);
+            } else {
+                // 如果未選中，則添加
+                this.funds.push(fundType);
+            }
 
+            // 確保至少有一個基金被選中
+            // if (this.funds.length === 0) {
+            //     this.funds = ['labor']; // 預設選中勞退基金
+            // }
+
+            // FIXME: 資料綁定需要與收據一同修改
             if (this.totalInvestment > 0) {
                 this.totalInvestment = calcAll[fundType][2050].totalInvestment;
                 this.totalReturn = calcAll[fundType][2050].totalReturn;
@@ -465,13 +481,6 @@ const app = Vue.createApp({
                 return calcAll['legacy'][year].totalReturn;
             });
 
-            const fundColor = {
-                'legacy': '#3AB56C',  // 舊制勞退
-                'insurance': '#F8897F',  // 勞保基金
-                'labor': '#FFB300',  // 新制勞退
-                'retire': '#6B98E0'  // 退撫基金
-            }
-
             // 更新圖表數據
             chartInstance.data.labels = years;
             chartInstance.data.datasets[0].data = expectedReturnData;
@@ -480,11 +489,34 @@ const app = Vue.createApp({
             chartInstance.data.datasets[3].data = insuranceReturnData;
             chartInstance.data.datasets[4].data = retireReturnData;
 
+            // 根據選中的基金來決定顯示哪些數據集
+            const selectedFunds = this.funds;
+            console.log('選中的基金:', selectedFunds);
+
+            // 更新圖表數據集的可見性
+            chartInstance.data.datasets.forEach((dataset, index) => {
+                if (index === 0) {
+                    // 預期報酬永遠顯示
+                    dataset.hidden = false;
+                } else {
+                    // 基金數據集
+                    const fundType = ['labor', 'legacy', 'insurance', 'retire'][index - 1];
+                    if (selectedFunds.includes(fundType))
+                        dataset.hidden = false;
+                    else
+                        dataset.hidden = true;
+                }
+            });
+
             console.log('圖表數據更新完成');
 
-            // 動態調整 Y 軸最大值（考慮所有數據集）
-            const allData = [expectedReturnData, insuranceReturnData, laborReturnData, retireReturnData, legacyReturnData];
-            const maxValue = Math.max(...allData.flat());
+            // 動態調整 Y 軸最大值（只考慮可見的數據集）
+            const visibleData = chartInstance.data.datasets
+                .filter((dataset) => !dataset.hidden)
+                .map(dataset => dataset.data)
+                .flat();
+
+            const maxValue = Math.max(...visibleData);
             console.log('Y 軸最大值:', maxValue);
 
             if (maxValue > 0) {
@@ -514,7 +546,7 @@ const app = Vue.createApp({
             url.searchParams.set('age', this.age);
 
             // 選取基金狀態
-            url.searchParams.set('funds', this.funds);
+            url.searchParams.set('funds', this.funds.join(','));
 
             const newUrl = url.toString();
             window.history.replaceState(null, '', newUrl);
@@ -539,7 +571,7 @@ const app = Vue.createApp({
             url.searchParams.set('expectedReturn', this.expectedReturn);
             url.searchParams.set('totalReturn', this.totalReturn);
             url.searchParams.set('currentDateTime', this.currentDateTime);
-            url.searchParams.set('funds', this.funds);
+            url.searchParams.set('funds', this.funds.join(','));
 
             const receiptUrl = url.toString();
             const encodedReceiptUrl = encodeURIComponent(receiptUrl);
