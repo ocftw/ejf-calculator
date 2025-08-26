@@ -10,8 +10,12 @@ const fundColor = {
     'labor': '#FFB300',
     'retire': '#6B98E0'
 }
+const fundTypes = Object.keys(fundColor);
 
-const calc = {};
+const calcAll = {};
+fundTypes.forEach(fundType => {
+    calcAll[fundType] = {};
+});
 
 let cvar = {};  // 氣候變遷影響因子
 // 新制勞退
@@ -245,12 +249,16 @@ const app = Vue.createApp({
             // const workYears = 2050 - currentYear + 1;  // 計算到 2050 年
 
             // 計算從 2025 到 2050 年的年薪、提撥金額、預期報酬、實際報酬
+
+            fundTypes.forEach(fundType => {
+            let calc = calcAll[fundType];
+
             for (let year = currentYear; year <= 2050; year++) {
                 const yearlySalary = (year !== currentYear) ? Math.floor(calc[year - 1].yearlySalary * (1 + salaryGrowthRate)) : this.monthlyIncome * 12;
                 const contribution = Math.floor(yearlySalary * contributionRate);
                 const totalInvestment = (year !== currentYear) ? calc[year - 1].totalInvestment + contribution : contribution;
                 const expectedReturn = (year !== currentYear) ? Math.floor((calc[year - 1].expectedReturn + contribution) * (1 + expectedReturnRate)) : Math.floor(contribution * (1 + expectedReturnRate));
-                const cvarRate = Number((1 + expectedReturnRate - cvar[this.funds][year]).toFixed(4));
+                const cvarRate = Number((1 + expectedReturnRate - cvar[fundType][year]).toFixed(4));
                 const totalReturn = (year !== currentYear) ? Math.floor((calc[year - 1].totalReturn + contribution) * cvarRate) : Math.floor(contribution * cvarRate);
 
                 calc[year] = {
@@ -261,7 +269,10 @@ const app = Vue.createApp({
                     'totalReturn': totalReturn
                 };
             }
-            console.log('calc table', calc);
+            });
+            console.log('calcAll table', calcAll);
+
+            let calc = calcAll[this.funds];
 
             // 1. 總計投入金額 = 月薪 x 年資 蓻，假設每年調薪 2%，提撥年薪 6%
             this.totalInvestment = calc[2050].totalInvestment;
@@ -300,9 +311,16 @@ const app = Vue.createApp({
         toggleFund(fundType) {
             this.funds = fundType;
 
-            // 如果有計算過數據，則重新計算
             if (this.totalInvestment > 0) {
-                this.calculate();
+                this.totalInvestment = calcAll[fundType][2050].totalInvestment;
+                this.totalReturn = calcAll[fundType][2050].totalReturn;
+                this.expectedReturn = calcAll[fundType][2050].expectedReturn;
+                this.investmentDiff = Math.floor(this.totalReturn - this.totalInvestment);
+                this.returnDiff = Math.floor(this.totalReturn - this.expectedReturn);
+
+                // 更新圖表
+                this.updateChart();
+                this.updateUrlParams();
             }
         },
         initChart() {
@@ -419,6 +437,8 @@ const app = Vue.createApp({
                 years.push(i);
 
             console.log('年份陣列:', years);
+
+            let calc = calcAll[this.funds];
 
             const expectedReturnData = years.map(year => {
                 return calc[year].expectedReturn;
