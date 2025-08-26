@@ -39,7 +39,7 @@ body {
 h1 {
   font-size: 3rem;
   line-height: 4rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 @media (max-width: 768px) {
   h1 {
@@ -51,7 +51,7 @@ h1 {
 h2 {
   font-size: 1.5rem;
   line-height: 2rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 @media (max-width: 768px) {
   h2 {
@@ -63,7 +63,8 @@ h2 {
 h3 {
   font-size: 2rem;
   line-height: 2.5rem;
-  font-weight: 700;
+  font-weight: 600;
+  color: #54677B;
   margin: 0 0 1.5rem;
 }
 @media (max-width: 768px) {
@@ -76,8 +77,7 @@ h3 {
 h4 {
   font-size: 1.5rem;
   line-height: 2rem;
-  font-weight: 700;
-  color: #54677B;
+  font-weight: 600;
   margin: 0 0 0.5rem;
 }
 @media (max-width: 768px) {
@@ -99,7 +99,7 @@ p {
   }
 }
 p.bold {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 small {
@@ -113,7 +113,7 @@ small {
   }
 }
 small.bold {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 a {
@@ -381,7 +381,7 @@ button.big-btn {
   margin-bottom: 0.75rem;
   font-size: 1.5rem;
   line-height: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: left;
   color: #FFFFFF;
   cursor: pointer;
@@ -592,7 +592,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   text-align: center;
 }
 .receipt-box .receipt-title {
-  font-weight: 700;
+  font-weight: 600;
 }
 .receipt-box .un-mono {
   font-family: "Noto Sans TC", sans-serif;
@@ -653,7 +653,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   grid-column: 1/4;
 }
 .receipt-box .receipt-table .title {
-  font-weight: 700;
+  font-weight: 600;
 }
 .receipt-box .receipt-table .text-left {
   text-align: left;
