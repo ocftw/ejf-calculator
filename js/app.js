@@ -4,17 +4,32 @@ const contributionRate = 0.06;  // 提撥率 6%
 const salaryGrowthRate = 0.02;  // 假設每年固定調薪 2%
 const expectedReturnRate = 0.06;  // 假設年化報酬率 6%
 
-const fundColor = {
-    'legacy': '#3AB56C',  // 舊制勞退
-    'insurance': '#F8897F',  // 勞保基金
-    'labor': '#FFB300',  // 新制勞退
-    'retire': '#6B98E0'  // 退撫基金
-}
-const fundTypes = Object.keys(fundColor);
+const fundList = [
+    {
+        name: '新制勞退',
+        id: 'labor',
+        color: '#FFB300'
+    },
+    {
+        name: '舊制勞退',
+        id: 'legacy',
+        color: '#3AB56C'
+    },
+    {
+        name: '勞保基金',
+        id: 'insurance',
+        color: '#F8897F'
+    },
+    {
+        name: '退撫基金',
+        id: 'retire',
+        color: '#6B98E0'
+    }
+]
 
 const calcAll = {};
-fundTypes.forEach(fundType => {
-    calcAll[fundType] = {};
+fundList.forEach(fund => {
+    calcAll[fund.id] = {};
 });
 
 let cvar = {};  // 氣候變遷影響因子
@@ -195,7 +210,7 @@ const app = Vue.createApp({
     },
     computed: {
         formattedDateTime() {
-            console.log('formattedDateTime this.currentDateTime', this.currentDateTime);
+            // console.log('formattedDateTime this.currentDateTime', this.currentDateTime);
             if (!this.currentDateTime) return '';
             return this.formatDateTime(new Date(this.currentDateTime));
         }
@@ -250,15 +265,15 @@ const app = Vue.createApp({
 
             // 計算從 2025 到 2050 年的年薪、提撥金額、預期報酬、實際報酬
 
-            fundTypes.forEach(fundType => {
-            let calc = calcAll[fundType];
+            fundList.forEach(fund => {
+            let calc = calcAll[fund.id];
 
             for (let year = currentYear; year <= 2050; year++) {
                 const yearlySalary = (year !== currentYear) ? Math.floor(calc[year - 1].yearlySalary * (1 + salaryGrowthRate)) : this.monthlyIncome * 12;
                 const contribution = Math.floor(yearlySalary * contributionRate);
                 const totalInvestment = (year !== currentYear) ? calc[year - 1].totalInvestment + contribution : contribution;
                 const expectedReturn = (year !== currentYear) ? Math.floor((calc[year - 1].expectedReturn + contribution) * (1 + expectedReturnRate)) : Math.floor(contribution * (1 + expectedReturnRate));
-                const cvarRate = Number((1 + expectedReturnRate - cvar[fundType][year]).toFixed(4));
+                const cvarRate = Number((1 + expectedReturnRate - cvar[fund.id][year]).toFixed(4));
                 const totalReturn = (year !== currentYear) ? Math.floor((calc[year - 1].totalReturn + contribution) * cvarRate) : Math.floor(contribution * cvarRate);
 
                 calc[year] = {
@@ -311,20 +326,12 @@ const app = Vue.createApp({
             return '';
         },
         toggleFund(fundType) {
-            // 複選邏輯：如果已選中則移除，如果未選中則添加
             const index = this.funds.indexOf(fundType);
-            if (index > -1) {
-                // 如果已選中，則移除
-                this.funds.splice(index, 1);
-            } else {
-                // 如果未選中，則添加
-                this.funds.push(fundType);
-            }
+            if (index > -1)
+                this.funds.splice(index, 1);  // 如果已選中，則移除
+            else
+                this.funds.push(fundType);  // 如果未選中，則添加
 
-            // 確保至少有一個基金被選中
-            // if (this.funds.length === 0) {
-            //     this.funds = ['labor']; // 預設選中勞退基金
-            // }
 
             // FIXME: 資料綁定需要與收據一同修改
             if (this.totalInvestment > 0) {
@@ -360,13 +367,7 @@ const app = Vue.createApp({
             const chartConfig = {
                 type: 'line',
                 data: {
-                    datasets: [
-                        createDataset('預期報酬', '#98A0AE'),
-                        createDataset('新制勞退報酬', fundColor['labor']),
-                        createDataset('舊制勞退報酬', fundColor['legacy']),
-                        createDataset('勞保基金報酬', fundColor['insurance']),
-                        createDataset('退撫基金報酬', fundColor['retire'])
-                    ]
+                    datasets: [ createDataset('預期報酬', '#98A0AE') ].concat(fundList.map(fund => createDataset(`${fund.name}報酬`, fund.color)))
                 },
                 options: {
                     responsive: true,
@@ -420,11 +421,11 @@ const app = Vue.createApp({
                             display: false
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
                             titleColor: '#FFFFFF',
                             bodyColor: '#FFFFFF',
-                            borderColor: '#98A0AE',
-                            borderWidth: 1,
+                            // borderColor: '#98A0AE',
+                            // borderWidth: 1,
                             cornerRadius: 4,
                             displayColors: false,
                             callbacks: {
@@ -435,7 +436,8 @@ const app = Vue.createApp({
                                 label: function(context) {
                                     const value = context.parsed.y;
                                     const datasetIndex = context.datasetIndex;
-                                    const labels = ['預期報酬', '新制勞退報酬', '舊制勞退報酬', '勞保基金報酬', '退撫基金報酬'];
+                                    // ['預期報酬', '新制勞退報酬', '舊制勞退報酬', '勞保基金報酬', '退撫基金報酬'];
+                                    const labels = ['預期報酬'].concat(fundList.map(fund => `${fund.name}報酬`));
 
                                     return `${labels[datasetIndex]}: ${new Intl.NumberFormat('zh-TW').format(value)} 元`;
                                 }
@@ -467,27 +469,15 @@ const app = Vue.createApp({
             });
             console.log('預期報酬數據:', expectedReturnData);
 
-            // 各基金實際報酬數據
-            const insuranceReturnData = years.map(year => {
-                return calcAll['insurance'][year].totalReturn;
-            });
-            const laborReturnData = years.map(year => {
-                return calcAll['labor'][year].totalReturn;
-            });
-            const retireReturnData = years.map(year => {
-                return calcAll['retire'][year].totalReturn;
-            });
-            const legacyReturnData = years.map(year => {
-                return calcAll['legacy'][year].totalReturn;
-            });
-
-            // 更新圖表數據
             chartInstance.data.labels = years;
             chartInstance.data.datasets[0].data = expectedReturnData;
-            chartInstance.data.datasets[1].data = laborReturnData;
-            chartInstance.data.datasets[2].data = legacyReturnData;
-            chartInstance.data.datasets[3].data = insuranceReturnData;
-            chartInstance.data.datasets[4].data = retireReturnData;
+
+            // 各基金實際報酬數據
+            fundList.forEach((fund, index) => {
+                chartInstance.data.datasets[index + 1].data = years.map(year => {
+                    return calcAll[fund.id][year].totalReturn;
+                });
+            });
 
             // 根據選中的基金來決定顯示哪些數據集
             const selectedFunds = this.funds;
@@ -496,16 +486,14 @@ const app = Vue.createApp({
             // 更新圖表數據集的可見性
             chartInstance.data.datasets.forEach((dataset, index) => {
                 if (index === 0) {
-                    // 預期報酬永遠顯示
-                    dataset.hidden = false;
-                } else {
-                    // 基金數據集
-                    const fundType = ['labor', 'legacy', 'insurance', 'retire'][index - 1];
-                    if (selectedFunds.includes(fundType))
+                    dataset.hidden = false;  // 預期報酬永遠顯示
+                    return;
+                }
+
+                    if (selectedFunds.includes(fundList[index - 1].id))
                         dataset.hidden = false;
                     else
                         dataset.hidden = true;
-                }
             });
 
             console.log('圖表數據更新完成');
