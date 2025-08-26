@@ -17,6 +17,12 @@ button, input, select, textarea {
   box-sizing: inherit;
 }
 
+/*
+$color-fund-postal: #007D32;
+$color-fund-insurance: #8F6400;
+$color-fund-labor: #C23C30;
+$color-fund-retire: #0549A1;
+*/
 body {
   font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
   font-weight: 400;
@@ -447,39 +453,47 @@ button.big-btn.color-gray:hover {
 }
 
 button.btn-fund {
-  background-color: rgba(28, 30, 34, 0.08);
-  background-size: cover;
-  -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
+  all: unset;
   width: 96px;
-  height: 52px;
+  height: 32px;
+  text-align: center;
   cursor: pointer;
   border-radius: 8px;
-  border: 1px dashed #98A0AE;
+  border: 1.5px dashed #98A0AE;
 }
 button.btn-fund p {
-  line-height: 1em;
+  line-height: 32px;
   font-size: 1rem;
   color: #98A0AE;
+  margin: 0;
 }
 button.btn-fund[data-on=true] {
-  border-radius: 0px;
-  border-color: transparent;
-}
-button.btn-fund[data-on=true] p {
-  visibility: hidden;
+  border-style: solid;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.08);
 }
 button.btn-fund[data-on=true][data-fund=legacy] {
-  background-image: url("../images/fund_legacy_on.png");
+  border-color: #007D32;
+}
+button.btn-fund[data-on=true][data-fund=legacy] p {
+  color: #007D32;
 }
 button.btn-fund[data-on=true][data-fund=insurance] {
-  background-image: url("../images/fund_insurance_on.png");
+  border-color: #C23C30;
+}
+button.btn-fund[data-on=true][data-fund=insurance] p {
+  color: #C23C30;
 }
 button.btn-fund[data-on=true][data-fund=labor] {
-  background-image: url("../images/fund_labor_on.png");
+  border-color: #AD7900;
+}
+button.btn-fund[data-on=true][data-fund=labor] p {
+  color: #AD7900;
 }
 button.btn-fund[data-on=true][data-fund=retire] {
-  background-image: url("../images/fund_retire_on.png");
+  border-color: #0549A1;
+}
+button.btn-fund[data-on=true][data-fund=retire] p {
+  color: #0549A1;
 }
 
 .marquee-wrapper {
@@ -750,9 +764,6 @@ button.btn-fund[data-on=true][data-fund=retire] {
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
   justify-content: center;
-}
-#chart-column #fund-buttons p {
-  margin: 1em 0;
 }
 #chart-column #return-chart {
   width: 100%;

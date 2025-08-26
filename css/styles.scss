@@ -37,6 +37,21 @@ $color-ejf-red: #E30613;
 $color-ejf-blue: #54677B;
 $color-ejf-gray: #F3F2EF;
 
+// color from graphic
+/*
+$color-fund-postal: #007D32;
+$color-fund-insurance: #8F6400;
+$color-fund-labor: #C23C30;
+$color-fund-retire: #0549A1;
+*/
+
+$fund-colors: (
+  legacy: #007D32,
+  insurance: #C23C30,
+  labor: #AD7900,
+  retire: #0549A1
+);
+
 $color-neutral-1000: #1C1E22;
 $color-neutral-900: #3B4048;
 $color-neutral-800: #646D7A;
@@ -417,34 +432,35 @@ button.big-btn {
 }
 
 button.btn-fund {
-  background-color: $color-neutral-1000-trans-8;
-  background-size: cover;
-  backdrop-filter: blur(8px);
+  all: unset;
 
+  $line-height: 32px;
   width: 96px;
-  height: 52px;
+  height: $line-height;
 
+  text-align: center;
   cursor: pointer;
 
   p {
-    line-height: 1em;
+    line-height: $line-height;
     font-size: 1rem;
     color: $color-neutral-600;
+    margin: 0;
   }
 
   border-radius: 8px;
-  border: 1px dashed $color-neutral-600;
+  border: 1.5px dashed $color-neutral-600;
 
   &[data-on="true"] {
-    border-radius: 0px;
-    border-color: transparent;
+    border-style: solid;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.08);
 
-    p { visibility: hidden; }
-
-    &[data-fund="legacy"] { background-image: url('../images/fund_legacy_on.png'); }
-    &[data-fund="insurance"] { background-image: url('../images/fund_insurance_on.png'); }
-    &[data-fund="labor"] { background-image: url('../images/fund_labor_on.png'); }
-    &[data-fund="retire"] { background-image: url('../images/fund_retire_on.png'); }
+    @each $fund, $color in $fund-colors {
+      &[data-fund="#{$fund}"] {
+        border-color: $color;
+        p { color: $color; }
+      }
+    }
   }
 }
 
@@ -740,7 +756,6 @@ $mobileMinWidth: 414px;
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
     justify-content: center;
-    p { margin: 1em 0; }
   }
 
   #return-chart {
