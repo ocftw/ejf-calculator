@@ -579,22 +579,101 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 .receipt-box .receipt-section {
   width: 100%;
 }
+.receipt-box .receipt-section p {
+  font-size: inherit;
+  line-height: 1.5em;
+  margin: inherit;
+}
 .receipt-box .receipt-row {
   display: flex;
   justify-content: space-between;
 }
-.receipt-box .receipt-logo {
-  height: 70px;
+.receipt-box .receipt-row-center {
+  text-align: center;
 }
-.receipt-box .receipt-amount-negative {
+.receipt-box .receipt-title {
+  font-weight: 700;
+}
+.receipt-box .un-mono {
+  font-family: "Noto Sans TC", sans-serif;
+}
+.receipt-box .loss {
   color: #E30613;
 }
-.receipt-box .receipt-bottom span {
+.receipt-box .chart-row {
+  line-height: 1.5em;
+  font-size: 0.9em;
+}
+.receipt-box .chart-row .chart-image {
+  height: 66px;
+}
+.receipt-box .chart-row .chart-image img {
+  width: 66px;
+  height: 66px;
+}
+.receipt-box .chart-row .chart-text p {
+  line-height: 1.75em;
+}
+.receipt-box .chart-row .chart-text p:before {
+  content: "";
+  display: inline-block;
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: 50%;
+  margin-right: 0.5em;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+.receipt-box .chart-row .chart-text p:nth-child(1):before {
+  background-color: #3B4048;
+}
+.receipt-box .chart-row .chart-text p:nth-child(2):before {
+  background-color: #E30613;
+}
+.receipt-box .chart-row .chart-text p.unit {
+  color: #98A0AE;
+}
+.receipt-box .receipt-table {
+  line-height: 1.5em;
+  font-size: 0.9em;
+}
+.receipt-box .receipt-table .grid-row-3 {
+  display: grid;
+  grid-template-columns: 7.5em 1fr 1fr;
+  gap: 0.5em 0.75em;
+  padding: 0.66em 0;
+  border-bottom: 1px solid #F3F2EF;
   text-align: right;
+}
+.receipt-box .receipt-table .row-13 {
+  grid-row: 1/3;
+}
+.receipt-box .receipt-table .col-14 {
+  grid-column: 1/4;
+}
+.receipt-box .receipt-table .title {
+  font-weight: 700;
+}
+.receipt-box .receipt-table .text-left {
+  text-align: left;
+}
+.receipt-box .receipt-table .v-middle {
+  align-self: center;
+}
+.receipt-box .receipt-table .v-bottom {
+  align-self: flex-end;
+}
+.receipt-box .receipt-bottom p {
   flex: 1;
   align-content: center;
   line-height: 1.5em;
-  margin-right: -8px;
+}
+.receipt-box .receipt-bottom a {
+  text-decoration: underline;
+  text-align: right;
+  display: inline-block;
+  padding: 0.5em 0;
 }
 .receipt-box .receipt-bottom img {
   width: 80px;
@@ -777,16 +856,13 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 #receipt-column .receipt-box {
   margin-bottom: 3rem;
 }
-#receipt-column .receipt-qrcode {
-  display: none;
-}
-#receipt-column .receipt-btn {
-  display: flex;
-  justify-content: center;
+#receipt-column .receipt-btn p {
+  display: block;
 }
 #receipt-column .receipt-btn button {
   width: 100%;
   max-width: 280px;
+  font-size: 1.25rem;
 }
 
 .lightbox {

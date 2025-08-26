@@ -160,66 +160,97 @@
           <div id="receipt-column">
 
             <div class="receipt-box">
-              <img class="receipt-logo" src="images/ejf-logo-black.png" alt="EJF Logo">
-
-              <div class="receipt-datetime">
-                {{ formattedDateTime }}
-              </div>
-
-              <hr class="divider-receipt" />
+              <!-- <img class="receipt-logo" src="images/ejf-logo-black.png" alt="EJF Logo"> -->
 
               <div class="receipt-section">
-                <div class="receipt-row">
-                  <span>Name</span>
-                  <span>{{ userName }}</span>
+                <div class="receipt-row-center">
+                  <span class="receipt-title">四大基金氣候風險損益對帳單</span>
+                  <!-- <span class="receipt-datetime">({{ formattedDateTime }})</span> -->
+                  <span>（2025-07-20）</span>
+                </div>
+                <div class="receipt-row-center">
+                  <span>John  Doe {{ userName }}</span>
                 </div>
               </div>
 
               <hr class="divider-receipt" />
 
               <div class="receipt-section">
-                <div class="receipt-row">
-                  <span>總計投入金額</span>
-                  <span class="receipt-amount">{{ formatNumber(totalInvestment) }}</span>
-                </div>
-
-                <div class="receipt-row">
-                  <span>預期報酬</span>
-                  <span class="receipt-amount">{{ formatNumber(expectedReturn) }}</span>
-                </div>
-              </div>
-
-              <hr class="divider-receipt" />
-
-              <div class="receipt-section receipt-funds">
-                <div class="receipt-row">
-                  <span v-if="funds == 'insurance'">勞保基金</span>
-                  <span v-if="funds == 'labor'">勞退基金</span>
-                  <span v-if="funds == 'retire'">退撫基金</span>
-                  <span v-if="funds == 'legacy'">舊制勞退</span>
-                </div>
-
-                <div class="receipt-row">
-                  <span>實際報酬</span>
-                  <span class="receipt-amount">{{ formatNumber(totalReturn) }}</span>
+                <div class="receipt-row-center">
+                  <p class="un-mono">若四大基金維持目前的投資策略，<br>到了 2050 年全球減排的最終檢核點，<br>你的退休金會受到多少減損？</p>
                 </div>
               </div>
 
               <hr class="divider-receipt" />
 
               <div class="receipt-section">
-                <div class="receipt-row">
-                  <span>與投入報酬相比</span>
-                  <span :class="amountClass(investmentDiff)">
-                    {{ formatNumber(investmentDiff) }}
-                  </span>
+                <div class="receipt-row chart-row">
+                  <div class="chart-image">
+                    <img src="images/chart_eclipse.png" alt="圓餅圖">
+                  </div>
+                  <div class="chart-text">
+                    <p class="dot"><span class="un-mono">2050 預估基金累計資產</span> (+800,000)</p>
+                    <p class="dot"><span class="un-mono">氣候風險造成減損</span><span class="loss"> (-140,000)</span></p>
+                    <p class="unit un-mono">以新制勞退結果繪製 (新台幣 元)</p>
+                  </div>
                 </div>
+              </div>
 
-                <div class="receipt-row">
-                  <span>與預期報酬相比</span>
-                  <span :class="amountClass(returnDiff)">
-                    {{ formatNumber(returnDiff) }}
-                  </span>
+              <!-- <hr class="divider-receipt" /> -->
+
+              <div class="receipt-section">
+                <div class="receipt-table">
+
+                  <div class="grid-row-3">
+                    <span class="title row-13 text-left un-mono">原先預估<br> (基礎情境)</span>
+                    <span class="un-mono">累計投入金額</span>
+                    <span class="un-mono">2050 累計資產</span>
+                    <span>1,000,000</span>
+                    <span>1,800,000</span>
+                  </div>
+
+                  <div class="grid-row-3 un-mono">
+                    <!-- <span class="title text-left col-14">考量氣候風險<br>(2050 淨零情境)</span> -->
+                    <span class="title text-left">考量氣候風險<br>(2050 淨零情境)</span>
+                    <span class="v-middle">累計投入金額</span>
+                    <span class="v-middle">2050 累計資產</span>
+                  </div>
+
+                  <div class="grid-row-3">
+                    <span class="text-left">新制勞退</span>
+                    <span>1,000,000</span>
+                    <span>1,800,000</span>
+                    <span class="text-left">預期資產減損</span>
+                    <span class="loss">-200,000</span>
+                    <span class="loss">( -10% )</span>
+                  </div>
+
+                  <div class="grid-row-3">
+                    <span class="text-left">舊制勞退</span>
+                    <span>1,000,000</span>
+                    <span>1,800,000</span>
+                    <span class="text-left">預期資產減損</span>
+                    <span class="loss">-200,000</span>
+                    <span class="loss">( -10% )</span>
+                  </div>
+
+                  <div class="grid-row-3">
+                    <span class="text-left">勞工保險</span>
+                    <span>1,000,000</span>
+                    <span>1,800,000</span>
+                    <span class="text-left">預期資產減損</span>
+                    <span class="loss">-200,000</span>
+                    <span class="loss">( -10% )</span>
+                  </div>
+
+                  <div class="grid-row-3">
+                    <span class="text-left">退輔基金</span>
+                    <span>1,000,000</span>
+                    <span>1,800,000</span>
+                    <span class="text-left">預期資產減損</span>
+                    <span class="loss">-200,000</span>
+                    <span class="loss">( -10% )</span>
+                  </div>
                 </div>
               </div>
 
@@ -227,10 +258,11 @@
 
               <div class="receipt-section receipt-qrcode">
                 <div class="receipt-row receipt-bottom">
-                  <span>
-                    這筆帳，該算清楚了。<br>
-                    試算你的投資報酬與碳排代價 →
-                  </span>
+                  <p>
+                    退休金沒有預期的回報，反而被政府不願面對的氣候風險侵蝕<br>
+                    <!-- FIXME: 修復下載對帳單 -->
+                    <a href="javascript:void(0);" target="_blank">下載對帳單</a>
+                  </p>
                   <img src="images/qrcode.png" alt="https://divest4future.ejfoundation.org/">
                 </div>
               </div>
@@ -238,7 +270,8 @@
             </div>
 
             <div class="receipt-btn" v-if="totalInvestment > 0">
-              <button class="big-btn btn-calculate color-gray" @click="openShareLightbox">立刻連署</button>
+              <p>我的退休金不該被蒸發！</p>
+              <button class="big-btn btn-calculate color-gray" @click="openShareLightbox">立即行動✊守護退休金</button>
             </div>
             <!--
             <div class="receipt-btn" v-if="totalInvestment > 0">
