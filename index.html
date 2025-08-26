@@ -189,19 +189,19 @@
                       svg 圓餅圖
                       減損 x% 時：
                       1. 第 2 個 circle 的 stroke-dasharray="60 40"，40 是減損的範圍，60 是未減損的範圍，合計 100，所以減損 x% 時 stroke-dasharray = `{100-x} {x}`
-                      2. 第 4 個 circle 的 rotate(n 21 21)，n 是由右邊起算的 360 度，所以 減損 x% 時 transform = `rotate({(x/100 * 360) - 90} 21 21)`
+                      2. 第 4 個 circle 的 rotate(n 21 21)，n 是由右邊起算的 360 度，所以 減損 x% 時 transform = `rotate({360 - (x/100 * 360) - 90} 21 21)`
                     -->
                     <svg width="100%" height="100%" viewBox="0 0 42 42" class="donut">
                       <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#E30613" stroke-width="7"></circle>
-                      <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#3B4048" stroke-width="7" stroke-dasharray="60 40" stroke-dashoffset="25"></circle>
+                      <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#3B4048" stroke-width="7" :stroke-dasharray="donut_strokeDasharray" stroke-dashoffset="25"></circle>
                       <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="white" stroke-width="8" stroke-dasharray="1.5 98.5" stroke-dashoffset="0" transform="rotate(-91 21 21)"></circle>
-                      <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="white" stroke-width="8" stroke-dasharray="1.5 98.5" stroke-dashoffset="0" transform="rotate(126 21 21)"></circle>
+                      <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="white" stroke-width="8" stroke-dasharray="1.5 98.5" stroke-dashoffset="0" :transform="donut_transform"></circle>
                     </svg>
                   </div>
                   <div class="chart-text">
                     <p class="dot"><span class="un-mono">2050 預估累計資產</span> (+{{ formatNumber(expectedReturn) }})</p>
-                    <p class="dot"><span class="un-mono">氣候風險造成減損</span><span class="loss"> ({{ formatNumber(expectedMinus_labor) }})</span></p>
-                    <p class="unit un-mono">以新制勞退結果繪製 (新台幣 元)</p>
+                    <p class="dot"><span class="un-mono">氣候風險造成減損</span><span class="loss"> ({{ formatNumber(expectedMinus) }})</span></p>
+                    <p class="unit un-mono">以{{ fundName }}結果繪製 (新台幣 元)</p>
                   </div>
                 </div>
               </div>
@@ -233,7 +233,7 @@
                     <span>{{ formatNumber(totalReturn_labor) }}</span>
                     <span class="text-left">預期資產減損</span>
                     <span class="loss">{{ formatNumber(expectedMinus_labor) }}</span>
-                    <span class="loss">({{ expectedMinusRatio_labor }})</span>
+                    <span class="loss">({{ expectedMinusRatio_labor }}%)</span>
                   </div>
                   </template>
 
@@ -244,7 +244,7 @@
                     <span>{{ formatNumber(totalReturn_legacy) }}</span>
                     <span class="text-left">預期資產減損</span>
                     <span class="loss">{{ formatNumber(expectedMinus_legacy) }}</span>
-                    <span class="loss">({{ expectedMinusRatio_legacy }})</span>
+                    <span class="loss">({{ expectedMinusRatio_legacy }}%)</span>
                   </div>
                   </template>
 
@@ -255,7 +255,7 @@
                     <span>{{ formatNumber(totalReturn_insurance) }}</span>
                     <span class="text-left">預期資產減損</span>
                     <span class="loss">{{ formatNumber(expectedMinus_insurance) }}</span>
-                    <span class="loss">({{ expectedMinusRatio_insurance }})</span>
+                    <span class="loss">({{ expectedMinusRatio_insurance }}%)</span>
                   </div>
                   </template>
 
@@ -266,7 +266,7 @@
                     <span>{{ formatNumber(totalReturn_retire) }}</span>
                     <span class="text-left">預期資產減損</span>
                     <span class="loss">{{ formatNumber(expectedMinus_retire) }}</span>
-                    <span class="loss">({{ expectedMinusRatio_retire }})</span>
+                    <span class="loss">({{ expectedMinusRatio_retire }}%)</span>
                   </div>
                   </template>
                 </div>

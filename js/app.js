@@ -200,6 +200,13 @@ const app = Vue.createApp({
             // returnDiff: 0,
             currentDateTime: isReceiptMode ? getQueryParam('currentDateTime') || '' : '',
             funds: getQueryParam('funds', 'labor').split(',').filter(f => f),  // 預設勞退基金，支援複選
+
+            fundName: '',
+            expectedReturn: 0,
+            expectedMinus: 0,
+            expectedMinusRatio: 0,
+            donut_strokeDasharray: '60 40', // 預設 40% 減損計算
+            donut_transform: 'rotate(54 21 21)',
         }
     },
     created() {
@@ -300,21 +307,31 @@ const app = Vue.createApp({
                 this['totalInvestment_'+fund.id] = calcAll[fund.id][2050].totalInvestment;
                 this['totalReturn_'+fund.id] = calcAll[fund.id][2050].totalReturn;
                 this['expectedMinus_'+fund.id] = calcAll[fund.id][2050].totalReturn - calcAll[fund.id][2050].expectedReturn;
-                this['expectedMinusRatio_'+fund.id] = Math.round((this['expectedMinus_'+fund.id] / calcAll[fund.id][2050].expectedReturn) * 100) + '%';
+                this['expectedMinusRatio_'+fund.id] = Math.round((this['expectedMinus_'+fund.id] / calcAll[fund.id][2050].expectedReturn) * 100);
             });
 
             // 計算圓餅圖資料
             console.log('===================== 計算圓餅圖資料 =====================');
             // 第一個有打開的 funds 資料
             const fundId = this.funds[0];
+            this.fundName = fundList.find(fund => fund.id === fundId).name;
             this.expectedReturn = calcAll[fundId][2050].expectedReturn;
             this.expectedMinus = this[`expectedMinus_${fundId}`];
             this.expectedMinusRatio = this[`expectedMinusRatio_${fundId}`];
 
+            const donut_ratio = this.expectedMinusRatio * -1;
+            this.donut_strokeDasharray = `${100 - donut_ratio} ${donut_ratio}`;
+            this.donut_transform = `rotate(${Math.round(360 - (donut_ratio/100 * 360) - 90)} 21 21)`;
+
             console.log('fundId', fundId);
+            console.log('fundName', this.fundName);
             console.log('expectedReturn', this.expectedReturn);
             console.log('expectedMinus', this.expectedMinus);
             console.log('expectedMinusRatio', this.expectedMinusRatio);
+            console.log('donut_ratio', donut_ratio);
+            console.log('donut_strokeDasharray', this.donut_strokeDasharray);
+            console.log('donut_transform', this.donut_transform);
+
 
             /*
             console.log("=================== 2050 結果 ===================");
