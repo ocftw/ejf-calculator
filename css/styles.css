@@ -879,6 +879,9 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   justify-content: center;
   display: none;
 }
+.lightbox.show {
+  display: flex;
+}
 .lightbox .lightbox-content {
   background: linear-gradient(135deg, #FFFFFF, #e0e0e0);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -900,53 +903,64 @@ button.btn-fund[data-on=true][data-fund=retire] p {
     padding: 1rem;
   }
 }
-.lightbox .lightbox-content h4 {
-  margin: 0;
-  line-height: 1.5rem;
-}
 .lightbox .lightbox-content > hr {
   margin: 1.25rem 0;
 }
-.lightbox .lightbox-columns {
+.lightbox .lightbox-content p {
+  margin-bottom: 0.5rem;
+}
+
+#lightbox-share .lightbox-columns {
   display: flex;
   gap: 2rem;
 }
 @media (max-width: 640px) {
-  .lightbox .lightbox-columns {
+  #lightbox-share .lightbox-columns {
     flex-direction: column-reverse;
   }
 }
-.lightbox .lightbox-left, .lightbox .lightbox-right {
+#lightbox-share .lightbox-left, #lightbox-share .lightbox-right {
   max-width: 320px;
   width: 100%;
 }
-.lightbox .lightbox-left {
+#lightbox-share .lightbox-left {
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 320px;
 }
-.lightbox .lightbox-left p {
+#lightbox-share .lightbox-left p {
   margin-top: 0;
 }
-.lightbox .lightbox-left .share-section {
+#lightbox-share .lightbox-left .share-section {
   max-width: 264px;
   width: 100%;
 }
-.lightbox .lightbox-left .share-btns {
+#lightbox-share .lightbox-left .share-btns {
   display: flex;
   margin: 1.5rem 0;
   justify-content: space-between;
 }
-.lightbox .lightbox-left .share-btns a {
+#lightbox-share .lightbox-left .share-btns a {
   display: inline-block;
   width: 48px;
   height: 48px;
 }
-.lightbox .lightbox-left .back-section {
+#lightbox-share .lightbox-left .back-section {
   margin-top: auto;
   width: 100%;
   max-width: 264px;
+}
+#lightbox-share h4 {
+  margin: 0;
+  line-height: 1.5rem;
+}
+
+#lightbox-methodology p {
+  font-size: 0.875em;
+}
+#lightbox-methodology h4 {
+  font-size: 1.125em;
 }
 
 #page-calculator .calculator-intro {
