@@ -267,6 +267,7 @@ hr {
 
   &.divider-default {
     border-color: $color-neutral-600;
+    margin: 1.25rem 0;
   }
 
   &.divider-receipt {
@@ -347,18 +348,21 @@ span.watermark {
   }
 }
 
-button.big-btn {
+button.big-btn, a.big-btn {
   background-color: $color-ejf-red;
   border: 2px solid $color-ejf-red;
 
   padding: 0.75rem 1.5rem;
-  width: 100%;
   margin-bottom: 0.75rem;
+
+  width: 100%;
+  max-width: 250px;
 
   font-size: 1.5rem;
   line-height: 1.5rem;
   font-weight: $font-weight-bold;
   text-align: left;
+  text-decoration: none;
   color: $color-white;
 
   cursor: pointer;
@@ -552,8 +556,8 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
     width: 100%;
     height: 10px;
     background-image: url("../images/receipt_bottom.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
+    background-size: 320px 10px;
+    background-repeat: repeat-x;
     position: absolute;
     bottom: -10px;
     left: 0;
@@ -852,28 +856,18 @@ $mobileMinWidth: 414px;
 }
 
 #receipt-column {
-  // text-align: center;
-
   .receipt-box {
     margin-bottom: 3rem;
   }
 
-  // .receipt-qrcode {
-  //   // display: none;
-  // }
-
   .receipt-btn {
-    // display: flex;
-    // justify-content: center;
-
     p {
       display: block;
     }
 
     button {
-      width: 100%;
-      max-width: 280px;
       font-size: 1.25rem;
+      max-width: 280px;
     }
   }
 }
@@ -906,6 +900,7 @@ $mobileMinWidth: 414px;
     max-height: 90vh;
     overflow-x: hidden;
     overflow-y: scroll;
+    position: relative;
 
     padding: 2rem;
     color: $color-default;
@@ -917,12 +912,27 @@ $mobileMinWidth: 414px;
       padding: 1rem;
     }
 
-    > hr {
-      margin: 1.25rem 0;
-    }
-
     p {
       margin-bottom: 0.5rem;
+    }
+
+    .close-x {
+      position: absolute;
+      right: 1rem;
+      top: 0.75rem;
+      cursor: pointer;
+      font-size: 1.5rem;
+      line-height: 1em;
+      z-index: 1;
+      font-family: "Noto Sans Mono", sans-serif;
+      transition: all 0.3s ease;
+      padding: 0.5rem;
+
+      color: $color-neutral-700;
+
+      &:hover {
+        color: $color-neutral-1000;
+      }
     }
   }
 }
@@ -977,6 +987,10 @@ $mobileMinWidth: 414px;
       width: 100%;
       max-width: $width-share-section;
     }
+
+    button.big-btn {
+      max-width: 100%;
+    }
   }
 
   h4 {
@@ -991,6 +1005,53 @@ $mobileMinWidth: 414px;
   }
   h4 {
     font-size: 1.125em;
+  }
+}
+
+#lightbox-mail {
+  #mail-container {
+
+    #mail-switch {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .mail-content-template {
+      padding: 1.5rem 1.5rem 0.875rem;
+      box-shadow: -8px 16px 40px $color-neutral-1000-trans-8;
+      background: $color-white;
+      position: relative;
+
+      &::after {
+        content: " ";
+        display: block;
+        width: 100%;
+        height: 10px;
+        background-image: url("../images/receipt_bottom.png");
+        background-size: 320px 10px;
+        background-repeat: repeat-x;
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+      }
+    }
+
+    .mail-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      button, a {
+        width: 100%;
+        max-width: 280px;
+        font-size: 1.25rem;
+      }
+    }
   }
 }
 

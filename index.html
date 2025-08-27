@@ -77,7 +77,6 @@
 
         <div class="calculator-intro">
           <p>政府四大基金「新／舊制勞退基金」、「勞保基金」、「退撫基金」代表你我管理資產進行投資，卻沒有公布投資策略的氣候風險，以及對你我資產造成的減損。</p>
-          <!-- FIXME: 加入方法學 lightbox -->
           <p>輸入基本資料，讓 EJF 四大基金氣候風險計算機幫你試算到 2050 年時，你的資產可能減損多少（<a href="javascript:void(0);" @click.stop.prevent="openLightbox('methodology')">方法學</a>）。</p>
         </div>
 
@@ -268,7 +267,7 @@
                   <p>
                     退休金沒有預期的回報，反而被政府不願面對的氣候風險侵蝕<br>
                     <!-- FIXME: 修復下載對帳單 -->
-                    <a href="javascript:void(0);" target="_blank">下載對帳單</a>
+                    <a href="javascript:void(0);" @click.stop.prevent="openLightbox('share')">下載對帳單</a>
                   </p>
                   <img src="images/qrcode.png" alt="https://divest4future.ejfoundation.org/">
                 </div>
@@ -276,18 +275,101 @@
 
             </div>
 
-            <div class="receipt-btn" v-if="totalInvestment > 0">
+            <div class="receipt-btn">
               <p>我的退休金不該被蒸發！</p>
-              <button class="big-btn btn-calculate color-gray" @click.stop.prevent="openLightbox('share')">立即行動✊守護退休金</button>
+              <button class="big-btn btn-calculate color-gray" @click.stop.prevent="openLightbox('mail')">立即行動✊守護退休金</button>
             </div>
-            <!--
-            <div class="receipt-btn" v-if="totalInvestment > 0">
-              <button class="big-btn btn-share" @click="openShareLightbox">心碎分享</button>
-            </div>
-            -->
           </div>
         </div>
       </div>
+
+      <div id="lightbox-mail" class="lightbox" onclick="lightbox.close('mail')">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+          <span class="close-x" onclick="lightbox.close('mail')">x</span>
+
+          <h4>向主管機關反應</h4>
+          <p>請點選按鈕複製以下的內容，前往主管機關信箱，協助反應此訊息。</p>
+
+          <hr class="divider-default" />
+
+          <div id="mail-container">
+            <div id="mail-switch">
+              <button class="btn-fund" data-fund="labor" :data-on="activeMail === 'labor'" @click="toggleMail('labor')"><p>勞動部</p></button>
+              <button class="btn-fund" data-fund="retire" :data-on="activeMail === 'retire'" @click="toggleMail('retire')"><p>銓敘部</p></button>
+              <button class="btn-fund" data-fund="insurance" :data-on="activeMail === 'postal'" @click="toggleMail('postal')"><p>交通部</p></button>
+            </div>
+
+            <div class="mail-content" v-show="activeMail === 'labor'">
+              <div class="mail-content-template" data-fund="labor">
+                <p>根據環境正義基金會（EJF）的「四大基金氣候風險」的情境分析計算，2050 年我本該拿到勞退 {{ formatNumber(expectedReturn_labor) }} 元<!--、舊制勞退 {{ formatNumber(expectedReturn_legacy) }} 元-->，卻因為目前勞動基金缺乏積極的氣候投資政策，我可能會足足損失新制勞退 {{ formatNumber(expectedMinus_labor) }} 元、舊制勞退 {{ formatNumber(expectedMinus_legacy) }} 元。</p>
+
+                <p>這樣的投資損失對我的退休生活帶來財務上的危機，投資的策略也與我在意的「永續生活」有所偏差。</p>
+
+                <p>我希望勞動部：</p>
+
+                <p>
+                  1. 每年公布氣候變遷對大眾基金的財務影響<br>
+                  2. 每年公布完整的基金投資組合<br>
+                  3. 儘速訂定對所有化石燃料相關產業的撤資時程表，且該時程表須與巴黎協定一致，以積極管理氣候與財務風險，並落實忠誠義務。
+                </p>
+
+                <p>我希望我的退休金能投入對抗氣候變遷、支持永續美好地球，獲得穩健獲利與永續發展的雙贏。</p>
+              </div>
+
+              <div class="mail-actions">
+                <button class="big-btn btn-download color-gray" @click.stop.prevent="copyMailContent('labor')" v-if="!isCopied">複製內容</button>
+                <button class="big-btn btn-download color-gray" @click.stop.prevent="copyMailContent('labor')" v-if="isCopied">已複製</button>
+                <a class="big-btn btn-calculate" target="_blank" href="https://po.mol.gov.tw/WriteMail">前往勞動部信箱</a>
+              </div>
+            </div>
+
+            <div class="mail-content" v-show="activeMail === 'retire'">
+              <div class="mail-content-template" data-fund="retire">
+                <p>根據環境正義基金會（EJF）的「四大基金氣候風險」的情境分析計算，2050 年我本該拿到退輔基金 {{ formatNumber(expectedReturn_retire) }} 元，卻因為目前退撫基金缺乏積極的氣候投資政策，我可能會足足損失 {{ formatNumber(expectedMinus_retire) }} 元。</p>
+
+                <p>這個數字對我來說不僅是退休生活的保障，更與我在退休後期望的生活品質息息相關。然而，在全球氣候變遷和淨零轉型的趨勢下，如何有效管理、提升，並穩健這筆退休金的價值，同時利用這筆退休金投資永續的未來，是我關心的焦點。</p>
+
+                <p>我希望銓敘部：</p>
+
+                <p>
+                  1. 每年公布氣候變遷對大眾基金的財務影響<br>
+                  2. 每年公布完整的基金投資組合<br>
+                  3. 儘速訂定對所有化石燃料相關產業的撤資時程表，且該時程表須與巴黎協定一致，以積極管理氣候與財務風險，並落實忠誠義務。
+                </p>
+
+                <p>如此一來，我的退休金資產將可投入對抗氣候變遷、支持永續美好地球，獲得穩健獲利與永續發展的雙贏。</p>
+              </div>
+
+              <div class="mail-actions">
+                <button class="big-btn btn-download color-gray" @click.stop.prevent="copyMailContent('retire')" v-if="!isCopied">複製內容</button>
+                <button class="big-btn btn-download color-gray" @click.stop.prevent="copyMailContent('retire')" v-if="isCopied">已複製</button>
+                <a class="big-btn btn-calculate" target="_blank" href="https://chief.mocs.gov.tw/mail/main.aspx">前往銓敘部信箱</a>
+              </div>
+            </div>
+
+            <div class="mail-content" v-show="activeMail === 'postal'">
+              <div class="mail-content-template" data-fund="postal">
+                <p>我們民眾在中華郵政開戶，可能是為了孩子的成長求學儲蓄、為了自己存下一桶金等等，這筆錢應該用來投資對未來美好的想望，而不是讓氣候變遷加劇的化石燃料。在全球氣候變遷加劇的情況下，我希望交通部要求中華郵政公司：</p>
+
+                <p>
+                  1. 強化、完善氣候相關風險財務揭露內容，回應民眾知情權並跟上國際永續揭露趨勢，包含公布對所有化石燃料相關產業的投資情形<br>
+                  2. 儘速訂定對所有化石燃料相關產業的撤資時程表，且該時程表須與巴黎協定一致，以積極管理氣候與財務風險，並落實忠誠義務。
+                </p>
+
+                <p>如此一來，我存在中華郵政的存款將可投入對抗氣候變遷、支持永續美好地球，獲得穩健獲利與永續發展的雙贏。</p>
+              </div>
+
+              <div class="mail-actions">
+                <button class="big-btn btn-download color-gray" @click.stop.prevent="copyMailContent('postal')" v-if="!isCopied">複製內容</button>
+                <button class="big-btn btn-download color-gray" @click.stop.prevent="copyMailContent('postal')" v-if="isCopied">已複製</button>
+                <a class="big-btn btn-calculate" target="_blank" href="https://poms.motc.gov.tw/message/tw">前往交通部信箱</a>
+              </div>
+              </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
     <div id="page-intro" class="container">
@@ -442,7 +524,10 @@
     <!-- Lightbox 分享視窗 -->
     <div id="lightbox-share" class="lightbox" onclick="lightbox.close('share')">
       <div class="lightbox-content" onclick="event.stopPropagation()">
+        <span class="close-x" onclick="lightbox.close('share')">x</span>
+
         <h4>四大基金畢業收據</h4>
+
         <hr class="divider-default" />
 
         <div class="lightbox-columns">
@@ -491,7 +576,14 @@
 
     <div id="lightbox-methodology" class="lightbox" onclick="lightbox.close('methodology')">
       <div class="lightbox-content" onclick="event.stopPropagation()">
+        <span class="close-x" onclick="lightbox.close('methodology')">x</span>
+
+        <h3>計算方法</h3>
+
+        <hr class="divider-default" />
+
         <h4>基本假設</h4>
+
         <p>EJF 認知不同基金提撥的方式與比例不同，但對於此網站所呈現之基金報酬計算的基本假設如下：</p>
         <p>1. 假設 24 歲投入職場，且開始定期投入薪資的 6% 至政府基金。假設 65 歲退休，65 歲前每年都有 2% 薪資成長，退休後不再有本金投入。</p>
         <p>2. 根據國內政府基金揭露資訊，新舊制勞退基金、勞保基金、退撫基金近十年年化報酬率為 6.15%，本計算機取採整數 6% 計算。</p>
@@ -501,6 +593,7 @@
         <hr class="divider-default" />
 
         <h4>計算基金受氣候變遷衝擊所採方法論</h4>
+
         <p>本方法論設計旨在掌握新制勞退、舊制勞退、勞保基金、退撫基金因應全球低碳轉型向企業開徵碳費對其國內股票前十大投資對象營運費用之間接衝擊，依 Phase 5 - GCAM 6.0 模型之有序轉型情境（Net Zero 2050）下，向企業開徵碳費之可能影響進行模擬評估。</p>
         <p>針對 2024 年底各基金國內前十大股票投資部位，以 股價淨值比（Price-Book Ratio, PB Ratio）法進行市場風險之情境分析。此方法論假設在外流通股數與股價淨值比不變，並以 NGFS 的台灣預測碳價格為基礎，計算出不同基金投資對象於有序轉型情境中因繳交碳費所產生的財務衝擊，並最終影響到基金的投資報酬率。</p>
         <p>*備註：本情境分析不考慮通膨影響。</p>
@@ -508,10 +601,14 @@
         <hr class="divider-default" />
 
         <h4>聲明</h4>
+
         <p>本電子平台提供之所有資訊內容均僅供參考，不構成任何個人或機構之意見或判斷，亦不構成任何投資建議。</p>
+
+        <hr class="divider-default" />
+
+        <button class="big-btn btn-back" onclick="lightbox.close('methodology')">再算(ㄠ)一下</button>
       </div>
     </div>
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.17/vue.global.prod.min.js" integrity="sha512-B+xT9hBEokScoEYqF2L6zjF/R0mtYb11XURk2ERx89eRofWtgsrCljvx30JospRZRI3v19p9pRWvmLQ6ySS9FA==" crossorigin="anonymous" referrerpolicy="no-referrer" onerror="this.src='lib/vue.global.prod.min.js'"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js" integrity="sha512-Y51n9mtKTVBh3Jbx5pZSJNDDMyY+yGe77DGtBPzRlgsf/YLCh13kSZ3JmfHGzYFCmOndraf0sQgfM654b7dJ3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
