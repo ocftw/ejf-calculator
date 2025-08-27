@@ -78,7 +78,7 @@
         <div class="calculator-intro">
           <p>政府四大基金「新／舊制勞退基金」、「勞保基金」、「退撫基金」代表你我管理資產進行投資，卻沒有公布投資策略的氣候風險，以及對你我資產造成的減損。</p>
           <!-- FIXME: 加入方法學 lightbox -->
-          <p>輸入基本資料，讓 EJF 四大基金氣候風險計算機幫你試算到 2050 年時，你的資產可能減損多少（<a href="javascript:void(0);" target="_blank">方法學</a>）。</p>
+          <p>輸入基本資料，讓 EJF 四大基金氣候風險計算機幫你試算到 2050 年時，你的資產可能減損多少（<a href="javascript:void(0);" @click.stop.prevent="openLightbox('methodology')">方法學</a>）。</p>
         </div>
 
         <div class="columns">
@@ -278,7 +278,7 @@
 
             <div class="receipt-btn" v-if="totalInvestment > 0">
               <p>我的退休金不該被蒸發！</p>
-              <button class="big-btn btn-calculate color-gray" @click="openShareLightbox">立即行動✊守護退休金</button>
+              <button class="big-btn btn-calculate color-gray" @click.stop.prevent="openLightbox('share')">立即行動✊守護退休金</button>
             </div>
             <!--
             <div class="receipt-btn" v-if="totalInvestment > 0">
@@ -440,7 +440,7 @@
     </div>
 
     <!-- Lightbox 分享視窗 -->
-    <div id="share-lightbox" class="lightbox" onclick="lightbox.closeShareLightbox()">
+    <div id="lightbox-share" class="lightbox" onclick="lightbox.close('share')">
       <div class="lightbox-content" onclick="event.stopPropagation()">
         <h4>四大基金畢業收據</h4>
         <hr class="divider-default" />
@@ -476,7 +476,7 @@
             </div>
 
             <div class="back-section">
-              <button class="big-btn btn-back" onclick="lightbox.closeShareLightbox()">再算(ㄠ)一下</button>
+              <button class="big-btn btn-back" onclick="lightbox.close('share')">再算(ㄠ)一下</button>
             </div>
           </div>
 
@@ -488,6 +488,30 @@
         </div>
       </div>
     </div>
+
+    <div id="lightbox-methodology" class="lightbox" onclick="lightbox.close('methodology')">
+      <div class="lightbox-content" onclick="event.stopPropagation()">
+        <h4>基本假設</h4>
+        <p>EJF 認知不同基金提撥的方式與比例不同，但對於此網站所呈現之基金報酬計算的基本假設如下：</p>
+        <p>1. 假設 24 歲投入職場，且開始定期投入薪資的 6% 至政府基金。假設 65 歲退休，65 歲前每年都有 2% 薪資成長，退休後不再有本金投入。</p>
+        <p>2. 根據國內政府基金揭露資訊，新舊制勞退基金、勞保基金、退撫基金近十年年化報酬率為 6.15%，本計算機取採整數 6% 計算。</p>
+        <p>3. 考量我國將 2050 年設為法定達成淨零排放的目標年，因此本計算機僅呈現到 2050 年。</p>
+        <p>*參考資料：中華民國退休基金協會「<a href="https://www.pension.org.tw/index.php/pensinkb/data?id=310" target="_blank">各基金近十年投資年化報酬率</a>」政府基金年化報酬率</p>
+
+        <hr class="divider-default" />
+
+        <h4>計算基金受氣候變遷衝擊所採方法論</h4>
+        <p>本方法論設計旨在掌握新制勞退、舊制勞退、勞保基金、退撫基金因應全球低碳轉型向企業開徵碳費對其國內股票前十大投資對象營運費用之間接衝擊，依 Phase 5 - GCAM 6.0 模型之有序轉型情境（Net Zero 2050）下，向企業開徵碳費之可能影響進行模擬評估。</p>
+        <p>針對 2024 年底各基金國內前十大股票投資部位，以 股價淨值比（Price-Book Ratio, PB Ratio）法進行市場風險之情境分析。此方法論假設在外流通股數與股價淨值比不變，並以 NGFS 的台灣預測碳價格為基礎，計算出不同基金投資對象於有序轉型情境中因繳交碳費所產生的財務衝擊，並最終影響到基金的投資報酬率。</p>
+        <p>*備註：本情境分析不考慮通膨影響。</p>
+
+        <hr class="divider-default" />
+
+        <h4>聲明</h4>
+        <p>本電子平台提供之所有資訊內容均僅供參考，不構成任何個人或機構之意見或判斷，亦不構成任何投資建議。</p>
+      </div>
+    </div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.17/vue.global.prod.min.js" integrity="sha512-B+xT9hBEokScoEYqF2L6zjF/R0mtYb11XURk2ERx89eRofWtgsrCljvx30JospRZRI3v19p9pRWvmLQ6ySS9FA==" crossorigin="anonymous" referrerpolicy="no-referrer" onerror="this.src='lib/vue.global.prod.min.js'"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js" integrity="sha512-Y51n9mtKTVBh3Jbx5pZSJNDDMyY+yGe77DGtBPzRlgsf/YLCh13kSZ3JmfHGzYFCmOndraf0sQgfM654b7dJ3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

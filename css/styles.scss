@@ -894,6 +894,10 @@ $mobileMinWidth: 414px;
 
   display: none; // 預設隱藏
 
+  &.show {
+    display: flex;
+  }
+
   .lightbox-content {
     background: linear-gradient(135deg, $color-white, #{darken($color-white, 12%)});
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -913,15 +917,17 @@ $mobileMinWidth: 414px;
       padding: 1rem;
     }
 
-    h4 {
-      margin: 0;
-      line-height: 1.5rem;
-    }
     > hr {
       margin: 1.25rem 0;
     }
-  }
 
+    p {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+#lightbox-share {
   .lightbox-columns {
     display: flex;
     gap: 2rem;
@@ -971,6 +977,20 @@ $mobileMinWidth: 414px;
       width: 100%;
       max-width: $width-share-section;
     }
+  }
+
+  h4 {
+    margin: 0;
+    line-height: 1.5rem;
+  }
+}
+
+#lightbox-methodology {
+  p {
+    font-size: 0.875em;
+  }
+  h4 {
+    font-size: 1.125em;
   }
 }
 

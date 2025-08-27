@@ -556,11 +556,8 @@ const app = Vue.createApp({
 
             console.log('=== 圖表更新完成 ===');
         },
-
-        // Vue 中的開啟分享 lightbox 方法
-        openShareLightbox() {
-            console.log('=== Vue openShareLightbox 被呼叫 ===');
-            lightbox.openShareLightbox();
+        openLightbox(lightboxName) {
+            lightbox.open(lightboxName);
         },
         updateUrlParams() {
             const url = new URL(window.location.href);
@@ -611,19 +608,27 @@ const app = Vue.createApp({
 
 // ===== Lightbox 管理物件 =====
 const lightbox = {
-    // 開啟分享 lightbox
-    openShareLightbox() {
-        console.log('=== Lightbox openShareLightbox 被呼叫 ===');
+    open(lightboxName) {
+        console.log(`=== Lightbox.open (${lightboxName}) ===`);
 
-        // 更新分享連結的 href 屬性
-        this.updateShareLinks();
-        this.copyReceiptToLightbox();
+        if (lightboxName === 'share') {
+            // 更新分享連結的 href 屬性
+            this.updateShareLinks();
+            this.copyReceiptToLightbox();
+        }
 
-        // 顯示 lightbox
-        const lightbox = document.getElementById('share-lightbox');
+        const lightbox = document.getElementById('lightbox-' + lightboxName);
         if (lightbox) {
-            lightbox.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+            lightbox.classList.add('show');
+        }
+    },
+
+    close(lightboxName) {
+        console.log(`=== Lightbox.close (${lightboxName}) ===`);
+
+        const lightbox = document.getElementById('lightbox-' + lightboxName);
+        if (lightbox) {
+            lightbox.classList.remove('show');
         }
     },
 
@@ -634,17 +639,6 @@ const lightbox = {
         shareBtns.forEach(btn => {
             btn.href = btn.href.replace('${shareUrl}', encodeURIComponent(shareUrl));
         });
-    },
-
-    // 關閉分享 lightbox
-    closeShareLightbox() {
-        console.log('closeShareLightbox 被呼叫');
-
-        const lightbox = document.getElementById('share-lightbox');
-        if (lightbox) {
-            lightbox.style.display = 'none';
-            document.body.style.overflow = '';
-        }
     },
 
     // 複製收據到 lightbox
