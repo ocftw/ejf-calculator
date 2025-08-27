@@ -303,6 +303,7 @@ hr {
 }
 hr.divider-default {
   border-color: #98A0AE;
+  margin: 1.25rem 0;
 }
 hr.divider-receipt {
   border-style: dashed;
@@ -373,24 +374,26 @@ span.watermark {
   border-color: #E30613;
 }
 
-button.big-btn {
+button.big-btn, a.big-btn {
   background-color: #E30613;
   border: 2px solid #E30613;
   padding: 0.75rem 1.5rem;
-  width: 100%;
   margin-bottom: 0.75rem;
+  width: 100%;
+  max-width: 250px;
   font-size: 1.5rem;
   line-height: 1.5rem;
   font-weight: 600;
   text-align: left;
+  text-decoration: none;
   color: #FFFFFF;
   cursor: pointer;
   position: relative;
 }
-button.big-btn:hover {
+button.big-btn:hover, a.big-btn:hover {
   background-color: #cc0511;
 }
-button.big-btn::after {
+button.big-btn::after, a.big-btn::after {
   background-size: 100%;
   content: "";
   right: 1rem;
@@ -398,31 +401,31 @@ button.big-btn::after {
   height: 1.5rem;
   position: absolute;
 }
-button.big-btn.btn-calculate::after {
+button.big-btn.btn-calculate::after, a.big-btn.btn-calculate::after {
   background-image: url("../images/icon-right-white.png");
 }
-button.big-btn.btn-share::after {
+button.big-btn.btn-share::after, a.big-btn.btn-share::after {
   background-image: url("../images/icon-heart-white.png");
 }
-button.big-btn.btn-download::after {
+button.big-btn.btn-download::after, a.big-btn.btn-download::after {
   background-image: url("../images/icon-download-white.png");
 }
-button.big-btn.btn-back::after {
+button.big-btn.btn-back::after, a.big-btn.btn-back::after {
   background-image: url("../images/icon-right-white.png");
 }
-button.big-btn.btn-back {
+button.big-btn.btn-back, a.big-btn.btn-back {
   text-align: right;
 }
-button.big-btn.btn-back::after {
+button.big-btn.btn-back::after, a.big-btn.btn-back::after {
   transform: rotate(180deg);
   left: 1rem;
   right: auto;
 }
-button.big-btn.color-gray {
+button.big-btn.color-gray, a.big-btn.color-gray {
   background-color: #54677B;
   border-color: #54677B;
 }
-button.big-btn.color-gray:hover {
+button.big-btn.color-gray:hover, a.big-btn.color-gray:hover {
   background-color: #4c5d6f;
 }
 
@@ -570,8 +573,8 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   width: 100%;
   height: 10px;
   background-image: url("../images/receipt_bottom.png");
-  background-size: 100%;
-  background-repeat: no-repeat;
+  background-size: 320px 10px;
+  background-repeat: repeat-x;
   position: absolute;
   bottom: -10px;
   left: 0;
@@ -860,9 +863,8 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   display: block;
 }
 #receipt-column .receipt-btn button {
-  width: 100%;
-  max-width: 280px;
   font-size: 1.25rem;
+  max-width: 280px;
 }
 
 .lightbox {
@@ -890,6 +892,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   max-height: 90vh;
   overflow-x: hidden;
   overflow-y: scroll;
+  position: relative;
   padding: 2rem;
   color: #3B4048;
 }
@@ -903,11 +906,24 @@ button.btn-fund[data-on=true][data-fund=retire] p {
     padding: 1rem;
   }
 }
-.lightbox .lightbox-content > hr {
-  margin: 1.25rem 0;
-}
 .lightbox .lightbox-content p {
   margin-bottom: 0.5rem;
+}
+.lightbox .lightbox-content .close-x {
+  position: absolute;
+  right: 1rem;
+  top: 0.75rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1em;
+  z-index: 1;
+  font-family: "Noto Sans Mono", sans-serif;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+  color: #7F8A9B;
+}
+.lightbox .lightbox-content .close-x:hover {
+  color: #1C1E22;
 }
 
 #lightbox-share .lightbox-columns {
@@ -951,6 +967,9 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   width: 100%;
   max-width: 264px;
 }
+#lightbox-share .lightbox-left button.big-btn {
+  max-width: 100%;
+}
 #lightbox-share h4 {
   margin: 0;
   line-height: 1.5rem;
@@ -961,6 +980,44 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 }
 #lightbox-methodology h4 {
   font-size: 1.125em;
+}
+
+#lightbox-mail #mail-container #mail-switch {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#lightbox-mail #mail-container .mail-content-template {
+  padding: 1.5rem 1.5rem 0.875rem;
+  box-shadow: -8px 16px 40px rgba(28, 30, 34, 0.08);
+  background: #FFFFFF;
+  position: relative;
+}
+#lightbox-mail #mail-container .mail-content-template::after {
+  content: " ";
+  display: block;
+  width: 100%;
+  height: 10px;
+  background-image: url("../images/receipt_bottom.png");
+  background-size: 320px 10px;
+  background-repeat: repeat-x;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+}
+#lightbox-mail #mail-container .mail-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#lightbox-mail #mail-container .mail-actions button, #lightbox-mail #mail-container .mail-actions a {
+  width: 100%;
+  max-width: 280px;
+  font-size: 1.25rem;
 }
 
 #page-calculator .calculator-intro {

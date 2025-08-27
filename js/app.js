@@ -206,6 +206,8 @@ const app = Vue.createApp({
             expectedMinus: 0,
             donut_strokeDasharray: '60 40', // 預設 40% 減損計算
             donut_transform: 'rotate(54 21 21)',
+            activeMail: 'labor',
+            isCopied: false
         }
     },
     created() {
@@ -232,6 +234,29 @@ const app = Vue.createApp({
         });
     },
     methods: {
+        copyMailContent(type) {
+            let contentSelector = `.mail-content-template[data-fund="${type}"]`;
+
+            const contentDiv = document.querySelector(contentSelector);
+            if (!contentDiv) {
+                console.error('找不到內容區域:', contentSelector);
+                return;
+            }
+
+            let textContent = contentDiv.innerText || '';
+            console.log('textContent', textContent);
+
+            navigator.clipboard.writeText(textContent).then(() => {
+                console.log('=== 內容已複製到剪貼簿 ===');
+                this.isCopied = true;
+                setTimeout(() => { this.isCopied = false; }, 1000);
+            })
+            .catch(err => {
+                console.error('=== 複製失敗:', err);
+                alert('複製失敗，請手動選取文字');
+            });
+        },
+
         formatDateTime(date) {
             const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             const months = [
@@ -303,6 +328,7 @@ const app = Vue.createApp({
             // 計算 2050 時的減損與減損比例
             fundList.forEach(fund => {
                 this['totalInvestment_'+fund.id] = calcAll[fund.id][2050].totalInvestment;
+                this['expectedReturn_'+fund.id] = calcAll[fund.id][2050].expectedReturn;
                 this['totalReturn_'+fund.id] = calcAll[fund.id][2050].totalReturn;
                 this['expectedMinus_'+fund.id] = calcAll[fund.id][2050].totalReturn - calcAll[fund.id][2050].expectedReturn;
                 this['expectedMinusRatio_'+fund.id] = Math.round((this['expectedMinus_'+fund.id] / calcAll[fund.id][2050].expectedReturn) * 100);
@@ -485,7 +511,6 @@ const app = Vue.createApp({
 
             chartInstance = new Chart(ctx, chartConfig);
         },
-
         updateChart() {
             console.log('=== 開始更新圖表 ===');
 
@@ -602,6 +627,9 @@ const app = Vue.createApp({
             // 生成 hotshot 圖片 URL
             console.log('receipt 網址', receiptUrl);
             return 'https://hotshot.anoni.net/shoot?path=/ejf/receipt%3F' + paramPart + '&selector=div[id=app]&vpw=336&vph=2100';
+        },
+        toggleMail(fundId) {
+            this.activeMail = fundId;
         }
     }
 }).mount('#app');
