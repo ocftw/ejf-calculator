@@ -164,6 +164,7 @@ function getQueryParam(name, def = '') {
 
 // 檢測是否為 receipt 模式（透過 body 的 data-mode 屬性）
 const isReceiptMode = document.body.getAttribute('data-mode') === 'receipt';
+// console.log('isReceiptMode', isReceiptMode);
 
 const CHART_STYLE = {
     gridBorder: {
@@ -188,20 +189,16 @@ let chartInstance = null;
 const app = Vue.createApp({
     data() {
         return {
-            userName: isReceiptMode ? getQueryParam('userName') : '',
+            userName: isReceiptMode ? getQueryParam('name') : '',
             monthlyIncome: Number(getQueryParam('income', 25250)),
             age: Number(getQueryParam('age', 20)),
             monthlyIncomeError: false,
             ageError: false,
-            totalInvestment: Number(getQueryParam('totalInvestment', 0)),
-            // expectedReturn: Number(getQueryParam('expectedReturn', 0)),
-            // totalReturn: isReceiptMode ? getQueryParam('totalReturn') : 0,
-            // investmentDiff: 0,
-            // returnDiff: 0,
-            currentDateTime: isReceiptMode ? getQueryParam('currentDateTime') || '' : '',
+            currentDateTime: isReceiptMode ? getQueryParam('current') || '' : '',
             funds: getQueryParam('funds', 'labor').split(',').filter(f => f),  // 預設勞退基金，支援複選
 
             fundName: '',
+            totalInvestment: 0,
             expectedReturn: 0,
             expectedMinus: 0,
             donut_strokeDasharray: '60 40', // 預設 40% 減損計算
@@ -213,8 +210,6 @@ const app = Vue.createApp({
     created() {
         if (!this.currentDateTime || !(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(this.currentDateTime)))
             this.currentDateTime = new Date().toISOString();
-
-        if (isReceiptMode) this.calculateReceiptMode();
     },
     computed: {
         formattedDateTime() {
@@ -226,9 +221,8 @@ const app = Vue.createApp({
         }
     },
     mounted() {
-        if (isReceiptMode) return;
+        if (!isReceiptMode) this.initChart();
 
-        this.initChart();
         this.$nextTick(() => {
             this.calculate();
         });
@@ -279,6 +273,7 @@ const app = Vue.createApp({
             console.log('=== 開始計算 ===');
 
             // 輸入驗證
+            // FIXME: error 時的輸入元件樣式
             (function() {
             if (!this.monthlyIncome || this.monthlyIncome <= 0)
                 this.monthlyIncomeError = true;
@@ -354,17 +349,12 @@ const app = Vue.createApp({
             */
 
             this.currentDateTime = new Date().toISOString();
-
             this.calculateDonutChart();
+
+            if (isReceiptMode) return;
+
             this.updateChart();
             this.updateUrlParams();
-        },
-        calculateReceiptMode() {
-            if (!this.totalInvestment || this.totalInvestment <= 0) return;
-            if (!this.expectedReturn || this.expectedReturn < 0) return;
-            if (!this.totalReturn || this.totalReturn < 0) return;
-            this.investmentDiff = Math.floor(this.totalReturn - this.totalInvestment);
-            this.returnDiff = Math.floor(this.totalReturn - this.expectedReturn);
         },
         amountClass(val) {
             if (val > 0) return 'receipt-amount-positive';
@@ -608,13 +598,11 @@ const app = Vue.createApp({
             ogImage.setAttribute('content', imageUrl);
         },
         generateReceiptImageUrl() {
-            // FIXME: 更新抓圖服務的收據樣板跟所需參數
             const url = new URL('receipt.html', window.location.origin);
-            url.searchParams.set('userName', this.userName);
-            url.searchParams.set('totalInvestment', this.totalInvestment);
-            url.searchParams.set('expectedReturn', this.expectedReturn);
-            url.searchParams.set('totalReturn', this.totalReturn);
-            url.searchParams.set('currentDateTime', this.currentDateTime);
+            url.searchParams.set('name', this.userName);
+            url.searchParams.set('income', this.monthlyIncome);
+            url.searchParams.set('age', this.age);
+            url.searchParams.set('current', this.currentDateTime);
             url.searchParams.set('funds', this.funds.join(','));
 
             const receiptUrl = url.toString();
