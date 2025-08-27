@@ -572,18 +572,16 @@ const app = Vue.createApp({
             lightbox.open(lightboxName);
         },
         updateUrlParams() {
-            const url = new URL(window.location.href);
+            const url = new URL(window.location.origin + window.location.pathname);
 
-            // 保留用戶輸入的參數
             url.searchParams.set('income', this.monthlyIncome);
             url.searchParams.set('age', this.age);
-
-            // 選取基金狀態
             url.searchParams.set('funds', this.funds.join(','));
 
             const newUrl = url.toString();
             window.history.replaceState(null, '', newUrl);
 
+            // FIXME: 這邊作動態的更新應該沒有用
             const canonical = document.querySelector('meta[name="canonical"]');
             canonical.setAttribute('content', newUrl);
             const ogUrl = document.querySelector('meta[property="og:url"]');
@@ -592,8 +590,6 @@ const app = Vue.createApp({
             // 生成收據圖片 URL 並更新 og:image
             const imageUrl = this.generateReceiptImageUrl();
             console.log('收據圖片網址:', imageUrl);
-
-            // 更新 og:image
             const ogImage = document.querySelector('meta[property="og:image"]');
             ogImage.setAttribute('content', imageUrl);
         },
