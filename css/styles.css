@@ -585,7 +585,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 .receipt-box .receipt-section p {
   font-size: inherit;
   line-height: 1.5em;
-  margin: inherit;
+  margin: inherit !important;
 }
 .receipt-box .receipt-row {
   display: flex;
@@ -973,6 +973,9 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 #lightbox-share h4 {
   margin: 0;
   line-height: 1.5rem;
+}
+#lightbox-share #lightbox-receipt-container .receipt-download {
+  display: none;
 }
 
 #lightbox-methodology p {

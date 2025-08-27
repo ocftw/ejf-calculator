@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="robots" content="noindex"> <!-- FIXME: 上線到正式網址再移除 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <title>政府四大基金氣候損益計算機</title>
   <link rel="icon" type="image/png" href="images/fav-icon-grey.png">
@@ -103,8 +102,6 @@
                   <span class="help">請輸入月薪</span>
                 </div>
 
-                <!-- FIXME: 加入年齡功能 -->
-                <!--
                 <div class="input-wrapper is-required" v-bind:class="{ 'is-error': ageError }">
                   <label for="calculator-input-age">
                     <span class="required-mark"></span>年齡
@@ -112,7 +109,6 @@
                   <input id="calculator-input-age" type="number" inputmode="tel" placeholder="請輸入年齡..." v-model.number="age">
                   <span class="help">請輸入有效年齡（18-64歲）</span>
                 </div>
-                -->
 
                 <button class="big-btn btn-calculate color-gray" @click="calculate">計算</button>
               </div>
@@ -267,7 +263,7 @@
                   <p>
                     退休金沒有預期的回報，反而被政府不願面對的氣候風險侵蝕<br>
                     <!-- FIXME: 修復下載對帳單 -->
-                    <a href="javascript:void(0);" @click.stop.prevent="openLightbox('share')">下載對帳單</a>
+                    <a class="receipt-download" href="javascript:void(0);" @click.stop.prevent="openLightbox('share')">下載對帳單</a>
                   </p>
                   <img src="images/qrcode.png" alt="https://divest4future.ejfoundation.org/">
                 </div>
@@ -537,14 +533,13 @@
               <p>心碎了嗎？你不是一個人。<br>分享這張收據，讓更多人重新檢視這筆「國家級投資」。</p>
             </div>
 
-            <!-- FIXME: 考慮哪些社群要直接分享圖片，哪些要分享網址 -->
             <div class="share-section">
               <div class="share-btns">
                 <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" target="_blank" title="分享到 Facebook">
                   <span class="icon size-48 facebook"></span>
                 </a>
 
-                <a href="https://lineit.line.me/share/ui?url=${shareUrl}" target="_blank" title="分享到 Line">
+                <a href="https://social-plugins.line.me/lineit/share?url=${shareUrl}" target="_blank" title="分享到 Line">
                   <span class="icon size-48 line"></span>
                 </a>
 
@@ -552,7 +547,8 @@
                   <span class="icon size-48 linkedin"></span>
                 </a>
 
-                <a href="https://www.instagram.com/share?url=${shareUrl}" target="_blank" title="分享到 Instagram">
+                <!-- FIXME: IG 似乎沒有可帶網址的分享參數-->
+                <a href="https://www.instagram.com/" target="_blank" title="分享到 Instagram">
                   <span class="icon size-48 instagram"></span>
                 </a>
               </div>

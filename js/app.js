@@ -164,6 +164,7 @@ function getQueryParam(name, def = '') {
 
 // 檢測是否為 receipt 模式（透過 body 的 data-mode 屬性）
 const isReceiptMode = document.body.getAttribute('data-mode') === 'receipt';
+// console.log('isReceiptMode', isReceiptMode);
 
 const CHART_STYLE = {
     gridBorder: {
@@ -188,20 +189,16 @@ let chartInstance = null;
 const app = Vue.createApp({
     data() {
         return {
-            userName: isReceiptMode ? getQueryParam('userName') : '',
+            userName: isReceiptMode ? getQueryParam('name') : '',
             monthlyIncome: Number(getQueryParam('income', 25250)),
             age: Number(getQueryParam('age', 20)),
             monthlyIncomeError: false,
             ageError: false,
-            totalInvestment: Number(getQueryParam('totalInvestment', 0)),
-            // expectedReturn: Number(getQueryParam('expectedReturn', 0)),
-            // totalReturn: isReceiptMode ? getQueryParam('totalReturn') : 0,
-            // investmentDiff: 0,
-            // returnDiff: 0,
-            currentDateTime: isReceiptMode ? getQueryParam('currentDateTime') || '' : '',
+            currentDateTime: isReceiptMode ? getQueryParam('current') || '' : '',
             funds: getQueryParam('funds', 'labor').split(',').filter(f => f),  // 預設勞退基金，支援複選
 
             fundName: '',
+            totalInvestment: 0,
             expectedReturn: 0,
             expectedMinus: 0,
             donut_strokeDasharray: '60 40', // 預設 40% 減損計算
@@ -213,8 +210,6 @@ const app = Vue.createApp({
     created() {
         if (!this.currentDateTime || !(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(this.currentDateTime)))
             this.currentDateTime = new Date().toISOString();
-
-        if (isReceiptMode) this.calculateReceiptMode();
     },
     computed: {
         formattedDateTime() {
@@ -226,9 +221,8 @@ const app = Vue.createApp({
         }
     },
     mounted() {
-        if (isReceiptMode) return;
+        if (!isReceiptMode) this.initChart();
 
-        this.initChart();
         this.$nextTick(() => {
             this.calculate();
         });
@@ -279,13 +273,14 @@ const app = Vue.createApp({
             console.log('=== 開始計算 ===');
 
             // 輸入驗證
+            // FIXME: error 時的輸入元件樣式
             (function() {
             if (!this.monthlyIncome || this.monthlyIncome <= 0)
                 this.monthlyIncomeError = true;
             else
                 this.monthlyIncomeError = false;
 
-            if (!this.age || this.age < 18 || this.age > 64)
+            if (!this.age || this.age < 18 || this.age > 65)
                 this.ageError = true;
             else
                 this.ageError = false;
@@ -293,18 +288,18 @@ const app = Vue.createApp({
             if (this.monthlyIncomeError || this.ageError)
                 return;
 
-            // FIXME: 需實作年齡功能：目前假設能從當年工作到 2050 年，但實際上可能 2050 年前就滿 65 歲退休，退休後不再有本金投入
-            // const workYears = 65 - this.age;
-            // const workYears = 2050 - currentYear + 1;  // 計算到 2050 年
+            // 如果 2050 年前滿 65 退休，退休後不再有本金投入
+            const workYears = 65 - this.age;
+            const yearRetire = workYears + currentYear;
 
             // 計算從 2025 到 2050 年的年薪、提撥金額、預期報酬、實際報酬
-
             fundList.forEach(fund => {
             let calc = calcAll[fund.id];
+            console.log('fund', fund.id);
 
             for (let year = currentYear; year <= 2050; year++) {
                 const yearlySalary = (year !== currentYear) ? Math.floor(calc[year - 1].yearlySalary * (1 + salaryGrowthRate)) : this.monthlyIncome * 12;
-                const contribution = Math.floor(yearlySalary * contributionRate);
+                const contribution = (year <= yearRetire) ? Math.floor(yearlySalary * contributionRate) : 0;
                 const totalInvestment = (year !== currentYear) ? calc[year - 1].totalInvestment + contribution : contribution;
                 const expectedReturn = (year !== currentYear) ? Math.floor((calc[year - 1].expectedReturn + contribution) * (1 + expectedReturnRate)) : Math.floor(contribution * (1 + expectedReturnRate));
                 const cvarRate = Number((1 + expectedReturnRate - cvar[fund.id][year]).toFixed(4));
@@ -317,6 +312,8 @@ const app = Vue.createApp({
                     'expectedReturn': expectedReturn,
                     'totalReturn': totalReturn
                 };
+
+                console.log('year', year, 'age', this.age + (year-currentYear), 'yearlySalary', yearlySalary, 'contribution', contribution, 'totalInvestment', totalInvestment, 'expectedReturn', expectedReturn, 'totalReturn', totalReturn);
             }
             });
             console.log('calcAll table', calcAll);
@@ -352,19 +349,12 @@ const app = Vue.createApp({
             */
 
             this.currentDateTime = new Date().toISOString();
-
-            console.log('=== 計算完成 ===');
-
             this.calculateDonutChart();
+
+            if (isReceiptMode) return;
+
             this.updateChart();
             this.updateUrlParams();
-        },
-        calculateReceiptMode() {
-            if (!this.totalInvestment || this.totalInvestment <= 0) return;
-            if (!this.expectedReturn || this.expectedReturn < 0) return;
-            if (!this.totalReturn || this.totalReturn < 0) return;
-            this.investmentDiff = Math.floor(this.totalReturn - this.totalInvestment);
-            this.returnDiff = Math.floor(this.totalReturn - this.expectedReturn);
         },
         amountClass(val) {
             if (val > 0) return 'receipt-amount-positive';
@@ -405,8 +395,8 @@ const app = Vue.createApp({
             console.log('expectedReturn', this.expectedReturn);
             console.log('expectedMinus', this.expectedMinus);
             console.log('donut_ratio', donut_ratio);
-            console.log('donut_strokeDasharray', this.donut_strokeDasharray);
-            console.log('donut_transform', this.donut_transform);
+            // console.log('donut_strokeDasharray', this.donut_strokeDasharray);
+            // console.log('donut_transform', this.donut_transform);
         },
         initChart() {
             console.log('Chart.js 版本:', Chart.version);
@@ -520,15 +510,13 @@ const app = Vue.createApp({
             }
 
             const years = [];
-            for (let i = currentYear; i <= 2050; i++)
-                years.push(i);
-
-            console.log('年份陣列:', years);
+            for (let i = currentYear; i <= 2050; i++) years.push(i);
+            // console.log('年份陣列:', years);
 
             const expectedReturnData = years.map(year => {
                 return calcAll['labor'][year].expectedReturn; // 使用任一基金的預期報酬，因為預期報酬與基金無關
             });
-            console.log('預期報酬數據:', expectedReturnData);
+            // console.log('預期報酬數據:', expectedReturnData);
 
             chartInstance.data.labels = years;
             chartInstance.data.datasets[0].data = expectedReturnData;
@@ -542,7 +530,7 @@ const app = Vue.createApp({
 
             // 根據選中的基金來決定顯示哪些數據集
             const selectedFunds = this.funds;
-            console.log('選中的基金:', selectedFunds);
+            console.log('選中的基金 selectedFunds:', JSON.stringify(selectedFunds));
 
             // 更新圖表數據集的可見性
             chartInstance.data.datasets.forEach((dataset, index) => {
@@ -574,7 +562,6 @@ const app = Vue.createApp({
                 const newMax = Math.ceil(maxValue / hundredThousand) * hundredThousand;
                 console.log('新的 Y 軸最大值:', newMax);
                 chartInstance.options.scales.y.max = newMax;
-                console.log('Y 軸最大值設定完成');
             }
 
             chartInstance.update();
@@ -585,18 +572,16 @@ const app = Vue.createApp({
             lightbox.open(lightboxName);
         },
         updateUrlParams() {
-            const url = new URL(window.location.href);
+            const url = new URL(window.location.origin + window.location.pathname);
 
-            // 保留用戶輸入的參數
             url.searchParams.set('income', this.monthlyIncome);
             url.searchParams.set('age', this.age);
-
-            // 選取基金狀態
             url.searchParams.set('funds', this.funds.join(','));
 
             const newUrl = url.toString();
             window.history.replaceState(null, '', newUrl);
 
+            // FIXME: 這邊作動態的更新應該沒有用
             const canonical = document.querySelector('meta[name="canonical"]');
             canonical.setAttribute('content', newUrl);
             const ogUrl = document.querySelector('meta[property="og:url"]');
@@ -605,19 +590,15 @@ const app = Vue.createApp({
             // 生成收據圖片 URL 並更新 og:image
             const imageUrl = this.generateReceiptImageUrl();
             console.log('收據圖片網址:', imageUrl);
-
-            // 更新 og:image
             const ogImage = document.querySelector('meta[property="og:image"]');
             ogImage.setAttribute('content', imageUrl);
         },
         generateReceiptImageUrl() {
-            // FIXME: 更新抓圖服務的收據樣板跟所需參數
             const url = new URL('receipt.html', window.location.origin);
-            url.searchParams.set('userName', this.userName);
-            url.searchParams.set('totalInvestment', this.totalInvestment);
-            url.searchParams.set('expectedReturn', this.expectedReturn);
-            url.searchParams.set('totalReturn', this.totalReturn);
-            url.searchParams.set('currentDateTime', this.currentDateTime);
+            url.searchParams.set('name', this.userName);
+            url.searchParams.set('income', this.monthlyIncome);
+            url.searchParams.set('age', this.age);
+            url.searchParams.set('current', this.currentDateTime);
             url.searchParams.set('funds', this.funds.join(','));
 
             const receiptUrl = url.toString();
@@ -705,7 +686,7 @@ const lightbox = {
 
                 const downloadLink = document.createElement('a');
                 downloadLink.href = blobUrl;
-                downloadLink.download = 'EJF四大基金投資報酬計算機收據.png';
+                downloadLink.download = 'EJF四大基金氣候風險損益對帳單.png';
                 downloadLink.style.display = 'none';
 
                 document.body.appendChild(downloadLink);
