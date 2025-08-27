@@ -705,7 +705,7 @@ const lightbox = {
 
                 const downloadLink = document.createElement('a');
                 downloadLink.href = blobUrl;
-                downloadLink.download = 'EJF四大基金投資報酬計算機收據.png';
+                downloadLink.download = 'EJF四大基金氣候風險損益對帳單.png';
                 downloadLink.style.display = 'none';
 
                 document.body.appendChild(downloadLink);

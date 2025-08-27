@@ -568,7 +568,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
     p {
       font-size: inherit;
       line-height: 1.5em;
-      margin: inherit;
+      margin: inherit !important;
     }
   }
 
@@ -996,6 +996,10 @@ $mobileMinWidth: 414px;
   h4 {
     margin: 0;
     line-height: 1.5rem;
+  }
+
+  #lightbox-receipt-container .receipt-download {
+    display: none;
   }
 }
 
