@@ -269,6 +269,13 @@ const app = Vue.createApp({
         formatNumber(num) {
             return new Intl.NumberFormat('zh-TW').format(num);
         },
+        manualCalculate() {
+            this.calculate();
+            const chartColumn = document.querySelector('#result-column');
+            if (chartColumn) {
+                chartColumn.scrollIntoView({ behavior: 'smooth' });
+            }
+        },
         calculate() {
             console.log('=== 開始計算 ===');
 

@@ -324,10 +324,22 @@ span.watermark {
 
 .select-wrapper, .input-wrapper {
   width: 100%;
-  margin-bottom: 1.25rem;
-}
-.select-wrapper.is-required, .input-wrapper.is-required {
-  margin-bottom: 0;
+  /*
+  .help {
+    display: block;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    margin-bottom: 0.25rem;
+    color: $color-ejf-red;
+
+    visibility: hidden;
+  }
+
+  &.is-error {
+    .help { visibility: visible; }
+    input, select { border-color: $color-ejf-red; }
+  }
+  */
 }
 .select-wrapper .required-mark, .input-wrapper .required-mark {
   color: #E30613;
@@ -360,28 +372,17 @@ span.watermark {
   background-size: 16px;
   padding-right: 2.5rem;
 }
-.select-wrapper .help, .input-wrapper .help {
-  display: block;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  margin-bottom: 0.25rem;
-  color: #E30613;
-  visibility: hidden;
-}
-.select-wrapper.is-error .help, .input-wrapper.is-error .help {
-  visibility: visible;
-}
-.select-wrapper.is-error input, .select-wrapper.is-error select, .input-wrapper.is-error input, .input-wrapper.is-error select {
-  border-color: #E30613;
-}
 
 button.big-btn, a.big-btn {
   background-color: #E30613;
   border: 2px solid #E30613;
+  border-radius: 2px;
   padding: 0.75rem 1.5rem;
   margin-bottom: 0.75rem;
   width: 100%;
   max-width: 250px;
+  height: -moz-fit-content;
+  height: fit-content;
   font-size: 1.5rem;
   line-height: 1.5rem;
   font-weight: 600;
@@ -439,6 +440,7 @@ button.big-btn.color-gray:hover, a.big-btn.color-gray:hover {
   background-color: #FFFFFF;
   color: #3B4048;
   position: relative;
+  margin: 0 auto;
 }
 .calculator-wrapper .calculator-title {
   font-size: 0.875rem;
@@ -454,6 +456,35 @@ button.big-btn.color-gray:hover, a.big-btn.color-gray:hover {
   left: -1px;
   top: -1px;
   position: absolute;
+}
+.calculator-wrapper .calculator-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+.calculator-wrapper .calculator-content .input-wrapper, .calculator-wrapper .calculator-content button.big-btn {
+  flex: 1 1 auto;
+}
+@media (min-width: 640px) {
+  .calculator-wrapper {
+    max-width: none;
+  }
+  .calculator-wrapper .calculator-content {
+    flex-direction: row;
+  }
+  .calculator-wrapper .calculator-content .big-btn {
+    margin-bottom: 0;
+    height: calc(2.5rem + 2px);
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 1.33rem;
+  }
+  .calculator-wrapper .calculator-content .input-wrapper, .calculator-wrapper .calculator-content button.big-btn {
+    flex-basis: 140px;
+  }
 }
 
 button.btn-fund {
@@ -718,8 +749,8 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   justify-content: center;
 }
 
-#calculator-column {
-  flex: 0 1 288px;
+#result-column {
+  padding-top: 2rem;
 }
 
 #chart-column {
@@ -734,16 +765,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 @media (max-width: 1200px) {
   .columns {
     gap: 1.25rem;
-  }
-}
-@media (max-width: 1200px) and (min-width: 1025px) {
-  #calculator-column, #receipt-column {
-    flex-basis: fit-content;
-  }
-}
-@media (max-width: 1024px) {
-  .columns {
-    flex-wrap: wrap;
   }
 }
 @media (max-width: 414px) {
