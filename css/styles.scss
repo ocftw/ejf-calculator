@@ -672,9 +672,9 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   }
 
   .receipt-bottom {
+    align-items: center;
+
     p {
-      flex: 1;
-      align-content: center;
       line-height: 1.5em;
     }
 
@@ -682,7 +682,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
       text-decoration: underline;
       text-align: right;
       display: inline-block;
-      padding: 0.5em 0;
+      padding-top: 0.5em;
     }
 
     img {

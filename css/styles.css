@@ -668,16 +668,17 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 .receipt-box .receipt-table .v-bottom {
   align-self: flex-end;
 }
+.receipt-box .receipt-bottom {
+  align-items: center;
+}
 .receipt-box .receipt-bottom p {
-  flex: 1;
-  align-content: center;
   line-height: 1.5em;
 }
 .receipt-box .receipt-bottom a {
   text-decoration: underline;
   text-align: right;
   display: inline-block;
-  padding: 0.5em 0;
+  padding-top: 0.5em;
 }
 .receipt-box .receipt-bottom img {
   width: 80px;
