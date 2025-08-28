@@ -309,6 +309,7 @@ hr.divider-default {
 hr.divider-receipt {
   border-style: dashed;
   border-color: #98A0AE;
+  margin: 0.75em 0;
 }
 
 span.watermark {
@@ -593,10 +594,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   font-style: normal;
   font-size: 0.75rem;
   line-height: 1.5rem;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 0.75rem;
   position: relative;
 }
 .receipt-box::after {
@@ -641,10 +638,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 }
 .receipt-box .chart-row .chart-image {
   height: 66px;
-}
-.receipt-box .chart-row .chart-image img {
   width: 66px;
-  height: 66px;
 }
 .receipt-box .chart-row .chart-text p {
   line-height: 1.75em;
@@ -680,6 +674,9 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   padding: 0.66em 0;
   border-bottom: 1px solid #F3F2EF;
   text-align: right;
+}
+.receipt-box .receipt-table .grid-row-3:last-of-type {
+  border-bottom: none;
 }
 .receipt-box .receipt-table .row-13 {
   grid-row: 1/3;

@@ -285,6 +285,7 @@ hr {
   &.divider-receipt {
     border-style: dashed;
     border-color: $color-neutral-600;
+    margin: 0.75em 0;
   }
 }
 
@@ -594,11 +595,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   font-size: 0.75rem;
   line-height: 1.5rem;
 
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 0.75rem;
-
   position: relative;
 
   &::after {
@@ -645,10 +641,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
 
     .chart-image {
       height: 66px;
-      img {
-        width: 66px;
-        height: 66px;
-      }
+      width: 66px;
     }
 
     .chart-text {
@@ -690,6 +683,10 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
       padding: 0.66em 0;
       border-bottom: 1px solid $color-ejf-gray;
       text-align: right;
+
+      &:last-of-type {
+        border-bottom: none;
+      }
     }
 
     .row-13 { grid-row: 1 / 3; }
