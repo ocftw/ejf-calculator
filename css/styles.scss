@@ -24,6 +24,17 @@ button, input, select, textarea {
   @media (max-width: 768px) { @content; }
 }
 
+// ===== page layout =====
+
+$pageMaxWidth: 1200px;
+$w1024: 1024px;  // FIXME: remove and change to mobileMaxWidth
+$mobileMaxWidth: 768px;
+$mobileMinWidth: 414px;
+
+$receiptMaxWidth: 320px;
+$calcMaxWidth: 288px;
+
+
 // ===== 變數區 =====
 $font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
 $font-weight-regular: 400;
@@ -693,14 +704,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
 }
 
 
-// ===== page layout =====
-
-$pageMaxWidth: 1200px;
-$mobileMaxWidth: 1024px;
-$calcMaxWidth: 288px;
-$receiptMaxWidth: 320px;
-$mobileMinWidth: 414px;
-
 /* 基本版面 CSS */
 
 .container {
@@ -723,17 +726,20 @@ $mobileMinWidth: 414px;
 
 
 /* RWD */
+// 1200px
 @media (max-width: $pageMaxWidth) {
   .columns { gap: 1.25rem; }
 }
-@media (max-width: $pageMaxWidth) and (min-width: ($mobileMaxWidth + 1px)) {
+// 1025~1200px
+@media (max-width: $pageMaxWidth) and (min-width: ($w1024 + 1px)) {
   #calculator-column, #receipt-column { flex-basis: fit-content; }
 }
-@media (max-width: $mobileMaxWidth) {
+// 1024px
+@media (max-width: $w1024) {
   .columns { flex-wrap: wrap; }
 }
+// 414px
 @media (max-width: $mobileMinWidth) {
-  #app { padding: 2.5rem 1rem; }
   #chart-column {
     margin-left: -1rem;
     margin-right: -0.5rem;
@@ -1077,8 +1083,15 @@ $mobileMinWidth: 414px;
   backdrop-filter: opacity(50%) blur(6px);
   border: 1px solid $color-neutral-1000-trans-10;
 
+  .columns { flex-wrap: wrap-reverse; }
+
   .page-info-content-left { flex: 0 0 300px; }
   .page-info-content-right { flex: 1; }
+
+  @media (max-width: $mobileMaxWidth) {
+    .columns { flex-flow: column-reverse; }
+    .page-info-content-left { flex: 1; }
+  }
 
   .page-info-content-left {
     ul {
