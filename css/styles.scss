@@ -27,7 +27,6 @@ button, input, select, textarea {
 // ===== page layout =====
 
 $pageMaxWidth: 1200px;
-$w1024: 1024px;  // FIXME: remove and change to mobileMaxWidth
 $mobileMaxWidth: 768px;
 $mobileMinWidth: 414px;
 
@@ -760,6 +759,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
 }
 
 // #calculator-column { flex: 0 1 $calcMaxWidth; }
+#result-column { padding-top: 2rem; }
 #chart-column { flex: 1 1 430px; }
 #receipt-column { flex: 0 1 $receiptMaxWidth; }
 
@@ -768,14 +768,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
 // 1200px
 @media (max-width: $pageMaxWidth) {
   .columns { gap: 1.25rem; }
-}
-// 1025~1200px
-// @media (max-width: $pageMaxWidth) and (min-width: ($w1024 + 1px)) {
-//   #calculator-column, #receipt-column { flex-basis: fit-content; }
-// }
-// 1024px
-@media (max-width: $w1024) {
-  .columns { flex-wrap: wrap; }
 }
 // 414px
 @media (max-width: $mobileMinWidth) {
@@ -1114,9 +1106,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
     p {
       margin-bottom: 0;
     }
-  }
-  #calculator-column {
-    margin-bottom: 2rem;
   }
 }
 

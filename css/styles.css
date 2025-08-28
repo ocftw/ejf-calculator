@@ -749,6 +749,10 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   justify-content: center;
 }
 
+#result-column {
+  padding-top: 2rem;
+}
+
 #chart-column {
   flex: 1 1 430px;
 }
@@ -761,11 +765,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 @media (max-width: 1200px) {
   .columns {
     gap: 1.25rem;
-  }
-}
-@media (max-width: 1024px) {
-  .columns {
-    flex-wrap: wrap;
   }
 }
 @media (max-width: 414px) {
@@ -1049,9 +1048,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 }
 #page-calculator .calculator-intro p {
   margin-bottom: 0;
-}
-#page-calculator #calculator-column {
-  margin-bottom: 2rem;
 }
 
 #page-intro {
