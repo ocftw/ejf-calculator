@@ -112,6 +112,8 @@ body {
   color: $color-default;
   padding: 0;
   margin: 0;
+
+  overflow-x: hidden;  // fix ios safari zoom out
 }
 
 h1 {
