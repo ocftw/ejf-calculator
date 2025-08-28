@@ -33,6 +33,7 @@ body {
   min-height: 100vh;
   color: #3B4048;
   padding: 0;
+  padding-top: env(safe-area-inset-top);
   margin: 0;
   overflow-x: hidden;
 }
@@ -42,23 +43,11 @@ h1 {
   line-height: 4rem;
   font-weight: 600;
 }
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
-    line-height: 2.5rem;
-  }
-}
 
 h2 {
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 600;
-}
-@media (max-width: 768px) {
-  h2 {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
 }
 
 h3 {
@@ -68,12 +57,6 @@ h3 {
   color: #54677B;
   margin: 0 0 1.5rem;
 }
-@media (max-width: 768px) {
-  h3 {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-}
 
 h4 {
   font-size: 1.5rem;
@@ -81,23 +64,11 @@ h4 {
   font-weight: 600;
   margin: 0 0 0.5rem;
 }
-@media (max-width: 768px) {
-  h4 {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
-  }
-}
 
 p {
   font-size: 1rem;
   line-height: 1.5rem;
   margin: 0 0 1rem 0;
-}
-@media (max-width: 768px) {
-  p {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
 }
 p.bold {
   font-weight: 600;
@@ -106,12 +77,6 @@ p.bold {
 small {
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-@media (max-width: 768px) {
-  small {
-    font-size: 0.75rem;
-    line-height: 1.125rem;
-  }
 }
 small.bold {
   font-weight: 600;
@@ -237,6 +202,10 @@ a {
   width: 48px;
   height: 48px;
 }
+.icon.size-36 {
+  width: 36px;
+  height: 36px;
+}
 .icon.size-24 {
   width: 24px;
   height: 24px;
@@ -357,14 +326,15 @@ span.watermark {
   display: block;
 }
 .select-wrapper select, .select-wrapper input[type=text], .select-wrapper input[type=number], .input-wrapper select, .input-wrapper input[type=text], .input-wrapper input[type=number] {
-  width: 100%;
-  border: 1px solid #ACB4BE;
-  border-radius: 4px;
-  padding: 0.75rem 1rem;
-  background-color: transparent;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
+  width: 100%;
+  border: 1px solid #ACB4BE;
+  border-radius: 4px;
+  padding: 0.65rem 1rem;
+  background-color: transparent;
+  font-size: 1rem;
 }
 .select-wrapper select, .input-wrapper select {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2398A0AE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -381,7 +351,7 @@ button.big-btn, a.big-btn {
   padding: 0.75rem 1.5rem;
   margin-bottom: 0.75rem;
   width: 100%;
-  max-width: 250px;
+  max-width: 278px;
   height: -moz-fit-content;
   height: fit-content;
   font-size: 1.5rem;
@@ -434,7 +404,7 @@ button.big-btn.color-gray:hover, a.big-btn.color-gray:hover {
 
 .calculator-wrapper {
   width: 100%;
-  max-width: 288px;
+  max-width: 320px;
   padding: 2.75rem 1.25rem 1.25rem;
   border: 1px solid rgba(28, 30, 34, 0.08);
   box-shadow: -8px 16px 40px rgba(28, 30, 34, 0.08);
@@ -494,6 +464,8 @@ button.btn-fund {
   height: 32px;
   text-align: center;
   cursor: pointer;
+  background-color: #F3F2EF;
+  z-index: 1;
   border-radius: 8px;
   border: 1.5px dashed #98A0AE;
 }
@@ -586,13 +558,13 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 .receipt-box {
   max-width: 320px;
   width: 100%;
-  padding: 2rem 1.5rem 0.875rem;
+  padding: 2rem 1.25rem 0.875rem;
   box-shadow: -8px 16px 40px rgba(28, 30, 34, 0.08);
   background: #FFFFFF;
   font-family: "Noto Sans Mono", "Noto Sans TC", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   line-height: 1.5rem;
   position: relative;
 }
@@ -751,7 +723,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 }
 
 #chart-column {
-  flex: 1 1 430px;
+  flex: 1 1 320px;
 }
 
 #receipt-column {
@@ -759,40 +731,28 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 }
 
 /* RWD */
-@media (max-width: 1200px) {
-  .columns {
-    gap: 1.25rem;
-  }
-}
-@media (max-width: 414px) {
-  #chart-column {
-    margin-left: -1rem;
-    margin-right: -0.5rem;
-  }
-}
 #page-header {
   padding-bottom: 0;
+  padding-right: 0.5rem;
 }
 
 #title {
   display: flex;
-  align-items: center;
+  align-items: start;
   gap: 1rem;
   margin: 0;
   position: relative;
 }
 #title img {
   height: 62px;
+  width: 104px;
   margin-right: 0.2em;
   position: relative;
   top: 0.25rem;
 }
-@media (max-width: 414px) {
-  #title #title {
-    gap: 0.5rem;
-  }
-  #title img {
-    margin-right: 0;
+@media (max-width: 520px) {
+  #title {
+    flex-direction: column;
   }
 }
 #title img, #title .title-text {
@@ -827,12 +787,14 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   width: 1px;
   height: var(--decoration-height, 150vh);
 }
-#title em {
+#title .title-text span, #title .title-text em {
+  white-space: nowrap;
+}
+#title .title-text em {
   font-style: normal;
   border: 2.5px solid #E30613;
   padding: 0 0.1em;
   margin: 0 -0.1em;
-  white-space: nowrap;
 }
 
 #subtitle {
@@ -863,10 +825,19 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
   justify-content: center;
+  flex: 1 0 431px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 720px) and (max-width: 830px), (max-width: 478px) {
+  #chart-column #fund-buttons {
+    max-width: 319px;
+  }
 }
 #chart-column #return-chart {
-  width: 100%;
+  width: calc(100% + 1rem);
   height: 450px;
+  margin-left: -1rem;
 }
 #chart-column #return-chart canvas {
   width: 100% !important;
@@ -912,16 +883,14 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   position: relative;
   padding: 2rem;
   color: #3B4048;
-}
-@media (max-width: 768px) {
-  .lightbox .lightbox-content {
+  /*
+  @media (max-width: 768px) {
     max-height: 95vh;
   }
-}
-@media (max-width: 414px) {
-  .lightbox .lightbox-content {
+  @media (max-width: $mobileMinWidth) {
     padding: 1rem;
   }
+  */
 }
 .lightbox .lightbox-content p {
   margin-bottom: 0.5rem;
@@ -946,11 +915,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 #lightbox-share .lightbox-columns {
   display: flex;
   gap: 2rem;
-}
-@media (max-width: 640px) {
-  #lightbox-share .lightbox-columns {
-    flex-direction: column-reverse;
-  }
 }
 #lightbox-share .lightbox-left, #lightbox-share .lightbox-right {
   max-width: 320px;
@@ -1048,9 +1012,9 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 }
 
 #page-intro {
-  background: rgba(255, 255, 255, 0.9);
-  -webkit-backdrop-filter: opacity(50%) blur(6px);
-          backdrop-filter: opacity(50%) blur(6px);
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
   border: 1px solid rgba(28, 30, 34, 0.1);
 }
 #page-intro .columns {
@@ -1062,7 +1026,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 #page-intro .page-info-content-right {
   flex: 1;
 }
-@media (max-width: 768px) {
+@media (max-width: 719px) {
   #page-intro .columns {
     flex-flow: column-reverse;
   }
@@ -1149,7 +1113,11 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 #page-links .links-wrapper {
   margin-bottom: 1rem;
 }
-#page-links .links-wrapper a.ejf-logo img {
+#page-links .links-wrapper .ejf-logo {
+  position: relative;
+  z-index: 1;
+}
+#page-links .links-wrapper .ejf-logo img {
   width: 104px;
   height: 62px;
 }
@@ -1175,7 +1143,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   text-decoration: underline;
 }
 #page-footer p {
-  margin: 0;
+  margin-bottom: 0.25rem;
   font-size: 0.75em;
-  line-height: 1.5rem;
+  line-height: 1.25rem;
 }/*# sourceMappingURL=styles.css.map */

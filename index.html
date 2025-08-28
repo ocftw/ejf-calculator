@@ -42,7 +42,7 @@
     <div id="page-header" class="container">
       <h1 id="title">
         <img src="images/ejf-logo-color.png" alt="EJF Logo">
-        <span class="title-text">政府四大基金<em>氣候損益</em>計算機</span>
+        <div class="title-text">政府四大基金<em>氣候損益</em><span>計算機</span></div>
         <span class="title-decoration"></span>
       </h1>
 
@@ -76,7 +76,7 @@
 
         <div class="calculator-intro">
           <p>政府四大基金「新／舊制勞退基金」、「勞保基金」、「退撫基金」代表你我管理資產進行投資，卻沒有公布投資策略的氣候風險，以及對你我資產造成的減損。</p>
-          <p>輸入基本資料，讓 EJF 四大基金氣候風險計算機幫你試算到 2050 年時，你的資產可能減損多少（<a href="javascript:void(0);" @click.stop.prevent="openLightbox('methodology')">方法學</a>）。</p>
+          <p>輸入基本資料，讓 EJF 四大基金氣候風險計算機，幫你試算到 2050 年時，你的資產可能減損多少（<a href="javascript:void(0);" @click.stop.prevent="openLightbox('methodology')">方法學</a>）。</p>
         </div>
 
           <!-- 左側輸入表單部分 -->
@@ -184,9 +184,9 @@
                     </svg>
                   </div>
                   <div class="chart-text">
-                    <p class="dot"><span class="un-mono">2050 預估累計資產</span> (+{{ formatNumber(expectedReturn) }})</p>
+                    <p class="dot"><span class="un-mono">2050預估累計資產</span> (+{{ formatNumber(expectedReturn) }})</p>
                     <p class="dot"><span class="un-mono">氣候風險造成減損</span><span class="loss"> ({{ formatNumber(expectedMinus) }})</span></p>
-                    <p class="unit un-mono">以{{ fundName }}結果繪製 (新台幣 元)</p>
+                    <p class="unit un-mono">以{{ fundName }}結果繪製 (新台幣元)</p>
                   </div>
                 </div>
               </div>
@@ -494,27 +494,27 @@
 
       <div class="links-wrapper social-links">
         <a href="https://www.instagram.com/ejfoundation/" target="_blank" title="Instagram">
-          <span class="icon size-24 instagram"></span>
+          <span class="icon size-36 instagram"></span>
         </a>
 
         <a href="https://www.facebook.com/EJFTaiwan/" target="_blank" title="Facebook">
-          <span class="icon size-24 facebook"></span>
+          <span class="icon size-36 facebook"></span>
         </a>
 
         <a href="https://www.linkedin.com/company/environmental-justice-foundation/" target="_blank" title="LinkedIn">
-          <span class="icon size-24 linkedin"></span>
+          <span class="icon size-36 linkedin"></span>
         </a>
       </div>
     </div>
 
     <div id="page-footer" class="container">
       <p>
-        <a href="https://www.facebook.com/EJFTaiwan/" target="_blank">環境正義基金會</a> (<abbr title="Environmental Justice Foundation">EJF</abbr>)、
-        <a href="https://ocf.tw" target="_blank">財團法人開放文化基金會</a> (<abbr title="Open Culture Foundation">OCF</abbr>)；
-        <a href="https://www.linkedin.com/in/chung-an-wu/" target="_blank">Chung-An Wu</a> (designer)
+        <span><a href="https://www.facebook.com/EJFTaiwan/" target="_blank">環境正義基金會</a> (<abbr title="Environmental Justice Foundation">EJF</abbr>)、</span>
+        <span><a href="https://ocf.tw" target="_blank">開放文化基金會</a> (<abbr title="Open Culture Foundation">OCF</abbr>)；</span>
+        <span><a href="https://www.linkedin.com/in/chung-an-wu/" target="_blank">Chung-An Wu</a> (設計)</span>
       </p>
       <p>
-        除另有標示外，<a href="https://github.com/ocftw/ejf-calculator/" target="_blank">本站程式碼</a> 以 <a href="https://zh.wikipedia.org/zh-tw/GNU_Affero%E9%80%9A%E7%94%A8%E5%85%AC%E5%85%B1%E8%AE%B8%E5%8F%AF%E8%AF%81" target="_blank">GNU AGPLv3</a>釋出，內容以<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">創用 CC 姓名標示 4.0</a> 或更新版授權條款釋出
+        除另有標示外，<a href="https://github.com/ocftw/ejf-calculator/" target="_blank">本站程式碼</a>以 <a href="https://zh.wikipedia.org/zh-tw/GNU_Affero%E9%80%9A%E7%94%A8%E5%85%AC%E5%85%B1%E8%AE%B8%E5%8F%AF%E8%AF%81" target="_blank">GNU AGPLv3</a> 釋出，內容以<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">創用 CC 姓名標示 4.0</a> 或更新版授權條款釋出
       </p>
     </div>
 
