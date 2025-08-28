@@ -112,6 +112,8 @@ body {
   color: $color-default;
   padding: 0;
   margin: 0;
+
+  overflow-x: hidden;  // fix ios safari zoom out
 }
 
 h1 {
@@ -805,6 +807,8 @@ $mobileMinWidth: 414px;
     border: 2.5px solid $color-ejf-red;
     padding: 0 0.1em;
     margin: 0 -0.1em;
+
+    white-space: nowrap;
   }
 }
 
