@@ -607,7 +607,7 @@ const app = Vue.createApp({
 
             // 生成 hotshot 圖片 URL
             console.log('receipt 網址', receiptUrl);
-            return 'https://hotshot.anoni.net/shoot?path=/ejf/receipt%3F' + paramPart + '&selector=div[id=app]&vpw=336&vph=2100';
+            return 'https://hotshot.anoni.net/shoot?path=/receipt%3F' + paramPart + '&selector=div[id=app]&vpw=336&vph=2100';
         },
         toggleMail(fundId) {
             this.activeMail = fundId;
