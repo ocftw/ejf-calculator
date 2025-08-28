@@ -730,10 +730,8 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   flex: 0 1 320px;
 }
 
-/* RWD */
 #page-header {
-  padding-bottom: 0;
-  padding-right: 0.5rem;
+  padding: 2rem 0.5rem 0 1.5rem;
 }
 
 #title {
@@ -883,14 +881,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   position: relative;
   padding: 2rem;
   color: #3B4048;
-  /*
-  @media (max-width: 768px) {
-    max-height: 95vh;
-  }
-  @media (max-width: $mobileMinWidth) {
-    padding: 1rem;
-  }
-  */
 }
 .lightbox .lightbox-content p {
   margin-bottom: 0.5rem;
@@ -916,9 +906,16 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   display: flex;
   gap: 2rem;
 }
+@media (max-width: 768px) {
+  #lightbox-share .lightbox-columns {
+    flex-direction: column-reverse;
+  }
+}
 #lightbox-share .lightbox-left, #lightbox-share .lightbox-right {
-  max-width: 320px;
-  width: 100%;
+  flex: 1 1 320px;
+}
+#lightbox-share .lightbox-right {
+  flex-shrink: 0;
 }
 #lightbox-share .lightbox-left {
   display: flex;
@@ -930,7 +927,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   margin-top: 0;
 }
 #lightbox-share .lightbox-left .share-section {
-  max-width: 264px;
+  max-width: 320px;
   width: 100%;
 }
 #lightbox-share .lightbox-left .share-btns {
@@ -946,7 +943,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 #lightbox-share .lightbox-left .back-section {
   margin-top: auto;
   width: 100%;
-  max-width: 264px;
+  max-width: 320px;
 }
 #lightbox-share .lightbox-left button.big-btn {
   max-width: 100%;
@@ -972,6 +969,10 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
   justify-content: center;
+}
+#lightbox-mail #mail-container #mail-switch .btn-fund {
+  flex: 1;
+  max-width: 92px;
 }
 #lightbox-mail #mail-container .mail-content-template {
   padding: 1.5rem 1.5rem 0.875rem;

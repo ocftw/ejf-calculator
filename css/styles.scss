@@ -22,7 +22,6 @@ button, input, select, textarea {
 // ===== page layout =====
 $pageMaxWidth: 1200px;
 $mobileMaxWidth: 719px;
-$mobileMinWidth: 414px;
 $receiptMaxWidth: 320px;
 
 
@@ -122,20 +121,12 @@ h1 {
   font-size: 3rem;
   line-height: 4rem;
   font-weight: $font-weight-bold;
-  // @media (max-width: 768px) {
-  //   font-size: 2rem;
-  //   line-height: 2.5rem;
-  // }
 }
 
 h2 {
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: $font-weight-bold;
-  // @media (max-width: 768px) {
-  //   font-size: 1.25rem;
-  //   line-height: 1.75rem;
-  // }
 }
 
 h3 {
@@ -144,11 +135,6 @@ h3 {
   font-weight: $font-weight-bold;
   color: $color-ejf-blue;
   margin: 0 0 1.5rem;
-
-  // @media (max-width: 768px) {
-  //   font-size: 1.5rem;
-  //   line-height: 2rem;
-  // }
 }
 
 h4 {
@@ -157,11 +143,6 @@ h4 {
   font-weight: $font-weight-bold;
 
   margin: 0 0 0.5rem;
-
-  // @media (max-width: 768px) {
-  //   font-size: 1.25rem;
-  //   line-height: 1.5rem;
-  // }
 }
 
 @mixin font-weight-bold {
@@ -174,22 +155,12 @@ p {
   font-size: 1rem;
   line-height: 1.5rem;
   margin: 0 0 1rem 0;
-
-  // @media (max-width: 768px) {
-  //   font-size: 0.875rem;
-  //   line-height: 1.25rem;
-  // }
   @include font-weight-bold;
 }
 
 small {
   font-size: 0.875rem;
   line-height: 1.25rem;
-
-  // @media (max-width: 768px) {
-  //   font-size: 0.75rem;
-  //   line-height: 1.125rem;
-  // }
   @include font-weight-bold;
 }
 
@@ -580,7 +551,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 
 
 .receipt-box {
-  max-width: 320px;
+  max-width: $receiptMaxWidth;
   width: 100%;
   padding: 2rem 1.25rem 0.875rem;
   box-shadow: -8px 16px 40px $color-neutral-1000-trans-8;
@@ -601,7 +572,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
     width: 100%;
     height: 10px;
     background-image: url("../images/receipt_bottom.png");
-    background-size: 320px 10px;
+    background-size: $receiptMaxWidth 10px;
     background-repeat: repeat-x;
     position: absolute;
     bottom: -10px;
@@ -753,28 +724,12 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
   justify-content: center;
 }
 
-// #calculator-column { flex: 0 1 $calcMaxWidth; }
 #result-column { padding-top: 2rem; }
 #chart-column { flex: 1 1 $receiptMaxWidth; }
 #receipt-column { flex: 0 1 $receiptMaxWidth; }
 
-/* RWD */
-// 1200px
-// @media (max-width: $pageMaxWidth) {
-//   .columns { gap: 1.25rem; }
-// }
-// 414px
-// @media (max-width: $mobileMinWidth) {
-//   #chart-column {
-//     margin-left: -1rem;
-//     margin-right: -0.5rem;
-//   }
-// }
-
-
 #page-header {
-  padding-bottom: 0;
-  padding-right: 0.5rem;
+  padding: 2rem 0.5rem 0 1.5rem;
 }
 
 // ===== elements =====
@@ -894,12 +849,10 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
     width: calc(100% + 1rem);
     height: 450px;
     margin-left: -1rem;
-    // border: 1px solid green;
 
     canvas {
       width: 100% !important;
       height: 100% !important;
-      // backdrop-filter: blur(8px);
     }
   }
 
@@ -936,7 +889,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
   align-items: center;
   justify-content: center;
 
-  display: none; // 闋愯ō闅辫棌
+  display: none;
 
   &.show {
     display: flex;
@@ -954,15 +907,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 
     padding: 2rem;
     color: $color-default;
-
-    /*
-    @media (max-width: 768px) {
-      max-height: 95vh;
-    }
-    @media (max-width: $mobileMinWidth) {
-      padding: 1rem;
-    }
-    */
 
     p {
       margin-bottom: 0.5rem;
@@ -994,14 +938,16 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
     display: flex;
     gap: 2rem;
 
-    // @media (max-width: 640px) {
-    //   flex-direction: column-reverse;
-    // }
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+    }
   }
 
   .lightbox-left, .lightbox-right {
-    max-width: 320px;
-    width: 100%;
+    flex: 1 1 $receiptMaxWidth;
+  }
+  .lightbox-right {
+    flex-shrink: 0;
   }
 
   .lightbox-left {
@@ -1009,16 +955,14 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
     flex-direction: column;
     align-items: center;
 
-    max-width: 320px;
+    max-width: $receiptMaxWidth;
 
     p {
       margin-top: 0;
     }
 
-    $width-share-section: 264px;
-
     .share-section {
-      max-width: $width-share-section;
+      max-width: $receiptMaxWidth;
       width: 100%;
     }
 
@@ -1037,7 +981,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
     .back-section {
       margin-top: auto;
       width: 100%;
-      max-width: $width-share-section;
+      max-width: $receiptMaxWidth;
     }
 
     button.big-btn {
@@ -1073,6 +1017,11 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
       margin-bottom: 1.5rem;
       flex-wrap: wrap;
       justify-content: center;
+
+      .btn-fund {
+        flex: 1;
+        max-width: 92px;
+      }
     }
 
     .mail-content-template {
@@ -1087,7 +1036,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
         width: 100%;
         height: 10px;
         background-image: url("../images/receipt_bottom.png");
-        background-size: 320px 10px;
+        background-size: $receiptMaxWidth 10px;
         background-repeat: repeat-x;
         position: absolute;
         bottom: -10px;
@@ -1146,7 +1095,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
         position: relative;
 
         h4 {
-          // color: $color-neutral-1000;
           margin-left: -1px;
         }
 
@@ -1222,14 +1170,8 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 }
 
 #page-links {
-  // padding: 0 0 1rem;
-
   .links-wrapper {
     margin-bottom: 1rem;
-
-    // display: flex;
-    // gap: 1rem;
-    // justify-content: center;
 
     .ejf-logo {
       position: relative;
