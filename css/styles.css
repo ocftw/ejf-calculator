@@ -817,6 +817,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   border: 2.5px solid #E30613;
   padding: 0 0.1em;
   margin: 0 -0.1em;
+  white-space: nowrap;
 }
 
 #subtitle {
