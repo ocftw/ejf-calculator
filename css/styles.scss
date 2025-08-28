@@ -307,8 +307,9 @@ span.watermark {
 .select-wrapper, .input-wrapper {
   width: 100%;
 
-  margin-bottom: 1.25rem;
-  &.is-required { margin-bottom: 0; }
+  // FIXME: re-enable when implement help message
+  // margin-bottom: 1.25rem; // non-optional help message height
+  // &.is-required { margin-bottom: 0; }
 
   .required-mark {
     color: $color-ejf-red;
@@ -345,6 +346,7 @@ span.watermark {
     padding-right: 2.5rem;
   }
 
+  /*
   .help {
     display: block;
     font-size: 0.75rem;
@@ -359,17 +361,20 @@ span.watermark {
     .help { visibility: visible; }
     input, select { border-color: $color-ejf-red; }
   }
+  */
 }
 
 button.big-btn, a.big-btn {
   background-color: $color-ejf-red;
   border: 2px solid $color-ejf-red;
+  border-radius: 2px;
 
   padding: 0.75rem 1.5rem;
   margin-bottom: 0.75rem;
 
   width: 100%;
   max-width: 250px;
+  height: fit-content;
 
   font-size: 1.5rem;
   line-height: 1.5rem;
@@ -427,6 +432,7 @@ button.big-btn, a.big-btn {
   color: $color-default;
 
   position: relative;
+  margin: 0 auto;
 
   .calculator-title {
     font-size: 0.875rem;
@@ -446,6 +452,39 @@ button.big-btn, a.big-btn {
     top: -1px;
     position: absolute;
   }
+
+  .calculator-content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem;
+    align-items: flex-end;
+
+    .input-wrapper, button.big-btn {
+      flex: 1 1 auto;
+    }
+  }
+
+  @media (min-width: 640px) {
+    max-width: none;
+
+    .calculator-content {
+      flex-direction: row;
+
+      .big-btn {
+        margin-bottom: 0;
+        height: calc(2.5rem + 2px);
+        padding-top: 0;
+        padding-bottom: 0;
+        font-size: 1.33rem;
+      }
+      .input-wrapper, button.big-btn {
+        flex-basis: 140px;
+      }
+    }
+  }
+
 }
 
 button.btn-fund {
@@ -720,7 +759,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   justify-content: center;
 }
 
-#calculator-column { flex: 0 1 $calcMaxWidth; }
+// #calculator-column { flex: 0 1 $calcMaxWidth; }
 #chart-column { flex: 1 1 430px; }
 #receipt-column { flex: 0 1 $receiptMaxWidth; }
 
@@ -731,9 +770,9 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   .columns { gap: 1.25rem; }
 }
 // 1025~1200px
-@media (max-width: $pageMaxWidth) and (min-width: ($w1024 + 1px)) {
-  #calculator-column, #receipt-column { flex-basis: fit-content; }
-}
+// @media (max-width: $pageMaxWidth) and (min-width: ($w1024 + 1px)) {
+//   #calculator-column, #receipt-column { flex-basis: fit-content; }
+// }
 // 1024px
 @media (max-width: $w1024) {
   .columns { flex-wrap: wrap; }
@@ -1075,6 +1114,9 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
     p {
       margin-bottom: 0;
     }
+  }
+  #calculator-column {
+    margin-bottom: 2rem;
   }
 }
 

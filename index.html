@@ -79,7 +79,6 @@
           <p>輸入基本資料，讓 EJF 四大基金氣候風險計算機幫你試算到 2050 年時，你的資產可能減損多少（<a href="javascript:void(0);" @click.stop.prevent="openLightbox('methodology')">方法學</a>）。</p>
         </div>
 
-        <div class="columns">
           <!-- 左側輸入表單部分 -->
           <div id="calculator-column">
 
@@ -99,7 +98,7 @@
                     <span class="required-mark"></span>平均月薪
                   </label>
                   <input id="calculator-input-salary" type="number" inputmode="tel" placeholder="請輸入平均月薪..." v-model.number="monthlyIncome">
-                  <span class="help">請輸入月薪</span>
+                  <!-- <span class="help">請輸入月薪</span> -->
                 </div>
 
                 <div class="input-wrapper is-required" v-bind:class="{ 'is-error': ageError }">
@@ -107,7 +106,7 @@
                     <span class="required-mark"></span>年齡
                   </label>
                   <input id="calculator-input-age" type="number" inputmode="tel" placeholder="請輸入年齡..." v-model.number="age">
-                  <span class="help">請輸入有效年齡（18-64歲）</span>
+                  <!-- <span class="help">請輸入有效年齡（18-64歲）</span> -->
                 </div>
 
                 <button class="big-btn btn-calculate color-gray" @click="calculate">計算</button>
@@ -115,6 +114,8 @@
             </div>
 
           </div>
+
+        <div class="columns">
 
           <!-- 中間圖表區域 -->
           <div id="chart-column">
