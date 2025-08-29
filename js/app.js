@@ -186,6 +186,15 @@ const CHART_STYLE = {
 
 let chartInstance = null;
 
+function trackEvent(eventName, properties = {}) {
+    if (!window.mixpanel) return;
+    mixpanel.track(eventName, {
+        ...properties,
+        // timestamp: new Date().toISOString()
+    });
+    console.log('Mixpanel event:', eventName, properties);
+}
+
 const app = Vue.createApp({
     data() {
         return {
@@ -249,6 +258,8 @@ const app = Vue.createApp({
                 console.error('=== 複製失敗:', err);
                 alert('複製失敗，請手動選取文字');
             });
+
+            trackEvent('Click Mail', { Section: type });
         },
 
         formatDateTime(date) {
@@ -275,6 +286,8 @@ const app = Vue.createApp({
             if (chartColumn) {
                 chartColumn.scrollIntoView({ behavior: 'smooth' });
             }
+
+            trackEvent('Click Calculate', { age: this.age });
         },
         calculate() {
             console.log('=== 開始計算 ===');
@@ -384,6 +397,8 @@ const app = Vue.createApp({
                 this.updateChart();
                 this.updateUrlParams();
             }
+
+            trackEvent('Switch Graph', { fund: fundType });
         },
         calculateDonutChart() {
             console.log('=== 更新圓餅圖 ===');
@@ -618,6 +633,7 @@ const app = Vue.createApp({
         },
         toggleMail(fundId) {
             this.activeMail = fundId;
+            trackEvent('Toggle Mail', { fund: fundId });
         }
     }
 }).mount('#app');
@@ -636,6 +652,7 @@ const lightbox = {
         const lightbox = document.getElementById('lightbox-' + lightboxName);
         if (lightbox) {
             lightbox.classList.add('show');
+            trackEvent('Open Lightbox', { page: lightboxName });
         }
     },
 
@@ -676,6 +693,7 @@ const lightbox = {
     // 下載圖片功能
     downloadImage() {
         console.log('=== 開始下載圖片 ===');
+        trackEvent('Download Receipt', { progress: 'begin' });
 
         const shootUrl = app.generateReceiptImageUrl();
         console.log('收據圖片網址:', shootUrl);
@@ -684,6 +702,7 @@ const lightbox = {
         fetch(shootUrl)
             .then(response => {
                 if (!response.ok) {
+                    trackEvent('Download Receipt', { progress: 'error' });
                     throw new Error('網路回應不正常');
                 }
                 return response.blob();
@@ -702,9 +721,11 @@ const lightbox = {
                 document.body.removeChild(downloadLink);
                 window.URL.revokeObjectURL(blobUrl);
 
+                trackEvent('Download Receipt', { progress: 'downloaded' });
                 console.log('=== 下載圖片完成 ===');
             })
             .catch(error => {
+                trackEvent('Download Receipt', { progress: 'fetch error' });
                 console.error('下載圖片時發生錯誤:', error);
                 window.open(shootUrl, '_blank');
             });
