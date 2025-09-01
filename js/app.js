@@ -26,6 +26,7 @@ const fundList = [
         color: '#6B98E0'
     }
 ]
+const fundIds = fundList.map(fund => fund.id);
 
 const calcAll = {};
 fundList.forEach(fund => {
@@ -387,8 +388,14 @@ const app = Vue.createApp({
             else
                 this.funds.push(fundType);  // 如果未選中，則添加
 
+            // 如果全部都關掉就切到下一個
+            if (this.funds.length === 0) {
+                let index = fundIds.indexOf(fundType) + 1;
+                if (index >= fundIds.length) index = 0;
+                this.funds.push(fundIds[index]);
+            }
+
             // 根據 fundList[].id 排序
-            const fundIds = fundList.map(fund => fund.id);
             this.funds.sort((a, b) => fundIds.indexOf(a) - fundIds.indexOf(b));
 
             if (this.totalInvestment > 0) {
