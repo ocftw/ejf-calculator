@@ -735,14 +735,17 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   padding: 2rem 0.5rem 0 1.5rem;
 }
 
-#title {
+#page-header .title-link {
+  text-decoration: none;
+}
+#page-header #title {
   display: flex;
   align-items: start;
   gap: 1rem;
   margin: 0;
   position: relative;
 }
-#title img {
+#page-header #title img {
   height: 62px;
   width: 104px;
   margin-right: 0.2em;
@@ -750,17 +753,17 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   top: 0.25rem;
 }
 @media (max-width: 520px) {
-  #title {
+  #page-header #title {
     flex-direction: column;
   }
 }
-#title img, #title .title-text {
+#page-header #title img, #page-header #title .title-text {
   z-index: 1;
 }
-#title .title-decoration {
+#page-header #title .title-decoration {
   z-index: 0;
 }
-#title .title-decoration {
+#page-header #title .title-decoration {
   position: absolute;
   left: 0;
   top: 0.25rem;
@@ -768,28 +771,28 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   pointer-events: none;
   opacity: 0.4;
 }
-#title .title-decoration::before, #title .title-decoration::after {
+#page-header #title .title-decoration::before, #page-header #title .title-decoration::after {
   content: "";
   position: absolute;
   background: #54677B;
 }
-#title .title-decoration::before {
+#page-header #title .title-decoration::before {
   left: -50vw;
   right: -50vw;
   top: 2rem;
   height: 1px;
   width: 200vw;
 }
-#title .title-decoration::after {
+#page-header #title .title-decoration::after {
   left: 2rem;
   top: -75px;
   width: 1px;
   height: var(--decoration-height, 150vh);
 }
-#title .title-text span, #title .title-text em {
+#page-header #title .title-text span, #page-header #title .title-text em {
   white-space: nowrap;
 }
-#title .title-text em {
+#page-header #title .title-text em {
   font-style: normal;
   border: 2.5px solid #E30613;
   padding: 0 0.1em;
@@ -957,13 +960,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   display: none;
 }
 
-#lightbox-methodology p {
-  font-size: 0.875em;
-}
-#lightbox-methodology h4 {
-  font-size: 1.125em;
-}
-
 #lightbox-mail #mail-container #mail-switch {
   display: flex;
   gap: 0.75rem;
@@ -1077,6 +1073,31 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   height: auto;
   border: none;
   display: block;
+}
+
+#page-methodology {
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  border: 1px solid rgba(28, 30, 34, 0.1);
+  margin: 3rem auto;
+  padding: 2.5rem 3.25rem;
+}
+#page-methodology h3 {
+  margin-left: -0.1em;
+  margin-bottom: 1.25rem;
+}
+#page-methodology p {
+  line-height: 1.75rem;
+}
+#page-methodology ul {
+  list-style: none;
+  padding: 0 2rem;
+  margin: 0 0 1rem 0;
+  text-indent: -1rem;
+}
+#page-methodology ul li {
+  margin-bottom: 0.75rem;
 }
 
 #page-infopack .infopack-content {
