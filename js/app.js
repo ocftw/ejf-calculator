@@ -213,7 +213,7 @@ const app = Vue.createApp({
             expectedMinus: 0,
             donut_strokeDasharray: '60 40', // 預設 40% 減損計算
             donut_transform: 'rotate(54 21 21)',
-            activeMail: 'labor',
+            activeMail: '',
             isCopied: false
         }
     },
@@ -284,10 +284,7 @@ const app = Vue.createApp({
         manualCalculate() {
             this.calculate();
             const chartColumn = document.querySelector('#result-column');
-            if (chartColumn) {
-                chartColumn.scrollIntoView({ behavior: 'smooth' });
-            }
-
+            if (chartColumn) chartColumn.scrollIntoView({ behavior: 'smooth' });
             trackEvent('Click Calculate', { age: this.age });
         },
         calculate() {
@@ -376,6 +373,7 @@ const app = Vue.createApp({
 
             this.updateChart();
             this.updateUrlParams();
+            this.switchPageMail();
         },
         amountClass(val) {
             if (val > 0) return 'receipt-amount-positive';
@@ -397,6 +395,7 @@ const app = Vue.createApp({
                 this.calculateDonutChart();
                 this.updateChart();
                 this.updateUrlParams();
+                this.switchPageMail();
             }
 
             trackEvent('Switch Graph', { fund: fundType });
@@ -635,6 +634,20 @@ const app = Vue.createApp({
         toggleMail(fundId) {
             this.activeMail = fundId;
             trackEvent('Toggle Mail', { fund: fundId });
+        },
+        switchPageMail() {
+            console.log('=== 切換頁面郵件內容 ===');
+            if (this.funds.includes('retire') && (!this.funds.includes('labor')) && (!this.funds.includes('legacy')))
+                this.activeMail = 'retire';
+            else
+                this.activeMail = 'labor';
+        },
+        scrollToAction() {
+            console.log('=== 開始捲動到郵件區塊 ===');
+            // this.switchPageMail();
+            const mailSection = document.getElementById('page-mail');
+            if (mailSection) mailSection.scrollIntoView({ behavior: 'smooth' });
+            trackEvent('Click Action');
         }
     }
 }).mount('#app');

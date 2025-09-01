@@ -1005,8 +1005,8 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   }
 }
 
-#lightbox-mail {
-  #mail-container {
+#page-mail {
+    padding-top: 1.5rem;
 
     #mail-switch {
       display: flex;
@@ -1026,19 +1026,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
       box-shadow: -8px 16px 40px $color-neutral-1000-trans-8;
       background: $color-white;
       position: relative;
-
-      &::after {
-        content: " ";
-        display: block;
-        width: 100%;
-        height: 10px;
-        background-image: url("../images/receipt_bottom.png");
-        background-size: $receiptMaxWidth 10px;
-        background-repeat: repeat-x;
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-      }
     }
 
     .mail-actions {
@@ -1054,7 +1041,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
         font-size: 1.25rem;
       }
     }
-  }
 }
 
 #page-calculator {

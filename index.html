@@ -289,16 +289,14 @@
 
             <div class="receipt-btn">
               <p>我的退休金不該被蒸發！</p>
-              <button class="big-btn btn-calculate color-gray" @click.stop.prevent="openLightbox('mail')">立即行動✊守護退休金</button>
+              <button class="big-btn btn-calculate color-gray" @click.stop.prevent="scrollToAction">立即行動✊守護退休金</button>
             </div>
           </div>
         </div>
       </div>
 
-      <div id="lightbox-mail" class="lightbox" onclick="lightbox.close('mail')">
-        <div class="lightbox-content" onclick="event.stopPropagation()">
-          <span class="close-x" onclick="lightbox.close('mail')">x</span>
-
+      <div id="page-mail" class="container">
+        <div class="action-wrapper" v-show="this.activeMail != ''">
           <h4>向主管機關反應</h4>
           <p>請點選按鈕複製以下的內容，前往主管機關信箱，協助反應此訊息。</p>
 
@@ -306,9 +304,10 @@
 
           <div id="mail-container">
             <div id="mail-switch">
+              <!-- data-fund 只控制顏色 -->
               <button class="btn-fund" data-fund="labor" :data-on="activeMail === 'labor'" @click="toggleMail('labor')"><p>勞動部</p></button>
               <button class="btn-fund" data-fund="retire" :data-on="activeMail === 'retire'" @click="toggleMail('retire')"><p>銓敘部</p></button>
-              <button class="btn-fund" data-fund="insurance" :data-on="activeMail === 'postal'" @click="toggleMail('postal')"><p>交通部</p></button>
+              <button class="btn-fund" data-fund="legacy" :data-on="activeMail === 'postal'" @click="toggleMail('postal')"><p>交通部</p></button>
             </div>
 
             <div class="mail-content" v-show="activeMail === 'labor'">
@@ -376,9 +375,8 @@
                 <button class="big-btn btn-download color-gray" @click.stop.prevent="copyMailContent('postal')" v-if="isCopied">已複製</button>
                 <a class="big-btn btn-calculate" target="_blank" href="https://poms.motc.gov.tw/message/tw">前往交通部信箱</a>
               </div>
-              </div>
+            </div>
           </div>
-
         </div>
       </div>
 
