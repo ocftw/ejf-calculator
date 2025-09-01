@@ -195,6 +195,7 @@ function trackEvent(eventName, properties = {}) {
     console.log('Mixpanel event:', eventName, properties);
 }
 
+if (window.Vue) {
 const app = Vue.createApp({
     data() {
         return {
@@ -637,6 +638,7 @@ const app = Vue.createApp({
         }
     }
 }).mount('#app');
+}
 
 // ===== Lightbox 管理物件 =====
 const lightbox = {
