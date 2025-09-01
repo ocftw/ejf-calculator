@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>政府四大基金氣候損益計算機 - 計算方法</title>
+  <link rel="icon" type="image/png" href="images/fav-icon-grey.png">
+
+  <meta name="canonical" content="https://divest4future.ejfoundation.org/">
+  <meta property="og:url" content="https://divest4future.ejfoundation.org/">
+  <meta name="description" content="四大基金停止火上加油，為我們的未來撤資！退休基金撤資化石燃料，守護美好未來。退休金不能燃燒地球，守護退休金，守護地球">
+  <meta property="og:description" content="四大基金停止火上加油，為我們的未來撤資！退休基金撤資化石燃料，守護美好未來。退休金不能燃燒地球，守護退休金，守護地球">
+  <!-- FIXME: 設定 og:image -->
+  <meta property="og:image" content="https://ejf.pages.dev/ejf/images/og-image.png">
+
+  <meta name="google-site-verification" content="4wqR3NxsbPpX2fBtcC02ktMlrt9yK6_ShE5JWiNvsp8" />
+
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css" integrity="sha512-tYKqO78H3mRRCHa75fms1gBvGlANz0JxjN6fVrMBvWL+vOOy200npwJ69OBl9XEsTu3yVUvZNrdWFIIrIf8FLg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.theme.min.css" integrity="sha512-8vDOoSF7kZUYkn7BiQulRCTvpRoenljlkQDZhM6+IqDJi5jHDH9QEYH9NfMBB8LlqiYc7O17YGxbGx7dOxKrpw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.17/vue.global.prod.min.js" as="script" integrity="sha512-B+xT9hBEokScoEYqF2L6zjF/R0mtYb11XURk2ERx89eRofWtgsrCljvx30JospRZRI3v19p9pRWvmLQ6ySS9FA==" crossorigin="anonymous" referrerpolicy="no-referrer"> -->
+  <!-- <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js" as="script" integrity="sha512-Y51n9mtKTVBh3Jbx5pZSJNDDMyY+yGe77DGtBPzRlgsf/YLCh13kSZ3JmfHGzYFCmOndraf0sQgfM654b7dJ3w==" crossorigin="anonymous" referrerpolicy="no-referrer"> -->
+  <link rel="preload" href="js/app.js" as="script">
+
+  <!-- Mixpanel -->
+  <script type="text/javascript">
+    (function (f, b) { if (!b.__SV) { var e, g, i, h; window.mixpanel = b; b._i = []; b.init = function (e, f, c) { function g(a, d) { var b = d.split("."); 2 == b.length && ((a = a[b[0]]), (d = b[1])); a[d] = function () { a.push([d].concat(Array.prototype.slice.call(arguments, 0))); }; } var a = b; "undefined" !== typeof c ? (a = b[c] = []) : (c = "mixpanel"); a.people = a.people || []; a.toString = function (a) { var d = "mixpanel"; "mixpanel" !== c && (d += "." + c); a || (d += " (stub)"); return d; }; a.people.toString = function () { return a.toString(1) + ".people (stub)"; }; i = "disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split( " "); for (h = 0; h < i.length; h++) g(a, i[h]); var j = "set set_once union unset remove delete".split(" "); a.get_group = function () { function b(c) { d[c] = function () { call2_args = arguments; call2 = [c].concat(Array.prototype.slice.call(call2_args, 0)); a.push([e, call2]); }; } for ( var d = {}, e = ["get_group"].concat( Array.prototype.slice.call(arguments, 0)), c = 0; c < j.length; c++) b(j[c]); return d; }; b._i.push([e, f, c]); }; b.__SV = 1.2; e = f.createElement("script"); e.type = "text/javascript"; e.async = !0; e.src = "undefined" !== typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "file:" === f.location.protocol && "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//) ? "https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js" : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"; g = f.getElementsByTagName("script")[0]; g.parentNode.insertBefore(e, g); } })(document, window.mixpanel || []);
+
+    mixpanel.init('38b750e6b9696b770f4c45ac2b0433c4', {
+      // debug: true,
+      track_pageview: "url-with-path",
+      autocapture: true
+    });
+</script>
+</head>
+
+<body>
+    <div id="page-header" class="container">
+      <a class="title-link" href="/">
+      <h1 id="title">
+        <img src="images/ejf-logo-color.png" alt="EJF Logo">
+        <div class="title-text">政府四大基金<span>氣候損益</span><span>計算機</span>－<em>計算方法</em></div>
+        <span class="title-decoration"></span>
+      </h1>
+      </a>
+
+      <div id="marquee">
+        <div class="marquee-wrapper">
+          <!--
+            無 JS 走馬燈
+            考慮到目前常見的 UltraWide 5K 螢幕寬度為 2560@2x
+            marquee-content 的寬度固定為 $marquee-speed x $marquee-duration (100x26=2600px)
+            內容根據長度而調整重複的次數，以便讓間隔呈現較為均勻
+          -->
+          <div class="marquee-content">
+            <span>基金投資有賺有賠，但你是否想過，政府用你的資產做投資時，會給你的退休生活與氣候變遷，帶來多大的風險？</span>
+            <span class="marquee-divider"></span>
+            <span>基金投資有賺有賠，但你是否想過，政府用你的資產做投資時，會給你的退休生活與氣候變遷，帶來多大的風險？</span>
+            <span class="marquee-divider"></span>
+            <span>基金投資有賺有賠，但你是否想過，政府用你的資產做投資時，會給你的退休生活與氣候變遷，帶來多大的風險？</span>
+            <span class="marquee-divider"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="page-methodology" class="container">
+      <h3>基本假設</h3>
+
+      <p>EJF 認知不同基金提撥的方式與比例不同，但對於此網站所呈現之基金報酬計算的基本假設如下：</p>
+
+      <ul>
+        <li>1. 假設 24 歲投入職場，且開始定期投入薪資的 6% 至政府基金。假設 65 歲退休，65 歲前每年都有 2% 薪資成長，退休後不再有本金投入。</li>
+        <li>2. 根據國內政府基金揭露資訊，新舊制勞退基金、勞保基金、退撫基金近十年年化報酬率為 6.15%，本計算機取採整數 6% 計算。</li>
+        <li>3. 考量我國將 2050 年設為法定達成淨零排放的目標年，因此本計算機僅呈現到 2050 年。</li>
+      </ul>
+
+      <p>*參考資料：中華民國退休基金協會「<a href="https://www.pension.org.tw/index.php/pensinkb/data?id=310" target="_blank">各基金近十年投資年化報酬率</a>」政府基金年化報酬率</p>
+
+      <hr class="divider-default" />
+
+      <h3>計算基金受氣候變遷衝擊所採方法論</h3>
+
+      <p>本方法論設計旨在掌握新制勞退、舊制勞退、勞保基金、退撫基金因應全球低碳轉型向企業開徵碳費對其國內股票前十大投資對象營運費用之間接衝擊，依 Phase 5 - GCAM 6.0 模型之有序轉型情境（Net Zero 2050）下，向企業開徵碳費之可能影響進行模擬評估。</p>
+      <p>針對 2024 年底各基金國內前十大股票投資部位，以 股價淨值比（Price-Book Ratio, PB Ratio）法進行市場風險之情境分析。此方法論假設在外流通股數與股價淨值比不變，並以 NGFS 的台灣預測碳價格為基礎，計算出不同基金投資對象於有序轉型情境中因繳交碳費所產生的財務衝擊，並最終影響到基金的投資報酬率。</p>
+      <p>*備註：本情境分析不考慮通膨影響。</p>
+
+      <hr class="divider-default" />
+
+      <h3>聲明</h3>
+
+      <p>本電子平台提供之所有資訊內容均僅供參考，不構成任何個人或機構之意見或判斷，亦不構成任何投資建議。</p>
+    </div>
+
+    <div id="page-links" class="container">
+
+      <div class="links-wrapper">
+        <a class="ejf-logo" href="https://ejfoundation.org/" target="_blank">
+          <img src="images/ejf-logo-color.png" alt="環境正義基金會">
+        </a>
+      </div>
+
+      <div class="links-wrapper">
+        <h4>關於環境正義基金會</h4>
+        <p><a href="https://ejfoundation.org/" target="_blank">環境正義基金會 (Environmental Justice Foundation, EJF)</a> 是 2001 年於英國成立的非營利組織。我們致力於推動環境正義，以保護全球的氣候、海洋、森林、濕地與野生動物為目標，並捍衛人類最基本的權利——享有安全的自然環境，因為這是所有其他人權的基礎。</p>
+        <p>我們調查、揭露各種侵害行為，並支持站在環境不正義前線的環境捍衛者、原住民族、社群以及獨立記者。而我們的行動是為了確保一個和平、公平且永續的未來。</p>
+      </div>
+
+      <div class="links-wrapper social-links">
+        <a href="https://www.instagram.com/ejfoundation/" target="_blank" title="Instagram">
+          <span class="icon size-36 instagram"></span>
+        </a>
+
+        <a href="https://www.facebook.com/EJFTaiwan/" target="_blank" title="Facebook">
+          <span class="icon size-36 facebook"></span>
+        </a>
+
+        <a href="https://www.linkedin.com/company/environmental-justice-foundation/" target="_blank" title="LinkedIn">
+          <span class="icon size-36 linkedin"></span>
+        </a>
+      </div>
+    </div>
+
+    <div id="page-footer" class="container">
+      <p>
+        <span><a href="https://www.facebook.com/EJFTaiwan/" target="_blank">環境正義基金會</a> (<abbr title="Environmental Justice Foundation">EJF</abbr>)、</span>
+        <span><a href="https://ocf.tw" target="_blank">開放文化基金會</a> (<abbr title="Open Culture Foundation">OCF</abbr>)；</span>
+        <span><a href="https://www.linkedin.com/in/chung-an-wu/" target="_blank">Chung-An Wu</a> (設計)</span>
+      </p>
+      <p>
+        除另有標示外，<a href="https://github.com/ocftw/ejf-calculator/" target="_blank">本站程式碼</a>以 <a href="https://zh.wikipedia.org/zh-tw/GNU_Affero%E9%80%9A%E7%94%A8%E5%85%AC%E5%85%B1%E8%AE%B8%E5%8F%AF%E8%AF%81" target="_blank">GNU AGPLv3</a> 釋出，內容以<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">創用 CC 姓名標示 4.0</a> 或更新版授權條款釋出
+      </p>
+    </div>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.17/vue.global.prod.min.js" integrity="sha512-B+xT9hBEokScoEYqF2L6zjF/R0mtYb11XURk2ERx89eRofWtgsrCljvx30JospRZRI3v19p9pRWvmLQ6ySS9FA==" crossorigin="anonymous" referrerpolicy="no-referrer" onerror="this.src='lib/vue.global.prod.min.js'"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js" integrity="sha512-Y51n9mtKTVBh3Jbx5pZSJNDDMyY+yGe77DGtBPzRlgsf/YLCh13kSZ3JmfHGzYFCmOndraf0sQgfM654b7dJ3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/glide.min.js" integrity="sha512-2sI5N95oT62ughlApCe/8zL9bQAXKsPPtZZI2KE3dznuZ8HpE2gTMHYzyVN7OoSPJCM1k9ZkhcCo3FvOirIr2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <script src="js/app.js"></script>
+</body>
+
+</html>

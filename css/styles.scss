@@ -734,6 +734,11 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 
 // ===== elements =====
 
+#page-header  {
+  .title-link {
+    text-decoration: none;
+  }
+
 #title {
   display: flex;
   align-items: start;
@@ -799,6 +804,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
       padding: 0 0.1em;
       margin: 0 -0.1em;
     }
+  }
   }
 }
 
@@ -999,17 +1005,8 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
   }
 }
 
-#lightbox-methodology {
-  p {
-    font-size: 0.875em;
-  }
-  h4 {
-    font-size: 1.125em;
-  }
-}
-
-#lightbox-mail {
-  #mail-container {
+#page-mail {
+    padding-top: 1.5rem;
 
     #mail-switch {
       display: flex;
@@ -1029,19 +1026,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
       box-shadow: -8px 16px 40px $color-neutral-1000-trans-8;
       background: $color-white;
       position: relative;
-
-      &::after {
-        content: " ";
-        display: block;
-        width: 100%;
-        height: 10px;
-        background-image: url("../images/receipt_bottom.png");
-        background-size: $receiptMaxWidth 10px;
-        background-repeat: repeat-x;
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-      }
     }
 
     .mail-actions {
@@ -1057,7 +1041,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
         font-size: 1.25rem;
       }
     }
-  }
 }
 
 #page-calculator {
@@ -1125,6 +1108,33 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
       height: auto;
       border: none;
       display: block;
+    }
+  }
+}
+
+#page-methodology {
+  background: rgba($color-white, 0.5);
+  backdrop-filter: blur(6px);
+  border: 1px solid $color-neutral-1000-trans-10;
+
+  margin: 3rem auto;
+  padding: 2.5rem 3.25rem;
+
+  h3 {
+    margin-left: -0.1em;
+    margin-bottom: 1.25rem;
+  }
+  p {
+    line-height: 1.75rem;
+  }
+  ul {
+    list-style: none;
+    padding: 0 2rem;
+    margin: 0 0 1rem 0;
+    text-indent: -1rem;
+
+    li {
+      margin-bottom: 0.75rem;
     }
   }
 }
