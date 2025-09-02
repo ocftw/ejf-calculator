@@ -1140,11 +1140,12 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 }
 
 #page-infopack .infopack-content {
-  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2.5rem;
 }
 #page-infopack .infopack-content img {
   max-width: 510px;
-  min-width: 250px;
+  min-width: 244px;
   width: 100%;
   aspect-ratio: 1/1;
 }
@@ -1155,21 +1156,35 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   font-family: "Noto Sans Mono", sans-serif;
   font-weight: 900;
   font-size: 1rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 1rem;
+  width: 2rem;
+  height: 100%;
+  border-radius: 0;
   padding: 0;
   border: none;
   box-shadow: none;
   text-shadow: none;
-  background-color: rgba(255, 255, 255, 0.25);
-  color: white;
-  bottom: 1em;
-  top: auto;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.66);
   opacity: 0.66;
 }
 #page-infopack .glide .glide__arrows button:hover {
   opacity: 1;
+}
+#page-infopack .glide .glide__arrows button.glide__arrow--right {
+  right: 0;
+}
+#page-infopack .glide .glide__arrows button.glide__arrow--left {
+  left: 0;
+}
+#page-infopack .glide .glide__bullets {
+  bottom: -1em;
+}
+#page-infopack .glide .glide__bullets .glide__bullet {
+  box-shadow: none;
+  background-color: #CFD3DA;
+}
+#page-infopack .glide .glide__bullets .glide__bullet--active {
+  background-color: #98A0AE;
 }
 
 #page-links .links-wrapper {

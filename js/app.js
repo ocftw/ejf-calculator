@@ -816,10 +816,9 @@ const glideOpt = {
     animationDuration: 1000,
     bound: true,
 
-    perView: 4,
+    perView: 3,
     breakpoints: {
-        1080: { perView: 3 },
-        820: { perView: 2 },
+        800: { perView: 2 },
         558: { perView: 1 }
     }
 }

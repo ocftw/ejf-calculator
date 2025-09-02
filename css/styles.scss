@@ -1183,11 +1183,12 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   .infopack-content {
     img {
       max-width: 510px;
-      min-width: 250px;
+      min-width: 244px;
       width: 100%;
       aspect-ratio: 1/1;
     }
-    margin-bottom: 2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 2.5rem;
   }
   .glide {
     .glide__slides {
@@ -1198,23 +1199,30 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
       font-weight: 900;
       font-size: 1rem;
 
-      width: 1.5rem;
-      height: 1.5rem;
-      border-radius: 1rem;
+      width: 2rem;
+      height: 100%;
+      border-radius: 0;
       padding: 0;
 
       border: none;
       box-shadow: none;
       text-shadow: none;
 
-      background-color: rgba(255,255,255,0.25);
-      color: white;
-
-      bottom: 1em;
-      top: auto;
+      background-color: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.66);
 
       opacity: 0.66;
       &:hover { opacity: 1; }
+      &.glide__arrow--right { right: 0; }
+      &.glide__arrow--left { left: 0; }
+    }
+    .glide__bullets {
+      bottom: -1em;
+      .glide__bullet {
+        box-shadow: none;
+        background-color: $color-neutral-300;
+      }
+      .glide__bullet--active { background-color: $color-neutral-600; }
     }
   }
 }
