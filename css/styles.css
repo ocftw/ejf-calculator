@@ -1145,6 +1145,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   max-width: 510px;
   min-width: 244px;
   width: 100%;
+  height: auto;
   aspect-ratio: 1/1;
 }
 #page-infopack .glide .glide__slides {
