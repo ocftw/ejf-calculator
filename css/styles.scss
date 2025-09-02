@@ -653,7 +653,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
 
     .grid-row-3 {
       display: grid;
-      grid-template-columns: 6em 1fr 1fr;
+      grid-template-columns: 6.5em 1fr 1fr;
       gap: 0.5em 0.75em;
       padding: 0.66em 0;
       border-bottom: 1px solid $color-ejf-gray;
