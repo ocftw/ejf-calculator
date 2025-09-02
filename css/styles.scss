@@ -20,9 +20,10 @@ button, input, select, textarea {
 }
 
 // ===== page layout =====
-$pageMaxWidth: 1200px;
-$mobileMaxWidth: 719px;
+$pageMaxWidth: 800px;
+// $receiptMaxWidth: 392px;
 $receiptMaxWidth: 320px;
+$mobileMaxWidth: $receiptMaxWidth * 2 + (5 * 16px) - 1px;  // 719, chart & receipt both reach < 320px
 
 
 // ===== 璁婃暩鍗� =====
@@ -86,6 +87,7 @@ $icon-down-white: url('../images/icon-down-white.png');
 $icon-download-white: url('../images/icon-download-white.png');
 $icon-heart-white: url('../images/icon-heart-white.png');
 $icon-heart-ejf: url('../images/icon-heart-ejf.png');
+$icon-copy-white: url('../images/icon-copy-white.png');
 $icon-facebook: url('../images/icon-facebook.png');
 $icon-line: url('../images/icon-line.png');
 $icon-linkedin: url('../images/icon-linkedin.png');
@@ -124,7 +126,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.33rem;
   line-height: 2rem;
   font-weight: $font-weight-bold;
 }
@@ -145,23 +147,23 @@ h4 {
   margin: 0 0 0.5rem;
 }
 
-@mixin font-weight-bold {
-  &.bold {
-    font-weight: $font-weight-bold;
-  }
-}
-
 p {
   font-size: 1rem;
   line-height: 1.5rem;
-  margin: 0 0 1rem 0;
-  @include font-weight-bold;
-}
+  margin: 0 0 0.75rem 0;
 
-small {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  @include font-weight-bold;
+  em {
+    font-weight: $font-weight-bold;
+    font-style: normal;
+  }
+
+  small {
+    font-size: 0.875rem;
+  }
+
+  .underline {
+    text-decoration: underline;
+  }
 }
 
 a {
@@ -226,6 +228,7 @@ a {
   &.down-white { background-image: $icon-down-white; }
   &.download-white { background-image: $icon-download-white; }
   &.heart-white { background-image: $icon-heart-white; }
+  &.copy-white { background-image: $icon-copy-white; }
   &.facebook { background-image: $icon-facebook; }
   &.line { background-image: $icon-line; }
   &.linkedin { background-image: $icon-linkedin; }
@@ -332,15 +335,13 @@ span.watermark {
 }
 
 button.big-btn, a.big-btn {
-  background-color: $color-ejf-red;
-  border: 2px solid $color-ejf-red;
   border-radius: 2px;
 
   padding: 0.75rem 1.5rem;
   margin-bottom: 0.75rem;
 
   width: 100%;
-  max-width: 278px;
+  // max-width: 278px;
   height: fit-content;
 
   font-size: 1.5rem;
@@ -353,7 +354,11 @@ button.big-btn, a.big-btn {
   cursor: pointer;
   position: relative;
 
-  &:hover { background-color: color.scale($color-ejf-red, $lightness: -10%); }
+  border: 2px solid $color-ejf-red;
+  background-color: color.scale($color-ejf-red, $lightness: 10%);
+  &:hover { background-color: color.scale($color-ejf-red, $lightness: 0%); }
+  &:click { background-color: color.scale($color-ejf-red, $lightness: 10%); }
+  transition: background-color 0.3s ease;
 
   &::after {
     background-size: 100%;
@@ -377,20 +382,22 @@ button.big-btn, a.big-btn {
   &.btn-calculate::after { background-image: $icon-right-white; }
   &.btn-share::after { background-image: $icon-heart-white; }
   &.btn-download::after { background-image: $icon-download-white; }
+  &.btn-copy::after { background-image: $icon-copy-white; }
   &.btn-back::after { background-image: $icon-right-white; }
   &.btn-back { @include icon-left; }
 
   &.color-gray {
-    background-color: $color-ejf-blue;
-    border-color: $color-ejf-blue;
-    &:hover { background-color: color.scale($color-ejf-blue, $lightness: -10%); }
+    border-color: $color-neutral-900;
+    background-color: color.scale($color-neutral-900, $lightness: 10%);
+    &:hover { background-color: color.scale($color-neutral-900, $lightness: 0%); }
+    &:click { background-color: color.scale($color-neutral-900, $lightness: 10%); }
   }
 }
 
 .calculator-wrapper {
   width: 100%;
-  max-width: $receiptMaxWidth;
-  padding: 2.75rem 1.25rem 1.25rem;
+  // max-width: $receiptMaxWidth;
+  padding: 1.25rem;
 
   border: 1px solid $color-neutral-1000-trans-8;
   box-shadow: -8px 16px 40px $color-neutral-1000-trans-8;
@@ -425,7 +432,7 @@ button.big-btn, a.big-btn {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.75rem;
+    gap: 1rem;
     align-items: flex-end;
 
     .input-wrapper, button.big-btn {
@@ -433,11 +440,12 @@ button.big-btn, a.big-btn {
     }
   }
 
-  @media (min-width: 640px) {
-    max-width: none;
+  @media (min-width: ($mobileMaxWidth + 1)) {
+    // max-width: none;
 
     .calculator-content {
       flex-direction: row;
+      gap: 0.75rem;
 
       .big-btn {
         margin-bottom: 0;
@@ -456,18 +464,17 @@ button.big-btn, a.big-btn {
 
 button.btn-fund {
   all: unset;
+  box-sizing: border-box;
 
-  $line-height: 32px;
-  width: 96px;
-  height: $line-height;
-
+  padding: 0.5em 0;
   text-align: center;
   cursor: pointer;
   background-color: $color-background;
   z-index: 1;
+  width: calc(5.5rem + 3px);
 
   p {
-    line-height: $line-height;
+    line-height: 1em;
     font-size: 1rem;
     color: $color-neutral-600;
     margin: 0;
@@ -551,9 +558,9 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 
 
 .receipt-box {
-  max-width: $receiptMaxWidth;
+  // max-width: $receiptMaxWidth; //FIXME: page: receipt need max-width
   width: 100%;
-  padding: 2rem 1.25rem 0.875rem;
+  padding: 2rem 1.25rem 1.5rem;
   box-shadow: -8px 16px 40px $color-neutral-1000-trans-8;
 
   background: $color-white;
@@ -561,8 +568,8 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
   font-family: "Noto Sans Mono", "Noto Sans TC", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 0.8rem;
-  line-height: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5em;
 
   position: relative;
 
@@ -584,77 +591,84 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
     p {
       font-size: inherit;
       line-height: 1.5em;
-      margin: inherit !important;
+      margin: inherit;
     }
+    .small { font-size: 0.85em; }
+    .big { font-size: 1.66em; }
+    .un-mono { font-family: "Noto Sans TC", sans-serif; }
+    .loss { color: $color-ejf-red; }
   }
 
   .receipt-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
   }
 
   .receipt-row-center {
     text-align: center;
   }
 
+  .receipt-name {
+    font-weight: $font-weight-bold;
+    font-size: 1.2em;
+    line-height: 1.5em;
+  }
+
   .receipt-title {
     font-weight: $font-weight-bold;
   }
 
-  .un-mono { font-family: "Noto Sans TC", sans-serif; }
-  .loss { color: $color-ejf-red; }
+  .chart-section {
+    margin: 1em 0;
+  }
 
   .chart-row {
     line-height: 1.5em;
-    font-size: 0.9em;
+    // font-size: 0.9em;
+    margin-bottom: 0.5em;
+
+    $donut-size: 94px;
 
     .chart-image {
-      height: 66px;
-      width: 66px;
+      height: $donut-size;
+      width: $donut-size;
     }
 
-    .chart-text {
-      p {
-        line-height: 1.75em;
-
-        &:before {
-          content: "";
-          display: inline-block;
-          width: 0.75em;
-          height: 0.75em;
-          border-radius: 50%;
-          margin-right: 0.5em;
-          vertical-align: middle;
-          position: relative;
-          top: -1px;
-        }
-        &:nth-child(1):before {
-          background-color: $color-default;
-        }
-        &:nth-child(2):before {
-          background-color: $color-ejf-red;
-        }
-
-        &.unit { color: $color-neutral-600; }
-      }
+    .chart-text p {
+      line-height: 1.25em;
+      margin-bottom: 0.25em;
+    }
+    .small {
+      font-size: 0.8em;
     }
   }
 
-
   .receipt-table {
     line-height: 1.5em;
-    font-size: 0.9em;
+    font-size: 0.85em;
+    line-height: 1.25em;
 
     .grid-row-3 {
       display: grid;
-      grid-template-columns: 7.5em 1fr 1fr;
+      grid-template-columns: 6em 1fr 1fr;
       gap: 0.5em 0.75em;
       padding: 0.66em 0;
       border-bottom: 1px solid $color-ejf-gray;
       text-align: right;
 
+      &.dark-border {
+        border-color: $color-neutral-600;
+      }
+
+      &:first-of-type {
+        padding-top: 0.25em;
+      }
+
       &:last-of-type {
         border-bottom: none;
+        padding-bottom: 0.25em;
       }
     }
 
@@ -676,13 +690,14 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 
     p {
       line-height: 1.5em;
+      text-align: center;
     }
 
     a {
       text-decoration: underline;
       text-align: right;
       display: inline-block;
-      padding-top: 0.5em;
+      padding-top: 1em;
     }
 
     img {
@@ -724,9 +739,16 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
   justify-content: center;
 }
 
-#result-column { padding-top: 2rem; }
+#result-column {
+  padding-top: 2rem;
+  flex-wrap: wrap-reverse;
+}
 #chart-column { flex: 1 1 $receiptMaxWidth; }
 #receipt-column { flex: 0 1 $receiptMaxWidth; }
+
+@media (max-width: $mobileMaxWidth) {
+  #receipt-column { flex-grow: 1; }
+}
 
 #page-header {
   padding: 2rem 0.5rem 0 1.5rem;
@@ -762,7 +784,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
   .title-decoration { z-index: 0; }
 
   .title-decoration {
-    $color-title-decoration: $color-ejf-blue;
+    $color-title-decoration: lighten($color-ejf-blue, 10%);
 
     position: absolute;
     left: 0;
@@ -815,6 +837,10 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
   padding-right: 1em;
   position: relative;
 
+  .large {
+    font-size: 1.75rem;
+  }
+
   &::after {
     content: '';
     position: absolute;
@@ -832,6 +858,14 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 }
 
 #chart-column {
+  .hint {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.9em;
+    @media (min-width: ($mobileMaxWidth + 1)) {
+      display: none;
+    }
+  }
 
   #fund-buttons {
     display: flex;
@@ -840,14 +874,13 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
     flex-wrap: wrap;
     justify-content: center;
 
-    flex: 1 0 431px;
-
     margin-left: auto;
     margin-right: auto;
 
-    @media (min-width: ($mobileMaxWidth + 1)) and (max-width: 830px),
-           (max-width: 478px) {
-      max-width: 319px;
+    @media (min-width: ($mobileMaxWidth + 1)) and (max-width: ($pageMaxWidth - 1)),
+           (max-width: calc(27.25rem + 12px - 1px)) {
+      flex-wrap: wrap;
+      max-width: calc((5.5rem * 2 + 1rem) + 6px);
     }
   }
 
@@ -862,23 +895,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
     }
   }
 
-}
-
-#receipt-column {
-  .receipt-box {
-    margin-bottom: 3rem;
-  }
-
-  .receipt-btn {
-    p {
-      display: block;
-    }
-
-    button {
-      font-size: 1.25rem;
-      max-width: 280px;
-    }
-  }
 }
 
 // ===== Lightbox 鍒嗕韩瑕栫獥 =====
@@ -1008,24 +1024,38 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 #page-mail {
     padding-top: 1.5rem;
 
+    h4 {
+      text-align: center;
+      line-height: 1.66em;
+      margin-bottom: 1.5rem;
+      em {
+        color: $color-ejf-red;
+        font-style: normal;
+        padding-left: 0.25em;
+      }
+    }
+
+    #mail-container {
+      margin-top: 2em;
+    }
+
     #mail-switch {
       display: flex;
       gap: 0.75rem;
       margin-bottom: 1.5rem;
       flex-wrap: wrap;
       justify-content: center;
-
-      .btn-fund {
-        flex: 1;
-        max-width: 92px;
-      }
     }
 
     .mail-content-template {
       padding: 1.5rem 1.5rem 0.875rem;
-      box-shadow: -8px 16px 40px $color-neutral-1000-trans-8;
       background: $color-white;
       position: relative;
+
+      height: 8.5em;
+      overflow: scroll;
+      border: 1px solid $color-neutral-300;
+      box-shadow: inset 0 -2px 0.5em $color-neutral-300;
     }
 
     .mail-actions {
@@ -1046,9 +1076,8 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 #page-calculator {
   .calculator-intro {
     margin-bottom: 2rem;
-    p {
-      margin-bottom: 0;
-    }
+    a { text-decoration: none; }
+    .small { font-size: 0.875em; }
   }
 }
 
@@ -1057,15 +1086,10 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
   backdrop-filter: blur(6px);
   border: 1px solid $color-neutral-1000-trans-10;
 
-  .columns { flex-wrap: wrap-reverse; }
+  .columns { flex-direction: column-reverse; }
 
-  .page-info-content-left { flex: 0 0 300px; }
+  .page-info-content-left { flex: 1; }
   .page-info-content-right { flex: 1; }
-
-  @media (max-width: $mobileMaxWidth) {
-    .columns { flex-flow: column-reverse; }
-    .page-info-content-left { flex: 1; }
-  }
 
   .page-info-content-left {
     ul {
@@ -1076,6 +1100,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
       li {
         padding-left: 2.75rem;
         position: relative;
+        margin-bottom: 1rem;
 
         h4 {
           margin-left: -1px;
@@ -1099,9 +1124,24 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
         &.intro-cloud::before { background-image: $icon-intro-cloud; }
       }
     }
+
+    @media (min-width: ($mobileMaxWidth + 1)) {
+      ul{
+        display: flex;
+        flex-direction: row;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        li {
+          flex: 0 1 calc(50% - 0.75rem);
+          margin-bottom: 0;
+        }
+      }
+    }
   }
 
   .page-info-content-right {
+    width: 100%;
+
     iframe {
       width: 100%;
       aspect-ratio: 16/9;
@@ -1143,11 +1183,12 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
   .infopack-content {
     img {
       max-width: 510px;
-      min-width: 250px;
+      min-width: 244px;
       width: 100%;
       aspect-ratio: 1/1;
     }
-    margin-bottom: 2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 2.5rem;
   }
   .glide {
     .glide__slides {
@@ -1158,23 +1199,30 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
       font-weight: 900;
       font-size: 1rem;
 
-      width: 1.5rem;
-      height: 1.5rem;
-      border-radius: 1rem;
+      width: 2rem;
+      height: 100%;
+      border-radius: 0;
       padding: 0;
 
       border: none;
       box-shadow: none;
       text-shadow: none;
 
-      background-color: rgba(255,255,255,0.25);
-      color: white;
-
-      bottom: 1em;
-      top: auto;
+      background-color: rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.66);
 
       opacity: 0.66;
       &:hover { opacity: 1; }
+      &.glide__arrow--right { right: 0; }
+      &.glide__arrow--left { left: 0; }
+    }
+    .glide__bullets {
+      bottom: -1em;
+      .glide__bullet {
+        box-shadow: none;
+        background-color: $color-neutral-300;
+      }
+      .glide__bullet--active { background-color: $color-neutral-600; }
     }
   }
 }

@@ -212,10 +212,12 @@ const app = Vue.createApp({
             totalInvestment: 0,
             expectedReturn: 0,
             expectedMinus: 0,
+            expectedMinusRatio: 0,
             donut_strokeDasharray: '60 40', // 預設 40% 減損計算
             donut_transform: 'rotate(54 21 21)',
             activeMail: '',
-            isCopied: false
+            isCopied: false,
+            isReceiptMode: isReceiptMode
         }
     },
     created() {
@@ -262,6 +264,16 @@ const app = Vue.createApp({
             });
 
             trackEvent('Click Mail', { Section: type });
+        },
+
+        selectAllContent(event) {
+            const contentDiv = event.currentTarget;
+            const range = document.createRange();
+            const selection = window.getSelection();
+
+            range.selectNodeContents(contentDiv);
+            selection.removeAllRanges();
+            selection.addRange(range);
         },
 
         formatDateTime(date) {
@@ -415,6 +427,7 @@ const app = Vue.createApp({
             this.fundName = fundList.find(fund => fund.id === fundId).name;
             this.expectedReturn = calcAll[fundId][2050].expectedReturn;
             this.expectedMinus = this[`expectedMinus_${fundId}`];
+            this.expectedMinusRatio = -this[`expectedMinusRatio_${fundId}`];
 
             const donut_ratio = this[`expectedMinusRatio_${fundId}`] * -1;
             this.donut_strokeDasharray = `${100 - donut_ratio} ${donut_ratio}`;
@@ -638,6 +651,11 @@ const app = Vue.createApp({
             console.log('receipt 網址', receiptUrl);
             return 'https://hotshot.anoni.net/shoot?path=/receipt%3F' + paramPart + '&selector=div[id=app]&vpw=336&vph=2100';
         },
+        downloadImageDirectly() {
+            console.log('=== 直接下載圖片 ===');
+            const shootUrl = app.generateReceiptImageUrl();
+            window.open(shootUrl, '_blank');
+        },
         toggleMail(fundId) {
             this.activeMail = fundId;
             trackEvent('Toggle Mail', { fund: fundId });
@@ -648,13 +666,6 @@ const app = Vue.createApp({
                 this.activeMail = 'retire';
             else
                 this.activeMail = 'labor';
-        },
-        scrollToAction() {
-            console.log('=== 開始捲動到郵件區塊 ===');
-            // this.switchPageMail();
-            const mailSection = document.getElementById('page-mail');
-            if (mailSection) mailSection.scrollIntoView({ behavior: 'smooth' });
-            trackEvent('Click Action');
         }
     }
 }).mount('#app');
@@ -805,10 +816,9 @@ const glideOpt = {
     animationDuration: 1000,
     bound: true,
 
-    perView: 4,
+    perView: 3,
     breakpoints: {
-        1080: { perView: 3 },
-        820: { perView: 2 },
+        800: { perView: 2 },
         558: { perView: 1 }
     }
 }
