@@ -348,7 +348,6 @@ button.big-btn, a.big-btn {
   padding: 0.75rem 1.5rem;
   margin-bottom: 0.75rem;
   width: 100%;
-  max-width: 278px;
   height: -moz-fit-content;
   height: fit-content;
   font-size: 1.5rem;
@@ -410,7 +409,6 @@ button.big-btn.color-gray:click, a.big-btn.color-gray:click {
 
 .calculator-wrapper {
   width: 100%;
-  max-width: 320px;
   padding: 1.25rem;
   border: 1px solid rgba(28, 30, 34, 0.08);
   box-shadow: -8px 16px 40px rgba(28, 30, 34, 0.08);
@@ -439,18 +437,16 @@ button.big-btn.color-gray:click, a.big-btn.color-gray:click {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: 1rem;
   align-items: flex-end;
 }
 .calculator-wrapper .calculator-content .input-wrapper, .calculator-wrapper .calculator-content button.big-btn {
   flex: 1 1 auto;
 }
-@media (min-width: 640px) {
-  .calculator-wrapper {
-    max-width: none;
-  }
+@media (min-width: 720px) {
   .calculator-wrapper .calculator-content {
     flex-direction: row;
+    gap: 0.75rem;
   }
   .calculator-wrapper .calculator-content .big-btn {
     margin-bottom: 0;
@@ -564,14 +560,14 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 }
 .receipt-box {
   width: 100%;
-  padding: 2rem 1.25rem 0.875rem;
+  padding: 2rem 1.25rem 1.5rem;
   box-shadow: -8px 16px 40px rgba(28, 30, 34, 0.08);
   background: #FFFFFF;
   font-family: "Noto Sans Mono", "Noto Sans TC", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 0.8rem;
-  line-height: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5em;
   position: relative;
 }
 .receipt-box::after {
@@ -592,69 +588,77 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 .receipt-box .receipt-section p {
   font-size: inherit;
   line-height: 1.5em;
-  margin: inherit !important;
+  margin: inherit;
+}
+.receipt-box .receipt-section .small {
+  font-size: 0.85em;
+}
+.receipt-box .receipt-section .big {
+  font-size: 1.66em;
+}
+.receipt-box .receipt-section .un-mono {
+  font-family: "Noto Sans TC", sans-serif;
+}
+.receipt-box .receipt-section .loss {
+  color: #E30613;
 }
 .receipt-box .receipt-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
 }
 .receipt-box .receipt-row-center {
   text-align: center;
 }
+.receipt-box .receipt-name {
+  font-weight: 600;
+  font-size: 1.2em;
+  line-height: 1.5em;
+}
 .receipt-box .receipt-title {
   font-weight: 600;
 }
-.receipt-box .un-mono {
-  font-family: "Noto Sans TC", sans-serif;
-}
-.receipt-box .loss {
-  color: #E30613;
+.receipt-box .chart-section {
+  margin: 1em 0;
 }
 .receipt-box .chart-row {
   line-height: 1.5em;
-  font-size: 0.9em;
+  margin-bottom: 0.5em;
 }
 .receipt-box .chart-row .chart-image {
-  height: 66px;
-  width: 66px;
+  height: 94px;
+  width: 94px;
 }
 .receipt-box .chart-row .chart-text p {
-  line-height: 1.75em;
+  line-height: 1.25em;
+  margin-bottom: 0.25em;
 }
-.receipt-box .chart-row .chart-text p:before {
-  content: "";
-  display: inline-block;
-  width: 0.75em;
-  height: 0.75em;
-  border-radius: 50%;
-  margin-right: 0.5em;
-  vertical-align: middle;
-  position: relative;
-  top: -1px;
-}
-.receipt-box .chart-row .chart-text p:nth-child(1):before {
-  background-color: #3B4048;
-}
-.receipt-box .chart-row .chart-text p:nth-child(2):before {
-  background-color: #E30613;
-}
-.receipt-box .chart-row .chart-text p.unit {
-  color: #98A0AE;
+.receipt-box .chart-row .small {
+  font-size: 0.8em;
 }
 .receipt-box .receipt-table {
   line-height: 1.5em;
-  font-size: 0.9em;
+  font-size: 0.85em;
+  line-height: 1.25em;
 }
 .receipt-box .receipt-table .grid-row-3 {
   display: grid;
-  grid-template-columns: 7.5em 1fr 1fr;
+  grid-template-columns: 6em 1fr 1fr;
   gap: 0.5em 0.75em;
   padding: 0.66em 0;
   border-bottom: 1px solid #F3F2EF;
   text-align: right;
 }
+.receipt-box .receipt-table .grid-row-3.dark-border {
+  border-color: #98A0AE;
+}
+.receipt-box .receipt-table .grid-row-3:first-of-type {
+  padding-top: 0.25em;
+}
 .receipt-box .receipt-table .grid-row-3:last-of-type {
   border-bottom: none;
+  padding-bottom: 0.25em;
 }
 .receipt-box .receipt-table .row-13 {
   grid-row: 1/3;
@@ -679,12 +683,13 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 }
 .receipt-box .receipt-bottom p {
   line-height: 1.5em;
+  text-align: center;
 }
 .receipt-box .receipt-bottom a {
   text-decoration: underline;
   text-align: right;
   display: inline-block;
-  padding-top: 0.5em;
+  padding-top: 1em;
 }
 .receipt-box .receipt-bottom img {
   width: 80px;
@@ -741,7 +746,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 @media (max-width: 719px) {
   #receipt-column {
     flex-grow: 1;
-    flex-basis: auto;
   }
 }
 #page-header {
@@ -837,6 +841,16 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   margin-top: 2rem;
 }
 
+#chart-column .hint {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.9em;
+}
+@media (min-width: 720px) {
+  #chart-column .hint {
+    display: none;
+  }
+}
 #chart-column #fund-buttons {
   display: flex;
   gap: 0.75rem;
@@ -862,9 +876,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   height: 100% !important;
 }
 
-#receipt-column .receipt-box {
-  margin-bottom: 3rem;
-}
 #receipt-column .receipt-btn p {
   display: block;
 }

@@ -212,10 +212,12 @@ const app = Vue.createApp({
             totalInvestment: 0,
             expectedReturn: 0,
             expectedMinus: 0,
+            expectedMinusRatio: 0,
             donut_strokeDasharray: '60 40', // 預設 40% 減損計算
             donut_transform: 'rotate(54 21 21)',
             activeMail: '',
-            isCopied: false
+            isCopied: false,
+            isReceiptMode: isReceiptMode
         }
     },
     created() {
@@ -415,6 +417,7 @@ const app = Vue.createApp({
             this.fundName = fundList.find(fund => fund.id === fundId).name;
             this.expectedReturn = calcAll[fundId][2050].expectedReturn;
             this.expectedMinus = this[`expectedMinus_${fundId}`];
+            this.expectedMinusRatio = -this[`expectedMinusRatio_${fundId}`];
 
             const donut_ratio = this[`expectedMinusRatio_${fundId}`] * -1;
             this.donut_strokeDasharray = `${100 - donut_ratio} ${donut_ratio}`;
@@ -637,6 +640,11 @@ const app = Vue.createApp({
             // 生成 hotshot 圖片 URL
             console.log('receipt 網址', receiptUrl);
             return 'https://hotshot.anoni.net/shoot?path=/receipt%3F' + paramPart + '&selector=div[id=app]&vpw=336&vph=2100';
+        },
+        downloadImageDirectly() {
+            console.log('=== 直接下載圖片 ===');
+            const shootUrl = app.generateReceiptImageUrl();
+            window.open(shootUrl, '_blank');
         },
         toggleMail(fundId) {
             this.activeMail = fundId;

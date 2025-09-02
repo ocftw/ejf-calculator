@@ -37,11 +37,13 @@
 
       <div class="receipt-section">
         <div class="receipt-row-center">
+          <span class="receipt-name">{{ userName }}</span>
+        </div>
+        <div class="receipt-row-center">
           <span class="receipt-title">四大基金氣候風險損益對帳單</span>
-          <span class="receipt-datetime">（{{ formattedDateTime }}）</span>
         </div>
         <div class="receipt-row-center">
-          <span>{{ userName }}</span>
+          <span class="small">{{ formattedDateTime }}</span>
         </div>
       </div>
 
@@ -49,13 +51,13 @@
 
       <div class="receipt-section">
         <div class="receipt-row-center">
-          <p class="un-mono">若四大基金維持目前的投資策略，<br>到了 2050 年全球減排的最終檢核點，<br>你的退休金會受到多少減損？</p>
+          <p class="un-mono">若四大基金維持目前的投資策略，<br><em>2050 年</em>，你的退休金可能損失多少？</p>
         </div>
       </div>
 
       <hr class="divider-receipt" />
 
-      <div class="receipt-section">
+      <div class="receipt-section chart-section">
         <div class="receipt-row chart-row">
           <div class="chart-image">
             <!--
@@ -71,11 +73,20 @@
               <circle class="donut-segment" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="white" stroke-width="8" stroke-dasharray="1.5 98.5" stroke-dashoffset="0" :transform="donut_transform"></circle>
             </svg>
           </div>
-          <div class="chart-text">
-            <p class="dot"><span class="un-mono">2050 預估累計資產</span> (+{{ formatNumber(expectedReturn) }})</p>
-            <p class="dot"><span class="un-mono">氣候風險造成減損</span><span class="loss"> ({{ formatNumber(expectedMinus) }})</span></p>
-            <p class="unit un-mono">以{{ fundName }}結果繪製 (新台幣 元)</p>
+          <div class="chart-text un-mono">
+            <p>
+              <span class="small">原先預估累計資產：</span><br>
+              +{{ formatNumber(expectedReturn) }} <span class="small">元</span>
+            </p>
+            <p>
+              <span class="small">氣候風險造成減損：</span><br>
+              {{ formatNumber(expectedMinus) }} <span class="small">元</span>
+            </p>
           </div>
+        </div>
+
+        <div class="receipt-row-center">
+          <p class="un-mono loss"><em>{{ userName }}<template v-if="!userName">您</template>的資產，將減損 <span class="big">{{ expectedMinusRatio }}</span> %</em></p>
         </div>
       </div>
 
@@ -84,19 +95,19 @@
       <div class="receipt-section">
         <div class="receipt-table">
 
-          <div class="grid-row-3">
-            <span class="title row-13 text-left un-mono">原先預估<br> (基礎情境)</span>
-            <span class="un-mono">累計投入金額</span>
-            <span class="un-mono">2050 累計資產</span>
+          <div class="grid-row-3 dark-border">
+            <span class="title row-13 text-left un-mono">原先預估</span>
+            <span class="un-mono">投入金額</span>
+            <span class="un-mono">累計資產</span>
             <span>{{ formatNumber(totalInvestment) }}</span>
             <span>{{ formatNumber(expectedReturn) }}</span>
           </div>
 
           <div class="grid-row-3 un-mono">
             <!-- <span class="title text-left col-14">考量氣候風險<br>(2050 淨零情境)</span> -->
-            <span class="title text-left">考量氣候風險<br>(2050 淨零情境)</span>
-            <span class="v-middle">累計投入金額</span>
-            <span class="v-middle">2050 累計資產</span>
+            <span class="title text-left">考量氣候風險</span>
+            <span class="v-middle">投入金額</span>
+            <span class="v-middle">累計資產</span>
           </div>
 
           <template v-if="funds.includes('labor')">
@@ -150,10 +161,10 @@
       <div class="receipt-section receipt-qrcode">
         <div class="receipt-row receipt-bottom">
           <p>
-            退休金沒有預期的回報，反而被政府不願面對的氣候風險侵蝕<br>
-            <!-- <a class="receipt-download" href="javascript:void(0);" @click.stop.prevent="openLightbox('share')">下載對帳單</a> -->
+            退休金沒有預期回報<br>反而被氣候風險侵蝕<br>
+            <a v-if="!isReceiptMode" class="receipt-download small" href="javascript:void(0);" @click.stop.prevent="downloadImageDirectly">下載圖檔，分享出去</a>
           </p>
-          <img src="images/qrcode.png" alt="https://divest4future.ejfoundation.org/">
+          <img v-if="isReceiptMode" src="images/qrcode.png" alt="https://divest4future.ejfoundation.org/">
         </div>
       </div>
 

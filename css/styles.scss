@@ -339,7 +339,7 @@ button.big-btn, a.big-btn {
   margin-bottom: 0.75rem;
 
   width: 100%;
-  max-width: 278px;
+  // max-width: 278px;
   height: fit-content;
 
   font-size: 1.5rem;
@@ -393,7 +393,7 @@ button.big-btn, a.big-btn {
 
 .calculator-wrapper {
   width: 100%;
-  max-width: $receiptMaxWidth;
+  // max-width: $receiptMaxWidth;
   padding: 1.25rem;
 
   border: 1px solid $color-neutral-1000-trans-8;
@@ -429,7 +429,7 @@ button.big-btn, a.big-btn {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.75rem;
+    gap: 1rem;
     align-items: flex-end;
 
     .input-wrapper, button.big-btn {
@@ -437,11 +437,12 @@ button.big-btn, a.big-btn {
     }
   }
 
-  @media (min-width: 640px) {
-    max-width: none;
+  @media (min-width: ($mobileMaxWidth + 1)) {
+    // max-width: none;
 
     .calculator-content {
       flex-direction: row;
+      gap: 0.75rem;
 
       .big-btn {
         margin-bottom: 0;
@@ -554,9 +555,9 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 
 
 .receipt-box {
-  // max-width: $receiptMaxWidth; //FIXME: receipt-type need max-width
+  // max-width: $receiptMaxWidth; //FIXME: page: receipt need max-width
   width: 100%;
-  padding: 2rem 1.25rem 0.875rem;
+  padding: 2rem 1.25rem 1.5rem;
   box-shadow: -8px 16px 40px $color-neutral-1000-trans-8;
 
   background: $color-white;
@@ -564,8 +565,8 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
   font-family: "Noto Sans Mono", "Noto Sans TC", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 0.8rem;
-  line-height: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.5em;
 
   position: relative;
 
@@ -587,77 +588,84 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
     p {
       font-size: inherit;
       line-height: 1.5em;
-      margin: inherit !important;
+      margin: inherit;
     }
+    .small { font-size: 0.85em; }
+    .big { font-size: 1.66em; }
+    .un-mono { font-family: "Noto Sans TC", sans-serif; }
+    .loss { color: $color-ejf-red; }
   }
 
   .receipt-row {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
   }
 
   .receipt-row-center {
     text-align: center;
   }
 
+  .receipt-name {
+    font-weight: $font-weight-bold;
+    font-size: 1.2em;
+    line-height: 1.5em;
+  }
+
   .receipt-title {
     font-weight: $font-weight-bold;
   }
 
-  .un-mono { font-family: "Noto Sans TC", sans-serif; }
-  .loss { color: $color-ejf-red; }
+  .chart-section {
+    margin: 1em 0;
+  }
 
   .chart-row {
     line-height: 1.5em;
-    font-size: 0.9em;
+    // font-size: 0.9em;
+    margin-bottom: 0.5em;
+
+    $donut-size: 94px;
 
     .chart-image {
-      height: 66px;
-      width: 66px;
+      height: $donut-size;
+      width: $donut-size;
     }
 
-    .chart-text {
-      p {
-        line-height: 1.75em;
-
-        &:before {
-          content: "";
-          display: inline-block;
-          width: 0.75em;
-          height: 0.75em;
-          border-radius: 50%;
-          margin-right: 0.5em;
-          vertical-align: middle;
-          position: relative;
-          top: -1px;
-        }
-        &:nth-child(1):before {
-          background-color: $color-default;
-        }
-        &:nth-child(2):before {
-          background-color: $color-ejf-red;
-        }
-
-        &.unit { color: $color-neutral-600; }
-      }
+    .chart-text p {
+      line-height: 1.25em;
+      margin-bottom: 0.25em;
+    }
+    .small {
+      font-size: 0.8em;
     }
   }
 
-
   .receipt-table {
     line-height: 1.5em;
-    font-size: 0.9em;
+    font-size: 0.85em;
+    line-height: 1.25em;
 
     .grid-row-3 {
       display: grid;
-      grid-template-columns: 7.5em 1fr 1fr;
+      grid-template-columns: 6em 1fr 1fr;
       gap: 0.5em 0.75em;
       padding: 0.66em 0;
       border-bottom: 1px solid $color-ejf-gray;
       text-align: right;
 
+      &.dark-border {
+        border-color: $color-neutral-600;
+      }
+
+      &:first-of-type {
+        padding-top: 0.25em;
+      }
+
       &:last-of-type {
         border-bottom: none;
+        padding-bottom: 0.25em;
       }
     }
 
@@ -679,13 +687,14 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 
     p {
       line-height: 1.5em;
+      text-align: center;
     }
 
     a {
       text-decoration: underline;
       text-align: right;
       display: inline-block;
-      padding-top: 0.5em;
+      padding-top: 1em;
     }
 
     img {
@@ -735,10 +744,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 #receipt-column { flex: 0 1 $receiptMaxWidth; }
 
 @media (max-width: $mobileMaxWidth) {
-  #receipt-column {
-    flex-grow: 1;
-    flex-basis: auto;
-  }
+  #receipt-column { flex-grow: 1; }
 }
 
 #page-header {
@@ -849,6 +855,14 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 }
 
 #chart-column {
+  .hint {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.9em;
+    @media (min-width: ($mobileMaxWidth + 1)) {
+      display: none;
+    }
+  }
 
   #fund-buttons {
     display: flex;
@@ -881,10 +895,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
 }
 
 #receipt-column {
-  .receipt-box {
-    margin-bottom: 3rem;
-  }
-
   .receipt-btn {
     p {
       display: block;
