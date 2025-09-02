@@ -1,9 +1,7 @@
 @use 'sass:color';
 
 // ===== Font =====
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans+TC:wght@100..900&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@400&family=Noto+Sans+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap');
 
 // ===== Reset =====
 html {
@@ -29,7 +27,7 @@ $mobileMaxWidth: $receiptMaxWidth * 2 + (5 * 16px) - 1px;  // 719, chart & recei
 // ===== 璁婃暩鍗� =====
 $font-family: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
 $font-weight-regular: 400;
-$font-weight-bold: 600;
+$font-weight-bold: 700;
 $font-size: 16px;
 
 $color-black: #000000;
@@ -106,7 +104,7 @@ body {
   font-optical-sizing: auto;
 
   background-color: $color-background;
-  background-image: $background-image;
+  // background-image: $background-image;  // unable to see on light bg
   background-size: $background-size;
 
   min-height: 100vh;
@@ -411,12 +409,11 @@ button.big-btn, a.big-btn {
   .calculator-title {
     font-size: 0.875rem;
     line-height: 1em;
-    font-weight: $font-weight-regular;
 
     color: $color-white;
     background-color: $color-ejf-blue;
     font-family: "Fira Sans Condensed", sans-serif;
-    font-weight: 400;
+    font-weight: $font-weight-regular;
     text-transform: uppercase;
 
     display: inline-block;
@@ -564,7 +561,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
   background: $color-white;
 
   font-family: "Noto Sans Mono", "Noto Sans TC", sans-serif;
-  font-weight: 400;
+  font-weight: $font-weight-regular;
   font-style: normal;
   font-size: 1rem;
   line-height: 1.5em;
@@ -1147,6 +1144,8 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
       height: auto;
       border: none;
       display: block;
+      background-image: url("../images/youtube-bg.jpg");
+      background-size: cover;
     }
   }
 }
@@ -1184,6 +1183,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
       max-width: 510px;
       min-width: 244px;
       width: 100%;
+      height: auto;
       aspect-ratio: 1/1;
     }
     margin-top: 0.5rem;
@@ -1195,7 +1195,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 绺界Щ鍕曡窛闆紙鍍忕
     }
     .glide__arrows button {
       font-family: 'Noto Sans Mono', sans-serif;
-      font-weight: 900;
+      font-weight: $font-weight-bold;
       font-size: 1rem;
 
       width: 2rem;
