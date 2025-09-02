@@ -517,8 +517,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   overflow: hidden;
   width: 100vw;
   height: 40px;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
   position: relative;
   background-color: rgba(28, 30, 34, 0.1);
   -webkit-backdrop-filter: blur(6px);
