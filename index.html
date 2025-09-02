@@ -28,12 +28,12 @@
   index.html?income=50000&age=30&funds=retire
   -->
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-  <link rel="preconnect" href="https://www.youtube-nocookie.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.17/vue.global.prod.min.js" as="script" integrity="sha512-B+xT9hBEokScoEYqF2L6zjF/R0mtYb11XURk2ERx89eRofWtgsrCljvx30JospRZRI3v19p9pRWvmLQ6ySS9FA==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js" as="script" integrity="sha512-Y51n9mtKTVBh3Jbx5pZSJNDDMyY+yGe77DGtBPzRlgsf/YLCh13kSZ3JmfHGzYFCmOndraf0sQgfM654b7dJ3w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/glide.min.js" as="script" integrity="sha512-2sI5N95oT62ughlApCe/8zL9bQAXKsPPtZZI2KE3dznuZ8HpE2gTMHYzyVN7OoSPJCM1k9ZkhcCo3FvOirIr2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="preload" href="js/app.js" as="script">
 
   <!-- Mixpanel -->
@@ -49,9 +49,7 @@
 
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha512-tYKqO78H3mRRCHa75fms1gBvGlANz0JxjN6fVrMBvWL+vOOy200npwJ69OBl9XEsTu3yVUvZNrdWFIIrIf8FLg==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.theme.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha512-8vDOoSF7kZUYkn7BiQulRCTvpRoenljlkQDZhM6+IqDJi5jHDH9QEYH9NfMBB8LlqiYc7O17YGxbGx7dOxKrpw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@400&family=Noto+Sans+TC:wght@400;700&family=Noto+Sans+Mono:wght@400;700&&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -345,7 +343,7 @@
             </div>
 
             <div class="mail-content" v-show="activeMail === 'retire'">
-              <div class="mail-content-template" data-fund="retire">
+              <div class="mail-content-template" data-fund="retire" @click="selectAllContent">
                 <p>根據環境正義基金會（EJF）的「四大基金氣候風險」的情境分析計算，2050 年我本該拿到退輔基金 {{ formatNumber(expectedReturn_retire) }} 元，卻因為目前退撫基金缺乏積極的氣候投資政策，我可能會足足損失 {{ formatNumber(expectedMinus_retire) }} 元。</p>
 
                 <p>這個數字對我來說不僅是退休生活的保障，更與我在退休後期望的生活品質息息相關。然而，在全球氣候變遷和淨零轉型的趨勢下，如何有效管理、提升，並穩健這筆退休金的價值，同時利用這筆退休金投資永續的未來，是我關心的焦點。</p>
@@ -369,7 +367,7 @@
             </div>
 
             <div class="mail-content" v-show="activeMail === 'postal'">
-              <div class="mail-content-template" data-fund="postal">
+              <div class="mail-content-template" data-fund="postal" @click="selectAllContent">
                 <p>我們民眾在中華郵政開戶，可能是為了孩子的成長求學儲蓄、為了自己存下一桶金等等，這筆錢應該用來投資對未來美好的想望，而不是讓氣候變遷加劇的化石燃料。在全球氣候變遷加劇的情況下，我希望交通部要求中華郵政公司：</p>
 
                 <p>
