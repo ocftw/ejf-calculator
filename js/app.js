@@ -221,17 +221,8 @@ const app = Vue.createApp({
         }
     },
     created() {
-        if (!this.currentDateTime || !(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(this.currentDateTime)))
-            this.currentDateTime = new Date().toISOString();
-    },
-    computed: {
-        formattedDateTime() {
-            // console.log('formattedDateTime this.currentDateTime', this.currentDateTime);
-            // format: YYYY-MM-DD
-            if (!this.currentDateTime) return '';
-            const date = new Date(this.currentDateTime);
-            return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-        }
+        if (!this.currentDateTime || !(/^\d{4}-\d{2}-\d{2}$/.test(this.currentDateTime)))
+            this.currentDateTime = new Date().toISOString().split('T')[0];
     },
     mounted() {
         if (!isReceiptMode) this.initChart();
@@ -379,7 +370,7 @@ const app = Vue.createApp({
             });
             */
 
-            this.currentDateTime = new Date().toISOString();
+            this.currentDateTime = new Date().toISOString().split('T')[0];
             this.calculateDonutChart();
 
             if (isReceiptMode) return;
