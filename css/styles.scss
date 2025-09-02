@@ -603,7 +603,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1em;
+    // gap: 1em;
   }
 
   .receipt-row-center {
@@ -634,6 +634,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
     .chart-image {
       height: $donut-size;
       width: $donut-size;
+      margin-right: 1em;
     }
 
     .chart-text p {

@@ -612,7 +612,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1em;
 }
 .receipt-box .receipt-row-center {
   text-align: center;
@@ -635,6 +634,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 .receipt-box .chart-row .chart-image {
   height: 94px;
   width: 94px;
+  margin-right: 1em;
 }
 .receipt-box .chart-row .chart-text p {
   line-height: 1.25em;
