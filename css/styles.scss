@@ -1086,15 +1086,10 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   backdrop-filter: blur(6px);
   border: 1px solid $color-neutral-1000-trans-10;
 
-  .columns { flex-wrap: wrap-reverse; }
+  .columns { flex-direction: column-reverse; }
 
-  .page-info-content-left { flex: 0 0 300px; }
+  .page-info-content-left { flex: 1; }
   .page-info-content-right { flex: 1; }
-
-  @media (max-width: $mobileMaxWidth) {
-    .columns { flex-flow: column-reverse; }
-    .page-info-content-left { flex: 1; }
-  }
 
   .page-info-content-left {
     ul {
@@ -1105,6 +1100,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
       li {
         padding-left: 2.75rem;
         position: relative;
+        margin-bottom: 1rem;
 
         h4 {
           margin-left: -1px;
@@ -1128,9 +1124,24 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
         &.intro-cloud::before { background-image: $icon-intro-cloud; }
       }
     }
+
+    @media (min-width: ($mobileMaxWidth + 1)) {
+      ul{
+        display: flex;
+        flex-direction: row;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        li {
+          flex: 0 1 calc(50% - 0.75rem);
+          margin-bottom: 0;
+        }
+      }
+    }
   }
 
   .page-info-content-right {
+    width: 100%;
+
     iframe {
       width: 100%;
       aspect-ratio: 16/9;
