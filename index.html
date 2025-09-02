@@ -161,7 +161,6 @@
 
           <!-- 右側計算結果 -->
           <div id="receipt-column">
-
             <div class="receipt-box">
               <!-- <img class="receipt-logo" src="images/ejf-logo-black.png" alt="EJF Logo"> -->
 
@@ -299,28 +298,15 @@
               </div>
 
             </div>
-
-            <!-- <div class="receipt-btn">
-              <p>我的退休金不該被蒸發！</p>
-              <button class="big-btn btn-calculate color-gray" @click.stop.prevent="scrollToAction">立即行動✊守護退休金</button>
-            </div> -->
           </div>
         </div>
       </div>
 
       <div id="page-mail" class="container">
-        <div class="action-wrapper" v-show="this.activeMail != ''">
+        <template v-if="this.activeMail != ''">
+          <h4><em>我的退休金不該被蒸發！</em><br>立即行動 ✊ 守護未來</h4>
 
-          <div class="receipt-btn">
-            <p>我的退休金不該被蒸發！</p>
-            <button class="big-btn btn-calculate color-gray" @click.stop.prevent="scrollToAction">立即行動✊守護退休金</button>
-          </div>
-
-
-          <h4>向主管機關反應</h4>
-          <p>請點選按鈕複製以下的內容，前往主管機關信箱，協助反應此訊息。</p>
-
-          <hr class="divider-default" />
+          <p>四大基金主管機關應積極面對氣候風險，才能保障人民退休生活，落實氣候行動。<em>點選按鈕複製以下訊息，前往各部會意見信箱，要求四大基金撤資化石燃料，投資永續未來！</em></p>
 
           <div id="mail-container">
             <div id="mail-switch">
@@ -331,7 +317,7 @@
             </div>
 
             <div class="mail-content" v-show="activeMail === 'labor'">
-              <div class="mail-content-template" data-fund="labor">
+              <div class="mail-content-template" data-fund="labor" @click="selectAllContent">
                 <p>根據環境正義基金會（EJF）的「四大基金氣候風險」的情境分析計算，2050 年我本該拿到勞退 {{ formatNumber(expectedReturn_labor) }} 元<!--、舊制勞退 {{ formatNumber(expectedReturn_legacy) }} 元-->，卻因為目前勞動基金缺乏積極的氣候投資政策，我可能會足足損失新制勞退 {{ formatNumber(expectedMinus_labor) }} 元、舊制勞退 {{ formatNumber(expectedMinus_legacy) }} 元。</p>
 
                 <p>這樣的投資損失對我的退休生活帶來財務上的危機，投資的策略也與我在意的「永續生活」有所偏差。</p>
@@ -348,8 +334,8 @@
               </div>
 
               <div class="mail-actions">
-                <button class="big-btn btn-download color-gray" @click.stop.prevent="copyMailContent('labor')" v-if="!isCopied">複製內容</button>
-                <button class="big-btn btn-download color-gray" @click.stop.prevent="copyMailContent('labor')" v-if="isCopied">已複製</button>
+                <button class="big-btn btn-copy color-gray" @click.stop.prevent="copyMailContent('labor')" v-if="!isCopied">複製內容</button>
+                <button class="big-btn btn-copy color-gray" @click.stop.prevent="copyMailContent('labor')" v-if="isCopied">已複製</button>
                 <a class="big-btn btn-calculate" target="_blank" href="https://po.mol.gov.tw/WriteMail">前往勞動部信箱</a>
               </div>
             </div>
@@ -372,8 +358,8 @@
               </div>
 
               <div class="mail-actions">
-                <button class="big-btn btn-download color-gray" @click.stop.prevent="copyMailContent('retire')" v-if="!isCopied">複製內容</button>
-                <button class="big-btn btn-download color-gray" @click.stop.prevent="copyMailContent('retire')" v-if="isCopied">已複製</button>
+                <button class="big-btn btn-copy color-gray" @click.stop.prevent="copyMailContent('retire')" v-if="!isCopied">複製內容</button>
+                <button class="big-btn btn-copy color-gray" @click.stop.prevent="copyMailContent('retire')" v-if="isCopied">已複製</button>
                 <a class="big-btn btn-calculate" target="_blank" href="https://chief.mocs.gov.tw/mail/main.aspx">前往銓敘部信箱</a>
               </div>
             </div>
@@ -391,13 +377,13 @@
               </div>
 
               <div class="mail-actions">
-                <button class="big-btn btn-download color-gray" @click.stop.prevent="copyMailContent('postal')" v-if="!isCopied">複製內容</button>
-                <button class="big-btn btn-download color-gray" @click.stop.prevent="copyMailContent('postal')" v-if="isCopied">已複製</button>
+                <button class="big-btn btn-copy color-gray" @click.stop.prevent="copyMailContent('postal')" v-if="!isCopied">複製內容</button>
+                <button class="big-btn btn-copy color-gray" @click.stop.prevent="copyMailContent('postal')" v-if="isCopied">已複製</button>
                 <a class="big-btn btn-calculate" target="_blank" href="https://poms.motc.gov.tw/message/tw">前往交通部信箱</a>
               </div>
             </div>
           </div>
-        </div>
+        </template>
       </div>
 
     </div>

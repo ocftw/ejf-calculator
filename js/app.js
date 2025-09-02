@@ -266,6 +266,16 @@ const app = Vue.createApp({
             trackEvent('Click Mail', { Section: type });
         },
 
+        selectAllContent(event) {
+            const contentDiv = event.currentTarget;
+            const range = document.createRange();
+            const selection = window.getSelection();
+
+            range.selectNodeContents(contentDiv);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        },
+
         formatDateTime(date) {
             const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
             const months = [
@@ -656,13 +666,6 @@ const app = Vue.createApp({
                 this.activeMail = 'retire';
             else
                 this.activeMail = 'labor';
-        },
-        scrollToAction() {
-            console.log('=== 開始捲動到郵件區塊 ===');
-            // this.switchPageMail();
-            const mailSection = document.getElementById('page-mail');
-            if (mailSection) mailSection.scrollIntoView({ behavior: 'smooth' });
-            trackEvent('Click Action');
         }
     }
 }).mount('#app');

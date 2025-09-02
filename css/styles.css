@@ -250,6 +250,9 @@ a {
 .icon.heart-white {
   background-image: url("../images/icon-heart-white.png");
 }
+.icon.copy-white {
+  background-image: url("../images/icon-copy-white.png");
+}
 .icon.facebook {
   background-image: url("../images/icon-facebook.png");
 }
@@ -384,6 +387,9 @@ button.big-btn.btn-share::after, a.big-btn.btn-share::after {
 }
 button.big-btn.btn-download::after, a.big-btn.btn-download::after {
   background-image: url("../images/icon-download-white.png");
+}
+button.big-btn.btn-copy::after, a.big-btn.btn-copy::after {
+  background-image: url("../images/icon-copy-white.png");
 }
 button.big-btn.btn-back::after, a.big-btn.btn-back::after {
   background-image: url("../images/icon-right-white.png");
@@ -876,14 +882,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   height: 100% !important;
 }
 
-#receipt-column .receipt-btn p {
-  display: block;
-}
-#receipt-column .receipt-btn button {
-  font-size: 1.25rem;
-  max-width: 280px;
-}
-
 .lightbox {
   position: fixed;
   top: 0;
@@ -990,6 +988,19 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 #page-mail {
   padding-top: 1.5rem;
 }
+#page-mail h4 {
+  text-align: center;
+  line-height: 1.66em;
+  margin-bottom: 1.5rem;
+}
+#page-mail h4 em {
+  color: #E30613;
+  font-style: normal;
+  padding-left: 0.25em;
+}
+#page-mail #mail-container {
+  margin-top: 2em;
+}
 #page-mail #mail-switch {
   display: flex;
   gap: 0.75rem;
@@ -999,9 +1010,12 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 }
 #page-mail .mail-content-template {
   padding: 1.5rem 1.5rem 0.875rem;
-  box-shadow: -8px 16px 40px rgba(28, 30, 34, 0.08);
   background: #FFFFFF;
   position: relative;
+  height: 8.5em;
+  overflow: scroll;
+  border: 1px solid #CFD3DA;
+  box-shadow: inset 0 -2px 0.5em #CFD3DA;
 }
 #page-mail .mail-actions {
   display: flex;
