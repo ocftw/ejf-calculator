@@ -45,7 +45,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.5rem;
+  font-size: 1.33rem;
   line-height: 2rem;
   font-weight: 600;
 }
@@ -68,18 +68,17 @@ h4 {
 p {
   font-size: 1rem;
   line-height: 1.5rem;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.75rem 0;
 }
-p.bold {
+p em {
   font-weight: 600;
+  font-style: normal;
 }
-
-small {
+p small {
   font-size: 0.875rem;
-  line-height: 1.25rem;
 }
-small.bold {
-  font-weight: 600;
+p .underline {
+  text-decoration: underline;
 }
 
 a {
@@ -345,8 +344,6 @@ span.watermark {
 }
 
 button.big-btn, a.big-btn {
-  background-color: #E30613;
-  border: 2px solid #E30613;
   border-radius: 2px;
   padding: 0.75rem 1.5rem;
   margin-bottom: 0.75rem;
@@ -362,9 +359,15 @@ button.big-btn, a.big-btn {
   color: #FFFFFF;
   cursor: pointer;
   position: relative;
+  border: 2px solid #E30613;
+  background-color: #f90c1a;
+  transition: background-color 0.3s ease;
 }
 button.big-btn:hover, a.big-btn:hover {
-  background-color: #cc0511;
+  background-color: #e30613;
+}
+button.big-btn:click, a.big-btn:click {
+  background-color: #f90c1a;
 }
 button.big-btn::after, a.big-btn::after {
   background-size: 100%;
@@ -395,17 +398,20 @@ button.big-btn.btn-back::after, a.big-btn.btn-back::after {
   right: auto;
 }
 button.big-btn.color-gray, a.big-btn.color-gray {
-  background-color: #54677B;
-  border-color: #54677B;
+  border-color: #3B4048;
+  background-color: #4c535d;
 }
 button.big-btn.color-gray:hover, a.big-btn.color-gray:hover {
-  background-color: #4c5d6f;
+  background-color: #3b4048;
+}
+button.big-btn.color-gray:click, a.big-btn.color-gray:click {
+  background-color: #4c535d;
 }
 
 .calculator-wrapper {
   width: 100%;
   max-width: 320px;
-  padding: 2.75rem 1.25rem 1.25rem;
+  padding: 1.25rem;
   border: 1px solid rgba(28, 30, 34, 0.08);
   box-shadow: -8px 16px 40px rgba(28, 30, 34, 0.08);
   background-color: #FFFFFF;
@@ -460,17 +466,18 @@ button.big-btn.color-gray:hover, a.big-btn.color-gray:hover {
 
 button.btn-fund {
   all: unset;
-  width: 96px;
-  height: 32px;
+  box-sizing: border-box;
+  padding: 0.5em 0;
   text-align: center;
   cursor: pointer;
   background-color: #F3F2EF;
   z-index: 1;
+  width: calc(5.5rem + 3px);
   border-radius: 8px;
   border: 1.5px dashed #98A0AE;
 }
 button.btn-fund p {
-  line-height: 32px;
+  line-height: 1em;
   font-size: 1rem;
   color: #98A0AE;
   margin: 0;
@@ -556,7 +563,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   }
 }
 .receipt-box {
-  max-width: 320px;
   width: 100%;
   padding: 2rem 1.25rem 0.875rem;
   box-shadow: -8px 16px 40px rgba(28, 30, 34, 0.08);
@@ -706,7 +712,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 
 /* 基本版面 CSS */
 .container {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 3rem 1.5rem;
 }
@@ -721,6 +727,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 
 #result-column {
   padding-top: 2rem;
+  flex-wrap: wrap-reverse;
 }
 
 #chart-column {
@@ -731,6 +738,12 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   flex: 0 1 320px;
 }
 
+@media (max-width: 719px) {
+  #receipt-column {
+    flex-grow: 1;
+    flex-basis: auto;
+  }
+}
 #page-header {
   padding: 2rem 0.5rem 0 1.5rem;
 }
@@ -774,7 +787,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 #page-header #title .title-decoration::before, #page-header #title .title-decoration::after {
   content: "";
   position: absolute;
-  background: #54677B;
+  background: #698099;
 }
 #page-header #title .title-decoration::before {
   left: -50vw;
@@ -806,6 +819,9 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   padding-right: 1em;
   position: relative;
 }
+#subtitle .large {
+  font-size: 1.75rem;
+}
 #subtitle::after {
   content: "";
   position: absolute;
@@ -827,13 +843,13 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
   justify-content: center;
-  flex: 1 0 431px;
   margin-left: auto;
   margin-right: auto;
 }
-@media (min-width: 720px) and (max-width: 830px), (max-width: 478px) {
+@media (min-width: 720px) and (max-width: 799px), (max-width: calc(27.25rem + 12px - 1px)) {
   #chart-column #fund-buttons {
-    max-width: 319px;
+    flex-wrap: wrap;
+    max-width: calc(12rem + 6px);
   }
 }
 #chart-column #return-chart {
@@ -970,10 +986,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   flex-wrap: wrap;
   justify-content: center;
 }
-#page-mail #mail-switch .btn-fund {
-  flex: 1;
-  max-width: 92px;
-}
 #page-mail .mail-content-template {
   padding: 1.5rem 1.5rem 0.875rem;
   box-shadow: -8px 16px 40px rgba(28, 30, 34, 0.08);
@@ -996,8 +1008,11 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 #page-calculator .calculator-intro {
   margin-bottom: 2rem;
 }
-#page-calculator .calculator-intro p {
-  margin-bottom: 0;
+#page-calculator .calculator-intro a {
+  text-decoration: none;
+}
+#page-calculator .calculator-intro .small {
+  font-size: 0.875em;
 }
 
 #page-intro {

@@ -85,20 +85,21 @@
       <div id="page-calculator" class="container">
 
         <h2 id="subtitle">
-          你知道，四大基金目前的投資不僅加劇氣候變遷，<br>
-          還可能讓你的退休金縮水嗎？
+          你知道，氣候變遷可能讓你的<br>
+          <span class="large">退休金縮水嗎？</span>
         </h2>
 
         <div class="calculator-intro">
-          <p>政府四大基金「新／舊制勞退基金」、「勞保基金」、「退撫基金」代表你我管理資產進行投資，卻沒有公布投資策略的氣候風險，以及對你我資產造成的減損。</p>
-          <p>輸入基本資料，讓 EJF 四大基金氣候風險計算機，幫你試算到 2050 年時，你的資產可能減損多少（<a href="/methodology" target="_blank">方法學</a>）。</p>
+          <p>政府四大基金「<em>新／舊制勞退基金</em>」、「<em>勞保基金</em>」、「<em>退撫基金</em>」代表你我管理資產進行投資，各基金的主管機關卻沒有公布投資策略的氣候風險，以及對你我資產可能會造成的減損。</p>
+          <p>輸入基本資料，讓 EJF 四大基金氣候風險損益計算機，幫你試算到 2050 年時，你的資產可能減損多少？</p>
+          <p class="small"><a href="/methodology" target="_blank">☛ 點我看<span class="underline">方法學</span></a></p>
         </div>
 
-          <!-- 左側輸入表單部分 -->
+          <!-- 輸入表單部分 -->
           <div id="calculator-column">
 
             <div class="calculator-wrapper">
-              <span class="calculator-title">Calculator</span>
+              <!-- <span class="calculator-title">Calculator</span> -->
 
               <div class="calculator-content">
                 <div class="input-wrapper">
@@ -287,16 +288,23 @@
 
             </div>
 
-            <div class="receipt-btn">
+            <!-- <div class="receipt-btn">
               <p>我的退休金不該被蒸發！</p>
               <button class="big-btn btn-calculate color-gray" @click.stop.prevent="scrollToAction">立即行動✊守護退休金</button>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
 
       <div id="page-mail" class="container">
         <div class="action-wrapper" v-show="this.activeMail != ''">
+
+          <div class="receipt-btn">
+            <p>我的退休金不該被蒸發！</p>
+            <button class="big-btn btn-calculate color-gray" @click.stop.prevent="scrollToAction">立即行動✊守護退休金</button>
+          </div>
+
+
           <h4>向主管機關反應</h4>
           <p>請點選按鈕複製以下的內容，前往主管機關信箱，協助反應此訊息。</p>
 
