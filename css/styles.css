@@ -1110,6 +1110,8 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   height: auto;
   border: none;
   display: block;
+  background-image: url("../images/youtube-bg.jpg");
+  background-size: cover;
 }
 
 #page-methodology {

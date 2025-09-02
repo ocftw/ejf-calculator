@@ -1147,6 +1147,8 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
       height: auto;
       border: none;
       display: block;
+      background-image: url("../images/youtube-bg.jpg");
+      background-size: cover;
     }
   }
 }
