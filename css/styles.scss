@@ -104,7 +104,7 @@ body {
   font-optical-sizing: auto;
 
   background-color: $color-background;
-  background-image: $background-image;
+  // background-image: $background-image;  // unable to see on light bg
   background-size: $background-size;
 
   min-height: 100vh;
