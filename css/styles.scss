@@ -506,8 +506,6 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   overflow: hidden;
   width: 100vw;
   height: 40px;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
   position: relative;
 
   background-color: $color-neutral-1000-trans-10;
