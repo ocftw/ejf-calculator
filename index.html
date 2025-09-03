@@ -557,59 +557,6 @@
       </p>
     </div>
 
-    <!-- Lightbox 分享視窗 -->
-    <div id="lightbox-share" class="lightbox" onclick="lightbox.close('share')">
-      <div class="lightbox-content" onclick="event.stopPropagation()">
-        <span class="close-x" onclick="lightbox.close('share')">x</span>
-
-        <h4>四大基金畢業收據</h4>
-
-        <hr class="divider-default" />
-
-        <div class="lightbox-columns">
-          <div class="lightbox-left">
-            <div class="share-text">
-              <p>這是你從四大基金「畢業」的成績單。<br>投資回報一覽無遺，連同對環境的無聲代價。</p>
-              <p>心碎了嗎？你不是一個人。<br>分享這張收據，讓更多人重新檢視這筆「國家級投資」。</p>
-            </div>
-
-            <div class="share-section">
-              <div class="share-btns">
-                <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" target="_blank" title="分享到 Facebook">
-                  <span class="icon size-48 facebook"></span>
-                </a>
-
-                <a href="https://social-plugins.line.me/lineit/share?url=${shareUrl}" target="_blank" title="分享到 Line">
-                  <span class="icon size-48 line"></span>
-                </a>
-
-                <a href="https://www.linkedin.com/shareArticle?mini=true&url=${shareUrl}" target="_blank" title="分享到 LinkedIn">
-                  <span class="icon size-48 linkedin"></span>
-                </a>
-
-                <!-- FIXME: IG 似乎沒有可帶網址的分享參數-->
-                <a href="https://www.instagram.com/" target="_blank" title="分享到 Instagram">
-                  <span class="icon size-48 instagram"></span>
-                </a>
-              </div>
-
-              <button class="big-btn btn-download" onclick="lightbox.downloadImage()">下載圖檔</button>
-            </div>
-
-            <div class="back-section">
-              <button class="big-btn btn-back" onclick="lightbox.close('share')">再算(ㄠ)一下</button>
-            </div>
-          </div>
-
-          <div class="lightbox-right">
-            <div id="lightbox-receipt-container">
-              <!-- 複製的 receipt 會放在這裡 -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.17/vue.global.prod.min.js" integrity="sha512-B+xT9hBEokScoEYqF2L6zjF/R0mtYb11XURk2ERx89eRofWtgsrCljvx30JospRZRI3v19p9pRWvmLQ6ySS9FA==" crossorigin="anonymous" referrerpolicy="no-referrer" onerror="this.src='lib/vue.global.prod.min.js'"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js" integrity="sha512-Y51n9mtKTVBh3Jbx5pZSJNDDMyY+yGe77DGtBPzRlgsf/YLCh13kSZ3JmfHGzYFCmOndraf0sQgfM654b7dJ3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/glide.min.js" integrity="sha512-2sI5N95oT62ughlApCe/8zL9bQAXKsPPtZZI2KE3dznuZ8HpE2gTMHYzyVN7OoSPJCM1k9ZkhcCo3FvOirIr2A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

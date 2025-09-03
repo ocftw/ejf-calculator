@@ -609,9 +609,6 @@ const app = Vue.createApp({
 
             console.log('=== 圖表更新完成 ===');
         },
-        openLightbox(lightboxName) {
-            lightbox.open(lightboxName);
-        },
         updateUrlParams() {
             const url = new URL(window.location.origin + window.location.pathname);
 
@@ -667,100 +664,6 @@ const app = Vue.createApp({
     }
 }).mount('#app');
 }
-
-// ===== Lightbox 管理物件 =====
-const lightbox = {
-    open(lightboxName) {
-        console.log(`=== Lightbox.open (${lightboxName}) ===`);
-
-        if (lightboxName === 'share') {
-            // 更新分享連結的 href 屬性
-            this.updateShareLinks();
-            this.copyReceiptToLightbox();
-        }
-
-        const lightbox = document.getElementById('lightbox-' + lightboxName);
-        if (lightbox) {
-            lightbox.classList.add('show');
-            trackEvent('Open Lightbox', { page: lightboxName });
-        }
-    },
-
-    close(lightboxName) {
-        console.log(`=== Lightbox.close (${lightboxName}) ===`);
-
-        const lightbox = document.getElementById('lightbox-' + lightboxName);
-        if (lightbox) {
-            lightbox.classList.remove('show');
-        }
-    },
-
-    // 更新分享連結
-    updateShareLinks() {
-        const shareUrl = window.location.href;
-        const shareBtns = document.querySelectorAll('.share-btns > a');
-        shareBtns.forEach(btn => {
-            btn.href = btn.href.replace('${shareUrl}', encodeURIComponent(shareUrl));
-        });
-    },
-
-    // 複製收據到 lightbox
-    copyReceiptToLightbox() {
-        const originalReceipt = document.querySelector('.receipt-box');
-        const container = document.getElementById('lightbox-receipt-container');
-
-        if (!originalReceipt || !container) {
-            console.error('無法找到 receipt 元素');
-            return;
-        }
-
-        container.innerHTML = '';
-        const receiptClone = originalReceipt.cloneNode(true);
-
-        container.appendChild(receiptClone);
-    },
-
-    // 下載圖片功能
-    downloadImage() {
-        console.log('=== 開始下載圖片 ===');
-        trackEvent('Download Receipt', { progress: 'begin' });
-
-        const shootUrl = app.generateReceiptImageUrl();
-        console.log('收據圖片網址:', shootUrl);
-
-        // 使用 fetch 獲取圖片數據
-        fetch(shootUrl)
-            .then(response => {
-                if (!response.ok) {
-                    trackEvent('Download Receipt', { progress: 'error' });
-                    throw new Error('網路回應不正常');
-                }
-                return response.blob();
-            })
-            .then(blob => {
-                const blobUrl = window.URL.createObjectURL(blob);
-
-                const downloadLink = document.createElement('a');
-                downloadLink.href = blobUrl;
-                downloadLink.download = 'EJF四大基金氣候風險損益對帳單.png';
-                downloadLink.style.display = 'none';
-
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-
-                document.body.removeChild(downloadLink);
-                window.URL.revokeObjectURL(blobUrl);
-
-                trackEvent('Download Receipt', { progress: 'downloaded' });
-                console.log('=== 下載圖片完成 ===');
-            })
-            .catch(error => {
-                trackEvent('Download Receipt', { progress: 'fetch error' });
-                console.error('下載圖片時發生錯誤:', error);
-                window.open(shootUrl, '_blank');
-            });
-    }
-};
 
 // ===== 更新垂直裝飾線長度 =====
 function updateDecorationHeight() {
