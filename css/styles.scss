@@ -837,7 +837,10 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   line-height: 1.5em;
 
   font-size: 2rem;
-  .large { font-size: 2.66rem; }
+  .large {
+    font-size: 2.66rem;
+    color: $color-ejf-red;
+  }
 
   @media (max-width: $mobileMaxWidth) {
     padding-right: 0.5em;
