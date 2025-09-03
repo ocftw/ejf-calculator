@@ -276,7 +276,7 @@
 
                   <template v-if="funds.includes('retire')">
                   <div class="grid-row-3">
-                    <span class="text-left">退輔基金</span>
+                    <span class="text-left">退撫基金</span>
                     <span>{{ formatNumber(totalInvestment_retire) }}</span>
                     <span>{{ formatNumber(totalReturn_retire) }}</span>
                     <span class="text-left">預期資產減損</span>
@@ -347,7 +347,7 @@
 
             <div class="mail-content" v-show="activeMail === 'retire'">
               <div class="mail-content-template" data-fund="retire" @click="selectAllContent">
-                <p>根據環境正義基金會（EJF）的「四大基金氣候風險」的情境分析計算，2050 年我本該拿到退輔基金 {{ formatNumber(expectedReturn_retire) }} 元，卻因為目前退撫基金缺乏積極的氣候投資政策，我可能會足足損失 {{ formatNumber(expectedMinus_retire) }} 元。</p>
+                <p>根據環境正義基金會（EJF）的「四大基金氣候風險」的情境分析計算，2050 年我本該拿到退撫基金 {{ formatNumber(expectedReturn_retire) }} 元，卻因為目前退撫基金缺乏積極的氣候投資政策，我可能會足足損失 {{ formatNumber(expectedMinus_retire) }} 元。</p>
 
                 <p>這個數字對我來說不僅是退休生活的保障，更與我在退休後期望的生活品質息息相關。然而，在全球氣候變遷和淨零轉型的趨勢下，如何有效管理、提升，並穩健這筆退休金的價值，同時利用這筆退休金投資永續的未來，是我關心的焦點。</p>
 
