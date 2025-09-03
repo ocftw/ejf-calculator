@@ -1027,10 +1027,12 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
 #page-mail {
     padding-top: 1.5rem;
 
-    h4 {
+    h3 {
       text-align: center;
-      line-height: 1.66em;
+      line-height: 1.5em;
       margin-bottom: 1.5rem;
+      color: $color-default;
+
       em {
         color: $color-ejf-red;
         font-style: normal;

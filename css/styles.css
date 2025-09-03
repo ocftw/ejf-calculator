@@ -992,12 +992,13 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 #page-mail {
   padding-top: 1.5rem;
 }
-#page-mail h4 {
+#page-mail h3 {
   text-align: center;
-  line-height: 1.66em;
+  line-height: 1.5em;
   margin-bottom: 1.5rem;
+  color: #3B4048;
 }
-#page-mail h4 em {
+#page-mail h3 em {
   color: #E30613;
   font-style: normal;
   padding-left: 0.25em;
