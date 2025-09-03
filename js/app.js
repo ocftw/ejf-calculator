@@ -231,7 +231,7 @@ const app = Vue.createApp({
             if (isReceiptMode)
                 this.calculateDonutChart();
             else
-                this.calculate();
+                this.calculate(true);
         });
     },
     methods: {
@@ -294,8 +294,8 @@ const app = Vue.createApp({
             if (chartColumn) chartColumn.scrollIntoView({ behavior: 'smooth' });
             trackEvent('Click Calculate', { age: this.age });
         },
-        calculate() {
-            console.log('=== 開始計算 ===');
+        calculate(onLoad = false) {
+            console.log('=== 開始計算 ===', 'onLoad', onLoad);
 
             // 輸入驗證
             // FIXME: error 時的輸入元件樣式
@@ -381,7 +381,7 @@ const app = Vue.createApp({
             if (isReceiptMode) return;
 
             this.updateChart();
-            this.updateUrlParams();
+            this.updateUrlParams(onLoad);
             this.switchPageMail();
         },
         amountClass(val) {
@@ -611,12 +611,22 @@ const app = Vue.createApp({
 
             console.log('=== 圖表更新完成 ===');
         },
-        updateUrlParams() {
+        updateUrlParams(onLoad = false) {
+            console.log('=== 更新 URL 參數 ===', 'onLoad', onLoad);
             const url = new URL(window.location.origin + window.location.pathname);
 
             url.searchParams.set('income', this.monthlyIncome);
             url.searchParams.set('age', this.age);
             url.searchParams.set('funds', this.funds.join(','));
+
+            // preserve utm* params
+            if (onLoad) {
+                const currentParams = new URLSearchParams(window.location.search);
+                currentParams.forEach((value, key) => {
+                    console.log('key', key, 'value', value);
+                    if (key.startsWith('utm_')) url.searchParams.set(key, value);
+                });
+            }
 
             const newUrl = url.toString();
             window.history.replaceState(null, '', newUrl);
