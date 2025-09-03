@@ -40,7 +40,7 @@
           <span class="receipt-name">{{ userName }}</span>
         </div>
         <div class="receipt-row-center">
-          <span class="receipt-title">四大基金氣候風險損益對帳單</span>
+          <span class="receipt-title">四大基金氣候損益對帳單</span>
         </div>
         <div class="receipt-row-center">
           <span class="small">{{ currentDateTime }}</span>
@@ -74,85 +74,13 @@
             </svg>
           </div>
           <div class="chart-text un-mono">
-            <p>
-              <span class="small">原先預估累計資產：</span><br>
-              +{{ formatNumber(expectedReturn) }} <span class="small">元</span>
+            <p class="bigger">
+              <em>{{ userName }}<template v-if="!userName">您</template>的資產</em>
             </p>
-            <p>
-              <span class="small">氣候風險造成減損：</span><br>
-              {{ formatNumber(expectedMinus) }} <span class="small">元</span>
+            <p class="bigger">
+              <em>將減損 <span class="big loss">{{ expectedMinusRatio }}</span> %</em>
             </p>
           </div>
-        </div>
-
-        <div class="receipt-row-center">
-          <p class="un-mono loss"><em>{{ userName }}<template v-if="!userName">您</template>的資產，將減損 <span class="big">{{ expectedMinusRatio }}</span> %</em></p>
-        </div>
-      </div>
-
-      <hr class="divider-receipt" />
-
-      <div class="receipt-section">
-        <div class="receipt-table">
-
-          <div class="grid-row-3 dark-border">
-            <span class="title row-13 text-left un-mono">原先預估</span>
-            <span class="un-mono">投入金額</span>
-            <span class="un-mono">累計資產</span>
-            <span>{{ formatNumber(totalInvestment) }}</span>
-            <span>{{ formatNumber(expectedReturn) }}</span>
-          </div>
-
-          <div class="grid-row-3 un-mono">
-            <!-- <span class="title text-left col-14">考量氣候風險<br>(2050 淨零情境)</span> -->
-            <span class="title text-left">考量氣候風險</span>
-            <span class="v-middle">投入金額</span>
-            <span class="v-middle">累計資產</span>
-          </div>
-
-          <template v-if="funds.includes('labor')">
-          <div class="grid-row-3">
-            <span class="text-left">新制勞退</span>
-            <span>{{ formatNumber(totalInvestment_labor) }}</span>
-            <span>{{ formatNumber(totalReturn_labor) }}</span>
-            <span class="text-left">預期資產減損</span>
-            <span class="loss">{{ formatNumber(expectedMinus_labor) }}</span>
-            <span class="loss">({{ expectedMinusRatio_labor }}%)</span>
-          </div>
-          </template>
-
-          <template v-if="funds.includes('legacy')">
-          <div class="grid-row-3">
-            <span class="text-left">舊制勞退</span>
-            <span>{{ formatNumber(totalInvestment_legacy) }}</span>
-            <span>{{ formatNumber(totalReturn_legacy) }}</span>
-            <span class="text-left">預期資產減損</span>
-            <span class="loss">{{ formatNumber(expectedMinus_legacy) }}</span>
-            <span class="loss">({{ expectedMinusRatio_legacy }}%)</span>
-          </div>
-          </template>
-
-          <template v-if="funds.includes('insurance')">
-          <div class="grid-row-3">
-            <span class="text-left">勞工保險</span>
-            <span>{{ formatNumber(totalInvestment_insurance) }}</span>
-            <span>{{ formatNumber(totalReturn_insurance) }}</span>
-            <span class="text-left">預期資產減損</span>
-            <span class="loss">{{ formatNumber(expectedMinus_insurance) }}</span>
-            <span class="loss">({{ expectedMinusRatio_insurance }}%)</span>
-          </div>
-          </template>
-
-          <template v-if="funds.includes('retire')">
-          <div class="grid-row-3">
-            <span class="text-left">退輔基金</span>
-            <span>{{ formatNumber(totalInvestment_retire) }}</span>
-            <span>{{ formatNumber(totalReturn_retire) }}</span>
-            <span class="text-left">預期資產減損</span>
-            <span class="loss">{{ formatNumber(expectedMinus_retire) }}</span>
-            <span class="loss">({{ expectedMinusRatio_retire }}%)</span>
-          </div>
-          </template>
         </div>
       </div>
 
@@ -161,7 +89,7 @@
       <div class="receipt-section receipt-qrcode">
         <div class="receipt-row receipt-bottom">
           <p>
-            退休金沒有預期回報<br>反而被氣候風險侵蝕<br>
+            回到四大基金<br>氣候損益計算機→<br>
             <a v-if="!isReceiptMode" class="receipt-download small" href="javascript:void(0);" @click.stop.prevent="downloadImageDirectly">下載圖檔，分享出去</a>
           </p>
           <img v-if="isReceiptMode" src="images/qrcode.png" alt="https://divest4future.ejfoundation.org/">
