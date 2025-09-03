@@ -592,6 +592,9 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 .receipt-box .receipt-section .small {
   font-size: 0.85em;
 }
+.receipt-box .receipt-section .bigger {
+  font-size: 1.25em;
+}
 .receipt-box .receipt-section .big {
   font-size: 1.66em;
 }
@@ -643,8 +646,8 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 }
 .receipt-box .receipt-table .grid-row-3 {
   display: grid;
-  grid-template-columns: 6.5em 1fr 1fr;
-  gap: 0.5em 0.75em;
+  grid-template-columns: 7.5em 1fr 1fr;
+  gap: 0.5em 0.7em;
   padding: 0.66em 0;
   border-bottom: 1px solid #F3F2EF;
   text-align: right;
@@ -821,9 +824,17 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   display: inline-block;
   padding-right: 1em;
   position: relative;
+  line-height: 1.5em;
+  font-size: 2rem;
 }
 #subtitle .large {
-  font-size: 1.75rem;
+  font-size: 2.66rem;
+}
+@media (max-width: 719px) {
+  #subtitle {
+    padding-right: 0.5em;
+    font-size: 1.5rem;
+  }
 }
 #subtitle::after {
   content: "";
@@ -981,12 +992,13 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 #page-mail {
   padding-top: 1.5rem;
 }
-#page-mail h4 {
+#page-mail h3 {
   text-align: center;
-  line-height: 1.66em;
+  line-height: 1.5em;
   margin-bottom: 1.5rem;
+  color: #3B4048;
 }
-#page-mail h4 em {
+#page-mail h3 em {
   color: #E30613;
   font-style: normal;
   padding-left: 0.25em;
