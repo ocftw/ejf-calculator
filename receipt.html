@@ -23,14 +23,10 @@
 <body data-mode="receipt">
   <!--
     本頁支援以下網址參數（Query String）：
-
-    必填參數：
-    - name
-    - income：平均月薪（數字）
-    - age：年齡（數字）
-    - current：自訂收據時間（字串，ISO 8601 格式，如 2025-06-26T12:00:00，無需時區）
-    - funds：基金類型 (labor,legacy,insurance,retire，預設 labor）
-  -->
+    - name (optional)
+    - decreaseRatio：減損比例（數字）
+    - current：自訂收據時間（字串 YYYY-MM-DD，2025-06-26）
+    -->
   <div id="app">
     <div class="receipt-box">
       <!-- <img class="receipt-logo" src="images/ejf-logo-black.png" alt="EJF Logo"> -->
@@ -78,7 +74,7 @@
               <em>{{ userName }}<template v-if="!userName">您</template>的資產</em>
             </p>
             <p class="bigger">
-              <em>將減損 <span class="big loss">{{ expectedMinusRatio }}</span> %</em>
+              <em>將減損 <span class="big loss">{{ decreaseRatio }}</span> %</em>
             </p>
           </div>
         </div>

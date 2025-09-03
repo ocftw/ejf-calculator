@@ -212,7 +212,7 @@ const app = Vue.createApp({
             totalInvestment: 0,
             expectedReturn: 0,
             expectedMinus: 0,
-            expectedMinusRatio: 0,
+            decreaseRatio: isReceiptMode ? Number(getQueryParam('decreaseRatio', 40)) : 0,
             donut_strokeDasharray: '60 40', // 預設 40% 減損計算
             donut_transform: 'rotate(54 21 21)',
             activeMail: '',
@@ -228,7 +228,10 @@ const app = Vue.createApp({
         if (!isReceiptMode) this.initChart();
 
         this.$nextTick(() => {
-            this.calculate();
+            if (isReceiptMode)
+                this.calculateDonutChart();
+            else
+                this.calculate();
         });
     },
     methods: {
@@ -371,7 +374,7 @@ const app = Vue.createApp({
             */
 
             this.currentDateTime = new Date().toISOString().split('T')[0];
-            this.calculateDonutChart();
+            this.calculateDonutSection();
 
             if (isReceiptMode) return;
 
@@ -402,7 +405,7 @@ const app = Vue.createApp({
             this.funds.sort((a, b) => fundIds.indexOf(a) - fundIds.indexOf(b));
 
             if (this.totalInvestment > 0) {
-                this.calculateDonutChart();
+                this.calculateDonutSection();
                 this.updateChart();
                 this.updateUrlParams();
                 this.switchPageMail();
@@ -410,26 +413,31 @@ const app = Vue.createApp({
 
             trackEvent('Switch Graph', { fund: fundType });
         },
-        calculateDonutChart() {
-            console.log('=== 更新圓餅圖 ===');
+        calculateDonutSection() {
+            console.log('=== 更新圓餅圖區塊 ===');
 
             // 取第一個有打開的 funds
             const fundId = this.funds[0];
             this.fundName = fundList.find(fund => fund.id === fundId).name;
             this.expectedReturn = calcAll[fundId][2050].expectedReturn;
             this.expectedMinus = this[`expectedMinus_${fundId}`];
-            this.expectedMinusRatio = -this[`expectedMinusRatio_${fundId}`];
-
-            const donut_ratio = this[`expectedMinusRatio_${fundId}`] * -1;
-            this.donut_strokeDasharray = `${100 - donut_ratio} ${donut_ratio}`;
-            this.donut_transform = `rotate(${Math.round(360 - (donut_ratio/100 * 360) - 90)} 21 21)`;
+            this.decreaseRatio = -this[`expectedMinusRatio_${fundId}`];
 
             console.log('fundName', this.fundName);
             console.log('expectedReturn', this.expectedReturn);
             console.log('expectedMinus', this.expectedMinus);
-            console.log('donut_ratio', donut_ratio);
-            // console.log('donut_strokeDasharray', this.donut_strokeDasharray);
-            // console.log('donut_transform', this.donut_transform);
+            console.log('decreaseRatio', this.decreaseRatio);
+
+            this.calculateDonutChart();
+        },
+        calculateDonutChart() {
+            console.log('=== 更新圓餅圖 ===');
+
+            this.donut_strokeDasharray = `${100 - this.decreaseRatio} ${this.decreaseRatio}`;
+            this.donut_transform = `rotate(${Math.round(360 - (this.decreaseRatio/100 * 360) - 90)} 21 21)`;
+
+            console.log('donut_strokeDasharray', this.donut_strokeDasharray);
+            console.log('donut_transform', this.donut_transform);
         },
         initChart() {
             console.log('Chart.js 版本:', Chart.version);
@@ -629,10 +637,8 @@ const app = Vue.createApp({
         generateReceiptImageUrl() {
             const url = new URL('receipt.html', window.location.origin);
             url.searchParams.set('name', this.userName);
-            url.searchParams.set('income', this.monthlyIncome);
-            url.searchParams.set('age', this.age);
+            url.searchParams.set('decreaseRatio', this.decreaseRatio);
             url.searchParams.set('current', this.currentDateTime);
-            url.searchParams.set('funds', this.funds.join(','));
 
             const receiptUrl = url.toString();
             const encodedReceiptUrl = encodeURIComponent(receiptUrl);
