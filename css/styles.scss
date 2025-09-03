@@ -1042,8 +1042,10 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   backdrop-filter: blur(6px);
   border: 1px solid $color-neutral-1000-trans-10;
 
+  @media (min-width: ($mobileMaxWidth + 1)) {
   margin: 3rem auto;
   padding: 2.5rem 3.25rem;
+  }
 
   h3 {
     margin-left: -0.1em;
