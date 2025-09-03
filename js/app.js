@@ -153,7 +153,7 @@ cvar['retire'] = {
 // cvar 單位是 %，所以需要除以 100
 Object.keys(cvar).forEach(key => {
     for (let year in cvar[key]) {
-        cvar[key][year] /= 100;
+        cvar[key][year] = Number(cvar[key][year] / 100).toFixed(4) * 1;
     }
 });
 
@@ -316,6 +316,7 @@ const app = Vue.createApp({
             // 如果 2050 年前滿 65 退休，退休後不再有本金投入
             const workYears = 65 - this.age;
             const yearRetire = workYears + currentYear;
+            console.log('yearRetire', yearRetire);
 
             // 計算從 2025 到 2050 年的年薪、提撥金額、預期報酬、實際報酬
             fundList.forEach(fund => {
@@ -323,8 +324,9 @@ const app = Vue.createApp({
             console.log('fund', fund.id);
 
             for (let year = currentYear; year <= 2050; year++) {
-                const yearlySalary = (year !== currentYear) ? Math.floor(calc[year - 1].yearlySalary * (1 + salaryGrowthRate)) : this.monthlyIncome * 12;
-                const contribution = (year <= yearRetire) ? Math.floor(yearlySalary * contributionRate) : 0;
+                let yearlySalary = (year !== currentYear) ? Math.floor(calc[year - 1].yearlySalary * (1 + salaryGrowthRate)) : this.monthlyIncome * 12;
+                yearlySalary = (year > yearRetire) ? 0 : yearlySalary;
+                const contribution = Math.floor(yearlySalary * contributionRate);
                 const totalInvestment = (year !== currentYear) ? calc[year - 1].totalInvestment + contribution : contribution;
                 const expectedReturn = (year !== currentYear) ? Math.floor((calc[year - 1].expectedReturn + contribution) * (1 + expectedReturnRate)) : Math.floor(contribution * (1 + expectedReturnRate));
                 const cvarRate = Number((1 + expectedReturnRate - cvar[fund.id][year]).toFixed(4));
@@ -338,7 +340,7 @@ const app = Vue.createApp({
                     'totalReturn': totalReturn
                 };
 
-                console.log('year', year, 'age', this.age + (year-currentYear), 'yearlySalary', yearlySalary, 'contribution', contribution, 'totalInvestment', totalInvestment, 'expectedReturn', expectedReturn, 'totalReturn', totalReturn);
+                console.log('year', year, 'age', this.age + (year-currentYear), 'yearlySalary', yearlySalary, 'contribution', contribution, 'totalInvestment', totalInvestment, 'expectedReturn', expectedReturn, 'totalReturn', totalReturn, 'cvar', cvar[fund.id][year], 'cvarRate', cvarRate);
             }
             });
             console.log('calcAll table', calcAll);
