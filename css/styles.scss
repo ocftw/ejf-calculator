@@ -589,6 +589,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
       margin: inherit;
     }
     .small { font-size: 0.85em; }
+    .smaller { font-size: 0.9em; }
     .bigger { font-size: 1.25em; }
     .big { font-size: 1.66em; }
     .un-mono { font-family: "Noto Sans TC", sans-serif; }
@@ -1042,8 +1043,10 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
   backdrop-filter: blur(6px);
   border: 1px solid $color-neutral-1000-trans-10;
 
+  @media (min-width: ($mobileMaxWidth + 1)) {
   margin: 3rem auto;
   padding: 2.5rem 3.25rem;
+  }
 
   h3 {
     margin-left: -0.1em;

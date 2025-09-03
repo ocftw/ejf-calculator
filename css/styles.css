@@ -592,6 +592,9 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 .receipt-box .receipt-section .small {
   font-size: 0.85em;
 }
+.receipt-box .receipt-section .smaller {
+  font-size: 0.9em;
+}
 .receipt-box .receipt-section .bigger {
   font-size: 1.25em;
 }
@@ -1024,8 +1027,12 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   -webkit-backdrop-filter: blur(6px);
           backdrop-filter: blur(6px);
   border: 1px solid rgba(28, 30, 34, 0.1);
-  margin: 3rem auto;
-  padding: 2.5rem 3.25rem;
+}
+@media (min-width: 720px) {
+  #page-methodology {
+    margin: 3rem auto;
+    padding: 2.5rem 3.25rem;
+  }
 }
 #page-methodology h3 {
   margin-left: -0.1em;
