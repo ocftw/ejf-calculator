@@ -829,6 +829,7 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 }
 #subtitle .large {
   font-size: 2.66rem;
+  color: #E30613;
 }
 @media (max-width: 719px) {
   #subtitle {
