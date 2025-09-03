@@ -592,6 +592,9 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 .receipt-box .receipt-section .small {
   font-size: 0.85em;
 }
+.receipt-box .receipt-section .smaller {
+  font-size: 0.9em;
+}
 .receipt-box .receipt-section .bigger {
   font-size: 1.25em;
 }
