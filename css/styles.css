@@ -821,9 +821,17 @@ button.btn-fund[data-on=true][data-fund=retire] p {
   display: inline-block;
   padding-right: 1em;
   position: relative;
+  line-height: 1.5em;
+  font-size: 2rem;
 }
 #subtitle .large {
-  font-size: 1.75rem;
+  font-size: 2.66rem;
+}
+@media (max-width: 719px) {
+  #subtitle {
+    padding-right: 0.5em;
+    font-size: 1.5rem;
+  }
 }
 #subtitle::after {
   content: "";
