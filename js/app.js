@@ -196,7 +196,12 @@ function trackEvent(eventName, properties = {}) {
     console.log('Mixpanel event:', eventName, properties);
 }
 
-if (window.Vue) {
+function waitForVue() {
+  if (typeof Vue === 'undefined') {
+    setTimeout(waitForVue, 100);
+    return;
+  }
+
 const app = Vue.createApp({
     data() {
         return {
@@ -677,6 +682,8 @@ const app = Vue.createApp({
 }).mount('#app');
 }
 
+waitForVue();
+
 // ===== 更新垂直裝飾線長度 =====
 function updateDecorationHeight() {
     const titleDecoration = document.querySelector('.title-decoration');
@@ -721,6 +728,12 @@ window.addEventListener('load', updateDecorationHeight);
 window.addEventListener('resize', debouncedUpdateDecorationHeight);
 
 
+function waitForGlide() {
+  if (typeof Glide === 'undefined') {
+    setTimeout(waitForGlide, 100);
+    return;
+  }
+
 const glideOpt = {
     // type: 'slider',
     type: 'carousel',
@@ -739,3 +752,5 @@ glides.forEach(glide => {
     new Glide(glide, Object.assign({
     }, glideOpt)).mount();
 });
+}
+waitForGlide();
