@@ -921,6 +921,14 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
 
     #mail-container {
       margin-top: 2em;
+
+      .mail-note {
+        text-align: center;
+        font-size: 1em;
+        color: $color-default;
+        margin-top: 1.5rem;
+        font-weight: $font-weight-regular;
+      }
     }
 
     #mail-switch {
