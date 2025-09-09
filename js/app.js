@@ -237,6 +237,9 @@ const app = Vue.createApp({
                 this.calculateDonutChart();
             else
                 this.calculate(true);
+
+            // 處理錨點導航
+            this.handleAnchorNavigation();
         });
     },
     methods: {
@@ -633,7 +636,8 @@ const app = Vue.createApp({
                 });
             }
 
-            const newUrl = url.toString();
+            // 保留原始的 hash
+            const newUrl = url.toString() + window.location.hash;
             window.history.replaceState(null, '', newUrl);
 
             // FIXME: 這邊作動態的更新應該沒有用
@@ -677,6 +681,22 @@ const app = Vue.createApp({
                 this.activeMail = 'retire';
             else
                 this.activeMail = 'labor';
+        },
+        handleAnchorNavigation() {
+            // 檢查 URL 中是否有錨點
+            const hash = window.location.hash;
+            if (!hash) return;
+
+            // 移除 # 符號，獲取錨點 ID
+            const anchorId = hash.substring(1);
+            const targetElement = document.querySelector(`#${anchorId}`);
+
+            if (!targetElement) return;
+
+            // 在 $nextTick 中調用，計算已完成，直接滾動
+            setTimeout(() => {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
         }
     }
 }).mount('#app');
