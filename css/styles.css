@@ -1004,9 +1004,6 @@ button.btn-fund[data-on=true][data-fund=retire] p {
 #page-intro .page-info-content-left ul li.intro-cloud::before {
   background-image: url("../images/icon-intro-cloud.svg");
 }
-#page-intro .page-info-content-left ul li.intro-global::before {
-  background-image: url("../images/icon-intro-emission.svg");
-}
 @media (min-width: 720px) {
   #page-intro .page-info-content-left ul {
     display: flex;
