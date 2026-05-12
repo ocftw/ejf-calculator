@@ -1014,6 +1014,7 @@ $marquee-distance: $marquee-duration * $marquee-speed; // 總移動距離（像�
         &.intro-emission::before { background-image: $icon-intro-emission; }
         &.intro-sustainable::before { background-image: $icon-intro-sustainable; }
         &.intro-cloud::before { background-image: $icon-intro-cloud; }
+        &.intro-global::before { background-image: $icon-intro-emission; }
       }
     }
 
